@@ -261,167 +261,109 @@
     hr.rule { display: none; }
 
     /* ═══════════════════════════════════════════════════════════
-       BIO — mise en page éditoriale
+       BIO — magazine opening spread
     ═══════════════════════════════════════════════════════════ */
 
-    /* En-tête de la section bio */
-    .bio-header {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: end;
-      gap: 2rem;
-      margin-bottom: clamp(3rem, 6vw, 5rem);
-      padding-bottom: 2.5rem;
-      border-bottom: 1px solid rgba(var(--cream-rgb), 0.1);
-    }
-    .bio-header__left { padding-top: 0.4rem; }
-    .bio-header__right {
+    /* Phrase d'ouverture — grand italique, prend tout l'espace */
+    .bio-opening {
       font-family: var(--font-titre);
       font-style: italic;
-      font-size: clamp(1rem, 1.6vw, 1.3rem);
-      color: rgba(var(--cream-rgb), 0.42);
-      line-height: 1.65;
-      max-width: 36ch;
-    }
-
-    /* Narrative — grille 4 chapitres */
-    .bio-narrative {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0;
-    }
-
-    /* Chaque chapitre */
-    .bio-chapter {
-      display: grid;
-      grid-template-columns: 3.5rem 1fr;
-      gap: 0 2.5rem;
-      padding: 2.8rem 0;
-      border-bottom: 1px solid rgba(var(--cream-rgb), 0.07);
-      position: relative;
-      align-items: start;
-    }
-    .bio-chapter:first-child { padding-top: 0; }
-    .bio-chapter:last-child  { border-bottom: none; }
-
-    /* Numéro — colonne gauche */
-    .bio-chapter__num {
-      font-family: var(--font-titre);
-      font-size: 0.58rem;
-      letter-spacing: 0.22em;
-      color: var(--cream-2);
-      opacity: 0.65;
-      padding-top: 0.35rem;
-      text-align: right;
-      position: relative;
-    }
-    /* Point caramel sur la ligne de séparation */
-    .bio-chapter__num::after {
-      content: '';
-      position: absolute;
-      right: -1.35rem;
-      top: 0.52rem;
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: var(--cream-2);
-      opacity: 0.5;
-    }
-
-    /* Contenu — colonne droite */
-    .bio-chapter__body { min-width: 0; }
-
-    /* Tag thématique */
-    .bio-chapter__tag {
-      font-family: var(--font-texte);
-      font-size: 0.58rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: var(--cream-2);
-      margin-bottom: 1rem;
-      display: block;
-    }
-
-    /* Citation pull — grande, italique */
-    .bio-pull {
-      font-family: var(--font-titre);
-      font-style: italic;
-      font-size: clamp(1.35rem, 2.4vw, 2rem);
-      line-height: 1.25;
+      font-size: clamp(2.6rem, 5.5vw, 4.8rem);
+      line-height: 1.08;
+      letter-spacing: -0.025em;
       color: var(--cream);
-      letter-spacing: -0.01em;
-      margin: 0 0 1.2rem;
-      padding: 0;
-    }
-    .bio-pull::before { content: '«\00a0'; color: var(--cream-2); opacity: 0.6; }
-    .bio-pull::after  { content: '\00a0»'; color: var(--cream-2); opacity: 0.6; }
-
-    /* Corps de texte — plus aéré */
-    .bio-body {
-      font-family: var(--font-texte);
-      font-size: 0.9rem;
-      line-height: 1.92;
-      color: rgba(var(--cream-rgb), 0.56);
-    }
-    /* Phrase d'accroche — légèrement plus grande */
-    .bio-body--accent {
-      font-size: 1rem;
-      color: rgba(var(--cream-rgb), 0.72);
-      font-style: italic;
-      font-family: var(--font-titre);
-      line-height: 1.6;
+      margin: 1.8rem 0 3rem;
+      max-width: 20ch;
     }
 
-    /* Photo break — intégrée entre deux chapitres */
-    .bio-photo-break {
-      display: grid;
-      grid-template-columns: 3.5rem 1fr;
-      gap: 0 2.5rem;
-      padding: 2.5rem 0 3rem;
-      border-bottom: 1px solid rgba(var(--cream-rgb), 0.07);
-      align-items: end;
+    /* Ligne caramel fine entre l'ouverture et le corps */
+    .bio-rule {
+      width: 56px;
+      height: 1.5px;
+      background: var(--cream-2);
+      border-radius: 2px;
+      margin-bottom: 3rem;
+      opacity: 0.7;
     }
-    .bio-photo-break__img {
-      grid-column: 2;
+
+    /* Grille photo + texte */
+    .bio-main {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
+      grid-template-columns: 5fr 7fr;
+      gap: clamp(2.5rem, 5vw, 6rem);
       align-items: start;
+      margin-bottom: 4rem;
     }
-    .bio-photo-break__img img {
+
+    /* Photo — portrait, bord fin caramel en hover */
+    .bio-photo {
+      margin: 0;
+      position: relative;
+    }
+    .bio-photo img {
       width: 100%;
-      border-radius: 6px;
-      display: block;
+      aspect-ratio: 3/4;
       object-fit: cover;
+      display: block;
+      border-radius: 4px;
+      transition: filter 0.5s ease;
     }
-    .bio-photo-break__img img:first-child { aspect-ratio: 3/4; }
-    .bio-photo-break__img img:last-child  { aspect-ratio: 3/4; margin-top: 2.5rem; }
-    .bio-photo-caption {
-      grid-column: 2;
-      margin-top: 0.75rem;
-      font-size: 0.62rem;
-      letter-spacing: 0.18em;
+    .bio-photo img:hover { filter: brightness(0.92); }
+    /* Légende flottante sous la photo */
+    .bio-photo figcaption {
+      margin-top: 0.7rem;
+      font-family: var(--font-texte);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: rgba(var(--cream-rgb), 0.22);
-      font-family: var(--font-texte);
     }
 
-    /* Responsive bio */
-    @media (max-width: 680px) {
-      .bio-header { grid-template-columns: 1fr; gap: 1rem; }
-      .bio-header__right { display: none; }
-      .bio-chapter {
-        grid-template-columns: 2.2rem 1fr;
-        gap: 0 1.25rem;
-        padding: 2rem 0;
+    /* Bloc de texte */
+    .bio-text { padding-top: 0.5rem; }
+    .bio-p {
+      font-size: clamp(0.88rem, 1.1vw, 1rem);
+      line-height: 1.92;
+      color: rgba(var(--cream-rgb), 0.58);
+      margin-bottom: 1.6rem;
+    }
+    .bio-p:last-child { margin-bottom: 0; }
+
+    /* Citation plein cadre — sépare visuellement les deux blocs */
+    .bio-quote {
+      border: none;
+      padding: 3.5rem 0;
+      margin: 0 0 3.5rem;
+      border-top: 1px solid rgba(var(--cream-rgb), 0.09);
+      border-bottom: 1px solid rgba(var(--cream-rgb), 0.09);
+      font-family: var(--font-titre);
+      font-style: italic;
+      font-size: clamp(1.3rem, 2.6vw, 2.2rem);
+      line-height: 1.3;
+      color: rgba(var(--cream-rgb), 0.38);
+      max-width: 26ch;
+      letter-spacing: -0.01em;
+    }
+    /* Guillemet caramel */
+    .bio-quote::before {
+      content: '«';
+      display: block;
+      font-size: 0.65em;
+      color: var(--cream-2);
+      opacity: 0.5;
+      margin-bottom: 0.6rem;
+      font-style: normal;
+    }
+
+    /* Responsive */
+    @media (max-width: 720px) {
+      .bio-opening { font-size: clamp(2.2rem, 8vw, 3.5rem); margin-bottom: 2rem; }
+      .bio-main {
+        grid-template-columns: 1fr;
+        gap: 2rem;
       }
-      .bio-chapter__num::after { right: -0.85rem; }
-      .bio-photo-break {
-        grid-template-columns: 2.2rem 1fr;
-        gap: 0 1.25rem;
-      }
-      .bio-photo-break__img { grid-template-columns: 1fr 1fr; }
-      .bio-pull { font-size: clamp(1.1rem, 5vw, 1.5rem); }
+      .bio-photo { max-width: 62%; } /* portrait pas trop large sur mobile */
+      .bio-quote { font-size: clamp(1.1rem, 5vw, 1.6rem); padding: 2.5rem 0; }
     }
 
     /* ── Hero about — photo lisible, texte blanc ─────────── */
@@ -569,109 +511,49 @@
 
     <hr class="rule">
 
-    <!-- BIO — mise en page éditoriale -->
+    <!-- BIO — magazine opening spread -->
     <section class="about-bio section" aria-labelledby="bio-titre">
       <div class="container">
 
-        <!-- En-tête -->
-        <div class="bio-header">
-          <div class="bio-header__left">
-            <p class="t-label reveal about-accent-text">Biographie</p>
-            <h2 class="t-h2 reveal" id="bio-titre" style="transition-delay:80ms">
-              D'où vient<br>ce travail.
-            </h2>
-            <svg class="about-divider-svg reveal" style="transition-delay:160ms" viewBox="0 0 160 14" aria-hidden="true">
-              <line class="adiv-line" x1="0" y1="7" x2="120" y2="7"
-                    stroke="var(--cream-2)" stroke-width="1" opacity="0.45"/>
-              <circle class="adiv-dot1" cx="130" cy="7" r="2.5"
-                      fill="var(--cream-2)" opacity="0.7" style="transform-origin:130px 7px"/>
-              <circle class="adiv-dot2" cx="148" cy="7" r="1.5"
-                      fill="var(--cream-2)" opacity="0.4" style="transform-origin:148px 7px"/>
-            </svg>
+        <p class="t-label reveal about-accent-text">Biographie</p>
+        <h2 class="bio-opening reveal" id="bio-titre" style="transition-delay:80ms">
+          Je pratique l'orgue<br>depuis l'âge de six ans.
+        </h2>
+        <div class="bio-rule reveal" style="transition-delay:160ms"></div>
+
+        <div class="bio-main">
+          <figure class="bio-photo reveal--scale" style="transition-delay:0ms">
+            <img src="assets/photos/orgue.portrait.jpg"
+                 alt="Musicien à l'orgue, lumière naturelle" loading="lazy">
+            <figcaption>Nancy · 2024</figcaption>
+          </figure>
+          <div class="bio-text">
+            <p class="bio-p reveal" style="transition-delay:80ms">
+              J'ai toujours été très sensible à la musique et, plus largement, à l'art.
+              Si je propose cela aujourd'hui, c'est aussi parce que la communication est souvent
+              l'un des points faibles des musiciens : ils peinent parfois à transmettre leur savoir-faire.
+            </p>
+            <p class="bio-p reveal" style="transition-delay:160ms">
+              Or, tout repose sur un équilibre extrêmement fin, qui reflète à la fois la personne,
+              l'artiste, et l'art lui-même — que ce soit à travers la représentation, les couleurs
+              ou l'esthétique visuelle.
+            </p>
+            <p class="bio-p reveal" style="transition-delay:240ms">
+              Ce n'est pas mon métier principal : j'étudie le droit à côté,
+              et je ne souhaite pas en faire ma profession, car cela reste avant tout
+              une passion que je tiens à préserver.
+            </p>
           </div>
-          <p class="bio-header__right reveal" style="transition-delay:200ms">
-            Musicien avant d'être photographe — je suis arrivé à l'image par ce que j'entendais, pas par ce que je voyais.
-          </p>
         </div>
 
-        <!-- Narrative éditoriale -->
-        <div class="bio-narrative">
+        <blockquote class="bio-quote reveal">
+          La photographie et la vidéo sont des traces que l'on laisse — une perspective
+          que l'on n'aurait peut-être jamais adoptée.
+        </blockquote>
 
-          <!-- 01 — La musique -->
-          <article class="bio-chapter reveal" style="transition-delay:0ms">
-            <p class="bio-chapter__num" aria-hidden="true">01</p>
-            <div class="bio-chapter__body">
-              <span class="bio-chapter__tag">La musique</span>
-              <p class="bio-pull">Je pratique l'orgue depuis l'âge de six ans.</p>
-              <p class="bio-body">
-                J'ai toujours été très sensible à la musique et, plus largement, à l'art.
-                Si je propose cela aujourd'hui, c'est aussi parce que la communication est souvent
-                l'un des points faibles des musiciens — ils peinent parfois à transmettre leur savoir-faire.
-              </p>
-            </div>
-          </article>
-
-          <!-- 02 — L'équilibre -->
-          <article class="bio-chapter reveal" style="transition-delay:60ms">
-            <p class="bio-chapter__num" aria-hidden="true">02</p>
-            <div class="bio-chapter__body">
-              <span class="bio-chapter__tag">L'équilibre</span>
-              <p class="bio-body bio-body--accent">
-                Tout repose sur un équilibre extrêmement fin, qui reflète à la fois la personne,
-                l'artiste, et l'art lui-même — à travers la représentation, les couleurs,
-                l'esthétique visuelle.
-              </p>
-            </div>
-          </article>
-
-          <!-- Photos intégrées dans le flux -->
-          <div class="bio-photo-break reveal--scale" style="transition-delay:120ms" aria-hidden="true">
-            <span></span><!-- colonne gauche vide (aligne avec le numéro) -->
-            <div class="bio-photo-break__img">
-              <img src="assets/photos/orgue.portrait.jpg"
-                   alt="Musicien à l'orgue, lumière naturelle" loading="lazy">
-              <img src="assets/photos/cordeliers.portrait.jpg"
-                   alt="Portrait, Cordeliers Nancy" loading="lazy">
-              <span class="bio-photo-caption">Nancy · 2024</span>
-            </div>
-          </div>
-
-          <!-- 03 — La passion -->
-          <article class="bio-chapter reveal" style="transition-delay:0ms">
-            <p class="bio-chapter__num" aria-hidden="true">03</p>
-            <div class="bio-chapter__body">
-              <span class="bio-chapter__tag">La passion</span>
-              <p class="bio-pull">
-                Cela reste avant tout une passion que je tiens à préserver.
-              </p>
-              <p class="bio-body">
-                Ce n'est pas mon métier principal : j'étudie le droit à côté,
-                et je ne souhaite pas en faire ma profession.
-              </p>
-            </div>
-          </article>
-
-          <!-- 04 — La trace -->
-          <article class="bio-chapter reveal" style="transition-delay:60ms">
-            <p class="bio-chapter__num" aria-hidden="true">04</p>
-            <div class="bio-chapter__body">
-              <span class="bio-chapter__tag">La trace</span>
-              <p class="bio-body bio-body--accent">
-                La photographie et la vidéo sont des traces que l'on laisse.
-                Elles permettent de s'arrêter pour mieux observer, de porter un regard différent —
-                une perspective que l'on n'aurait peut-être jamais adoptée.
-                Et c'est précisément en cela que réside leur force.
-              </p>
-            </div>
-          </article>
-
-        </div><!-- /bio-narrative -->
-
-        <!-- CTA -->
-        <div style="margin-top:3.5rem" class="reveal">
+        <div class="reveal">
           <a href="contact.html" class="hero__cta" aria-label="Me contacter">
-            Prendre contact
-            <span class="hero__cta-arrow" aria-hidden="true">→</span>
+            Prendre contact <span class="hero__cta-arrow" aria-hidden="true">→</span>
           </a>
         </div>
 

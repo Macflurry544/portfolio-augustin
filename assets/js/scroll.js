@@ -88,9 +88,14 @@
     }, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' });
 
     gridItems.forEach(item => {
-      item.style.opacity    = '0';
-      item.style.transform  = 'translateY(18px)';
-      item.style.transition = 'opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out), box-shadow 0.32s ease';
+      item.style.opacity = '0';
+      if (isMobile()) {
+        /* CSS columns : pas de translateY (évite les artefacts de reflow) */
+        item.style.transition = 'opacity 0.55s var(--ease-out)';
+      } else {
+        item.style.transform  = 'translateY(18px)';
+        item.style.transition = 'opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out), box-shadow 0.32s ease';
+      }
       gridObs.observe(item);
     });
   }

@@ -289,84 +289,105 @@
       .gi-port { aspect-ratio: 4/3; }
     }
 
-    /* ── Mobile (≤ 600px) — GRILLE 2 colonnes ───────────────── */
+    /* ── Mobile (≤ 600px) — CSS COLUMNS (masonry naturel) ───── */
     @media (max-width: 600px) {
 
-      /* Grille 2 colonnes, items alignés au top (portraits hauts) */
+      /* CSS Columns : 2 colonnes, les photos coulent naturellement */
       .gal-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        align-items: start;
-        gap: 5px;
-        padding: 0 0.75rem 1.5rem;
-        margin: 1rem auto var(--section-gap);
+        display: block;
+        columns: 2;
+        column-gap: 5px;
+        padding: 0 0.75rem 2rem;
+        margin: 0.5rem auto var(--section-gap);
       }
 
-      /* Formats */
-      .gi-port { aspect-ratio: 3/4;  grid-column: span 1; }
-      .gi-land { aspect-ratio: 4/3;  grid-column: span 1; }
-      .gi-wide { aspect-ratio: 16/9; grid-column: span 2; }
-      .gi-cin  { aspect-ratio: 16/9; grid-column: span 2; }
+      /* Chaque item : ne se coupe pas entre colonnes */
+      .gallery-item {
+        break-inside: avoid;
+        display: block;
+        margin-bottom: 5px;
+        border-radius: 9px;
+        /* Hauteur naturelle = image */
+        aspect-ratio: unset !important;
+        position: relative;
+        overflow: hidden;
+      }
 
-      /* Coins plus arrondis sur mobile */
-      .gallery-item { border-radius: 10px; }
+      /* Image : hauteur naturelle, pas absolute */
+      .gallery-item img {
+        position: static !important;
+        width: 100% !important;
+        height: auto !important;
+        object-fit: unset !important;
+        display: block;
+        transform: none !important;
+        transition: filter 0.3s ease !important;
+      }
 
-      /* Overlay : toujours visible — dégradé discret en bas */
+      /* Panoramiques & larges : pleine largeur (span 2 colonnes) */
+      .gi-cin,
+      .gi-wide {
+        column-span: all;
+        width: 100%;
+        border-radius: 9px;
+        margin-bottom: 5px;
+      }
+      /* Pour les larges plein-cadre : on fixe une hauteur raisonnable */
+      .gi-cin img,
+      .gi-wide img {
+        width: 100% !important;
+        height: 52vw !important;
+        object-fit: cover !important;
+        position: static !important;
+      }
+
+      /* Overlay : toujours visible sur tactile */
       .gallery-item__overlay {
         opacity: 1;
         background: linear-gradient(
           to top,
-          rgba(10,8,6,0.78) 0%,
-          rgba(10,8,6,0.08) 48%,
-          transparent 68%
+          rgba(10,8,6,0.80) 0%,
+          rgba(10,8,6,0.06) 52%,
+          transparent 70%
         );
       }
       .gallery-item__meta { transform: translateY(0); }
 
-      /* Meta plus compacte sur mobile */
-      .gallery-item__category { font-size: 0.45rem; letter-spacing: 0.22em; }
-      .gallery-item__title    { font-size: 0.75rem; }
+      /* Méta plus compacte */
+      .gallery-item__category { font-size: 0.44rem; letter-spacing: 0.2em; }
+      .gallery-item__title    { font-size: 0.72rem; }
 
-      /* Feedback tactile au tap */
-      .gallery-item:active {
-        transform: scale(0.98);
-        transition: transform 0.12s ease;
-      }
-      .gallery-item:active img { filter: brightness(0.68); }
+      /* Tap feedback */
+      .gallery-item:active img { filter: brightness(0.6) !important; }
 
-      /* ── Effet : shimmer qui balaye chaque photo à l'entrée ── */
-      /* Le shimmer est un reflet blanc diagonal, one-shot */
+      /* Shimmer one-shot à l'entrée */
       .gallery-item::after {
         content: '';
         position: absolute;
         inset: 0;
         background: linear-gradient(
           115deg,
-          transparent          40%,
-          rgba(255,255,255,0.14) 50%,
-          transparent          60%
+          transparent            38%,
+          rgba(255,255,255,0.13) 50%,
+          transparent            62%
         );
-        background-size: 200% 100%;
-        background-position: 200% 0;
+        background-size: 220% 100%;
+        background-position: 220% 0;
         pointer-events: none;
         z-index: 4;
         opacity: 0;
-        animation: none;
       }
-      /* Déclenché via JS quand l'item devient visible :
-         on ajoute .shine-done via scroll.js below */
       .gallery-item.is-shining::after {
         opacity: 1;
-        animation: photo-shine 0.72s cubic-bezier(0.4,0,0.2,1) forwards;
+        animation: photo-shine 0.8s cubic-bezier(0.4,0,0.2,1) forwards;
       }
-
       @keyframes photo-shine {
-        0%   { background-position: 200% 0; opacity: 1; }
-        100% { background-position: -50%  0; opacity: 0; }
+        from { background-position: 220% 0; opacity: 1; }
+        to   { background-position: -30% 0; opacity: 0; }
       }
     }
 
-    /* Indicateur swipe — masqué (plus de carousel) */
+    /* Indicateur swipe — masqué */
     .gal-swipe-hint { display: none !important; }
   </style>
 </head>
