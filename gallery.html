@@ -117,57 +117,51 @@
       .gi-port { aspect-ratio: 4/3; }
     }
 
-    /* ── Mobile ≤ 600px — grille 2 col, hauteur naturelle ──────
-       On abandonne position:absolute pour éviter la superposition.
-       Chaque image s'affiche à sa hauteur naturelle.
+    /* ── Mobile ≤ 700px — UNE SEULE COLONNE pleine largeur ──────
+       Chaque photo respecte son ratio naturel. Pas de rognage,
+       pas de tailles inégales, pas de superposition possible.
     ───────────────────────────────────────────────────────── */
-    @media (max-width: 600px) {
+    @media (max-width: 700px) {
       .gal-grid {
-        grid-template-columns: 1fr 1fr;
-        align-items: start;
-        gap: 8px;
-        padding: 0 0.8rem 2rem;
-        margin-top: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        padding: 0 1rem 2rem;
+        margin-top: 1rem;
       }
 
-      /* Conteneur : hauteur dictée par l'image */
-      .gallery-item {
-        aspect-ratio: unset;
-        position: relative;
-        border-radius: 8px;
-        box-shadow: 0 1px 8px rgba(0,0,0,0.09);
-        transform: none;
-      }
-      .gallery-item:hover { transform: none; }
-
-      /* Image : flux normal, hauteur auto */
-      .gallery-item img {
-        position: static;
-        width: 100%;
-        height: auto;
-        object-fit: unset;
-        display: block;
-        transform: none;
-        transition: none;
-      }
-
-      /* Panoramiques pleine largeur */
+      /* Chaque conteneur : hauteur dictée par l'image, ratio d'origine */
+      .gallery-item,
       .gi-cin,
-      .gi-wide {
-        grid-column: span 2;
-        aspect-ratio: unset;
-      }
-      .gi-cin img,
-      .gi-wide img {
-        position: static;
+      .gi-wide,
+      .gi-land,
+      .gi-port {
+        aspect-ratio: unset !important;
         width: 100%;
-        height: 50vw;
-        object-fit: cover;
+        position: relative;
+        border-radius: 10px;
+        box-shadow: 0 2px 14px rgba(0,0,0,0.09);
+        transform: none;
+      }
+      .gallery-item:hover { transform: none; box-shadow: 0 2px 14px rgba(0,0,0,0.09); }
+
+      /* Image : flux normal, ratio naturel, pas de rognage */
+      .gallery-item img,
+      .gi-cin img,
+      .gi-wide img,
+      .gi-land img,
+      .gi-port img {
+        position: static !important;
+        width: 100% !important;
+        height: auto !important;
+        object-fit: unset !important;
         display: block;
+        transform: none !important;
+        transition: opacity 0.25s ease !important;
       }
 
       /* Tap feedback */
-      .gallery-item:active { opacity: 0.88; }
+      .gallery-item:active img { opacity: 0.82; }
     }
 
     /* ── CTA bas ─────────────────────────────────────────────── */
