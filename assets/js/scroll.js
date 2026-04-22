@@ -63,8 +63,7 @@
     const gridObs = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          /* Délai relatif à l'ordre dans le batch courant */
-          const delay = (batchCounter % 4) * 80;
+          const delay = (batchCounter % 4) * 70;
           batchCounter++;
           clearTimeout(batchTimer);
           batchTimer = setTimeout(() => { batchCounter = 0; }, 600);
@@ -73,29 +72,15 @@
           entry.target.style.opacity         = '1';
           entry.target.style.transform       = 'translateY(0)';
 
-          /* ── Shimmer mobile : reflet blanc one-shot ────────── */
-          if (isMobile()) {
-            const shineDelay = delay + 280; /* déclenché après le fade-in */
-            setTimeout(() => {
-              entry.target.classList.add('is-shining');
-              setTimeout(() => entry.target.classList.remove('is-shining'), 800);
-            }, shineDelay);
-          }
-
           gridObs.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' });
+    }, { threshold: 0.04, rootMargin: '0px 0px -20px 0px' });
 
     gridItems.forEach(item => {
-      item.style.opacity = '0';
-      if (isMobile()) {
-        /* CSS columns : pas de translateY (évite les artefacts de reflow) */
-        item.style.transition = 'opacity 0.55s var(--ease-out)';
-      } else {
-        item.style.transform  = 'translateY(18px)';
-        item.style.transition = 'opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out), box-shadow 0.32s ease';
-      }
+      item.style.opacity   = '0';
+      item.style.transform = 'translateY(14px)';
+      item.style.transition = 'opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out)';
       gridObs.observe(item);
     });
   }
