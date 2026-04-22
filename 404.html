@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Page introuvable — Augustin Fleury, photographe et vidéaste à Nancy.">
+  <meta name="robots" content="noindex, follow">
+  <title>404 — Page introuvable · Augustin Fleury</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Young+Serif&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+  <style>
+    .error-page {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem var(--gutter) 4rem;
+      background: var(--olive);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Grand 404 fantôme en arrière-plan */
+    .error-ghost {
+      position: absolute;
+      font-family: var(--font-titre);
+      font-size: clamp(16rem, 45vw, 36rem);
+      line-height: 1;
+      letter-spacing: -0.06em;
+      color: rgba(var(--cream-rgb), 0.04);
+      pointer-events: none;
+      user-select: none;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+    }
+
+    .error-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 520px;
+    }
+
+    .error-label {
+      font-family: var(--font-texte);
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--cream-2);
+      animation: fade-up 0.62s var(--ease-out) 0.1s both;
+    }
+
+    .error-title {
+      font-family: var(--font-titre);
+      font-size: clamp(2.5rem, 7vw, 5.5rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--cream);
+      margin: 1.5rem 0 0;
+      animation: fade-up 0.78s var(--ease-out) 0.25s both;
+    }
+
+    .error-sub {
+      font-family: var(--font-texte);
+      font-size: clamp(0.9rem, 1.3vw, 1rem);
+      line-height: 1.75;
+      color: rgba(var(--cream-rgb), 0.45);
+      max-width: 36ch;
+      margin: 1.5rem auto 0;
+      animation: fade-up 0.72s var(--ease-out) 0.4s both;
+    }
+
+    .error-divider {
+      display: block;
+      margin: 2rem auto;
+      animation: fade-in 0.72s var(--ease-out) 0.5s both;
+    }
+
+    .error-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 2.5rem;
+      animation: fade-up 0.72s var(--ease-out) 0.55s both;
+    }
+
+    .error-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-family: var(--font-texte);
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 600;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.28s var(--ease-out), box-shadow 0.28s ease;
+    }
+    .error-btn::before {
+      content: '';
+      position: absolute;
+      bottom: 9px; left: 20px; right: 20px;
+      height: 1px;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
+    }
+    .error-btn:hover::before { transform: scaleX(1); }
+    .error-btn:hover { transform: scale(1.03); }
+
+    .error-btn--primary {
+      background: var(--cream);
+      color: var(--olive);
+      box-shadow: 0 4px 20px rgba(var(--cream-rgb), 0.15);
+    }
+    .error-btn--primary::before { background: rgba(var(--olive-rgb), 0.3); }
+    .error-btn--primary:hover {
+      box-shadow: 0 8px 30px rgba(var(--cream-rgb), 0.22);
+    }
+
+    .error-btn--ghost {
+      border: 1px solid rgba(var(--cream-rgb), 0.18);
+      color: rgba(var(--cream-rgb), 0.5);
+    }
+    .error-btn--ghost::before { background: rgba(var(--cream-rgb), 0.3); }
+    .error-btn--ghost:hover {
+      border-color: rgba(var(--cream-rgb), 0.35);
+      color: rgba(var(--cream-rgb), 0.82);
+    }
+
+    .error-links {
+      margin-top: 3rem;
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fade-in 0.72s var(--ease-out) 0.72s both;
+    }
+    .error-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 9px 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(var(--cream-rgb), 0.13);
+      font-family: var(--font-texte);
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: rgba(var(--cream-rgb), 0.38);
+      transition: border-color 0.22s ease, color 0.22s ease, background 0.22s ease;
+    }
+    .error-links a:hover {
+      border-color: rgba(var(--cream-rgb), 0.28);
+      color: rgba(var(--cream-rgb), 0.72);
+      background: rgba(var(--cream-rgb), 0.05);
+    }
+  </style>
+</head>
+<body class="page-index">
+
+  <a href="#main" class="sr-only">Aller au contenu principal</a>
+
+  <!-- NAV -->
+  <nav class="nav" role="navigation" aria-label="Navigation principale">
+    <a href="index.html" class="nav-logo" aria-label="Augustin Fleury — Accueil">Augustin Fleury</a>
+    <div class="nav-sep" aria-hidden="true"></div>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="gallery.html">Galerie</a></li>
+      <li><a href="about.html">À&nbsp;propos</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="nav-burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav-fullscreen">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div id="nav-fullscreen" class="nav-fullscreen" role="dialog" aria-modal="true" aria-label="Menu">
+    <button class="nav-fullscreen-close" aria-label="Fermer le menu">✕</button>
+    <nav class="nav-fullscreen-links">
+      <a href="index.html">Accueil</a>
+      <a href="gallery.html">Galerie</a>
+      <a href="about.html">À propos</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+
+  <main id="main" class="error-page" aria-label="Page d'erreur 404">
+
+    <span class="error-ghost" aria-hidden="true">404</span>
+
+    <div class="error-inner">
+      <p class="error-label">Erreur 404</p>
+
+      <h1 class="error-title">
+        Cette page<br>n'existe pas.
+      </h1>
+
+      <p class="error-sub">
+        L'image que vous cherchez s'est peut-être égarée —
+        comme une photo ratée qu'on garde quand même.
+      </p>
+
+      <svg class="error-divider" width="56" height="44" viewBox="0 0 56 44" aria-hidden="true">
+        <line x1="28" y1="4" x2="28" y2="40"
+              stroke="var(--cream-2)" stroke-width="1"
+              stroke-linecap="round" opacity="0.45"/>
+      </svg>
+
+      <div class="error-actions">
+        <a href="index.html" class="error-btn error-btn--primary">
+          Retour à l'accueil →
+        </a>
+        <a href="gallery.html" class="error-btn error-btn--ghost">
+          Voir la galerie
+        </a>
+      </div>
+
+      <nav class="error-links" aria-label="Liens utiles">
+        <a href="about.html">À propos</a>
+        <a href="contact.html">Contact</a>
+        <a href="https://instagram.com/aug.ustinflry" target="_blank" rel="noopener">Instagram</a>
+      </nav>
+    </div>
+
+  </main>
+
+  <script src="assets/js/scroll.js" defer></script>
+  <script src="assets/js/transitions.js" defer></script>
+</body>
+</html>

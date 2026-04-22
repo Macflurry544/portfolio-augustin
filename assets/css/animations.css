@@ -1,0 +1,191 @@
+/* ============================================================
+   ANIMATIONS.CSS — système cohérent, courbe unique
+   Règle : une seule courbe (--ease-out), distances courtes,
+   durées : 0.22s micro · 0.62s reveal · 0.72s lent
+   ============================================================ */
+
+/* ============================================================
+   REVEAL — base cachée
+   ============================================================ */
+
+.reveal,
+.reveal--left,
+.reveal--right,
+.reveal--scale {
+  opacity: 0;
+  transition:
+    opacity  var(--dur-reveal) var(--ease-out),
+    transform var(--dur-reveal) var(--ease-out);
+  will-change: opacity, transform;
+}
+
+/* Directions */
+.reveal         { transform: translateY(18px); }
+.reveal--left   { transform: translateX(-18px); }
+.reveal--right  { transform: translateX( 18px); }
+.reveal--scale  { transform: scale(0.97) translateY(12px); }
+
+/* Visible */
+.reveal.is-visible,
+.reveal--left.is-visible,
+.reveal--right.is-visible,
+.reveal--scale.is-visible {
+  opacity: 1;
+  transform: translate(0) scale(1);
+}
+
+/* ── Stagger children ─────────────────────────────────────── */
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity  var(--dur-slow)   var(--ease-out),
+    transform var(--dur-slow)  var(--ease-out);
+}
+.reveal-stagger.is-visible > * { opacity: 1; transform: translateY(0); }
+.reveal-stagger.is-visible > *:nth-child(1) { transition-delay:   0ms; }
+.reveal-stagger.is-visible > *:nth-child(2) { transition-delay:  70ms; }
+.reveal-stagger.is-visible > *:nth-child(3) { transition-delay: 140ms; }
+.reveal-stagger.is-visible > *:nth-child(4) { transition-delay: 210ms; }
+.reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 280ms; }
+.reveal-stagger.is-visible > *:nth-child(6) { transition-delay: 350ms; }
+
+/* ============================================================
+   KEYFRAMES — tous déclarés ici
+   ============================================================ */
+
+@keyframes draw-line {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes dot-in {
+  from { opacity: 0; transform: scale(0); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0);    }
+}
+
+@keyframes nav-enter {
+  from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0);     }
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav {
+  animation: nav-enter 0.7s var(--ease-out) 0.05s both;
+}
+
+/* ============================================================
+   GALLERY ITEM — hover
+   ============================================================ */
+
+/* Fin cadre */
+.gallery-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255,255,255,0);
+  pointer-events: none;
+  transition: border-color var(--dur-base) var(--ease-out);
+  z-index: 3;
+}
+.gallery-item:hover::after {
+  border-color: rgba(255,255,255,0.06);
+}
+
+/* Genie absorb */
+.gallery-item.is-absorbing img { opacity: 0; }
+
+/* ============================================================
+   LIGHTBOX
+   ============================================================ */
+.lightbox__content {
+  transition:
+    transform 0.55s var(--ease-out),
+    opacity   0.35s ease;
+}
+.lightbox:not(.is-open) .lightbox__content {
+  opacity: 0;
+}
+
+/* ============================================================
+   COMPTEURS
+   ============================================================ */
+.counter-item__value {
+  transition: color var(--dur-base) var(--ease-out);
+}
+
+/* ============================================================
+   PAGE TRANSITION
+   ============================================================ */
+.page-transition {
+  position: fixed;
+  inset: 0;
+  background: var(--olive);
+  z-index: 5000;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  pointer-events: none;
+}
+.page-transition.entering {
+  animation: curtain-in 0.45s var(--ease-out) forwards;
+}
+.page-transition.exiting {
+  animation: curtain-out 0.45s var(--ease-in) forwards;
+}
+
+@keyframes curtain-in {
+  from { transform: scaleY(0); transform-origin: bottom; }
+  to   { transform: scaleY(1); transform-origin: bottom; }
+}
+@keyframes curtain-out {
+  from { transform: scaleY(1); transform-origin: top; }
+  to   { transform: scaleY(0); transform-origin: top; }
+}
+
+/* ============================================================
+   GENIE — strips (créés par JS)
+   ============================================================ */
+.genie-strip-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1500;
+  overflow: hidden;
+}
+.genie-strip {
+  position: absolute;
+  overflow: hidden;
+  will-change: transform, opacity, clip-path;
+}
+.genie-strip img {
+  position: absolute;
+  top: 0; left: 0;
+  pointer-events: none;
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration:   0.01ms !important;
+    transition-duration:  0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

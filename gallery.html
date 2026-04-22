@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Galerie photo d'Augustin Fleury — photographe à Nancy et Paris. Concerts, portraits de musiciens, architecture et paysages de Lorraine.">
+  <meta name="keywords" content="photographe Nancy, photographe concert Nancy, photographe musicien Nancy, photographie événementielle Lorraine, photographe Paris, portrait musicien, photographie concert, vidéaste Nancy">
+  <meta name="author" content="Augustin Fleury">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Galerie — Augustin Fleury · Photographe Nancy & Paris">
+  <meta property="og:description" content="Concerts, portraits de musiciens et paysages — une sélection photographique d'Augustin Fleury.">
+  <meta property="og:image" content="Assets%20photos/orgue.paysage.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Galerie Photo — Augustin Fleury · Photographe Nancy & Paris</title>
+  <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="manifest" href="favicon/site.webmanifest">
+  <link rel="canonical" href="gallery.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Young+Serif&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/liquid-glass.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+  <style>
+    /* ── En-tête page galerie ─────────────────────────────── */
+    .gal-header {
+      padding-top: calc(var(--section-gap) * 0.6 + 70px);
+      padding-bottom: 0;
+    }
+    .gal-header__row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .gal-count {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(var(--cream-rgb), 0.25);
+      font-weight: 500;
+    }
+
+    /* Filtres supprimés — pas de barre de catégories */
+
+    /* ══════════════════════════════════════════════════════════
+       GRILLE — aspect-ratio par item, jamais de grid-auto-rows
+       (évite tout conflit de hauteur et superposition)
+    ══════════════════════════════════════════════════════════ */
+    .gal-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: start;        /* portraits gardent leur ratio sans dépasser */
+      gap: 12px;
+      max-width: var(--content-max);
+      margin: 2rem auto var(--section-gap);
+      padding: 0 var(--gutter);
+    }
+
+    /* Chaque item définit sa propre hauteur via aspect-ratio */
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      background: rgba(var(--olive-rgb), 0.6);
+      transition: box-shadow 0.32s ease;
+    }
+    .gallery-item:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.44);
+    }
+
+    /* Formats éditoriaux */
+    .gi-cin  { grid-column: span 3; aspect-ratio: 21/8; }
+    .gi-wide { grid-column: span 2; aspect-ratio: 16/9; }
+    .gi-land { aspect-ratio: 4/3; }
+    .gi-port { aspect-ratio: 3/4; }  /* portrait : ratio naturel, non rogné */
+
+    /* Image */
+    .gallery-item img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.72s var(--ease-out), filter 0.42s ease;
+      will-change: transform;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.032);
+      filter: brightness(0.78);
+    }
+
+    /* Overlay fondu + glass card */
+    .gallery-item__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(14,12,10,0.72) 0%,
+        rgba(14,12,10,0.14) 40%,
+        transparent 60%
+      );
+      opacity: 0;
+      transition: opacity 0.32s var(--ease-out);
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem 1.1rem;
+      z-index: 1;
+    }
+    .gallery-item:hover .gallery-item__overlay { opacity: 1; }
+
+    /* Glass card métadonnées */
+    .gallery-item__meta {
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(18px) saturate(150%);
+      -webkit-backdrop-filter: blur(18px) saturate(150%);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 10px;
+      padding: 0.5rem 0.88rem;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+      transform: translateY(8px);
+      transition: transform 0.32s var(--ease-out);
+    }
+    .gallery-item:hover .gallery-item__meta { transform: translateY(0); }
+
+    .gallery-item__category {
+      display: block;
+      font-size: 0.5rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--cream-2);
+      font-weight: 600;
+      font-family: var(--font-texte);
+      margin-bottom: 0.18rem;
+    }
+    .gallery-item__title {
+      display: block;
+      font-family: var(--font-titre);
+      font-size: clamp(0.82rem, 1vw, 1rem);
+      color: var(--cream);
+      line-height: 1.2;
+    }
+
+    /* Numéro discret */
+    .gallery-item__num {
+      position: absolute;
+      top: 0.85rem; right: 1rem;
+      font-family: var(--font-titre);
+      font-size: 0.6rem;
+      color: rgba(var(--cream-rgb), 0.18);
+      letter-spacing: 0.08em;
+      z-index: 2;
+      transition: color 0.28s ease;
+    }
+    .gallery-item:hover .gallery-item__num { color: rgba(var(--cream-rgb), 0.42); }
+
+    /* Bordure fine hover */
+    .gallery-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(255,255,255,0);
+      z-index: 3;
+      pointer-events: none;
+      transition: border-color 0.32s var(--ease-out);
+    }
+    .gallery-item:hover::before { border-color: rgba(255,255,255,0.06); }
+
+    /* Hidden by filter */
+    .gallery-item[data-hidden="true"] { display: none; }
+
+    /* ── CTA bas galerie ──────────────────────────────────── */
+    .gal-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+      padding: var(--section-gap) var(--gutter);
+      border-top: 1px solid rgba(var(--cream-rgb), 0.07);
+      max-width: var(--content-max);
+      margin: 0 auto;
+    }
+
+    /* ── Bloc Pixieset proéminent ──────────────────────────── */
+    .gal-pixieset {
+      margin: 0 var(--gutter) var(--section-gap);
+      max-width: calc(var(--content-max) - 2 * var(--gutter));
+      margin-left: auto;
+      margin-right: auto;
+      background: rgba(var(--cream-rgb), 0.04);
+      border: 1px solid rgba(var(--cream-rgb), 0.1);
+      border-radius: 16px;
+      padding: 3rem 3.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .gal-pixieset__text { flex: 1; min-width: 220px; }
+    .gal-pixieset__label {
+      font-size: 0.58rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--cream-2);
+      margin-bottom: 0.6rem;
+    }
+    .gal-pixieset__title {
+      font-family: var(--font-titre);
+      font-size: clamp(1.3rem, 2.5vw, 2rem);
+      color: var(--cream);
+      line-height: 1.15;
+      margin-bottom: 0.7rem;
+    }
+    .gal-pixieset__note {
+      font-size: 0.8rem;
+      color: rgba(var(--cream-rgb), 0.35);
+      line-height: 1.6;
+    }
+    .gal-pixieset__note strong {
+      font-weight: 700;
+      color: var(--cream-2);
+      letter-spacing: 0.12em;
+    }
+    .gal-pixieset__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 16px 32px;
+      border-radius: 999px;
+      background: var(--cream);
+      color: var(--olive);
+      font-family: var(--font-texte);
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 700;
+      white-space: nowrap;
+      box-shadow: 0 4px 24px rgba(var(--cream-rgb), 0.18);
+      transition: transform 0.28s var(--ease-out), box-shadow 0.28s ease;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .gal-pixieset__btn::before {
+      content: '';
+      position: absolute;
+      bottom: 10px; left: 32px; right: 32px;
+      height: 1px;
+      background: rgba(var(--olive-rgb), 0.3);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
+    }
+    .gal-pixieset__btn:hover::before { transform: scaleX(1); }
+    .gal-pixieset__btn:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 36px rgba(var(--cream-rgb), 0.26);
+    }
+    @media (max-width: 640px) {
+      .gal-pixieset {
+        margin-left: 1.25rem;
+        margin-right: 1.25rem;
+        max-width: none;
+        padding: 2rem 1.5rem;
+        flex-direction: column;
+        gap: 1.75rem;
+      }
+      .gal-pixieset__btn { width: 100%; justify-content: center; }
+    }
+
+    /* ═══ RESPONSIVE ═══════════════════════════════════════════ */
+
+    /* ── Tablette (≤ 860px) — 2 colonnes ─────────────────────── */
+    @media (max-width: 860px) {
+      .gal-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .gi-cin  { grid-column: span 2; aspect-ratio: 16/7; }
+      .gi-wide { grid-column: span 2; aspect-ratio: 3/2; }
+      .gi-land { aspect-ratio: 4/3; }
+      .gi-port { aspect-ratio: 4/3; }
+    }
+
+    /* ── Mobile (≤ 600px) — CARROUSEL horizontal ─────────────── */
+    @media (max-width: 600px) {
+      /* La grille devient un flex scrollable */
+      .gal-grid {
+        display: flex;
+        flex-direction: row;
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 10px;
+        padding: 0 1.25rem 1rem;
+        padding-right: 20vw;   /* tease la photo suivante */
+        scroll-padding-left: 1.25rem;
+        scrollbar-width: none;
+        margin-bottom: 1rem;
+      }
+      .gal-grid::-webkit-scrollbar { display: none; }
+
+      /* Chaque photo : largeur fixe, snap */
+      .gallery-item {
+        flex: 0 0 78vw;
+        aspect-ratio: 4/3;
+        scroll-snap-align: start;
+        border-radius: 10px;
+      }
+      /* Photos larges un peu plus larges */
+      .gi-cin,
+      .gi-wide {
+        flex: 0 0 88vw;
+        aspect-ratio: 16/10;
+      }
+      /* Overlay toujours visible (pas de hover touch) */
+      .gallery-item__overlay {
+        opacity: 1;
+        background: linear-gradient(
+          to top,
+          rgba(14,12,10,0.70) 0%,
+          transparent 55%
+        );
+      }
+      .gallery-item__meta    { transform: translateY(0); }
+      .gallery-item:active img { filter: brightness(0.62); }
+    }
+
+    /* ── Indicateur swipe (mobile uniquement) ─────────────────── */
+    .gal-swipe-hint {
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(var(--cream-rgb), 0.28);
+      padding: 0 1.25rem;
+      margin-bottom: 0.75rem;
+      font-family: var(--font-texte);
+    }
+    @media (max-width: 600px) {
+      .gal-swipe-hint { display: flex; }
+    }
+  </style>
+</head>
+<body class="page-gallery">
+
+  <a href="#main" class="sr-only">Aller au contenu principal</a>
+
+  <!-- Curseur personnalisé -->
+  <div class="gallery-cursor" id="gallery-cursor" aria-hidden="true">
+    <div class="gallery-cursor__ring"></div>
+    <div class="gallery-cursor__dot"></div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav" role="navigation" aria-label="Navigation principale">
+    <a href="index.html" class="nav-logo" aria-label="Retour à l'accueil">Augustin Fleury</a>
+    <div class="nav-sep" aria-hidden="true"></div>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="gallery.html" aria-current="page">Galerie</a></li>
+      <li><a href="about.html">À&nbsp;propos</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="nav-burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav-fullscreen">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div id="nav-fullscreen" class="nav-fullscreen" role="dialog" aria-modal="true" aria-label="Menu navigation">
+    <button class="nav-fullscreen-close" aria-label="Fermer le menu">✕</button>
+    <nav class="nav-fullscreen-links">
+      <a href="index.html">Accueil</a>
+      <a href="gallery.html" class="active">Galerie</a>
+      <a href="about.html">À propos</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+
+  <main id="main">
+
+    <!-- EN-TÊTE -->
+    <header class="gal-header container">
+      <div class="gal-header__row">
+        <div>
+          <p class="t-label reveal">Galerie</p>
+          <h1 class="t-h1 reveal" style="transition-delay:80ms;max-width:12ch">
+            Images<br>choisies.
+          </h1>
+        </div>
+        <div style="text-align:right">
+          <p class="gal-count reveal" id="gallery-count" style="transition-delay:100ms">
+            12 photographies
+          </p>
+          <p class="t-caption reveal" style="transition-delay:160ms;margin-top:0.5rem;font-style:normal">
+            Nancy & Lorraine
+          </p>
+        </div>
+      </div>
+    </header>
+
+
+    <!-- GRILLE -->
+    <section aria-label="Grille de photographies">
+
+      <!-- Indicateur swipe — visible uniquement sur mobile -->
+      <p class="gal-swipe-hint" aria-hidden="true">
+        <svg width="16" height="10" viewBox="0 0 16 10" fill="none">
+          <path d="M1 5h14M10 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Glisser pour explorer
+      </p>
+
+      <div class="gal-grid">
+        <!--
+        ╔═══════════════════════════════════════════════════════════════╗
+        ║  AJOUTER UNE PHOTO — copier-coller le template ci-dessous    ║
+        ╠═══════════════════════════════════════════════════════════════╣
+        ║  FORMATS DISPONIBLES :                                        ║
+        ║    gi-cin  → plein écran cinématique (3 colonnes, 21:8)       ║
+        ║    gi-wide → large éditorial (2 colonnes, 16:9)               ║
+        ║    gi-land → paysage standard (1 col, 3:2)  ← auto-détecté   ║
+        ║    gi-port → portrait standard (1 col, 2:3) ← auto-détecté   ║
+        ║                                                               ║
+        ║  CATÉGORIES : concert | portrait | paysage                    ║
+        ║                                                               ║
+        ║  ⚠️  gi-land / gi-port sont auto-détectés depuis l'image.     ║
+        ║     Mettre gi-land par défaut, JS corrigera si portrait.      ║
+        ╠═══════════════════════════════════════════════════════════════╣
+        ║  TEMPLATE :                                                   ║
+        ║                                                               ║
+        ║  <article class="gallery-item gi-land"                        ║
+        ║    data-category="[concert|portrait|paysage]"                 ║
+        ║    tabindex="0" role="button" aria-label="[Titre accès.]">    ║
+        ║    <img src="Assets%20photos/[fichier.jpg]"                   ║
+        ║         alt="[Description précise]" loading="lazy"            ║
+        ║         width="1200" height="800">                            ║
+        ║    <span class="gallery-item__num" aria-hidden="true">        ║
+        ║      [numéro]</span>                                          ║
+        ║    <div class="gallery-item__overlay" aria-hidden="true">     ║
+        ║      <div class="gallery-item__meta">                         ║
+        ║        <span class="gallery-item__category">                  ║
+        ║          [Catégorie]</span>                                   ║
+        ║        <span class="gallery-item__title">[Titre]</span>       ║
+        ║      </div>                                                   ║
+        ║    </div>                                                     ║
+        ║  </article>                                                   ║
+        ╚═══════════════════════════════════════════════════════════════╝
+        -->
+
+        <!-- ── SECTION : PAYSAGE & ARCHITECTURE ───────────────────── -->
+
+        <!-- 01 · Full-width cinématique -->
+        <article class="gallery-item gi-cin" data-category="paysage"
+          tabindex="0" role="button" aria-label="Orgue, lumière naturelle">
+          <img src="Assets%20photos/orgue.paysage.jpg" alt="Grand orgue baigné de lumière naturelle" loading="eager" width="2100" height="800">
+          <span class="gallery-item__num" aria-hidden="true">01</span>
+          <div class="gallery-item__overlay" aria-hidden="true">
+            <div class="gallery-item__meta">
+              <span class="gallery-item__category">Paysage</span>
+              <span class="gallery-item__title">Orgue, lumière naturelle</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 02 · Wide landscape -->
+        <article class="gallery-item gi-wide" data-category="paysage"
+          tabindex="0" role="button" aria-label="Nef, lumière gothique">
+          <img src="Assets%20photos/eglise.paysage.jpg" alt="Nef d'église, architecture et lumière" loading="lazy" width="1600" height="900">
+          <span class="gallery-item__num" aria-hidden="true">02</span>
+          <div class="gallery-item__overlay" aria-hidden="true">
+            <div class="gallery-item__meta">
+              <span class="gallery-item__category">Paysage</span>
+              <span class="gallery-item__title">Nef, lumière gothique</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 03 · Portrait -->
+        <article class="gallery-item gi-port" data-category="portrait"
+          tabindex="0" role="button" aria-label="Musicien à l'orgue">
+          <img src="Assets%20photos/orgue.portrait.JPG" alt="Musicien interprétant l'orgue" loading="lazy" width="900" height="1350">
+          <span class="gallery-item__num" aria-hidden="true">03</span>
+          <div class="gallery-item__overlay" aria-hidden="true">
+            <div class="gallery-item__meta">
+              <span class="gallery-item__category">Portrait</span>
+              <span class="gallery-item__title">Musicien à l'orgue</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 04 · Portrait -->
+        <article class="gallery-item gi-port" data-category="portrait"
+          tabindex="0" role="button" aria-label="Ambiance nocturne">
+          <img src="Assets%20photos/bar.portrait.JPG" alt="Portrait, ambiance nocturne" loading="lazy" width="900" height="1350">
+          <span class="gallery-item__num" aria-hidden="true">04</span>
+          <div class="gallery-item__overlay" aria-hidden="true">
+            <div class="gallery-item__meta">
+              <span class="gallery-item__category">Portrait</span>
+              <span class="gallery-item__title">Ambiance nocturne</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 05 · Wide portrait militaire -->
+        <article class="gallery-item gi-wide" data-category="portrait"
+          tabindex="0" role="button" aria-label="Portrait militaire, tenue d'apparat">
+          <img src="Assets%20photos/projecteur.paysage.jpg" alt="Portrait militaire en tenue d'apparat" loading="lazy" width="1600" height="900">
+          <span class="gallery-item__num" aria-hidden="true">05</span>
+          <div class="gallery-item__overlay" aria-hidden="true">
+            <div class="gallery-item__meta">
+              <span class="gallery-item__category">Portrait</span>
+              <span class="gallery-item__title">Tenue d'apparat</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- ── SECTION : CONCERTS ─────────────────────────────────── -->
+
+        <!-- 06 · Wide concert -->
+        <article class="gallery-item gi-wide" data-category="concert"
+          tabindex="0" role="button" aria-label="Sous la lumière de scène">
+          <img src="Assets%20photos/Exportsfinals_53_resultat.jpg" alt="Concert, musiciens sous la lumière" loading="lazy" width="1600" height="900">
+          <span class="gallery-item__num" aria-hidden="true">06</span>
+          <div class="gallery-item__overlay" aria-hidden="true">
+            <div class="gallery-item__meta">
+              <span class="gallery-item__category">Concert</span>
+              <span class="gallery-item__title">Sous la lumière de scène</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- ── SECTION : PORTRAITS ────────────────────────────────── -->
+
+        <!-- 07 · Portrait scout -->
+        <article class="gallery-item gi-port" data-category="portrait"
+          tabindex="0" role="button" aria-label="Portrait scout, en uniforme">
+          <img src="Assets%20photos/scout.portrait.JPG" alt="Portrait d'un scout en uniforme, lumière naturelle" loading="lazy" width="900" height="1350">
+          <span class="gallery-item__num" aria-hidden="true">07</span>
+          <div class="gallery-item__overlay" aria-hidden="true">
+            <div class="gallery-item__meta">
+              <span class="gallery-item__category">Portrait</span>
+              <span class="gallery-item__title">En uniforme</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 08 · Landscape -->
+        <article class="gallery-item gi-land" data-category="portrait"
+          tabindex="0" role="button" aria-label="Plein air, Lorraine">
+          <img src="Assets%20photos/champs.portrait.JPG" alt="Portrait en plein air, Lorraine" loading="lazy" width="1200" height="800">
+          <span class="gallery-item__num" aria-hidden="true">08</span>
+          <div class="gallery-item__overlay" aria-hidden="true">
+            <div class="gallery-item__meta">
+              <span class="gallery-item__category">Portrait</span>
+              <span class="gallery-item__title">Plein air, Lorraine</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 09 · Landscape -->
+        <article class="gallery-item gi-land" data-category="paysage"
+          tabindex="0" role="button" aria-label="Lumière dorée">
+          <img src="Assets%20photos/arm%C3%A9.paysage.jpg" alt="Paysage, lumière dorée de fin de journée" loading="lazy" width="1200" height="800">
+          <span class="gallery-item__num" aria-hidden="true">09</span>
+          <div class="gallery-item__overlay" aria-hidden="true">
+            <div class="gallery-item__meta">
+              <span class="gallery-item__category">Paysage</span>
+              <span class="gallery-item__title">Lumière dorée</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 10 · Portrait landscape -->
+        <article class="gallery-item gi-land" data-category="portrait"
+          tabindex="0" role="button" aria-label="Aux Cordeliers">
+          <img src="Assets%20photos/cordeliers.portrait.JPG" alt="Portrait, Cordeliers Nancy" loading="lazy" width="1200" height="800">
+          <span class="gallery-item__num" aria-hidden="true">10</span>
+          <div class="gallery-item__overlay" aria-hidden="true">
+            <div class="gallery-item__meta">
+              <span class="gallery-item__category">Portrait</span>
+              <span class="gallery-item__title">Aux Cordeliers</span>
+            </div>
+          </div>
+        </article>
+
+
+        <!-- 11 · Portrait place Carrière Nancy -->
+        <article class="gallery-item gi-port" data-category="portrait"
+          tabindex="0" role="button" aria-label="Portrait, place Carrière, Nancy">
+          <img src="Assets%20photos/portraitplacecarri%C3%A8renancy.JPG" alt="Portrait place de la Carrière, Nancy" loading="lazy" width="900" height="1350">
+          <span class="gallery-item__num" aria-hidden="true">11</span>
+          <div class="gallery-item__overlay" aria-hidden="true">
+            <div class="gallery-item__meta">
+              <span class="gallery-item__category">Portrait</span>
+              <span class="gallery-item__title">Place de la Carrière</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 12 · Portrait Paul -->
+        <article class="gallery-item gi-land" data-category="portrait"
+          tabindex="0" role="button" aria-label="Portrait Paul">
+          <img src="Assets%20photos/portraitpaul.jpg" alt="Portrait de Paul" loading="lazy" width="1200" height="800">
+          <span class="gallery-item__num" aria-hidden="true">12</span>
+          <div class="gallery-item__overlay" aria-hidden="true">
+            <div class="gallery-item__meta">
+              <span class="gallery-item__category">Portrait</span>
+              <span class="gallery-item__title">Paul</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- ── AJOUTER ICI les prochaines photos ─────────────────── -->
+        <!-- Copier un bloc ci-dessus et incrémenter le numéro         -->
+
+      </div>
+    </section>
+
+    <!-- PIXIESET — galerie complète en ligne -->
+    <div class="gal-pixieset reveal--scale">
+      <div class="gal-pixieset__text">
+        <p class="gal-pixieset__label">Galerie complète</p>
+        <p class="gal-pixieset__title">Plus de 200 photos<br>disponibles en ligne.</p>
+        <p class="gal-pixieset__note">
+          Téléchargement disponible avec le code&nbsp;
+          <strong>5593</strong>
+        </p>
+      </div>
+      <a href="https://augustinfleury.pixieset.com/gallerie/"
+         target="_blank" rel="noopener noreferrer"
+         class="gal-pixieset__btn"
+         aria-label="Voir la galerie complète sur Pixieset">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Voir toutes les photos
+      </a>
+    </div>
+
+    <!-- CTA contact -->
+    <div class="gal-cta">
+      <div>
+        <p class="t-label reveal">Collaboration</p>
+        <p class="t-h3 reveal" style="transition-delay:60ms;font-style:italic">
+          Un projet à documenter ?
+        </p>
+      </div>
+      <a href="contact.html" class="hero__cta reveal" style="transition-delay:100ms">
+        Écrire <span class="hero__cta-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+
+  </main>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Visionneuse">
+    <div id="lightbox-backdrop" class="lightbox__backdrop" aria-hidden="true"></div>
+    <div class="lightbox__content">
+      <button id="lightbox-close" class="lightbox__close" aria-label="Fermer">Fermer ✕</button>
+      <button id="lightbox-prev" class="lightbox__nav lightbox__prev" aria-label="Précédente">←</button>
+      <img id="lightbox-img" class="lightbox__img" src="" alt="" loading="lazy">
+      <button id="lightbox-next" class="lightbox__nav lightbox__next" aria-label="Suivante">→</button>
+      <p id="lightbox-caption" class="lightbox__caption"></p>
+    </div>
+  </div>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container site-footer__inner">
+      <p class="site-footer__copy">© 2025 Augustin Fleury · Nancy & Paris</p>
+      <a href="https://instagram.com/aug.ustinflry" class="site-footer__instagram"
+         target="_blank" rel="noopener noreferrer" aria-label="Instagram @aug.ustinflry">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="1.6"/>
+          <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.6"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+        </svg>
+        @aug.ustinflry
+      </a>
+      <nav class="site-footer__nav" aria-label="Navigation secondaire">
+        <a href="index.html"   class="site-footer__link">Accueil</a>
+        <a href="about.html"   class="site-footer__link">À propos</a>
+        <a href="contact.html" class="site-footer__link">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="assets/js/scroll.js" defer></script>
+  <script src="assets/js/transitions.js" defer></script>
+  <script src="assets/js/liquid-glass.js" defer></script>
+  <script src="assets/js/morphing.js" defer></script>
+  <script src="assets/js/lightbox.js" defer></script>
+
+  <script>
+    /* ── Curseur personnalisé ─────────────────────────────── */
+    (function() {
+      const cursor = document.getElementById('gallery-cursor');
+      if (!cursor) return;
+
+      let cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+      let tx = cx, ty = cy;
+
+      /* Suivi direct */
+      document.addEventListener('mousemove', (e) => {
+        tx = e.clientX;
+        ty = e.clientY;
+        cursor.style.left = tx + 'px';
+        cursor.style.top  = ty + 'px';
+      }, { passive: true });
+
+      /* Hover images */
+      document.querySelectorAll('.gallery-item').forEach(item => {
+        item.addEventListener('mouseenter', () => cursor.classList.add('is-hover'));
+        item.addEventListener('mouseleave', () => cursor.classList.remove('is-hover'));
+      });
+
+      /* Hover liens/boutons */
+      document.querySelectorAll('a, button').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          cursor.classList.remove('is-hover');
+          cursor.classList.add('is-link');
+        });
+        el.addEventListener('mouseleave', () => cursor.classList.remove('is-link'));
+      });
+
+      /* Masquer si touché */
+      document.addEventListener('touchstart', () => {
+        cursor.style.display = 'none';
+      }, { once: true, passive: true });
+    })();
+  </script>
+</body>
+</html>

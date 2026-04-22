@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="À propos d'Augustin Fleury — photographe et vidéaste à Nancy & Paris, spécialisé dans les concerts, portraits de musiciens et contenus vidéo pour les réseaux sociaux.">
+  <meta name="keywords" content="photographe Nancy, photographe Paris, photographe concert, portrait musicien, vidéaste événementiel, Reels musicaux Nancy, photographe Lorraine, Augustin Fleury photographe">
+  <meta name="author" content="Augustin Fleury">
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="À propos — Augustin Fleury · Photographe Nancy & Paris">
+  <meta property="og:description" content="Musicien avant d'être photographe — une pratique de l'image liée à la musique, aux concerts et aux lieux.">
+  <meta property="og:image" content="Assets%20photos/eglise.paysage.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>À propos — Augustin Fleury · Photographe & Vidéaste Nancy</title>
+  <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="manifest" href="favicon/site.webmanifest">
+  <link rel="canonical" href="about.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Young+Serif&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/liquid-glass.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+  <style>
+    /* Accents palette about (terracotta) */
+    .about-accent-text { color: var(--cream-2); }
+
+    /* ── Section Prestations — cartes liquid glass ──────────── */
+    .about-services__header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 3rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .sglass-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .sglass-card {
+      background: rgba(255,255,255,0.58);
+      backdrop-filter: blur(28px) saturate(160%);
+      -webkit-backdrop-filter: blur(28px) saturate(160%);
+      border: 1px solid rgba(255,255,255,0.82);
+      box-shadow:
+        0 2px 32px rgba(26,22,16,0.06),
+        inset 0 1px 0 rgba(255,255,255,0.95);
+      border-radius: 18px;
+      padding: 2.25rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.32s var(--ease-out), box-shadow 0.32s ease;
+    }
+    /* Reflet haut-gauche */
+    .sglass-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, rgba(255,255,255,0.9), rgba(255,255,255,0.2));
+      border-radius: 18px 18px 0 0;
+    }
+    /* Trait accent bas au hover */
+    .sglass-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 2rem; right: 2rem;
+      height: 2px;
+      background: var(--cream-2);
+      border-radius: 999px;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.42s var(--ease-out);
+    }
+    .sglass-card:hover::after { transform: scaleX(1); }
+    .sglass-card:hover {
+      transform: translateY(-5px);
+      box-shadow:
+        0 16px 48px rgba(26,22,16,0.1),
+        inset 0 1px 0 rgba(255,255,255,0.95);
+    }
+
+    .sglass-card__icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      background: rgba(var(--cream-rgb), 0.06);
+      border: 1px solid rgba(var(--cream-rgb), 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      color: var(--cream-2);
+    }
+
+    .sglass-card__title {
+      font-family: var(--font-titre);
+      font-size: clamp(1.15rem, 1.6vw, 1.5rem);
+      color: var(--cream);
+      margin-bottom: 0.3rem;
+    }
+
+    .sglass-card__sub {
+      font-family: var(--font-texte);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--cream-2);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .sglass-card__list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .sglass-card__list li {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: rgba(var(--cream-rgb), 0.6);
+      padding-left: 1rem;
+      position: relative;
+    }
+    .sglass-card__list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--cream-2);
+      opacity: 0.5;
+      font-size: 0.7rem;
+    }
+
+    .sglass-note {
+      margin-top: 2.5rem;
+      font-size: 0.82rem;
+      font-style: italic;
+      color: rgba(var(--cream-rgb), 0.38);
+      text-align: center;
+    }
+    .sglass-note__cta {
+      display: inline-block;
+      margin-left: 0.8rem;
+      font-style: normal;
+      color: var(--cream-2);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      transition: opacity 0.2s ease;
+    }
+    .sglass-note__cta:hover { opacity: 0.72; }
+
+    @media (max-width: 860px) {
+      .sglass-grid { grid-template-columns: 1fr 1fr; }
+      .about-services__header { flex-direction: column; gap: 1.5rem; }
+    }
+
+    /* ── TÉLÉPHONE : 1 carte par ligne, design aéré ──────────── */
+    @media (max-width: 680px) {
+
+      /* En-tête centré */
+      .about-services__header {
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+      .about-services__header p {
+        text-align: center;
+        max-width: 32ch;
+        margin: 0 auto;
+      }
+
+      /* 1 colonne */
+      .sglass-grid {
+        grid-template-columns: 1fr;
+        gap: 1.1rem;
+      }
+
+      /* Carte mobile — légèrement simplifiée, bien aérée */
+      .sglass-card {
+        padding: 2rem 1.6rem 1.75rem;
+        border-radius: 14px;
+        /* Pas de lift au tap */
+        transition: box-shadow 0.28s ease;
+      }
+      .sglass-card:hover { transform: none; }
+
+      /* Trait caramel bas — toujours visible (pas seulement au hover) */
+      .sglass-card::after { transform: scaleX(1); }
+
+      /* Icône un peu plus petite */
+      .sglass-card__icon {
+        width: 44px; height: 44px;
+        border-radius: 12px;
+        margin-bottom: 1.2rem;
+      }
+
+      /* Titre et sous-titre */
+      .sglass-card__title { font-size: 1.2rem; margin-bottom: 0.25rem; }
+      .sglass-card__sub   { font-size: 0.64rem; margin-bottom: 1.2rem; }
+      .sglass-card__list li { font-size: 0.83rem; }
+
+      /* Note et CTA bas */
+      .sglass-note { text-align: center; margin-top: 1.75rem; }
+      .sglass-note__cta { display: block; margin: 0.4rem auto 0; }
+    }
+
+    /* ═══ SÉPARATION VISUELLE DES SECTIONS ══════════════════════
+       Chaque section a sa propre identité de fond
+    ═══════════════════════════════════════════════════════════ */
+
+    /* Bio — fond ivoire clair (défaut) */
+    .about-bio { background: var(--olive); }
+
+    /* Prestations — grège légèrement plus foncé */
+    .about-services {
+      background: var(--sage);
+    }
+
+    /* Bande de photos — fond sombre, plein cadre */
+    .about-photos-strip {
+      background: #16140F;
+      padding: clamp(3rem, 7vw, 6rem) 0;
+    }
+
+    /* Approche — section sombre inversée */
+    .about-approach {
+      --cream:     #E8E4DB;
+      --cream-rgb: 232, 228, 219;
+      --cream-2:   #A88B6E;
+      background:  #1C1A15;
+    }
+    /* Forcer la couleur du label accent dans le contexte sombre */
+    .about-approach .about-accent-text { color: #A88B6E; }
+
+    /* Lisibilité explicite — fond très sombre, variables CSS ne suffisent pas */
+    .about-approach .t-h2             { color: #E8E4DB; }
+    .about-approach .approach-item    { border-top-color: rgba(232,228,219,0.12); }
+    .about-approach .approach-item__num   { color: rgba(232,228,219,0.07); }
+    .about-approach .approach-item__title { color: #E8E4DB; }
+    .about-approach .approach-item__text  { color: rgba(232,228,219,0.58); }
+
+    /* Mobile : items empilés (1 colonne) */
+    @media (max-width: 800px) {
+      .about-approach__list { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    /* Counters — retour ivoire clair */
+    .counters {
+      background: var(--olive);
+      border-top: none;
+    }
+
+    /* Supprimer les hr entre sections — les fonds font le travail */
+    hr.rule { display: none; }
+
+    /* ── Hero about — photo lisible, texte blanc ─────────── */
+    .about-hero-full {
+      position: relative;
+      height: 62dvh;
+      min-height: 440px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+    .about-hero-full__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('Assets%20photos/eglise.paysage.jpg');
+      background-size: cover;
+      background-position: center 40%;
+      filter: brightness(0.62) grayscale(12%);
+    }
+    .about-hero-full__bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top,
+        rgba(13,10,8,0.88) 0%,
+        rgba(13,10,8,0.32) 42%,
+        transparent        70%
+      );
+    }
+    .about-hero-full__content {
+      position: relative;
+      z-index: 1;
+      padding: 0 var(--gutter) clamp(2.5rem,5vw,4rem);
+      width: 100%;
+      max-width: var(--content-max);
+      margin: 0 auto;
+    }
+
+    /* Tous les textes du hero about : blanc codé dur + ombres portées */
+    .about-hero-full__content .t-label  {
+      color: rgba(255,255,255,0.62);
+      text-shadow: 0 1px 10px rgba(0,0,0,0.5);
+    }
+    .about-hero-full__content .t-h1     {
+      color: rgba(255,255,255,0.98);
+      text-shadow: 0 2px 28px rgba(0,0,0,0.65), 0 1px 6px rgba(0,0,0,0.45);
+    }
+    .about-hero-full__content .t-large  {
+      color: rgba(255,255,255,0.78);
+      text-shadow: 0 1px 16px rgba(0,0,0,0.55);
+    }
+
+    /* ── Séparateur SVG animé ────────────────────────────── */
+    .about-divider-svg {
+      display: block;
+      width: 160px;
+      height: 14px;
+      margin: 1.4rem 0 1.8rem;
+      overflow: visible;
+    }
+    .about-divider-svg .adiv-line {
+      stroke-dasharray: 120;
+      stroke-dashoffset: 120;
+    }
+    .about-divider-svg .adiv-dot1,
+    .about-divider-svg .adiv-dot2 {
+      opacity: 0;
+    }
+    /* déclenché quand le parent est is-visible */
+    .reveal.is-visible .about-divider-svg .adiv-line,
+    .about-hero-full__content .about-divider-svg .adiv-line {
+      animation: draw-line 0.9s var(--ease-out) 0.3s forwards;
+    }
+    .reveal.is-visible .about-divider-svg .adiv-dot1,
+    .about-hero-full__content .about-divider-svg .adiv-dot1 {
+      animation: dot-in 0.4s var(--ease-out) 0.6s forwards;
+    }
+    .reveal.is-visible .about-divider-svg .adiv-dot2,
+    .about-hero-full__content .about-divider-svg .adiv-dot2 {
+      animation: dot-in 0.4s var(--ease-out) 0.85s forwards;
+    }
+  </style>
+</head>
+<body class="page-about">
+
+  <a href="#main" class="sr-only">Aller au contenu principal</a>
+
+  <!-- NAV PILL -->
+  <nav class="nav" role="navigation" aria-label="Navigation principale">
+    <a href="index.html" class="nav-logo" aria-label="Retour à l'accueil">Augustin Fleury</a>
+    <div class="nav-sep" aria-hidden="true"></div>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="gallery.html">Galerie</a></li>
+      <li><a href="about.html" aria-current="page">À&nbsp;propos</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="nav-burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav-fullscreen">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div id="nav-fullscreen" class="nav-fullscreen" role="dialog" aria-modal="true" aria-label="Menu navigation">
+    <button class="nav-fullscreen-close" aria-label="Fermer le menu">✕</button>
+    <nav class="nav-fullscreen-links">
+      <a href="index.html">Accueil</a>
+      <a href="gallery.html">Galerie</a>
+      <a href="about.html" class="active">À propos</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+
+  <main id="main">
+
+    <!-- HERO ABOUT -->
+    <section class="about-hero-full" aria-label="En-tête À propos">
+      <div class="about-hero-full__bg" role="img" aria-label="Intérieur d'église, lumière et architecture"></div>
+      <div class="about-hero-full__content">
+        <p class="t-label" style="animation:fade-up 0.7s var(--ease-out) 0.1s both">
+          À propos
+        </p>
+        <!-- Séparateur SVG animé -->
+        <svg class="about-divider-svg" viewBox="0 0 160 14" aria-hidden="true">
+          <line class="adiv-line" x1="0" y1="7" x2="120" y2="7"
+                stroke="var(--cream-2)" stroke-width="1" opacity="0.55"/>
+          <circle class="adiv-dot1" cx="130" cy="7" r="2.5"
+                  fill="var(--cream-2)" opacity="0.8" style="transform-origin:130px 7px"/>
+          <circle class="adiv-dot2" cx="148" cy="7" r="1.5"
+                  fill="var(--cream-2)" opacity="0.45" style="transform-origin:148px 7px"/>
+        </svg>
+        <h1 class="t-h1" style="max-width:16ch;animation:fade-up 0.78s var(--ease-out) 0.22s both">
+          Une attention<br>au monde sonore.
+        </h1>
+        <p class="t-large" style="max-width:40ch;margin-top:1rem;animation:fade-up 0.72s var(--ease-out) 0.4s both">
+          Musicien avant d'être photographe — je suis arrivé à l'image par la musique.
+        </p>
+      </div>
+    </section>
+
+    <hr class="rule">
+
+    <!-- BIO -->
+    <section class="about-bio section" aria-labelledby="bio-titre">
+      <div class="container">
+        <div class="about-bio__grid">
+          <div>
+            <p class="t-label reveal about-accent-text">Biographie</p>
+            <h2 class="t-h2 reveal" id="bio-titre" style="transition-delay:80ms">
+              D'où vient<br>ce travail.
+            </h2>
+            <svg class="about-divider-svg reveal" style="transition-delay:160ms" viewBox="0 0 160 14" aria-hidden="true">
+            <line class="adiv-line" x1="0" y1="7" x2="120" y2="7"
+                  stroke="var(--cream-2)" stroke-width="1" opacity="0.45"/>
+            <circle class="adiv-dot1" cx="130" cy="7" r="2.5"
+                    fill="var(--cream-2)" opacity="0.7" style="transform-origin:130px 7px"/>
+            <circle class="adiv-dot2" cx="148" cy="7" r="1.5"
+                    fill="var(--cream-2)" opacity="0.4" style="transform-origin:148px 7px"/>
+          </svg>
+          </div>
+          <div>
+            <p class="t-body reveal" style="transition-delay:80ms">
+              Je pratique l'orgue depuis l'âge de six ans. J'ai toujours été très sensible à la musique et, plus largement, à l'art. Si je propose cela aujourd'hui, c'est aussi parce que la communication est souvent l'un des points faibles des musiciens : ils peinent parfois à transmettre leur savoir-faire.
+            </p>
+            <p class="t-body reveal" style="transition-delay:180ms;margin-top:1.2rem">
+              Or, tout repose sur un équilibre extrêmement fin, qui reflète à la fois la personne, l'artiste, et l'art lui-même — que ce soit à travers la représentation, les couleurs ou l'esthétique visuelle.
+            </p>
+            <p class="t-body reveal" style="transition-delay:260ms;margin-top:1.2rem">
+              Ce n'est pas mon métier principal : j'étudie le droit à côté, et je ne souhaite pas en faire ma profession, car cela reste avant tout une passion que je tiens à préserver.
+            </p>
+            <p class="t-body reveal" style="transition-delay:340ms;margin-top:1.2rem">
+              D'un point de vue plus philosophique, la photographie et la vidéo sont des traces que l'on laisse. Elles permettent de s'arrêter pour mieux observer, de porter un regard différent — une perspective que l'on n'aurait peut-être jamais adopté. Et c'est précisément en cela que réside leur force.
+            </p>
+            <div style="margin-top:2.5rem" class="reveal" style="transition-delay:400ms">
+              <a href="contact.html" class="hero__cta" aria-label="Me contacter">
+                Prendre contact
+                <span class="hero__cta-arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule">
+
+    <!-- PRESTATIONS — cartes liquid glass -->
+    <section class="about-services section" aria-labelledby="prestations-titre">
+      <div class="container">
+        <div class="about-services__header">
+          <div>
+            <p class="t-label reveal about-accent-text">Services</p>
+            <h2 class="t-h2 reveal" id="prestations-titre" style="transition-delay:80ms;max-width:18ch">
+              Ce que je propose.
+            </h2>
+          </div>
+          <p class="t-body reveal" style="transition-delay:160ms;max-width:44ch;color:rgba(var(--cream-rgb),0.52)">
+            Chaque commande fait l'objet d'un échange préalable pour définir le cadre, le rendu attendu et le calendrier. Les tarifs sont établis sur devis.
+          </p>
+        </div>
+
+        <div class="sglass-grid">
+
+          <!-- Photographie -->
+          <div class="sglass-card reveal--scale" style="transition-delay:0ms">
+            <div class="sglass-card__icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <rect x="2" y="6" width="24" height="18" rx="3" stroke="currentColor" stroke-width="1.3"/>
+                <circle cx="14" cy="15" r="4.5" stroke="currentColor" stroke-width="1.3"/>
+                <path d="M10 6l1.5-3h5L18 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="21.5" cy="10" r="1" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3 class="sglass-card__title">Photographie</h3>
+            <p class="sglass-card__sub">Concerts · Portraits · Événements</p>
+            <ul class="sglass-card__list">
+              <li>Couverture de concert et de spectacle vivant</li>
+              <li>Portrait individuel ou de groupe, en studio ou sur le vif</li>
+              <li>Reportage événementiel (remise de prix, associations…)</li>
+              <li>Livraison haute résolution, options couleur & N&B</li>
+            </ul>
+          </div>
+
+          <!-- Vidéo -->
+          <div class="sglass-card reveal--scale" style="transition-delay:100ms">
+            <div class="sglass-card__icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <rect x="2" y="7" width="18" height="14" rx="2.5" stroke="currentColor" stroke-width="1.3"/>
+                <path d="M20 11l6-3v12l-6-3V11z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="sglass-card__title">Vidéographie</h3>
+            <p class="sglass-card__sub">Teaser · Interview · Événement</p>
+            <ul class="sglass-card__list">
+              <li>Teaser et courte vidéo d'événement musical</li>
+              <li>Interview de musicien ou de groupe</li>
+              <li>Captation de moments forts (selon le projet)</li>
+              <li>Montage, étalonnage et mixage son inclus</li>
+            </ul>
+          </div>
+
+          <!-- Reels & Shorts -->
+          <div class="sglass-card reveal--scale" style="transition-delay:200ms">
+            <div class="sglass-card__icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <rect x="8" y="2" width="12" height="24" rx="3" stroke="currentColor" stroke-width="1.3"/>
+                <line x1="8" y1="8" x2="20" y2="8" stroke="currentColor" stroke-width="1.3"/>
+                <line x1="8" y1="20" x2="20" y2="20" stroke="currentColor" stroke-width="1.3"/>
+                <path d="M12.5 13l4 1.5-4 1.5V13z" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3 class="sglass-card__title">Reels & Shorts</h3>
+            <p class="sglass-card__sub">Instagram · YouTube · TikTok</p>
+            <ul class="sglass-card__list">
+              <li>Format vertical court, optimisé pour chaque plateforme</li>
+              <li>Coulisses de répétition et extraits de concert</li>
+              <li>Habillage sonore et sous-titrage disponibles</li>
+              <li>Livraison dans les spécifications natives des réseaux</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <p class="sglass-note reveal" style="transition-delay:320ms">
+          Disponible à Nancy, Paris et en déplacement selon le projet.
+          <a href="contact.html" class="sglass-note__cta">Demander un devis →</a>
+        </p>
+      </div>
+    </section>
+
+    <hr class="rule">
+
+    <!-- PORTRAIT + IMAGES -->
+    <section class="about-photos-strip" aria-label="Images et portrait">
+      <div class="container">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;grid-auto-rows:clamp(260px,28vw,420px);gap:6px;max-width:var(--content-max);margin:0 auto;padding:0 var(--gutter)" class="reveal--scale">
+          <div style="overflow:hidden;border-radius:6px">
+            <img src="Assets%20photos/cordeliers.portrait.JPG" alt="Portrait, Cordeliers Nancy" loading="lazy"
+                 style="width:100%;height:100%;object-fit:cover;transition:transform 0.9s var(--ease-out)"
+                 onmouseover="this.style.transform='scale(1.04)'"
+                 onmouseleave="this.style.transform='scale(1)'">
+          </div>
+          <div style="overflow:hidden;border-radius:6px">
+            <img src="Assets%20photos/orgue.portrait.JPG" alt="Musicien à l'orgue" loading="lazy"
+                 style="width:100%;height:100%;object-fit:cover;transition:transform 0.9s var(--ease-out)"
+                 onmouseover="this.style.transform='scale(1.04)'"
+                 onmouseleave="this.style.transform='scale(1)'">
+          </div>
+          <div style="overflow:hidden;border-radius:6px">
+            <img src="Assets%20photos/scout.portrait.JPG" alt="Portrait, lumière douce" loading="lazy"
+                 style="width:100%;height:100%;object-fit:cover;transition:transform 0.9s var(--ease-out)"
+                 onmouseover="this.style.transform='scale(1.04)'"
+                 onmouseleave="this.style.transform='scale(1)'">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule">
+
+    <!-- APPROACH -->
+    <section class="about-approach section" aria-labelledby="approach-titre">
+      <div class="container">
+        <header>
+          <p class="t-label reveal about-accent-text">Approche</p>
+          <h2 class="t-h2 reveal" id="approach-titre" style="transition-delay:80ms;max-width:16ch">
+            Ce qui guide le geste.
+          </h2>
+        </header>
+        <ul class="about-approach__list reveal-stagger" role="list">
+          <li class="approach-item">
+            <p class="approach-item__num" aria-hidden="true">I</p>
+            <h3 class="approach-item__title">La lenteur</h3>
+            <p class="approach-item__text">Ne pas multiplier les déclenchements. Attendre que la lumière, le sujet et le moment coexistent. Préférer une seule image juste à dix images correctes.</p>
+          </li>
+          <li class="approach-item">
+            <p class="approach-item__num" aria-hidden="true">II</p>
+            <h3 class="approach-item__title">L'attention</h3>
+            <p class="approach-item__text">Être présent à ce qui se passe avant de mettre l'œil au viseur. Lire la salle, entendre la musique, comprendre le corps du musicien.</p>
+          </li>
+          <li class="approach-item">
+            <p class="approach-item__num" aria-hidden="true">III</p>
+            <h3 class="approach-item__title">La discrétion</h3>
+            <p class="approach-item__text">Ne pas interrompre ce qui existe. Photographier sans s'imposer dans l'espace de jeu, sans transformer l'événement en séance photo.</p>
+          </li>
+          <li class="approach-item">
+            <p class="approach-item__num" aria-hidden="true">IV</p>
+            <h3 class="approach-item__title">La trace</h3>
+            <p class="approach-item__text">Ce que la photographie garde, la mémoire ne peut pas. Ces images ne sont pas une documentation — elles prolongent l'expérience.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <hr class="rule">
+
+    <!-- COUNTERS -->
+    <section class="counters section" aria-label="Quelques chiffres">
+      <div class="container">
+        <p class="t-label reveal about-accent-text">En chiffres</p>
+        <div class="counters__grid" style="margin-top:2rem">
+          <div class="counter-item">
+            <p class="counter-item__value" aria-label="3 ans de pratique">3+</p>
+            <p class="counter-item__label">Années de pratique</p>
+          </div>
+          <div class="counter-item">
+            <p class="counter-item__value" aria-label="10 000 images archivées">10000+</p>
+            <p class="counter-item__label">Images archivées</p>
+          </div>
+          <div class="counter-item">
+            <p class="counter-item__value" aria-label="2 villes Paris et Nancy">2</p>
+            <p class="counter-item__label">Villes — Paris & Nancy</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section" style="padding-top:0;text-align:center" aria-label="Appel à l'action">
+      <div class="container" style="max-width:600px">
+        <div class="ornament reveal" aria-hidden="true"><span class="ornament__symbol">◆</span></div>
+        <p class="t-large reveal" style="margin-top:1rem;transition-delay:80ms">
+          Un projet musical ? Une collaboration ?<br>Une simple curiosité ?
+        </p>
+        <div style="margin-top:2rem" class="reveal" style="transition-delay:200ms">
+          <a href="contact.html" class="hero__cta" aria-label="Accéder à la page contact">
+            Écrire un message
+            <span class="hero__cta-arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container site-footer__inner">
+      <p class="site-footer__copy">© 2025 Augustin Fleury · Nancy & Paris</p>
+      <a href="https://instagram.com/aug.ustinflry" class="site-footer__instagram"
+         target="_blank" rel="noopener noreferrer" aria-label="Instagram @aug.ustinflry">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="1.6"/>
+          <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.6"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+        </svg>
+        @aug.ustinflry
+      </a>
+      <nav class="site-footer__nav" aria-label="Navigation secondaire">
+        <a href="index.html"   class="site-footer__link">Accueil</a>
+        <a href="gallery.html" class="site-footer__link">Galerie</a>
+        <a href="contact.html" class="site-footer__link">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="assets/js/scroll.js" defer></script>
+  <script src="assets/js/transitions.js" defer></script>
+  <script src="assets/js/liquid-glass.js" defer></script>
+</body>
+</html>
