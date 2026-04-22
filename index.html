@@ -9,7 +9,7 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Augustin Fleury — Photographe & Vidéaste · Nancy & Paris">
   <meta property="og:description" content="Concerts, portraits, vidéos et Reels — une démarche personnelle liée à la musique et aux musiciens.">
-  <meta property="og:image" content="Assets%20photos/orgue.paysage.jpg">
+  <meta property="og:image" content="assets/photos/orgue.paysage.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <title>Augustin Fleury — Photographe & Vidéaste · Nancy & Paris</title>
   <script type="application/ld+json">
@@ -60,7 +60,7 @@
     .hero__bg {
       position: absolute;
       inset: 0;
-      background-image: url('Assets%20photos/orgue.paysage.jpg');
+      background-image: url('assets/photos/orgue.paysage.jpg');
       background-size: cover;
       background-position: center 35%;
       will-change: transform;
@@ -757,6 +757,12 @@
   </style>
 </head>
 <body class="page-index">
+  <!-- LOADER -->
+  <div id="page-loader" aria-hidden="true">
+    <span class="loader__logo">Augustin Fleury</span>
+    <div class="loader__bar"></div>
+  </div>
+
 
   <a href="#main" class="sr-only">Aller au contenu principal</a>
 
@@ -899,7 +905,7 @@
       <!-- Grid bord à bord -->
       <div class="work-grid">
         <a href="gallery.html" class="work-grid__item work-grid__item--main reveal--left" aria-label="Galerie — Orgue, lumière naturelle">
-          <img src="Assets%20photos/orgue.paysage.jpg" alt="Grand orgue baigné de lumière naturelle" loading="lazy" width="1200" height="1600">
+          <img src="assets/photos/orgue.paysage.jpg" alt="Grand orgue baigné de lumière naturelle" loading="lazy" width="1200" height="1600">
           <span class="work-grid__item__num" aria-hidden="true">01</span>
           <div class="work-grid__item__overlay" aria-hidden="true">
             <div>
@@ -909,7 +915,7 @@
           </div>
         </a>
         <a href="gallery.html" class="work-grid__item reveal--right" aria-label="Galerie — Portrait, Cordeliers" style="transition-delay:80ms">
-          <img src="Assets%20photos/cordeliers.portrait.JPG" alt="Portrait, Cordeliers Nancy" loading="lazy" width="800" height="1067">
+          <img src="assets/photos/cordeliers.portrait.jpg" alt="Portrait, Cordeliers Nancy" loading="lazy" width="800" height="1067">
           <span class="work-grid__item__num" aria-hidden="true">02</span>
           <div class="work-grid__item__overlay" aria-hidden="true">
             <div>
@@ -919,7 +925,7 @@
           </div>
         </a>
         <a href="gallery.html" class="work-grid__item reveal--right" aria-label="Galerie — Concert" style="transition-delay:160ms">
-          <img src="Assets%20photos/Exportsfinals_53_resultat.jpg" alt="Concert, lumière de scène" loading="lazy" width="1600" height="900">
+          <img src="assets/photos/Exportsfinals_53_resultat.jpg" alt="Concert, lumière de scène" loading="lazy" width="1600" height="900">
           <span class="work-grid__item__num" aria-hidden="true">03</span>
           <div class="work-grid__item__overlay" aria-hidden="true">
             <div>
@@ -935,7 +941,7 @@
          VIDÉO
     ============================================================ -->
     <section class="video-section" aria-label="Extrait vidéo — Lorraine">
-      <video src="Assets%20photos/DJI_0609.MP4" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+      <video src="assets/photos/DJI_0609.MP4" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
       <div class="video-section__overlay" aria-hidden="true"></div>
       <div class="video-section__content">
         <div class="video-section__text">
@@ -1079,6 +1085,15 @@
           document.getElementById('intro')?.scrollIntoView({ behavior: 'smooth' });
         });
       }
+    })();
+  </script>
+  <script>
+    (function(){
+      var l=document.getElementById("page-loader");
+      if(!l)return;
+      function hide(){l.classList.add("is-hidden");setTimeout(function(){l.remove();},600);}
+      if(document.readyState==="complete"){setTimeout(hide,120);}
+      else{window.addEventListener("load",function(){setTimeout(hide,120);});}
     })();
   </script>
 </body>

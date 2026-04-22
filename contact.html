@@ -9,7 +9,7 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Contact — Augustin Fleury · Photographe Nancy & Paris">
   <meta property="og:description" content="Un projet, une collaboration, une idée — écrire à Augustin Fleury, photographe et vidéaste.">
-  <meta property="og:image" content="Assets%20photos/projecteur.paysage.jpg">
+  <meta property="og:image" content="assets/photos/projecteur.paysage.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <title>Contact — Augustin Fleury · Photographe Nancy & Paris</title>
   <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg">
@@ -43,7 +43,7 @@
     .contact-bg {
       position: absolute;
       inset: 0;
-      background-image: url('Assets%20photos/projecteur.paysage.jpg');
+      background-image: url('assets/photos/projecteur.paysage.jpg');
       background-size: cover;
       background-position: center;
       filter: brightness(0.5) grayscale(15%);
@@ -192,6 +192,12 @@
   </style>
 </head>
 <body class="page-contact">
+  <!-- LOADER -->
+  <div id="page-loader" aria-hidden="true">
+    <span class="loader__logo">Augustin Fleury</span>
+    <div class="loader__bar"></div>
+  </div>
+
 
   <a href="#main" class="sr-only">Aller au contenu principal</a>
 
@@ -290,5 +296,14 @@
   <script src="assets/js/scroll.js" defer></script>
   <script src="assets/js/transitions.js" defer></script>
   <script src="assets/js/liquid-glass.js" defer></script>
+  <script>
+    (function(){
+      var l=document.getElementById("page-loader");
+      if(!l)return;
+      function hide(){l.classList.add("is-hidden");setTimeout(function(){l.remove();},600);}
+      if(document.readyState==="complete"){setTimeout(hide,120);}
+      else{window.addEventListener("load",function(){setTimeout(hide,120);});}
+    })();
+  </script>
 </body>
 </html>

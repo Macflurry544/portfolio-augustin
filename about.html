@@ -9,7 +9,7 @@
   <meta property="og:type" content="profile">
   <meta property="og:title" content="À propos — Augustin Fleury · Photographe Nancy & Paris">
   <meta property="og:description" content="Musicien avant d'être photographe — une pratique de l'image liée à la musique, aux concerts et aux lieux.">
-  <meta property="og:image" content="Assets%20photos/eglise.paysage.jpg">
+  <meta property="og:image" content="assets/photos/eglise.paysage.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <title>À propos — Augustin Fleury · Photographe & Vidéaste Nancy</title>
   <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg">
@@ -272,7 +272,7 @@
     .about-hero-full__bg {
       position: absolute;
       inset: 0;
-      background-image: url('Assets%20photos/eglise.paysage.jpg');
+      background-image: url('assets/photos/eglise.paysage.jpg');
       background-size: cover;
       background-position: center 40%;
       filter: brightness(0.62) grayscale(12%);
@@ -342,6 +342,12 @@
   </style>
 </head>
 <body class="page-about">
+  <!-- LOADER -->
+  <div id="page-loader" aria-hidden="true">
+    <span class="loader__logo">Augustin Fleury</span>
+    <div class="loader__bar"></div>
+  </div>
+
 
   <a href="#main" class="sr-only">Aller au contenu principal</a>
 
@@ -534,19 +540,19 @@
       <div class="container">
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;grid-auto-rows:clamp(260px,28vw,420px);gap:6px;max-width:var(--content-max);margin:0 auto;padding:0 var(--gutter)" class="reveal--scale">
           <div style="overflow:hidden;border-radius:6px">
-            <img src="Assets%20photos/cordeliers.portrait.JPG" alt="Portrait, Cordeliers Nancy" loading="lazy"
+            <img src="assets/photos/cordeliers.portrait.jpg" alt="Portrait, Cordeliers Nancy" loading="lazy"
                  style="width:100%;height:100%;object-fit:cover;transition:transform 0.9s var(--ease-out)"
                  onmouseover="this.style.transform='scale(1.04)'"
                  onmouseleave="this.style.transform='scale(1)'">
           </div>
           <div style="overflow:hidden;border-radius:6px">
-            <img src="Assets%20photos/orgue.portrait.JPG" alt="Musicien à l'orgue" loading="lazy"
+            <img src="assets/photos/orgue.portrait.jpg" alt="Musicien à l'orgue" loading="lazy"
                  style="width:100%;height:100%;object-fit:cover;transition:transform 0.9s var(--ease-out)"
                  onmouseover="this.style.transform='scale(1.04)'"
                  onmouseleave="this.style.transform='scale(1)'">
           </div>
           <div style="overflow:hidden;border-radius:6px">
-            <img src="Assets%20photos/scout.portrait.JPG" alt="Portrait, lumière douce" loading="lazy"
+            <img src="assets/photos/scout.portrait.jpg" alt="Portrait, lumière douce" loading="lazy"
                  style="width:100%;height:100%;object-fit:cover;transition:transform 0.9s var(--ease-out)"
                  onmouseover="this.style.transform='scale(1.04)'"
                  onmouseleave="this.style.transform='scale(1)'">
@@ -655,5 +661,14 @@
   <script src="assets/js/scroll.js" defer></script>
   <script src="assets/js/transitions.js" defer></script>
   <script src="assets/js/liquid-glass.js" defer></script>
+  <script>
+    (function(){
+      var l=document.getElementById("page-loader");
+      if(!l)return;
+      function hide(){l.classList.add("is-hidden");setTimeout(function(){l.remove();},600);}
+      if(document.readyState==="complete"){setTimeout(hide,120);}
+      else{window.addEventListener("load",function(){setTimeout(hide,120);});}
+    })();
+  </script>
 </body>
 </html>
