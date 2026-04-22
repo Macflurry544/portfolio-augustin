@@ -261,109 +261,89 @@
     hr.rule { display: none; }
 
     /* ═══════════════════════════════════════════════════════════
-       BIO — magazine opening spread
+       BIO — cartes liquid glass sur fond sombre
     ═══════════════════════════════════════════════════════════ */
 
-    /* Phrase d'ouverture — grand italique, prend tout l'espace */
-    .bio-opening {
+    .bio-heading {
       font-family: var(--font-titre);
       font-style: italic;
-      font-size: clamp(2.6rem, 5.5vw, 4.8rem);
-      line-height: 1.08;
-      letter-spacing: -0.025em;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
       color: var(--cream);
-      margin: 1.8rem 0 3rem;
-      max-width: 20ch;
+      margin: 1.2rem 0 2.8rem;
+      max-width: 22ch;
     }
 
-    /* Ligne caramel fine entre l'ouverture et le corps */
-    .bio-rule {
-      width: 56px;
+    .bio-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.1rem;
+      margin-bottom: 3rem;
+    }
+
+    /* Carte verre sombre */
+    .bio-card {
+      background: rgba(255,255,255,0.055);
+      backdrop-filter: blur(24px) saturate(140%);
+      -webkit-backdrop-filter: blur(24px) saturate(140%);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow:
+        0 2px 28px rgba(0,0,0,0.22),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 2.2rem 1.8rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.32s var(--ease-out), box-shadow 0.32s ease;
+    }
+    /* Reflet haut */
+    .bio-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, rgba(255,255,255,0.14), rgba(255,255,255,0.03));
+      border-radius: 18px 18px 0 0;
+    }
+    /* Trait caramel bas au hover */
+    .bio-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 1.8rem; right: 1.8rem;
       height: 1.5px;
       background: var(--cream-2);
-      border-radius: 2px;
-      margin-bottom: 3rem;
-      opacity: 0.7;
+      border-radius: 999px;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.42s var(--ease-out);
+    }
+    .bio-card:hover::after { transform: scaleX(1); }
+    .bio-card:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 14px 42px rgba(0,0,0,0.32),
+        inset 0 1px 0 rgba(255,255,255,0.08);
     }
 
-    /* Grille photo + texte */
-    .bio-main {
-      display: grid;
-      grid-template-columns: 5fr 7fr;
-      gap: clamp(2.5rem, 5vw, 6rem);
-      align-items: start;
-      margin-bottom: 4rem;
-    }
-
-    /* Photo — portrait, bord fin caramel en hover */
-    .bio-photo {
-      margin: 0;
-      position: relative;
-    }
-    .bio-photo img {
-      width: 100%;
-      aspect-ratio: 3/4;
-      object-fit: cover;
-      display: block;
-      border-radius: 4px;
-      transition: filter 0.5s ease;
-    }
-    .bio-photo img:hover { filter: brightness(0.92); }
-    /* Légende flottante sous la photo */
-    .bio-photo figcaption {
-      margin-top: 0.7rem;
-      font-family: var(--font-texte);
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(var(--cream-rgb), 0.22);
-    }
-
-    /* Bloc de texte */
-    .bio-text { padding-top: 0.5rem; }
-    .bio-p {
-      font-size: clamp(0.88rem, 1.1vw, 1rem);
-      line-height: 1.92;
-      color: rgba(var(--cream-rgb), 0.58);
-      margin-bottom: 1.6rem;
-    }
-    .bio-p:last-child { margin-bottom: 0; }
-
-    /* Citation plein cadre — sépare visuellement les deux blocs */
-    .bio-quote {
-      border: none;
-      padding: 3.5rem 0;
-      margin: 0 0 3.5rem;
-      border-top: 1px solid rgba(var(--cream-rgb), 0.09);
-      border-bottom: 1px solid rgba(var(--cream-rgb), 0.09);
+    .bio-card__title {
       font-family: var(--font-titre);
-      font-style: italic;
-      font-size: clamp(1.3rem, 2.6vw, 2.2rem);
-      line-height: 1.3;
-      color: rgba(var(--cream-rgb), 0.38);
-      max-width: 26ch;
-      letter-spacing: -0.01em;
+      font-size: clamp(1.05rem, 1.4vw, 1.3rem);
+      color: var(--cream);
+      margin-bottom: 0.9rem;
     }
-    /* Guillemet caramel */
-    .bio-quote::before {
-      content: '«';
-      display: block;
-      font-size: 0.65em;
-      color: var(--cream-2);
-      opacity: 0.5;
-      margin-bottom: 0.6rem;
-      font-style: normal;
+    .bio-card__text {
+      font-size: 0.84rem;
+      line-height: 1.82;
+      color: rgba(var(--cream-rgb), 0.52);
     }
 
-    /* Responsive */
-    @media (max-width: 720px) {
-      .bio-opening { font-size: clamp(2.2rem, 8vw, 3.5rem); margin-bottom: 2rem; }
-      .bio-main {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-      .bio-photo { max-width: 62%; } /* portrait pas trop large sur mobile */
-      .bio-quote { font-size: clamp(1.1rem, 5vw, 1.6rem); padding: 2.5rem 0; }
+    @media (max-width: 860px) {
+      .bio-cards { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      .bio-cards { grid-template-columns: 1fr; gap: 0.9rem; }
+      .bio-heading { font-size: clamp(1.7rem, 7vw, 2.6rem); margin-bottom: 2rem; }
     }
 
     /* ── Hero about — photo lisible, texte blanc ─────────── */
@@ -511,47 +491,35 @@
 
     <hr class="rule">
 
-    <!-- BIO — magazine opening spread -->
+    <!-- BIO — cartes liquid glass -->
     <section class="about-bio section" aria-labelledby="bio-titre">
       <div class="container">
 
         <p class="t-label reveal about-accent-text">Biographie</p>
-        <h2 class="bio-opening reveal" id="bio-titre" style="transition-delay:80ms">
-          Je pratique l'orgue<br>depuis l'âge de six ans.
+        <h2 class="bio-heading reveal" id="bio-titre" style="transition-delay:80ms">
+          Musicien avant<br>d'être photographe.
         </h2>
-        <div class="bio-rule reveal" style="transition-delay:160ms"></div>
 
-        <div class="bio-main">
-          <figure class="bio-photo reveal--scale" style="transition-delay:0ms">
-            <img src="assets/photos/orgue.portrait.jpg"
-                 alt="Musicien à l'orgue, lumière naturelle" loading="lazy">
-            <figcaption>Nancy · 2024</figcaption>
-          </figure>
-          <div class="bio-text">
-            <p class="bio-p reveal" style="transition-delay:80ms">
-              J'ai toujours été très sensible à la musique et, plus largement, à l'art.
-              Si je propose cela aujourd'hui, c'est aussi parce que la communication est souvent
-              l'un des points faibles des musiciens : ils peinent parfois à transmettre leur savoir-faire.
-            </p>
-            <p class="bio-p reveal" style="transition-delay:160ms">
-              Or, tout repose sur un équilibre extrêmement fin, qui reflète à la fois la personne,
-              l'artiste, et l'art lui-même — que ce soit à travers la représentation, les couleurs
-              ou l'esthétique visuelle.
-            </p>
-            <p class="bio-p reveal" style="transition-delay:240ms">
-              Ce n'est pas mon métier principal : j'étudie le droit à côté,
-              et je ne souhaite pas en faire ma profession, car cela reste avant tout
-              une passion que je tiens à préserver.
-            </p>
+        <div class="bio-cards">
+
+          <div class="bio-card reveal--scale" style="transition-delay:0ms">
+            <h3 class="bio-card__title">La musique</h3>
+            <p class="bio-card__text">Je pratique l'orgue depuis l'âge de six ans. J'ai toujours été très sensible à la musique et, plus largement, à l'art — c'est par là que je suis arrivé à l'image.</p>
           </div>
+
+          <div class="bio-card reveal--scale" style="transition-delay:80ms">
+            <h3 class="bio-card__title">La communication</h3>
+            <p class="bio-card__text">Les musiciens peinent souvent à transmettre leur savoir-faire. Tout repose sur un équilibre fin entre la personne, l'artiste et l'art lui-même — les couleurs, l'esthétique, la représentation.</p>
+          </div>
+
+          <div class="bio-card reveal--scale" style="transition-delay:160ms">
+            <h3 class="bio-card__title">La passion</h3>
+            <p class="bio-card__text">Ce n'est pas mon métier principal — j'étudie le droit à côté. Je ne souhaite pas en faire une profession : cela reste avant tout une passion que je tiens à préserver.</p>
+          </div>
+
         </div>
 
-        <blockquote class="bio-quote reveal">
-          La photographie et la vidéo sont des traces que l'on laisse — une perspective
-          que l'on n'aurait peut-être jamais adoptée.
-        </blockquote>
-
-        <div class="reveal">
+        <div class="reveal" style="transition-delay:240ms">
           <a href="contact.html" class="hero__cta" aria-label="Me contacter">
             Prendre contact <span class="hero__cta-arrow" aria-hidden="true">→</span>
           </a>
