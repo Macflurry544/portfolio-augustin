@@ -34,6 +34,25 @@
     body.page-gallery .gal-count { color: rgba(30,24,16,0.32); }
     body.page-gallery .t-caption  { color: rgba(30,24,16,0.32); }
 
+    /* ── CTA et Pixieset : textes en sombre pour le fond blanc ──– */
+    body.page-gallery .gal-cta .t-label,
+    body.page-gallery .gal-pixieset__label { color: #A88B6E; }
+    body.page-gallery .gal-cta .t-h3 { color: #1E1810; }
+    body.page-gallery .gal-cta .hero__cta {
+      background: #1E1810;
+      color: #F7F5F2;
+      box-shadow: 0 4px 24px rgba(30,24,16,0.2);
+    }
+    body.page-gallery .gal-cta .hero__cta:hover {
+      background: #2A241A;
+    }
+    body.page-gallery .gal-cta .hero__cta-arrow {
+      color: #F7F5F2;
+    }
+    body.page-gallery .gal-pixieset__title { color: #1E1810; }
+    body.page-gallery .gal-pixieset__note { color: rgba(30,24,16,0.55); }
+    body.page-gallery .gal-pixieset__note strong { color: #A88B6E; }
+
     /* ── En-tête ─────────────────────────────────────────────── */
     .gal-header {
       padding-top: calc(var(--section-gap) * 0.6 + 70px);
@@ -176,6 +195,9 @@
       max-width: var(--content-max);
       margin: 0 auto;
     }
+    body.page-gallery .gal-cta {
+      border-top-color: rgba(30,24,16,0.15);
+    }
 
     /* ── Bloc Pixieset ───────────────────────────────────────── */
     .gal-pixieset {
@@ -185,6 +207,10 @@
       margin-right: auto;
       background: rgba(var(--cream-rgb), 0.04);
       border: 1px solid rgba(var(--cream-rgb), 0.1);
+    }
+    body.page-gallery .gal-pixieset {
+      background: #F0EEEA;
+      border-color: rgba(30,24,16,0.12);
       border-radius: 16px;
       padding: 3rem 3.5rem;
       display: flex;
@@ -237,9 +263,18 @@
       transition: transform 0.28s var(--ease-out), box-shadow 0.28s ease;
       flex-shrink: 0;
     }
+    body.page-gallery .gal-pixieset__btn {
+      background: #1E1810;
+      color: #F7F5F2;
+      box-shadow: 0 4px 24px rgba(30,24,16,0.18);
+    }
     .gal-pixieset__btn:hover {
       transform: scale(1.03);
       box-shadow: 0 8px 36px rgba(var(--cream-rgb), 0.26);
+    }
+    body.page-gallery .gal-pixieset__btn:hover {
+      background: #2A241A;
+      box-shadow: 0 8px 36px rgba(30,24,16,0.26);
     }
     @media (max-width: 640px) {
       .gal-pixieset {
