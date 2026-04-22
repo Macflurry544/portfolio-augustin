@@ -38,17 +38,95 @@
     body.page-gallery .gal-cta .t-label,
     body.page-gallery .gal-pixieset__label { color: #A88B6E; }
     body.page-gallery .gal-cta .t-h3 { color: #1E1810; }
+    /* CTA Écrire : outline élégant caramel, pas de bloc noir */
     body.page-gallery .gal-cta .hero__cta {
-      background: #1E1810;
-      color: #F7F5F2;
-      box-shadow: 0 4px 24px rgba(30,24,16,0.2);
+      background: transparent;
+      color: #1E1810;
+      border: 1px solid rgba(30,24,16,0.25);
+      box-shadow: none;
+      padding: 14px 28px;
+      transition: background 0.32s var(--ease-out),
+                  color 0.32s var(--ease-out),
+                  border-color 0.32s var(--ease-out),
+                  transform 0.32s var(--ease-out);
     }
     body.page-gallery .gal-cta .hero__cta:hover {
-      background: #2A241A;
+      background: #1E1810;
+      color: #F7F5F2;
+      border-color: #1E1810;
+      transform: translateY(-2px);
     }
     body.page-gallery .gal-cta .hero__cta-arrow {
-      color: #F7F5F2;
+      color: inherit;
+      transition: transform 0.32s var(--ease-out);
     }
+    body.page-gallery .gal-cta .hero__cta:hover .hero__cta-arrow {
+      transform: translateX(4px);
+    }
+
+    /* ── Footer sur fond blanc ─────────────────────────────── */
+    body.page-gallery .site-footer {
+      background: transparent;
+      border-top: 1px solid rgba(30,24,16,0.1);
+    }
+    body.page-gallery .site-footer__copy,
+    body.page-gallery .site-footer__link,
+    body.page-gallery .site-footer__instagram {
+      color: rgba(30,24,16,0.52);
+    }
+    body.page-gallery .site-footer__link:hover,
+    body.page-gallery .site-footer__instagram:hover {
+      color: #1E1810;
+    }
+
+    /* ── Gallery item : polish subtil ──────────────────────── */
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg,
+        transparent 65%,
+        rgba(255,255,255,0) 100%
+      );
+      opacity: 0;
+      transition: opacity 0.42s var(--ease-out);
+      pointer-events: none;
+      z-index: 2;
+      border-radius: inherit;
+    }
+    .gallery-item:hover::after { opacity: 1; }
+
+    /* Coin caramel au hover — détail éditorial */
+    .gallery-item::before {
+      content: '';
+      position: absolute;
+      top: 12px; right: 12px;
+      width: 22px; height: 22px;
+      border-top: 1px solid rgba(176,132,90,0);
+      border-right: 1px solid rgba(176,132,90,0);
+      transition: border-color 0.42s var(--ease-out),
+                  width 0.42s var(--ease-out),
+                  height 0.42s var(--ease-out);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .gallery-item:hover::before {
+      border-top-color: rgba(176,132,90,0.85);
+      border-right-color: rgba(176,132,90,0.85);
+      width: 28px; height: 28px;
+    }
+
+    /* Sur mobile : coins retirés (pas de hover tactile utile) */
+    @media (max-width: 700px) {
+      .gallery-item::before,
+      .gallery-item::after { display: none; }
+    }
+
+    /* ── Custom cursor caché quand lightbox ouverte ────────── */
+    body.lightbox-open .gallery-cursor { display: none !important; }
+    body.lightbox-open { cursor: auto !important; }
+    body.lightbox-open a,
+    body.lightbox-open button { cursor: pointer !important; }
     body.page-gallery .gal-pixieset__title { color: #1E1810; }
     body.page-gallery .gal-pixieset__note { color: rgba(30,24,16,0.55); }
     body.page-gallery .gal-pixieset__note strong { color: #A88B6E; }

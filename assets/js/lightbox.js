@@ -46,6 +46,7 @@
     lbCaption.textContent  = d.caption;
 
     lb.classList.add('is-open');
+    document.body.classList.add('lightbox-open');
     document.body.style.overflow = 'hidden';
 
     /* Déclenche l'entrée après le rendu */
@@ -67,6 +68,7 @@
     lbImg.style.transform  = 'scale(0.94)';
     setTimeout(() => {
       lb.classList.remove('is-open');
+      document.body.classList.remove('lightbox-open');
       document.body.style.overflow = '';
       items[current]?.focus();
     }, 240);

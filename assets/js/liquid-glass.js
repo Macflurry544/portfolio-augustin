@@ -12,23 +12,32 @@
   if (!nav) return;
 
   /* --------------------------------------------------------
-     Scroll — compact + scrolled states
+     Scroll — compact state (direction-aware)
+     - Scroll DOWN past threshold → compact
+     - Scroll UP (any upward motion) → expand immediately
+     - Near top → always expanded
   -------------------------------------------------------- */
-  let ticking = false;
-  const COMPACT_THRESHOLD = 55;
-  const SCROLLED_THRESHOLD = window.innerHeight * 0.55;
+  let ticking     = false;
+  let lastY       = window.scrollY;
+  const TOP_ZONE  = 55;    /* toujours étendu dans cette zone */
+  const SCROLL_EPS = 6;    /* mouvement minimum pour être compté */
 
   function updateNav() {
-    const y = window.scrollY;
+    const y  = window.scrollY;
+    const dy = y - lastY;
 
-    /* Compact: réduit la hauteur */
-    nav.classList.toggle('compact', y > COMPACT_THRESHOLD);
+    if (y < TOP_ZONE) {
+      /* Très haut : jamais compact */
+      nav.classList.remove('compact');
+    } else if (dy > SCROLL_EPS) {
+      /* Scroll vers le bas : compact */
+      nav.classList.add('compact');
+    } else if (dy < -SCROLL_EPS) {
+      /* Scroll vers le haut : étendu à nouveau */
+      nav.classList.remove('compact');
+    }
 
-    /* Scrolled: glass sombre → clair — seulement si page claire
-       Pour ce portfolio tout-sombre, on garde glass sombre toujours.
-       Décommenter si pages claires ajoutées. */
-    // nav.classList.toggle('scrolled', y > SCROLLED_THRESHOLD);
-
+    lastY   = y;
     ticking = false;
   }
 
