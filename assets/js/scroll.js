@@ -58,10 +58,12 @@
     let batchCounter = 0;
     let batchTimer   = null;
 
+    const isMobile = () => window.innerWidth <= 600;
+
     const gridObs = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          /* Délai relatif à l'ordre dans le batch courant (max 3 items visibles à la fois) */
+          /* Délai relatif à l'ordre dans le batch courant */
           const delay = (batchCounter % 4) * 80;
           batchCounter++;
           clearTimeout(batchTimer);
@@ -70,6 +72,16 @@
           entry.target.style.transitionDelay = `${delay}ms`;
           entry.target.style.opacity         = '1';
           entry.target.style.transform       = 'translateY(0)';
+
+          /* ── Shimmer mobile : reflet blanc one-shot ────────── */
+          if (isMobile()) {
+            const shineDelay = delay + 280; /* déclenché après le fade-in */
+            setTimeout(() => {
+              entry.target.classList.add('is-shining');
+              setTimeout(() => entry.target.classList.remove('is-shining'), 800);
+            }, shineDelay);
+          }
+
           gridObs.unobserve(entry.target);
         }
       });

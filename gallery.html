@@ -289,66 +289,85 @@
       .gi-port { aspect-ratio: 4/3; }
     }
 
-    /* ── Mobile (≤ 600px) — CARROUSEL horizontal ─────────────── */
+    /* ── Mobile (≤ 600px) — GRILLE 2 colonnes ───────────────── */
     @media (max-width: 600px) {
-      /* La grille devient un flex scrollable */
-      .gal-grid {
-        display: flex;
-        flex-direction: row;
-        overflow-x: scroll;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        gap: 10px;
-        padding: 0 1.25rem 1rem;
-        padding-right: 20vw;   /* tease la photo suivante */
-        scroll-padding-left: 1.25rem;
-        scrollbar-width: none;
-        margin-bottom: 1rem;
-      }
-      .gal-grid::-webkit-scrollbar { display: none; }
 
-      /* Chaque photo : largeur fixe, snap */
-      .gallery-item {
-        flex: 0 0 78vw;
-        aspect-ratio: 4/3;
-        scroll-snap-align: start;
-        border-radius: 10px;
+      /* Grille 2 colonnes, items alignés au top (portraits hauts) */
+      .gal-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+        gap: 5px;
+        padding: 0 0.75rem 1.5rem;
+        margin: 1rem auto var(--section-gap);
       }
-      /* Photos larges un peu plus larges */
-      .gi-cin,
-      .gi-wide {
-        flex: 0 0 88vw;
-        aspect-ratio: 16/10;
-      }
-      /* Overlay toujours visible (pas de hover touch) */
+
+      /* Formats */
+      .gi-port { aspect-ratio: 3/4;  grid-column: span 1; }
+      .gi-land { aspect-ratio: 4/3;  grid-column: span 1; }
+      .gi-wide { aspect-ratio: 16/9; grid-column: span 2; }
+      .gi-cin  { aspect-ratio: 16/9; grid-column: span 2; }
+
+      /* Coins plus arrondis sur mobile */
+      .gallery-item { border-radius: 10px; }
+
+      /* Overlay : toujours visible — dégradé discret en bas */
       .gallery-item__overlay {
         opacity: 1;
         background: linear-gradient(
           to top,
-          rgba(14,12,10,0.70) 0%,
-          transparent 55%
+          rgba(10,8,6,0.78) 0%,
+          rgba(10,8,6,0.08) 48%,
+          transparent 68%
         );
       }
-      .gallery-item__meta    { transform: translateY(0); }
-      .gallery-item:active img { filter: brightness(0.62); }
+      .gallery-item__meta { transform: translateY(0); }
+
+      /* Meta plus compacte sur mobile */
+      .gallery-item__category { font-size: 0.45rem; letter-spacing: 0.22em; }
+      .gallery-item__title    { font-size: 0.75rem; }
+
+      /* Feedback tactile au tap */
+      .gallery-item:active {
+        transform: scale(0.98);
+        transition: transform 0.12s ease;
+      }
+      .gallery-item:active img { filter: brightness(0.68); }
+
+      /* ── Effet : shimmer qui balaye chaque photo à l'entrée ── */
+      /* Le shimmer est un reflet blanc diagonal, one-shot */
+      .gallery-item::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          115deg,
+          transparent          40%,
+          rgba(255,255,255,0.14) 50%,
+          transparent          60%
+        );
+        background-size: 200% 100%;
+        background-position: 200% 0;
+        pointer-events: none;
+        z-index: 4;
+        opacity: 0;
+        animation: none;
+      }
+      /* Déclenché via JS quand l'item devient visible :
+         on ajoute .shine-done via scroll.js below */
+      .gallery-item.is-shining::after {
+        opacity: 1;
+        animation: photo-shine 0.72s cubic-bezier(0.4,0,0.2,1) forwards;
+      }
+
+      @keyframes photo-shine {
+        0%   { background-position: 200% 0; opacity: 1; }
+        100% { background-position: -50%  0; opacity: 0; }
+      }
     }
 
-    /* ── Indicateur swipe (mobile uniquement) ─────────────────── */
-    .gal-swipe-hint {
-      display: none;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.62rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(var(--cream-rgb), 0.28);
-      padding: 0 1.25rem;
-      margin-bottom: 0.75rem;
-      font-family: var(--font-texte);
-    }
-    @media (max-width: 600px) {
-      .gal-swipe-hint { display: flex; }
-    }
+    /* Indicateur swipe — masqué (plus de carousel) */
+    .gal-swipe-hint { display: none !important; }
   </style>
 </head>
 <body class="page-gallery">
