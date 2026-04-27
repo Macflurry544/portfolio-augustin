@@ -3,7 +3,9 @@
    ============================================================ */
 
 /* ============================================================
-   PAGE LOADER — overlay plein écran, disparaît au load
+   PAGE LOADER — refonte premium, minimal, sans cliché
+   Logotype "AF" centré qui apparaît dans une fine ligne caramel
+   qui se trace de gauche à droite, puis tout fade out doucement.
    ============================================================ */
 #page-loader {
   position: fixed;
@@ -13,47 +15,97 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  gap: 2rem;
-  transition: opacity 0.55s cubic-bezier(0.4,0,0.2,1),
-              visibility 0.55s cubic-bezier(0.4,0,0.2,1);
+  transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1),
+              visibility 0.7s cubic-bezier(0.4,0,0.2,1);
 }
 #page-loader.is-hidden {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
 }
-/* Logotype discret */
-.loader__logo {
-  font-family: 'Young Serif', Georgia, serif;
-  font-size: 1.1rem;
-  letter-spacing: 0.12em;
-  color: rgba(232,228,219,0.55);
-  text-transform: uppercase;
+
+/* Cadre central — typographie + ligne caramel */
+.loader__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+  padding-bottom: 1.6rem;
 }
-/* Barre de progression */
-.loader__bar {
-  width: 80px;
-  height: 1px;
-  background: rgba(232,228,219,0.1);
-  border-radius: 999px;
-  overflow: hidden;
+
+/* Monogramme "AF" — apparaît subtilement, sans rebond ridicule */
+.loader__mark {
+  font-family: 'Young Serif', Georgia, serif;
+  font-size: 2.2rem;
+  letter-spacing: -0.02em;
+  color: #E8E4DB;
+  font-style: italic;
+  opacity: 0;
+  transform: translateY(6px);
+  animation: loader-mark 0.85s cubic-bezier(0.22,1,0.36,1) 0.1s forwards;
   position: relative;
 }
-.loader__bar::after {
+
+/* Petit point caramel à côté du monogramme */
+.loader__mark::after {
   content: '';
   position: absolute;
-  left: 0; top: 0;
-  height: 100%;
-  width: 0%;
+  bottom: 0.45rem;
+  right: -0.55rem;
+  width: 4px; height: 4px;
   background: #B0845A;
-  border-radius: 999px;
-  animation: loader-progress 1.1s cubic-bezier(0.4,0,0.2,1) forwards;
+  border-radius: 50%;
+  opacity: 0;
+  animation: loader-dot 0.4s ease-out 0.85s forwards;
 }
-@keyframes loader-progress {
-  0%   { width: 0%;   opacity: 1; }
-  70%  { width: 85%;  opacity: 1; }
-  100% { width: 100%; opacity: 0.6; }
+
+/* Wordmark complet sous le monogramme — très fin */
+.loader__name {
+  font-family: 'Bitter', Georgia, serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(232,228,219,0.4);
+  opacity: 0;
+  animation: loader-name 0.7s ease-out 0.7s forwards;
+  font-weight: 500;
+}
+
+/* Ligne caramel fine qui se trace de gauche à droite */
+.loader__line {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 110px;
+  height: 1px;
+  background: rgba(232,228,219,0.1);
+  transform: translateX(-50%);
+  overflow: hidden;
+}
+.loader__line::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to right, transparent, #B0845A 50%, transparent);
+  transform: translateX(-100%);
+  animation: loader-trace 1.6s cubic-bezier(0.4,0,0.2,1) 0.4s infinite;
+}
+
+@keyframes loader-mark {
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes loader-dot {
+  to { opacity: 1; }
+}
+@keyframes loader-name {
+  to { opacity: 1; }
+}
+@keyframes loader-trace {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Young+Serif&display=swap');
