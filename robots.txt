@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://macflurry544.github.io/portfolio-augustin/sitemap.xml
