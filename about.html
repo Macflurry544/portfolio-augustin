@@ -929,21 +929,24 @@
     body.page-about .bio-card__title { color: var(--p-deep); }
     body.page-about .bio-card__text  { color: rgba(12,44,85,0.66); }
 
-    /* PILIERS — fond navy + photo clavier-orgue derrière */
+    /* PILIERS — fond photo clavier-orgue VISIBLE, glass refracte */
     body.page-about .about-pillars {
-      background:
-        linear-gradient(135deg, rgba(12,44,85,0.92), rgba(41,99,116,0.94)),
-        url('assets/photos/clavier-orgue-choeur.jpg') center/cover no-repeat;
-      background-attachment: scroll, fixed;
+      background-image: url('assets/photos/clavier-orgue-choeur.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
       position: relative;
+      overflow: hidden;
     }
-    /* Vignette douce pour profondeur */
+    /* Voile teinté navy léger — photo reste lisible derrière le verre */
     body.page-about .about-pillars::before {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse at center,
-        transparent 30%, rgba(12,44,85,0.45) 100%);
+      background:
+        radial-gradient(ellipse at center, rgba(12,44,85,0.28) 0%, rgba(12,44,85,0.62) 100%),
+        linear-gradient(180deg, rgba(12,44,85,0.25), rgba(41,99,116,0.30));
       pointer-events: none;
+      z-index: 0;
     }
     body.page-about .about-pillars > .container {
       position: relative; z-index: 1;
@@ -953,20 +956,21 @@
     body.page-about .pillars-intro__title { color: var(--p-cream); }
     body.page-about .pillars-intro__sub   { color: rgba(237,237,206,0.72); }
 
-    /* Cartes piliers — verre profond, teinté cream pour lisibilité */
+    /* Cartes piliers — VRAI liquid glass, refracte la photo derrière */
     body.page-about .pillar-card {
-      background: rgba(255,252,240,0.10);
-      backdrop-filter: blur(36px) saturate(170%);
-      -webkit-backdrop-filter: blur(36px) saturate(170%);
-      border: 1px solid rgba(237,237,206,0.22);
+      background: rgba(12,44,85,0.18);
+      backdrop-filter: blur(40px) saturate(180%) brightness(0.92);
+      -webkit-backdrop-filter: blur(40px) saturate(180%) brightness(0.92);
+      border: 1px solid rgba(237,237,206,0.28);
       box-shadow:
-        0 12px 48px rgba(0,0,0,0.32),
-        inset 0 1px 0 rgba(255,255,255,0.16),
+        0 16px 56px rgba(0,0,0,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.22),
         inset 0 -1px 0 rgba(255,255,255,0.04);
     }
     body.page-about .pillar-card--musicians {
-      background:
-        linear-gradient(135deg, rgba(237,237,206,0.16) 0%, rgba(98,159,173,0.18) 100%);
+      background: linear-gradient(135deg,
+        rgba(98,159,173,0.20) 0%,
+        rgba(12,44,85,0.22) 100%);
     }
     body.page-about .pillar-card::before {
       background: linear-gradient(to right, rgba(237,237,206,0.6), rgba(237,237,206,0.05));
@@ -994,20 +998,23 @@
       color: var(--p-deep);
     }
 
-    /* SERVICES — fond teal + photo musée lorrain derrière */
+    /* SERVICES — fond photo musée lorrain VISIBLE, glass refracte */
     body.page-about .about-services {
-      background:
-        linear-gradient(135deg, rgba(41,99,116,0.93), rgba(98,159,173,0.86)),
-        url('assets/photos/musee-lorrain.jpg') center/cover no-repeat;
-      background-attachment: scroll, fixed;
+      background-image: url('assets/photos/musee-lorrain.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
       position: relative;
+      overflow: hidden;
     }
     body.page-about .about-services::before {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse at center,
-        transparent 35%, rgba(12,44,85,0.32) 100%);
+      background:
+        radial-gradient(ellipse at center, rgba(41,99,116,0.30) 0%, rgba(12,44,85,0.55) 100%),
+        linear-gradient(180deg, rgba(41,99,116,0.20), rgba(12,44,85,0.28));
       pointer-events: none;
+      z-index: 0;
     }
     body.page-about .about-services > .container {
       position: relative; z-index: 1;
@@ -1016,15 +1023,15 @@
     body.page-about .about-services .t-label { color: #E8C896; }
     body.page-about .about-services .t-body { color: rgba(237,237,206,0.72); }
 
-    /* Cartes services — glass premium teinté */
+    /* Cartes services — VRAI liquid glass refractant */
     body.page-about .sglass-card {
-      background: rgba(237,237,206,0.12);
-      backdrop-filter: blur(34px) saturate(160%);
-      -webkit-backdrop-filter: blur(34px) saturate(160%);
-      border: 1px solid rgba(237,237,206,0.22);
+      background: rgba(41,99,116,0.18);
+      backdrop-filter: blur(38px) saturate(170%) brightness(0.95);
+      -webkit-backdrop-filter: blur(38px) saturate(170%) brightness(0.95);
+      border: 1px solid rgba(237,237,206,0.28);
       box-shadow:
-        0 10px 42px rgba(0,0,0,0.28),
-        inset 0 1px 0 rgba(255,255,255,0.16);
+        0 14px 48px rgba(0,0,0,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.22);
     }
     body.page-about .sglass-card::before {
       background: linear-gradient(to right, rgba(237,237,206,0.65), rgba(237,237,206,0.1));
