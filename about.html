@@ -1105,15 +1105,62 @@
       border-color: rgba(237,237,206,0.4);
     }
 
-    /* CTA bio (au milieu de la page) — match palette navy */
+    /* CTA bio "Prendre contact" — liquid glass premium sur fond crème */
     body.page-about .about-bio .hero__cta {
-      background: var(--p-deep);
-      color: var(--p-cream);
-      box-shadow: 0 4px 20px rgba(12,44,85,0.22);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 14px 28px;
+      border-radius: 999px;
+      background: rgba(12,44,85,0.08);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      border: 1px solid rgba(12,44,85,0.18);
+      box-shadow:
+        0 6px 22px rgba(12,44,85,0.10),
+        inset 0 1px 0 rgba(255,255,255,0.6);
+      color: var(--p-deep);
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      transition: background 0.32s var(--ease-out),
+                  border-color 0.32s var(--ease-out),
+                  color 0.32s var(--ease-out),
+                  transform 0.32s var(--ease-out),
+                  box-shadow 0.32s var(--ease-out);
+      position: relative;
+      overflow: hidden;
+    }
+    /* Reflet doré au survol — sweep à travers la pilule */
+    body.page-about .about-bio .hero__cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg,
+        transparent 38%,
+        rgba(232,200,150,0.35) 50%,
+        transparent 62%);
+      transform: translateX(-110%);
+      transition: transform 0.7s cubic-bezier(0.4,0,0.2,1);
+      pointer-events: none;
+    }
+    body.page-about .about-bio .hero__cta:hover::before {
+      transform: translateX(110%);
     }
     body.page-about .about-bio .hero__cta:hover {
-      background: var(--p-teal);
-      box-shadow: 0 8px 28px rgba(12,44,85,0.32);
+      background: rgba(12,44,85,0.16);
+      border-color: rgba(12,44,85,0.32);
+      transform: translateY(-2px);
+      box-shadow:
+        0 12px 32px rgba(12,44,85,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.65);
+    }
+    body.page-about .about-bio .hero__cta-arrow {
+      transition: transform 0.32s var(--ease-out);
+    }
+    body.page-about .about-bio .hero__cta:hover .hero__cta-arrow {
+      transform: translateX(4px);
     }
 
     /* Sur les fonds avec photo, désactiver fixed sur mobile (perf iOS) */
