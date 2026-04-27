@@ -875,6 +875,247 @@
       margin: 0 auto;
       color: var(--cream-2);
     }
+
+    /* ═══════════════════════════════════════════════════════════
+       PALETTE PAGE À PROPOS — navy / teal / cream
+       (override local ; n'affecte pas les autres pages)
+    ═══════════════════════════════════════════════════════════ */
+    body.page-about {
+      --p-deep:  #0C2C55;    /* navy profond — fonds sombres */
+      --p-teal:  #296374;    /* teal moyen — sections accent */
+      --p-light: #629FAD;    /* teal clair — accents, hover, italics */
+      --p-cream: #EDEDCE;    /* crème jaune — fonds clairs, textes sur sombre */
+    }
+
+    /* HERO — overlay navy au lieu de pur noir */
+    body.page-about .about-hero-full__bg {
+      filter: brightness(0.5) saturate(0.85);
+    }
+    body.page-about .about-hero-full__bg::after {
+      background: linear-gradient(to top,
+        rgba(12,44,85,0.92) 0%,
+        rgba(12,44,85,0.42) 42%,
+        rgba(12,44,85,0.05) 70%,
+        transparent 100%
+      );
+    }
+    body.page-about .about-hero-full__content .t-h1 em {
+      color: #629FAD;
+    }
+    body.page-about .about-hero-full__content .t-label {
+      color: rgba(237,237,206,0.72);
+    }
+
+    /* BIO — fond crème + cartes verre teintées teal */
+    body.page-about .about-bio {
+      background: var(--p-cream);
+    }
+    body.page-about .about-accent-text { color: var(--p-teal); }
+    body.page-about .bio-heading { color: var(--p-deep); }
+    body.page-about .bio-card {
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(28px) saturate(150%);
+      -webkit-backdrop-filter: blur(28px) saturate(150%);
+      border: 1px solid rgba(12,44,85,0.10);
+      box-shadow:
+        0 4px 28px rgba(12,44,85,0.07),
+        inset 0 1px 0 rgba(255,255,255,0.92);
+    }
+    body.page-about .bio-card::before {
+      background: linear-gradient(to right, rgba(255,255,255,0.95), rgba(255,255,255,0.3));
+    }
+    body.page-about .bio-card::after { background: var(--p-light); }
+    body.page-about .bio-card__icon { color: var(--p-teal); }
+    body.page-about .bio-card__title { color: var(--p-deep); }
+    body.page-about .bio-card__text  { color: rgba(12,44,85,0.66); }
+
+    /* PILIERS — fond navy + photo clavier-orgue derrière */
+    body.page-about .about-pillars {
+      background:
+        linear-gradient(135deg, rgba(12,44,85,0.92), rgba(41,99,116,0.94)),
+        url('assets/photos/clavier-orgue-choeur.jpg') center/cover no-repeat;
+      background-attachment: scroll, fixed;
+      position: relative;
+    }
+    /* Vignette douce pour profondeur */
+    body.page-about .about-pillars::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center,
+        transparent 30%, rgba(12,44,85,0.45) 100%);
+      pointer-events: none;
+    }
+    body.page-about .about-pillars > .container {
+      position: relative; z-index: 1;
+    }
+    body.page-about .pillars-ornament { color: #E8C896; }
+    body.page-about .pillars-intro__label { color: #E8C896; }
+    body.page-about .pillars-intro__title { color: var(--p-cream); }
+    body.page-about .pillars-intro__sub   { color: rgba(237,237,206,0.72); }
+
+    /* Cartes piliers — verre profond, teinté cream pour lisibilité */
+    body.page-about .pillar-card {
+      background: rgba(255,252,240,0.10);
+      backdrop-filter: blur(36px) saturate(170%);
+      -webkit-backdrop-filter: blur(36px) saturate(170%);
+      border: 1px solid rgba(237,237,206,0.22);
+      box-shadow:
+        0 12px 48px rgba(0,0,0,0.32),
+        inset 0 1px 0 rgba(255,255,255,0.16),
+        inset 0 -1px 0 rgba(255,255,255,0.04);
+    }
+    body.page-about .pillar-card--musicians {
+      background:
+        linear-gradient(135deg, rgba(237,237,206,0.16) 0%, rgba(98,159,173,0.18) 100%);
+    }
+    body.page-about .pillar-card::before {
+      background: linear-gradient(to right, rgba(237,237,206,0.6), rgba(237,237,206,0.05));
+    }
+    body.page-about .pillar-card::after {
+      background: radial-gradient(circle at center,
+        rgba(232,200,150,0.32) 0%, transparent 65%);
+    }
+    body.page-about .pillar-card__num {
+      color: #E8C896;
+    }
+    body.page-about .pillar-card__num::before { background: #E8C896; }
+    body.page-about .pillar-card__title { color: var(--p-cream); }
+    body.page-about .pillar-card__title em { color: #E8C896; }
+    body.page-about .pillar-card__desc  { color: rgba(237,237,206,0.78); }
+    body.page-about .pillar-card__list li { color: rgba(237,237,206,0.68); }
+    body.page-about .pillar-card__list li::before { background: #E8C896; opacity: 0.85; }
+    body.page-about .pillar-card__cta {
+      background: rgba(237,237,206,0.10);
+      border: 1px solid rgba(237,237,206,0.32);
+      color: var(--p-cream);
+    }
+    body.page-about .pillar-card__cta:hover {
+      background: var(--p-cream);
+      color: var(--p-deep);
+    }
+
+    /* SERVICES — fond teal + photo musée lorrain derrière */
+    body.page-about .about-services {
+      background:
+        linear-gradient(135deg, rgba(41,99,116,0.93), rgba(98,159,173,0.86)),
+        url('assets/photos/musee-lorrain.jpg') center/cover no-repeat;
+      background-attachment: scroll, fixed;
+      position: relative;
+    }
+    body.page-about .about-services::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center,
+        transparent 35%, rgba(12,44,85,0.32) 100%);
+      pointer-events: none;
+    }
+    body.page-about .about-services > .container {
+      position: relative; z-index: 1;
+    }
+    body.page-about .about-services .t-h2 { color: var(--p-cream); }
+    body.page-about .about-services .t-label { color: #E8C896; }
+    body.page-about .about-services .t-body { color: rgba(237,237,206,0.72); }
+
+    /* Cartes services — glass premium teinté */
+    body.page-about .sglass-card {
+      background: rgba(237,237,206,0.12);
+      backdrop-filter: blur(34px) saturate(160%);
+      -webkit-backdrop-filter: blur(34px) saturate(160%);
+      border: 1px solid rgba(237,237,206,0.22);
+      box-shadow:
+        0 10px 42px rgba(0,0,0,0.28),
+        inset 0 1px 0 rgba(255,255,255,0.16);
+    }
+    body.page-about .sglass-card::before {
+      background: linear-gradient(to right, rgba(237,237,206,0.65), rgba(237,237,206,0.1));
+    }
+    body.page-about .sglass-card::after { background: #E8C896; }
+    body.page-about .sglass-card__icon {
+      background: rgba(237,237,206,0.08);
+      border-color: rgba(237,237,206,0.22);
+      color: #E8C896;
+    }
+    body.page-about .sglass-card__title { color: var(--p-cream); }
+    body.page-about .sglass-card__sub   { color: #E8C896; }
+    body.page-about .sglass-card__list li { color: rgba(237,237,206,0.7); }
+    body.page-about .sglass-card__list li::before { color: #E8C896; }
+    body.page-about .sglass-note { color: rgba(237,237,206,0.55); }
+    body.page-about .sglass-note__cta {
+      color: #E8C896;
+    }
+    body.page-about .sglass-note__cta:hover { color: var(--p-cream); }
+
+    /* APPROACH — fond navy profond */
+    body.page-about .about-approach {
+      background: var(--p-deep);
+      --cream:     var(--p-cream);
+      --cream-rgb: 237, 237, 206;
+      --cream-2:   #E8C896;
+    }
+
+    /* COUNTERS — fond crème */
+    body.page-about .counters {
+      background: var(--p-cream);
+    }
+    body.page-about .counters .t-label { color: var(--p-teal); }
+    body.page-about .counter-item__value { color: var(--p-deep); }
+    body.page-about .counter-item__label { color: rgba(12,44,85,0.55); }
+
+    /* FINAL CTA — navy profond, accent doré chaud */
+    body.page-about .about-final-cta {
+      background: var(--p-deep);
+    }
+    body.page-about .about-final-cta::before {
+      background: radial-gradient(circle at center,
+        rgba(232,200,150,0.16) 0%,
+        rgba(98,159,173,0.06) 40%,
+        transparent 65%);
+    }
+    body.page-about .about-final-cta__ornament { color: #E8C896; }
+    body.page-about .about-final-cta__label { color: #E8C896; }
+    body.page-about .about-final-cta__title { color: var(--p-cream); }
+    body.page-about .about-final-cta__sub   { color: rgba(237,237,206,0.6); }
+    body.page-about .glass-cta--primary {
+      background: linear-gradient(135deg, var(--p-light) 0%, var(--p-teal) 100%);
+      color: var(--p-cream);
+      border: 1px solid rgba(98,159,173,0.5);
+      box-shadow:
+        0 6px 28px rgba(98,159,173,0.32),
+        inset 0 1px 0 rgba(255,255,255,0.18);
+    }
+    body.page-about .glass-cta--primary:hover {
+      box-shadow:
+        0 12px 42px rgba(98,159,173,0.44),
+        inset 0 1px 0 rgba(255,255,255,0.28);
+    }
+    body.page-about .glass-cta--ghost {
+      background: rgba(237,237,206,0.08);
+      border: 1px solid rgba(237,237,206,0.22);
+      color: var(--p-cream);
+    }
+    body.page-about .glass-cta--ghost:hover {
+      background: rgba(237,237,206,0.16);
+      border-color: rgba(237,237,206,0.4);
+    }
+
+    /* CTA bio (au milieu de la page) — match palette navy */
+    body.page-about .about-bio .hero__cta {
+      background: var(--p-deep);
+      color: var(--p-cream);
+      box-shadow: 0 4px 20px rgba(12,44,85,0.22);
+    }
+    body.page-about .about-bio .hero__cta:hover {
+      background: var(--p-teal);
+      box-shadow: 0 8px 28px rgba(12,44,85,0.32);
+    }
+
+    /* Sur les fonds avec photo, désactiver fixed sur mobile (perf iOS) */
+    @media (max-width: 900px) {
+      body.page-about .about-pillars,
+      body.page-about .about-services {
+        background-attachment: scroll, scroll;
+      }
+    }
   </style>
 </head>
 <body class="page-about">
@@ -991,7 +1232,7 @@
               </svg>
             </div>
             <h3 class="bio-card__title">L'origine</h3>
-            <p class="bio-card__text">Je pratique l'orgue depuis l'âge de six ans. La musique m'a appris à écouter, à attendre, à composer — et c'est par là que je suis arrivé à l'image, au cadre, à la lumière.</p>
+            <p class="bio-card__text">Je fais de l'orgue depuis l'âge de 6 ans, j'ai toujours été très sensible à l'art quelle que soit la forme qu'il prenne. La musique m'a appris à écouter, apprendre et comprendre ce qui apparaît parfois inintelligible.</p>
           </div>
 
           <div class="bio-card reveal--scale" style="transition-delay:80ms">
@@ -1006,7 +1247,7 @@
               </svg>
             </div>
             <h3 class="bio-card__title">La pratique</h3>
-            <p class="bio-card__text">Je photographie et filme aussi bien des lieux que des événements, des portraits ou des architectures. Chaque sujet impose son propre tempo : je m'adapte à ce que la scène demande, sans formule pré-faite.</p>
+            <p class="bio-card__text">Je photographie et filme des lieux, des événements, des portraits et des architectures. Chaque projet a son propre rythme : je m'adapte à ce que la scène demande, sans approche standardisée. Je sélectionne les projets spécifiquement, afin de m'engager uniquement là où je peux apporter un regard juste et un travail de qualité.</p>
           </div>
 
           <div class="bio-card reveal--scale" style="transition-delay:160ms">
@@ -1086,7 +1327,7 @@
               <li>Teaser et vidéo de présentation d'un lieu ou d'un projet</li>
               <li>Captation d'événement (selon le projet)</li>
               <li>Interview, mini-documentaire</li>
-              <li>Montage, étalonnage et mixage son inclus</li>
+              <li>Montage, étalonnage et mixage sont inclus</li>
             </ul>
           </div>
 
