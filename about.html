@@ -66,12 +66,12 @@
       background: linear-gradient(to right, rgba(255,255,255,0.9), rgba(255,255,255,0.2));
       border-radius: 18px 18px 0 0;
     }
-    /* Trait accent bas au hover */
+    /* Trait accent bas au hover — détaché du bord */
     .sglass-card::after {
       content: '';
       position: absolute;
-      bottom: 0; left: 2rem; right: 2rem;
-      height: 2px;
+      bottom: 1.4rem; left: 2rem; right: 2rem;
+      height: 1.5px;
       background: var(--cream-2);
       border-radius: 999px;
       transform: scaleX(0);
@@ -306,11 +306,11 @@
       background: linear-gradient(to right, rgba(255,255,255,0.14), rgba(255,255,255,0.03));
       border-radius: 18px 18px 0 0;
     }
-    /* Trait caramel bas au hover */
+    /* Trait caramel bas au hover — détaché du bord */
     .bio-card::after {
       content: '';
       position: absolute;
-      bottom: 0; left: 1.8rem; right: 1.8rem;
+      bottom: 1.3rem; left: 1.8rem; right: 1.8rem;
       height: 1.5px;
       background: var(--cream-2);
       border-radius: 999px;
@@ -929,7 +929,7 @@
     body.page-about .bio-card__title { color: var(--p-deep); }
     body.page-about .bio-card__text  { color: rgba(12,44,85,0.66); }
 
-    /* PILIERS — fond photo clavier-orgue VISIBLE, glass refracte */
+    /* PILIERS — photo nette derrière, voile très léger neutre */
     body.page-about .about-pillars {
       background-image: url('assets/photos/clavier-orgue-choeur.jpg');
       background-size: cover;
@@ -938,67 +938,78 @@
       position: relative;
       overflow: hidden;
     }
-    /* Voile teinté navy léger — photo reste lisible derrière le verre */
+    /* Voile crème très léger — la photo reste visible et belle */
     body.page-about .about-pillars::before {
       content: '';
       position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse at center, rgba(12,44,85,0.28) 0%, rgba(12,44,85,0.62) 100%),
-        linear-gradient(180deg, rgba(12,44,85,0.25), rgba(41,99,116,0.30));
+        radial-gradient(ellipse at center,
+          rgba(237,237,206,0.18) 0%,
+          rgba(237,237,206,0.42) 100%);
       pointer-events: none;
       z-index: 0;
     }
     body.page-about .about-pillars > .container {
       position: relative; z-index: 1;
     }
-    body.page-about .pillars-ornament { color: #E8C896; }
-    body.page-about .pillars-intro__label { color: #E8C896; }
-    body.page-about .pillars-intro__title { color: var(--p-cream); }
-    body.page-about .pillars-intro__sub   { color: rgba(237,237,206,0.72); }
+    body.page-about .pillars-ornament { color: var(--p-deep); }
+    body.page-about .pillars-intro__label {
+      color: var(--p-deep);
+      text-shadow: 0 1px 8px rgba(255,253,245,0.5);
+    }
+    body.page-about .pillars-intro__title {
+      color: var(--p-deep);
+      text-shadow: 0 2px 24px rgba(255,253,245,0.6);
+    }
+    body.page-about .pillars-intro__sub   {
+      color: rgba(12,44,85,0.78);
+      text-shadow: 0 1px 8px rgba(255,253,245,0.5);
+    }
 
-    /* Cartes piliers — VRAI liquid glass, refracte la photo derrière */
+    /* Cartes piliers — verre crème translucide, texte navy */
     body.page-about .pillar-card {
-      background: rgba(12,44,85,0.18);
-      backdrop-filter: blur(40px) saturate(180%) brightness(0.92);
-      -webkit-backdrop-filter: blur(40px) saturate(180%) brightness(0.92);
-      border: 1px solid rgba(237,237,206,0.28);
+      background: rgba(255,253,245,0.32);
+      backdrop-filter: blur(28px) saturate(160%);
+      -webkit-backdrop-filter: blur(28px) saturate(160%);
+      border: 1px solid rgba(255,253,245,0.55);
       box-shadow:
-        0 16px 56px rgba(0,0,0,0.45),
-        inset 0 1px 0 rgba(255,255,255,0.22),
-        inset 0 -1px 0 rgba(255,255,255,0.04);
+        0 12px 42px rgba(12,44,85,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.65),
+        inset 0 -1px 0 rgba(255,255,255,0.05);
     }
     body.page-about .pillar-card--musicians {
       background: linear-gradient(135deg,
-        rgba(98,159,173,0.20) 0%,
-        rgba(12,44,85,0.22) 100%);
+        rgba(255,253,245,0.42) 0%,
+        rgba(237,237,206,0.30) 100%);
     }
     body.page-about .pillar-card::before {
-      background: linear-gradient(to right, rgba(237,237,206,0.6), rgba(237,237,206,0.05));
+      background: linear-gradient(to right, rgba(255,255,255,0.85), rgba(255,255,255,0.2));
     }
+    /* Halo doré au hover — teinté teal pour la page about */
     body.page-about .pillar-card::after {
       background: radial-gradient(circle at center,
-        rgba(232,200,150,0.32) 0%, transparent 65%);
+        rgba(98,159,173,0.32) 0%, transparent 65%);
     }
     body.page-about .pillar-card__num {
-      color: #E8C896;
+      color: var(--p-teal);
     }
-    body.page-about .pillar-card__num::before { background: #E8C896; }
-    body.page-about .pillar-card__title { color: var(--p-cream); }
-    body.page-about .pillar-card__title em { color: #E8C896; }
-    body.page-about .pillar-card__desc  { color: rgba(237,237,206,0.78); }
-    body.page-about .pillar-card__list li { color: rgba(237,237,206,0.68); }
-    body.page-about .pillar-card__list li::before { background: #E8C896; opacity: 0.85; }
+    body.page-about .pillar-card__num::before { background: var(--p-teal); }
+    body.page-about .pillar-card__title { color: var(--p-deep); }
+    body.page-about .pillar-card__title em { color: var(--p-teal); }
+    body.page-about .pillar-card__desc  { color: rgba(12,44,85,0.72); }
+    body.page-about .pillar-card__list li { color: rgba(12,44,85,0.72); }
+    body.page-about .pillar-card__list li::before { background: var(--p-teal); opacity: 1; }
     body.page-about .pillar-card__cta {
-      background: rgba(237,237,206,0.10);
-      border: 1px solid rgba(237,237,206,0.32);
-      color: var(--p-cream);
-    }
-    body.page-about .pillar-card__cta:hover {
-      background: var(--p-cream);
+      background: rgba(12,44,85,0.06);
+      border: 1px solid rgba(12,44,85,0.22);
       color: var(--p-deep);
     }
+    body.page-about .pillar-card__cta:hover {
+      background: var(--p-deep);
+      color: var(--p-cream);
+    }
 
-    /* SERVICES — fond photo musée lorrain VISIBLE, glass refracte */
+    /* SERVICES — fond photo musée lorrain visible, voile crème léger */
     body.page-about .about-services {
       background-image: url('assets/photos/musee-lorrain.jpg');
       background-size: cover;
@@ -1011,54 +1022,78 @@
       content: '';
       position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse at center, rgba(41,99,116,0.30) 0%, rgba(12,44,85,0.55) 100%),
-        linear-gradient(180deg, rgba(41,99,116,0.20), rgba(12,44,85,0.28));
+        radial-gradient(ellipse at center,
+          rgba(237,237,206,0.16) 0%,
+          rgba(237,237,206,0.40) 100%);
       pointer-events: none;
       z-index: 0;
     }
     body.page-about .about-services > .container {
       position: relative; z-index: 1;
     }
-    body.page-about .about-services .t-h2 { color: var(--p-cream); }
-    body.page-about .about-services .t-label { color: #E8C896; }
-    body.page-about .about-services .t-body { color: rgba(237,237,206,0.72); }
+    body.page-about .about-services .t-h2 {
+      color: var(--p-deep);
+      text-shadow: 0 2px 24px rgba(255,253,245,0.6);
+    }
+    body.page-about .about-services .t-label {
+      color: var(--p-teal);
+      text-shadow: 0 1px 8px rgba(255,253,245,0.5);
+    }
+    body.page-about .about-services .t-body {
+      color: rgba(12,44,85,0.78);
+      text-shadow: 0 1px 8px rgba(255,253,245,0.5);
+    }
 
-    /* Cartes services — VRAI liquid glass refractant */
+    /* Cartes services — verre crème translucide, texte navy */
     body.page-about .sglass-card {
-      background: rgba(41,99,116,0.18);
-      backdrop-filter: blur(38px) saturate(170%) brightness(0.95);
-      -webkit-backdrop-filter: blur(38px) saturate(170%) brightness(0.95);
-      border: 1px solid rgba(237,237,206,0.28);
+      background: rgba(255,253,245,0.34);
+      backdrop-filter: blur(26px) saturate(155%);
+      -webkit-backdrop-filter: blur(26px) saturate(155%);
+      border: 1px solid rgba(255,253,245,0.6);
       box-shadow:
-        0 14px 48px rgba(0,0,0,0.4),
-        inset 0 1px 0 rgba(255,255,255,0.22);
+        0 12px 38px rgba(12,44,85,0.16),
+        inset 0 1px 0 rgba(255,255,255,0.7);
     }
     body.page-about .sglass-card::before {
-      background: linear-gradient(to right, rgba(237,237,206,0.65), rgba(237,237,206,0.1));
+      background: linear-gradient(to right, rgba(255,255,255,0.9), rgba(255,255,255,0.2));
     }
-    body.page-about .sglass-card::after { background: #E8C896; }
+    /* Trait soulignement détaché du bas */
+    body.page-about .sglass-card::after {
+      background: var(--p-teal);
+      bottom: 1.2rem;
+    }
     body.page-about .sglass-card__icon {
-      background: rgba(237,237,206,0.08);
-      border-color: rgba(237,237,206,0.22);
-      color: #E8C896;
+      background: rgba(12,44,85,0.06);
+      border-color: rgba(12,44,85,0.18);
+      color: var(--p-teal);
     }
-    body.page-about .sglass-card__title { color: var(--p-cream); }
-    body.page-about .sglass-card__sub   { color: #E8C896; }
-    body.page-about .sglass-card__list li { color: rgba(237,237,206,0.7); }
-    body.page-about .sglass-card__list li::before { color: #E8C896; }
-    body.page-about .sglass-note { color: rgba(237,237,206,0.55); }
+    body.page-about .sglass-card__title { color: var(--p-deep); }
+    body.page-about .sglass-card__sub   { color: var(--p-teal); }
+    body.page-about .sglass-card__list li { color: rgba(12,44,85,0.7); }
+    body.page-about .sglass-card__list li::before { color: var(--p-teal); }
+    body.page-about .sglass-note {
+      color: rgba(12,44,85,0.65);
+      text-shadow: 0 1px 6px rgba(255,253,245,0.5);
+    }
     body.page-about .sglass-note__cta {
-      color: #E8C896;
+      color: var(--p-deep);
+      font-weight: 700;
     }
-    body.page-about .sglass-note__cta:hover { color: var(--p-cream); }
+    body.page-about .sglass-note__cta:hover { color: var(--p-teal); }
 
-    /* APPROACH — fond navy profond */
+    /* APPROACH — fond crème, texte navy */
     body.page-about .about-approach {
-      background: var(--p-deep);
-      --cream:     var(--p-cream);
-      --cream-rgb: 237, 237, 206;
-      --cream-2:   #E8C896;
+      background: var(--p-cream);
+      --cream:     var(--p-deep);
+      --cream-rgb: 12, 44, 85;
+      --cream-2:   var(--p-teal);
     }
+    body.page-about .about-approach .about-accent-text { color: var(--p-teal); }
+    body.page-about .about-approach .t-h2 { color: var(--p-deep); }
+    body.page-about .about-approach .approach-item { border-top-color: rgba(12,44,85,0.14); }
+    body.page-about .about-approach .approach-item__num   { color: rgba(12,44,85,0.10); }
+    body.page-about .about-approach .approach-item__title { color: var(--p-deep); }
+    body.page-about .about-approach .approach-item__text  { color: rgba(12,44,85,0.65); }
 
     /* COUNTERS — fond crème */
     body.page-about .counters {
@@ -1068,41 +1103,44 @@
     body.page-about .counter-item__value { color: var(--p-deep); }
     body.page-about .counter-item__label { color: rgba(12,44,85,0.55); }
 
-    /* FINAL CTA — navy profond, accent doré chaud */
+    /* FINAL CTA — fond crème, texte navy */
     body.page-about .about-final-cta {
-      background: var(--p-deep);
+      background: var(--p-cream);
     }
     body.page-about .about-final-cta::before {
       background: radial-gradient(circle at center,
-        rgba(232,200,150,0.16) 0%,
+        rgba(98,159,173,0.18) 0%,
         rgba(98,159,173,0.06) 40%,
         transparent 65%);
     }
-    body.page-about .about-final-cta__ornament { color: #E8C896; }
-    body.page-about .about-final-cta__label { color: #E8C896; }
-    body.page-about .about-final-cta__title { color: var(--p-cream); }
-    body.page-about .about-final-cta__sub   { color: rgba(237,237,206,0.6); }
+    body.page-about .about-final-cta__ornament { color: var(--p-teal); }
+    body.page-about .about-final-cta__label    { color: var(--p-teal); }
+    body.page-about .about-final-cta__title    { color: var(--p-deep); }
+    body.page-about .about-final-cta__sub      { color: rgba(12,44,85,0.6); }
+
     body.page-about .glass-cta--primary {
-      background: linear-gradient(135deg, var(--p-light) 0%, var(--p-teal) 100%);
+      background: linear-gradient(135deg, var(--p-deep) 0%, var(--p-teal) 100%);
       color: var(--p-cream);
-      border: 1px solid rgba(98,159,173,0.5);
+      border: 1px solid rgba(12,44,85,0.4);
       box-shadow:
-        0 6px 28px rgba(98,159,173,0.32),
-        inset 0 1px 0 rgba(255,255,255,0.18);
+        0 6px 28px rgba(12,44,85,0.28),
+        inset 0 1px 0 rgba(255,255,255,0.22);
     }
     body.page-about .glass-cta--primary:hover {
       box-shadow:
-        0 12px 42px rgba(98,159,173,0.44),
-        inset 0 1px 0 rgba(255,255,255,0.28);
+        0 14px 42px rgba(12,44,85,0.36),
+        inset 0 1px 0 rgba(255,255,255,0.32);
     }
     body.page-about .glass-cta--ghost {
-      background: rgba(237,237,206,0.08);
-      border: 1px solid rgba(237,237,206,0.22);
-      color: var(--p-cream);
+      background: rgba(12,44,85,0.06);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      border: 1px solid rgba(12,44,85,0.22);
+      color: var(--p-deep);
     }
     body.page-about .glass-cta--ghost:hover {
-      background: rgba(237,237,206,0.16);
-      border-color: rgba(237,237,206,0.4);
+      background: rgba(12,44,85,0.14);
+      border-color: rgba(12,44,85,0.4);
     }
 
     /* CTA bio "Prendre contact" — liquid glass premium sur fond crème */
@@ -1167,8 +1205,212 @@
     @media (max-width: 900px) {
       body.page-about .about-pillars,
       body.page-about .about-services {
-        background-attachment: scroll, scroll;
+        background-attachment: scroll;
       }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       SOMMAIRE / TOC — barre glass, sticky-feel sous le hero
+    ═══════════════════════════════════════════════════════════ */
+    .about-toc {
+      position: relative;
+      z-index: 5;
+      margin-top: -32px;       /* chevauche légèrement le hero pour effet "flotte" */
+      padding: 0 var(--gutter);
+      animation: toc-rise 0.7s cubic-bezier(0.22,1,0.36,1) 0.6s both;
+    }
+    @keyframes toc-rise {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .about-toc__inner {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      padding: 0.7rem 1.4rem;
+      border-radius: 999px;
+      background: rgba(255,253,245,0.78);
+      backdrop-filter: blur(28px) saturate(170%);
+      -webkit-backdrop-filter: blur(28px) saturate(170%);
+      border: 1px solid rgba(255,253,245,0.92);
+      box-shadow:
+        0 12px 42px rgba(12,44,85,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.95);
+    }
+    .about-toc__label {
+      font-family: var(--font-texte);
+      font-size: 0.55rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--p-teal);
+      padding: 0 0.6rem;
+    }
+    .about-toc__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-family: var(--font-texte);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--p-deep);
+      transition: background 0.32s var(--ease-out),
+                  color 0.32s var(--ease-out),
+                  transform 0.32s var(--ease-out);
+      position: relative;
+    }
+    .about-toc__link span {
+      font-family: var(--font-titre);
+      font-style: italic;
+      font-size: 0.65rem;
+      color: var(--p-teal);
+      opacity: 0.85;
+      transition: color 0.32s var(--ease-out);
+    }
+    .about-toc__link:hover {
+      background: rgba(12,44,85,0.08);
+      transform: translateY(-1px);
+    }
+    .about-toc__link--accent {
+      background: var(--p-deep);
+      color: var(--p-cream);
+      padding: 8px 16px;
+      margin-left: auto;
+    }
+    .about-toc__link--accent span {
+      color: var(--p-cream);
+      font-style: normal;
+      font-family: var(--font-texte);
+      font-size: 0.85rem;
+    }
+    .about-toc__link--accent:hover {
+      background: var(--p-teal);
+      color: var(--p-cream);
+      transform: translateY(-1px);
+    }
+
+    /* Mobile : TOC scrollable horizontalement */
+    @media (max-width: 760px) {
+      .about-toc {
+        margin-top: -24px;
+        padding: 0 1rem;
+      }
+      .about-toc__inner {
+        padding: 0.5rem 0.8rem;
+        gap: 0.2rem;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 14px;
+      }
+      .about-toc__inner::-webkit-scrollbar { display: none; }
+      .about-toc__label { display: none; }
+      .about-toc__link {
+        flex-shrink: 0;
+        font-size: 0.66rem;
+        padding: 7px 12px;
+      }
+      .about-toc__link--accent { margin-left: 0; }
+    }
+
+    /* Décalage pour les anchors — la nav pill ne masque pas les titres */
+    body.page-about #bio,
+    body.page-about #pillars,
+    body.page-about #services,
+    body.page-about #approche,
+    body.page-about #contact {
+      scroll-margin-top: 110px;
+    }
+    html { scroll-behavior: smooth; }
+
+    /* ═══════════════════════════════════════════════════════════
+       ANIMATIONS BONUS — qui claquent
+    ═══════════════════════════════════════════════════════════ */
+
+    /* Bio heading : caractères qui apparaissent en cascade au scroll */
+    body.page-about .bio-heading.is-visible {
+      animation: bio-heading-in 1s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    @keyframes bio-heading-in {
+      0%   { opacity: 0; transform: translateY(20px); letter-spacing: 0.04em; }
+      100% { opacity: 1; transform: translateY(0); letter-spacing: -0.02em; }
+    }
+
+    /* Pilier intro title : zoom-in italique */
+    body.page-about .pillars-intro__title.is-visible {
+      animation: pillars-zoom 1.1s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    @keyframes pillars-zoom {
+      0%   { opacity: 0; transform: scale(0.92); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    /* Cartes piliers : entrent décalées avec rotation subtile */
+    body.page-about .pillar-card {
+      transform: translateY(40px) rotateX(6deg);
+      opacity: 0;
+      transition: opacity 1s cubic-bezier(0.22,1,0.36,1),
+                  transform 1s cubic-bezier(0.22,1,0.36,1),
+                  box-shadow 0.42s var(--ease-out);
+    }
+    body.page-about .pillar-card.is-visible {
+      opacity: 1;
+      transform: translateY(0) rotateX(0);
+    }
+    body.page-about .pillar-card:hover {
+      transform: translateY(-8px) rotateX(0);
+    }
+
+    /* Subtle floating breathe on the photo backdrop sections */
+    @keyframes bg-breathe {
+      0%, 100% { background-size: 100% auto; }
+      50%      { background-size: 104% auto; }
+    }
+    body.page-about .about-pillars,
+    body.page-about .about-services {
+      animation: bg-breathe 22s ease-in-out infinite;
+    }
+
+    /* Shine-sweep on glass-cta primary */
+    body.page-about .glass-cta--primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg,
+        transparent 38%,
+        rgba(237,237,206,0.32) 50%,
+        transparent 62%);
+      transform: translateX(-110%);
+      transition: transform 0.7s cubic-bezier(0.4,0,0.2,1);
+      pointer-events: none;
+    }
+    body.page-about .glass-cta--primary:hover::before {
+      transform: translateX(110%);
+    }
+
+    /* Counters value : pulse subtil au load */
+    body.page-about .counter-item__value {
+      transition: transform 0.5s var(--ease-out);
+    }
+    body.page-about .counter-item:hover .counter-item__value {
+      transform: scale(1.04);
+    }
+
+    /* Ornament fade-in spin */
+    body.page-about .pillars-ornament,
+    body.page-about .about-final-cta__ornament {
+      animation: ornament-in 1.2s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    @keyframes ornament-in {
+      0%   { opacity: 0; transform: scale(0.8) rotate(-8deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0); }
     }
   </style>
 </head>
@@ -1235,8 +1477,8 @@
           <circle class="adiv-dot2" cx="148" cy="7" r="1.5"
                   fill="var(--cream-2)" opacity="0.45" style="transform-origin:148px 7px"/>
         </svg>
-        <h1 class="t-h1" style="max-width:18ch;animation:fade-up 0.78s var(--ease-out) 0.22s both">
-          Donner du poids<br>à ce que l'on <em>regarde</em>.
+        <h1 class="t-h1" style="max-width:20ch;animation:fade-up 0.78s var(--ease-out) 0.22s both">
+          Valoriser ce qui mérite<br>d'<em>être vu</em>.
         </h1>
         <p class="t-large" style="max-width:46ch;margin-top:1rem;animation:fade-up 0.72s var(--ease-out) 0.4s both">
           Photographe et vidéaste à Nancy & Paris — spécialisé en communication visuelle pour musiciens, et présent pour valoriser vos lieux, événements et portraits.
@@ -1248,10 +1490,22 @@
       </div>
     </section>
 
+    <!-- SOMMAIRE — barre glass sticky-feel pour navigation rapide -->
+    <nav class="about-toc" aria-label="Sommaire de la page">
+      <div class="about-toc__inner">
+        <span class="about-toc__label">Naviguer ·</span>
+        <a href="#bio" class="about-toc__link"><span>i</span> Le parcours</a>
+        <a href="#pillars" class="about-toc__link"><span>ii</span> Mes deux univers</a>
+        <a href="#services" class="about-toc__link"><span>iii</span> Prestations</a>
+        <a href="#approche" class="about-toc__link"><span>iv</span> Approche</a>
+        <a href="#contact" class="about-toc__link about-toc__link--accent"><span>→</span> Contact</a>
+      </div>
+    </nav>
+
     <hr class="rule">
 
     <!-- BIO — cartes liquid glass -->
-    <section class="about-bio section" aria-labelledby="bio-titre">
+    <section id="bio" class="about-bio section" aria-labelledby="bio-titre">
       <div class="container">
 
         <p class="t-label reveal about-accent-text">Biographie</p>
@@ -1331,7 +1585,7 @@
     <hr class="rule">
 
     <!-- PRESTATIONS — cartes liquid glass -->
-    <section class="about-services section" aria-labelledby="prestations-titre">
+    <section id="services" class="about-services section" aria-labelledby="prestations-titre">
       <div class="container">
         <div class="about-services__header">
           <div>
@@ -1417,7 +1671,7 @@
     <hr class="rule">
 
     <!-- DEUX PILIERS — Communication musiciens / Autres prestations -->
-    <section class="about-pillars" aria-labelledby="pillars-titre">
+    <section id="pillars" class="about-pillars" aria-labelledby="pillars-titre">
       <div class="container">
 
         <!-- Ornement Belle Époque -->
@@ -1495,7 +1749,7 @@
     <hr class="rule">
 
     <!-- APPROACH -->
-    <section class="about-approach section" aria-labelledby="approach-titre">
+    <section id="approche" class="about-approach section" aria-labelledby="approach-titre">
       <div class="container">
         <header>
           <p class="t-label reveal about-accent-text">Approche</p>
@@ -1552,7 +1806,7 @@
     </section>
 
     <!-- FINAL CTA — duo de boutons liquid glass premium -->
-    <section class="about-final-cta" aria-labelledby="final-cta-titre">
+    <section id="contact" class="about-final-cta" aria-labelledby="final-cta-titre">
       <div class="about-final-cta__inner">
 
         <!-- Ornement Belle Époque caramel -->
