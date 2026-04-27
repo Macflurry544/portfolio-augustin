@@ -3,20 +3,20 @@
    ============================================================ */
 
 /* ============================================================
-   PAGE LOADER — refonte premium, minimal, sans cliché
-   Logotype "AF" centré qui apparaît dans une fine ligne caramel
-   qui se trace de gauche à droite, puis tout fade out doucement.
+   PAGE LOADER — burst d'ouverture diaphragme abstrait
+   Six fines lignes caramel jaillissent du centre, tournent
+   doucement, un anneau s'élargit puis tout fade.
    ============================================================ */
 #page-loader {
   position: fixed;
   inset: 0;
   z-index: 99999;
-  background: #0E0C09;
+  background: #0A0807;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1),
-              visibility 0.7s cubic-bezier(0.4,0,0.2,1);
+  transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1),
+              visibility 0.8s cubic-bezier(0.4,0,0.2,1);
 }
 #page-loader.is-hidden {
   opacity: 0;
@@ -24,88 +24,64 @@
   pointer-events: none;
 }
 
-/* Cadre central — typographie + ligne caramel */
-.loader__inner {
+.loader__stage {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.4rem;
-  padding-bottom: 1.6rem;
+  width: 120px;
+  height: 120px;
 }
 
-/* Monogramme "AF" — apparaît subtilement, sans rebond ridicule */
-.loader__mark {
-  font-family: 'Young Serif', Georgia, serif;
-  font-size: 2.2rem;
-  letter-spacing: -0.02em;
-  color: #E8E4DB;
-  font-style: italic;
-  opacity: 0;
-  transform: translateY(6px);
-  animation: loader-mark 0.85s cubic-bezier(0.22,1,0.36,1) 0.1s forwards;
-  position: relative;
-}
-
-/* Petit point caramel à côté du monogramme */
-.loader__mark::after {
-  content: '';
-  position: absolute;
-  bottom: 0.45rem;
-  right: -0.55rem;
-  width: 4px; height: 4px;
-  background: #B0845A;
-  border-radius: 50%;
-  opacity: 0;
-  animation: loader-dot 0.4s ease-out 0.85s forwards;
-}
-
-/* Wordmark complet sous le monogramme — très fin */
-.loader__name {
-  font-family: 'Bitter', Georgia, serif;
-  font-size: 0.55rem;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: rgba(232,228,219,0.4);
-  opacity: 0;
-  animation: loader-name 0.7s ease-out 0.7s forwards;
-  font-weight: 500;
-}
-
-/* Ligne caramel fine qui se trace de gauche à droite */
-.loader__line {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 110px;
-  height: 1px;
-  background: rgba(232,228,219,0.1);
-  transform: translateX(-50%);
-  overflow: hidden;
-}
-.loader__line::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  height: 100%;
+/* SVG porteur de l'animation */
+.loader__svg {
   width: 100%;
-  background: linear-gradient(to right, transparent, #B0845A 50%, transparent);
-  transform: translateX(-100%);
-  animation: loader-trace 1.6s cubic-bezier(0.4,0,0.2,1) 0.4s infinite;
+  height: 100%;
+  overflow: visible;
+  animation: loader-rotate 4.2s linear infinite;
 }
 
-@keyframes loader-mark {
-  to { opacity: 1; transform: translateY(0); }
+/* Centre : point qui pulse */
+.loader__svg .lc-dot {
+  transform-origin: 60px 60px;
+  animation: loader-pulse 1.8s cubic-bezier(0.4,0,0.2,1) infinite;
 }
-@keyframes loader-dot {
-  to { opacity: 1; }
+
+/* Lignes du diaphragme — apparaissent en cascade depuis le centre */
+.loader__svg .lc-blade {
+  stroke-dasharray: 32;
+  stroke-dashoffset: 32;
+  transform-origin: 60px 60px;
+  animation: loader-blade 2.2s cubic-bezier(0.4,0,0.2,1) infinite;
 }
-@keyframes loader-name {
-  to { opacity: 1; }
+.loader__svg .lc-blade:nth-child(1) { animation-delay: 0s;    }
+.loader__svg .lc-blade:nth-child(2) { animation-delay: 0.12s; }
+.loader__svg .lc-blade:nth-child(3) { animation-delay: 0.24s; }
+.loader__svg .lc-blade:nth-child(4) { animation-delay: 0.36s; }
+.loader__svg .lc-blade:nth-child(5) { animation-delay: 0.48s; }
+.loader__svg .lc-blade:nth-child(6) { animation-delay: 0.60s; }
+
+/* Anneau extérieur qui respire */
+.loader__svg .lc-ring {
+  transform-origin: 60px 60px;
+  animation: loader-ring 2.8s cubic-bezier(0.4,0,0.2,1) infinite;
 }
-@keyframes loader-trace {
-  0%   { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+
+@keyframes loader-rotate {
+  from { transform: rotate(0deg);   }
+  to   { transform: rotate(360deg); }
+}
+@keyframes loader-blade {
+  0%   { stroke-dashoffset: 32; opacity: 0; }
+  35%  { stroke-dashoffset: 0;  opacity: 1; }
+  70%  { stroke-dashoffset: 0;  opacity: 0.4; }
+  100% { stroke-dashoffset: 32; opacity: 0; }
+}
+@keyframes loader-pulse {
+  0%, 100% { transform: scale(1);   opacity: 1; }
+  50%      { transform: scale(1.6); opacity: 0.7; }
+}
+@keyframes loader-ring {
+  0%   { transform: scale(0.65); opacity: 0; }
+  40%  { transform: scale(1);    opacity: 0.7; }
+  100% { transform: scale(1.35); opacity: 0; }
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Young+Serif&display=swap');

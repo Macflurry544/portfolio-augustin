@@ -136,16 +136,21 @@
       color: #fff;
     }
 
-    /* Sous-titre */
+    /* Sous-titre — fortement contrasté */
     .hero__sub {
       font-family: var(--font-texte);
-      font-size: clamp(0.88rem, 1.3vw, 1rem);
-      line-height: 1.75;
-      color: rgba(255,255,255,0.72);
-      max-width: 40ch;
+      font-size: clamp(0.92rem, 1.35vw, 1.05rem);
+      line-height: 1.78;
+      color: #fff;
+      max-width: 44ch;
       margin-bottom: 2.8rem;
       animation: fade-up 0.72s var(--ease-out) 0.72s both;
-      text-shadow: 0 1px 16px rgba(0,0,0,0.55);
+      font-weight: 500;
+      text-shadow:
+        0 1px 2px rgba(0,0,0,0.85),
+        0 2px 18px rgba(0,0,0,0.75),
+        0 0 32px rgba(0,0,0,0.55);
+      padding: 0.4rem 0.8rem;
     }
 
     /* ── CTAs — bleu marine, draw-line au hover ────────── */
@@ -400,19 +405,19 @@
       margin: 2rem 0;
       border-radius: 2px;
     }
-    /* Fragments poétiques */
-    .im-frags {
-      display: flex;
-      flex-direction: column;
-      gap: 0.1rem;
+    /* Phrase de présentation — éditoriale */
+    .im-statement {
+      font-family: var(--font-texte);
+      font-size: clamp(1rem, 1.4vw, 1.18rem);
+      line-height: 1.78;
+      color: rgba(var(--cream-rgb), 0.7);
+      max-width: 46ch;
+      margin: 0;
     }
-    .im-frag {
-      font-family: var(--font-titre);
-      font-size: clamp(1rem, 1.8vw, 1.4rem);
-      line-height: 1.65;
-      color: rgba(var(--cream-rgb), 0.44);
+    .im-statement em {
       font-style: italic;
-      display: block;
+      color: var(--cream-2);
+      font-weight: 500;
     }
     /* Tag lieu */
     .im-tag {
@@ -759,10 +764,17 @@
 <body class="page-index">
   <!-- LOADER -->
   <div id="page-loader" aria-hidden="true">
-    <div class="loader__inner">
-      <span class="loader__mark">af</span>
-      <span class="loader__name">Augustin Fleury · Photographe</span>
-      <span class="loader__line" aria-hidden="true"></span>
+    <div class="loader__stage">
+      <svg class="loader__svg" viewBox="0 0 120 120" fill="none" stroke="#B0845A" stroke-width="1.4" stroke-linecap="round">
+        <circle class="lc-ring" cx="60" cy="60" r="42" stroke="#B0845A" stroke-opacity="0.5"/>
+        <line class="lc-blade" x1="60" y1="60" x2="60" y2="24"/>
+        <line class="lc-blade" x1="60" y1="60" x2="91.18" y2="42"/>
+        <line class="lc-blade" x1="60" y1="60" x2="91.18" y2="78"/>
+        <line class="lc-blade" x1="60" y1="60" x2="60" y2="96"/>
+        <line class="lc-blade" x1="60" y1="60" x2="28.82" y2="78"/>
+        <line class="lc-blade" x1="60" y1="60" x2="28.82" y2="42"/>
+        <circle class="lc-dot" cx="60" cy="60" r="3" fill="#B0845A" stroke="none"/>
+      </svg>
     </div>
   </div>
 
@@ -872,12 +884,10 @@
               <span class="im-big">Regarder.</span>
               <span class="im-ghost">Pas capturer.</span>
               <span class="im-rule" aria-hidden="true"></span>
-              <span class="im-frags">
-                <span class="im-frag">Une lumière.</span>
-                <span class="im-frag">Le temps.</span>
-                <span class="im-frag">Quelque chose qui reste.</span>
-              </span>
-              <span class="im-tag">Nancy.</span>
+              <p class="im-statement">
+                Photographe et vidéaste à Nancy, j'accompagne <em>musiciens, institutions et particuliers</em> pour donner du poids à leurs lieux, leurs événements et leurs portraits — par une image juste, qui dure.
+              </p>
+              <span class="im-tag">Nancy & Paris</span>
             </div>
             <a href="about.html" class="intro-cta reveal" style="transition-delay:160ms" aria-label="Lire la démarche complète">
               La démarche

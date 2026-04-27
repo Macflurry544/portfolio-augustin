@@ -404,11 +404,11 @@
       .bio-heading { font-size: clamp(1.7rem, 7vw, 2.6rem); margin-bottom: 2rem; }
     }
 
-    /* ── Hero about — photo lisible, texte blanc ─────────── */
+    /* ── Hero about — Porte de la Craffe, plein cadre ─────── */
     .about-hero-full {
       position: relative;
-      height: 62dvh;
-      min-height: 440px;
+      height: 78dvh;
+      min-height: 540px;
       overflow: hidden;
       display: flex;
       align-items: flex-end;
@@ -416,10 +416,15 @@
     .about-hero-full__bg {
       position: absolute;
       inset: 0;
-      background-image: url('assets/photos/eglise.paysage.jpg');
+      background-image: url('assets/photos/craffe.paysage.jpg');
       background-size: cover;
-      background-position: center 40%;
-      filter: brightness(0.62) grayscale(12%);
+      background-position: center 50%;
+      filter: brightness(0.55) grayscale(8%);
+      animation: hero-zoom-out 22s ease-out both;
+    }
+    @keyframes hero-zoom-out {
+      from { transform: scale(1.12); }
+      to   { transform: scale(1.0); }
     }
     .about-hero-full__bg::after {
       content: '';
@@ -449,9 +454,16 @@
       color: rgba(255,255,255,0.98);
       text-shadow: 0 2px 28px rgba(0,0,0,0.65), 0 1px 6px rgba(0,0,0,0.45);
     }
+    .about-hero-full__content .t-h1 em {
+      font-style: italic;
+      color: #E8C896;
+    }
     .about-hero-full__content .t-large  {
-      color: rgba(255,255,255,0.78);
-      text-shadow: 0 1px 16px rgba(0,0,0,0.55);
+      color: rgba(255,255,255,0.92);
+      font-weight: 500;
+      text-shadow:
+        0 1px 2px rgba(0,0,0,0.85),
+        0 1px 16px rgba(0,0,0,0.6);
     }
 
     /* ── Séparateur SVG animé ────────────────────────────── */
@@ -483,15 +495,402 @@
     .about-hero-full__content .about-divider-svg .adiv-dot2 {
       animation: dot-in 0.4s var(--ease-out) 0.85s forwards;
     }
+
+    /* ═══════════════════════════════════════════════════════════
+       PILIERS — Communication musiciens / Autres prestations
+       Inspiration Belle Époque : ornements fleurons, fines règles,
+       typographie italique, asymétrie éditoriale.
+    ═══════════════════════════════════════════════════════════ */
+    .about-pillars {
+      background: linear-gradient(180deg, var(--olive) 0%, #F2ECDF 100%);
+      padding: clamp(4rem, 8vw, 7rem) 0;
+      position: relative;
+    }
+
+    /* Ornement décoratif en haut de la section */
+    .pillars-ornament {
+      display: block;
+      width: 64px;
+      height: 24px;
+      margin: 0 auto 2rem;
+      color: var(--cream-2);
+      opacity: 0.8;
+    }
+
+    .pillars-intro {
+      max-width: 640px;
+      margin: 0 auto 4rem;
+      text-align: center;
+    }
+    .pillars-intro__label {
+      font-family: var(--font-texte);
+      font-size: 0.62rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--cream-2);
+      margin-bottom: 1rem;
+    }
+    .pillars-intro__title {
+      font-family: var(--font-titre);
+      font-style: italic;
+      font-size: clamp(2rem, 3.6vw, 3rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--cream);
+      margin-bottom: 1rem;
+    }
+    .pillars-intro__sub {
+      font-family: var(--font-texte);
+      font-size: clamp(0.94rem, 1.2vw, 1.05rem);
+      line-height: 1.78;
+      color: rgba(var(--cream-rgb), 0.62);
+      max-width: 52ch;
+      margin: 0 auto;
+    }
+
+    /* Grille des deux piliers */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(1.4rem, 2.4vw, 2.2rem);
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+    }
+
+    /* Carte pilier — liquid glass premium, format vertical */
+    .pillar-card {
+      position: relative;
+      padding: clamp(2.4rem, 3.5vw, 3.4rem) clamp(1.8rem, 3vw, 2.8rem);
+      border-radius: 22px;
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(32px) saturate(160%);
+      -webkit-backdrop-filter: blur(32px) saturate(160%);
+      border: 1px solid rgba(255,255,255,0.75);
+      box-shadow:
+        0 4px 40px rgba(28,25,20,0.07),
+        inset 0 1px 0 rgba(255,255,255,0.95);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.42s var(--ease-out),
+                  box-shadow 0.42s var(--ease-out);
+    }
+    .pillar-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right,
+        rgba(255,255,255,0.95), rgba(255,255,255,0.3));
+      border-radius: 22px 22px 0 0;
+    }
+    /* Halo doré subtil au hover */
+    .pillar-card::after {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle at center,
+        rgba(176,132,90,0.20) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+    }
+    .pillar-card:hover {
+      transform: translateY(-8px);
+      box-shadow:
+        0 24px 64px rgba(28,25,20,0.14),
+        inset 0 1px 0 rgba(255,255,255,0.95);
+    }
+    .pillar-card:hover::after { opacity: 1; }
+
+    /* Header de la carte avec ornement */
+    .pillar-card__num {
+      font-family: var(--font-titre);
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--cream-2);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .pillar-card__num::before {
+      content: '';
+      width: 24px; height: 1px;
+      background: var(--cream-2);
+    }
+
+    .pillar-card__title {
+      font-family: var(--font-titre);
+      font-size: clamp(1.55rem, 2.4vw, 2.05rem);
+      line-height: 1.12;
+      letter-spacing: -0.015em;
+      color: var(--cream);
+      margin-bottom: 1rem;
+    }
+    .pillar-card__title em {
+      font-style: italic;
+      color: var(--cream-2);
+    }
+    .pillar-card__desc {
+      font-family: var(--font-texte);
+      font-size: 0.9rem;
+      line-height: 1.78;
+      color: rgba(var(--cream-rgb), 0.6);
+      margin-bottom: 1.6rem;
+    }
+
+    /* Liste de services dans la carte */
+    .pillar-card__list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .pillar-card__list li {
+      font-family: var(--font-texte);
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: rgba(var(--cream-rgb), 0.66);
+      padding-left: 1.4rem;
+      position: relative;
+    }
+    .pillar-card__list li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0.55rem;
+      width: 8px; height: 1px;
+      background: var(--cream-2);
+      opacity: 0.65;
+    }
+
+    /* CTA dans la carte — pill liquid glass dorée */
+    .pillar-card__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      align-self: flex-start;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-family: var(--font-texte);
+      font-size: 0.66rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--cream);
+      background: rgba(28,25,20,0.06);
+      border: 1px solid rgba(28,25,20,0.16);
+      transition: background 0.32s var(--ease-out),
+                  color 0.32s var(--ease-out),
+                  transform 0.32s var(--ease-out);
+      margin-top: auto;
+    }
+    .pillar-card__cta svg {
+      transition: transform 0.32s var(--ease-out);
+    }
+    .pillar-card__cta:hover {
+      background: var(--cream);
+      color: var(--olive);
+      transform: translateX(2px);
+    }
+    .pillar-card__cta:hover svg {
+      transform: translateX(3px);
+    }
+
+    /* Pilier #1 (Communication musiciens) — accent caramel */
+    .pillar-card--musicians {
+      background: linear-gradient(135deg,
+        rgba(255,255,255,0.65) 0%,
+        rgba(176,132,90,0.10) 100%);
+    }
+
+    /* Responsive piliers */
+    @media (max-width: 800px) {
+      .pillars-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+      .about-pillars { padding: 3.5rem 0; }
+      .pillars-intro { margin-bottom: 2.5rem; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       FINAL CTA — duo de boutons liquid glass premium
+    ═══════════════════════════════════════════════════════════ */
+    .about-final-cta {
+      background: #16140F;
+      padding: clamp(4.5rem, 8vw, 7rem) var(--gutter);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Ornement géométrique XIXe en arrière-plan */
+    .about-final-cta::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: clamp(420px, 70vw, 700px);
+      height: clamp(420px, 70vw, 700px);
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle at center,
+        rgba(176,132,90,0.10) 0%,
+        rgba(176,132,90,0.02) 40%,
+        transparent 65%);
+      pointer-events: none;
+    }
+    .about-final-cta__inner {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .about-final-cta__ornament {
+      display: block;
+      width: 56px;
+      height: 22px;
+      margin: 0 auto 1.5rem;
+      color: #B0845A;
+    }
+    .about-final-cta__label {
+      font-family: var(--font-texte);
+      font-size: 0.6rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #B0845A;
+      margin-bottom: 1rem;
+    }
+    .about-final-cta__title {
+      font-family: var(--font-titre);
+      font-style: italic;
+      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: #F0EBDD;
+      margin-bottom: 1.4rem;
+    }
+    .about-final-cta__sub {
+      font-family: var(--font-texte);
+      font-size: clamp(0.94rem, 1.2vw, 1.05rem);
+      line-height: 1.78;
+      color: rgba(240,235,221,0.55);
+      max-width: 44ch;
+      margin: 0 auto 2.6rem;
+    }
+
+    /* Duo de CTAs glass premium */
+    .about-final-cta__actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* CTA glass premium */
+    .glass-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 16px 30px;
+      border-radius: 999px;
+      font-family: var(--font-texte);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 700;
+      transition: background 0.32s var(--ease-out),
+                  border-color 0.32s var(--ease-out),
+                  color 0.32s var(--ease-out),
+                  transform 0.32s var(--ease-out),
+                  box-shadow 0.32s var(--ease-out);
+      position: relative;
+      overflow: hidden;
+    }
+    .glass-cta__icon {
+      width: 18px; height: 18px;
+      flex-shrink: 0;
+      transition: transform 0.4s var(--ease-out);
+    }
+    .glass-cta__arrow {
+      width: 14px; height: 14px;
+      flex-shrink: 0;
+      transition: transform 0.32s var(--ease-out);
+    }
+    .glass-cta:hover .glass-cta__arrow {
+      transform: translateX(4px);
+    }
+
+    /* Variante "primaire" — devis (caramel proéminent) */
+    .glass-cta--primary {
+      background: linear-gradient(135deg, #B0845A 0%, #9C734D 100%);
+      color: #FFFCF4;
+      border: 1px solid rgba(176,132,90,0.5);
+      box-shadow:
+        0 6px 28px rgba(176,132,90,0.32),
+        inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+    .glass-cta--primary:hover {
+      transform: translateY(-3px);
+      box-shadow:
+        0 12px 42px rgba(176,132,90,0.42),
+        inset 0 1px 0 rgba(255,255,255,0.3);
+    }
+    .glass-cta--primary:hover .glass-cta__icon {
+      transform: rotate(-8deg) scale(1.1);
+    }
+
+    /* Variante "secondaire" — message (glass blanc translucide) */
+    .glass-cta--ghost {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(20px) saturate(140%);
+      -webkit-backdrop-filter: blur(20px) saturate(140%);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(240,235,221,0.92);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .glass-cta--ghost:hover {
+      background: rgba(255,255,255,0.16);
+      border-color: rgba(255,255,255,0.32);
+      transform: translateY(-3px);
+      color: #FFFCF4;
+    }
+    .glass-cta--ghost:hover .glass-cta__icon {
+      transform: scale(1.15);
+    }
+
+    @media (max-width: 600px) {
+      .about-final-cta__actions { flex-direction: column; gap: 0.75rem; width: 100%; }
+      .glass-cta { width: 100%; justify-content: center; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       Ornements XIXe partagés — fleuron SVG + règles fines
+    ═══════════════════════════════════════════════════════════ */
+    .belle-ornament {
+      display: block;
+      margin: 0 auto;
+      color: var(--cream-2);
+    }
   </style>
 </head>
 <body class="page-about">
   <!-- LOADER -->
   <div id="page-loader" aria-hidden="true">
-    <div class="loader__inner">
-      <span class="loader__mark">af</span>
-      <span class="loader__name">Augustin Fleury · Photographe</span>
-      <span class="loader__line" aria-hidden="true"></span>
+    <div class="loader__stage">
+      <svg class="loader__svg" viewBox="0 0 120 120" fill="none" stroke="#B0845A" stroke-width="1.4" stroke-linecap="round">
+        <circle class="lc-ring" cx="60" cy="60" r="42" stroke="#B0845A" stroke-opacity="0.5"/>
+        <line class="lc-blade" x1="60" y1="60" x2="60" y2="24"/>
+        <line class="lc-blade" x1="60" y1="60" x2="91.18" y2="42"/>
+        <line class="lc-blade" x1="60" y1="60" x2="91.18" y2="78"/>
+        <line class="lc-blade" x1="60" y1="60" x2="60" y2="96"/>
+        <line class="lc-blade" x1="60" y1="60" x2="28.82" y2="78"/>
+        <line class="lc-blade" x1="60" y1="60" x2="28.82" y2="42"/>
+        <circle class="lc-dot" cx="60" cy="60" r="3" fill="#B0845A" stroke="none"/>
+      </svg>
     </div>
   </div>
 
@@ -527,12 +926,12 @@
 
     <!-- HERO ABOUT -->
     <section class="about-hero-full" aria-label="En-tête À propos">
-      <div class="about-hero-full__bg" role="img" aria-label="Intérieur d'église, lumière et architecture"></div>
+      <div class="about-hero-full__bg" role="img" aria-label="Porte de la Craffe, Nancy"></div>
       <div class="about-hero-full__content">
         <p class="t-label" style="animation:fade-up 0.7s var(--ease-out) 0.1s both">
-          À propos
+          À propos · Nancy
         </p>
-        <!-- Séparateur SVG animé -->
+        <!-- Ornement Belle Époque animé -->
         <svg class="about-divider-svg" viewBox="0 0 160 14" aria-hidden="true">
           <line class="adiv-line" x1="0" y1="7" x2="120" y2="7"
                 stroke="var(--cream-2)" stroke-width="1" opacity="0.55"/>
@@ -542,10 +941,14 @@
                   fill="var(--cream-2)" opacity="0.45" style="transform-origin:148px 7px"/>
         </svg>
         <h1 class="t-h1" style="max-width:18ch;animation:fade-up 0.78s var(--ease-out) 0.22s both">
-          Donner du poids<br>à ce que l'on regarde.
+          Donner du poids<br>à ce que l'on <em>regarde</em>.
         </h1>
-        <p class="t-large" style="max-width:42ch;margin-top:1rem;animation:fade-up 0.72s var(--ease-out) 0.4s both">
-          Photographe et vidéaste à Nancy & Paris — je travaille les lieux, les événements et les portraits avec exigence et sobriété.
+        <p class="t-large" style="max-width:46ch;margin-top:1rem;animation:fade-up 0.72s var(--ease-out) 0.4s both">
+          Photographe et vidéaste à Nancy & Paris — spécialisé en communication visuelle pour musiciens, et présent pour valoriser vos lieux, événements et portraits.
+        </p>
+        <!-- Localisation discrète -->
+        <p style="position:absolute;bottom:1.6rem;right:var(--gutter);font-family:var(--font-texte);font-size:0.55rem;letter-spacing:0.32em;text-transform:uppercase;color:rgba(255,255,255,0.42);text-shadow:0 1px 6px rgba(0,0,0,0.6);margin:0">
+          Porte de la Craffe — Nancy
         </p>
       </div>
     </section>
@@ -718,28 +1121,78 @@
 
     <hr class="rule">
 
-    <!-- PORTRAIT + IMAGES -->
-    <section class="about-photos-strip" aria-label="Images et portrait">
+    <!-- DEUX PILIERS — Communication musiciens / Autres prestations -->
+    <section class="about-pillars" aria-labelledby="pillars-titre">
       <div class="container">
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;grid-auto-rows:clamp(260px,28vw,420px);gap:6px;max-width:var(--content-max);margin:0 auto;padding:0 var(--gutter)" class="reveal--scale">
-          <div style="overflow:hidden;border-radius:6px">
-            <img src="assets/photos/portraitplacecarrierenancy.jpg" alt="Portrait, place de la Carrière, Nancy" loading="lazy"
-                 style="width:100%;height:100%;object-fit:cover;transition:transform 0.9s var(--ease-out)"
-                 onmouseover="this.style.transform='scale(1.04)'"
-                 onmouseleave="this.style.transform='scale(1)'">
-          </div>
-          <div style="overflow:hidden;border-radius:6px">
-            <img src="assets/photos/eglise.paysage.jpg" alt="Architecture intérieure, lumière" loading="lazy"
-                 style="width:100%;height:100%;object-fit:cover;transition:transform 0.9s var(--ease-out)"
-                 onmouseover="this.style.transform='scale(1.04)'"
-                 onmouseleave="this.style.transform='scale(1)'">
-          </div>
-          <div style="overflow:hidden;border-radius:6px">
-            <img src="assets/photos/scout.portrait.jpg" alt="Portrait, lumière douce" loading="lazy"
-                 style="width:100%;height:100%;object-fit:cover;transition:transform 0.9s var(--ease-out)"
-                 onmouseover="this.style.transform='scale(1.04)'"
-                 onmouseleave="this.style.transform='scale(1)'">
-          </div>
+
+        <!-- Ornement Belle Époque -->
+        <svg class="pillars-ornament reveal" viewBox="0 0 64 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+          <line x1="0" y1="12" x2="22" y2="12" stroke-linecap="round"/>
+          <line x1="42" y1="12" x2="64" y2="12" stroke-linecap="round"/>
+          <circle cx="32" cy="12" r="4" fill="currentColor" fill-opacity="0.15"/>
+          <circle cx="32" cy="12" r="2" fill="currentColor"/>
+          <circle cx="26" cy="12" r="0.9" fill="currentColor"/>
+          <circle cx="38" cy="12" r="0.9" fill="currentColor"/>
+        </svg>
+
+        <div class="pillars-intro">
+          <p class="pillars-intro__label reveal">Mes deux univers</p>
+          <h2 class="pillars-intro__title reveal" id="pillars-titre" style="transition-delay:60ms">
+            Polyvalent, jamais générique.
+          </h2>
+          <p class="pillars-intro__sub reveal" style="transition-delay:140ms">
+            Mon expertise première : la communication visuelle pour musiciens et institutions culturelles. Mais je travaille aussi pour valoriser des lieux, des événements et des portraits — chaque projet appelle son propre regard.
+          </p>
+        </div>
+
+        <div class="pillars-grid">
+
+          <!-- Pilier 1 — Communication musiciens -->
+          <article class="pillar-card pillar-card--musicians reveal--left">
+            <p class="pillar-card__num" aria-hidden="true">i — Spécialité</p>
+            <h3 class="pillar-card__title">
+              Communication visuelle pour <em>musiciens</em>.
+            </h3>
+            <p class="pillar-card__desc">
+              Je connais le milieu musical de l'intérieur — j'y suis né. Pour les musiciens, ensembles, festivals et institutions culturelles, je propose une image cohérente avec votre univers artistique.
+            </p>
+            <ul class="pillar-card__list">
+              <li>Photographie de concert et de répétition</li>
+              <li>Portraits d'artistes — pochettes, presse, communication</li>
+              <li>Vidéos de captation, teasers, mini-documentaires</li>
+              <li>Reels et formats courts pour les réseaux</li>
+            </ul>
+            <a href="contact.html#musiciens" class="pillar-card__cta">
+              Discuter d'un projet musical
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </article>
+
+          <!-- Pilier 2 — Autres prestations -->
+          <article class="pillar-card reveal--right" style="transition-delay:140ms">
+            <p class="pillar-card__num" aria-hidden="true">ii — Polyvalence</p>
+            <h3 class="pillar-card__title">
+              Lieux, événements et <em>portraits</em>.
+            </h3>
+            <p class="pillar-card__desc">
+              Au-delà de la musique, je mets mon œil au service de tous les sujets qui méritent une image juste — qu'il s'agisse d'un lieu, d'un événement privé ou professionnel, ou d'un portrait personnel.
+            </p>
+            <ul class="pillar-card__list">
+              <li>Mise en valeur de lieux, intérieurs, architecture</li>
+              <li>Événementiel privé, associatif, professionnel</li>
+              <li>Portrait individuel, famille, équipe</li>
+              <li>Reels et vidéos de présentation pour marques et lieux</li>
+            </ul>
+            <a href="contact.html#projet" class="pillar-card__cta">
+              Discuter d'un autre projet
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </article>
+
         </div>
       </div>
     </section>
@@ -803,18 +1256,57 @@
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="section" style="padding-top:0;text-align:center" aria-label="Appel à l'action">
-      <div class="container" style="max-width:600px">
-        <div class="ornament reveal" aria-hidden="true"><span class="ornament__symbol">◆</span></div>
-        <p class="t-large reveal" style="margin-top:1rem;transition-delay:80ms">
-          Un projet à mettre en image ? Une collaboration ?<br>Une simple curiosité ?
+    <!-- FINAL CTA — duo de boutons liquid glass premium -->
+    <section class="about-final-cta" aria-labelledby="final-cta-titre">
+      <div class="about-final-cta__inner">
+
+        <!-- Ornement Belle Époque caramel -->
+        <svg class="about-final-cta__ornament reveal" viewBox="0 0 56 22" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+          <line x1="0" y1="11" x2="18" y2="11" stroke-linecap="round"/>
+          <line x1="38" y1="11" x2="56" y2="11" stroke-linecap="round"/>
+          <path d="M28 4 L32 11 L28 18 L24 11 Z" fill="currentColor" fill-opacity="0.25"/>
+          <circle cx="28" cy="11" r="1.4" fill="currentColor"/>
+        </svg>
+
+        <p class="about-final-cta__label reveal">Travaillons ensemble</p>
+        <h2 class="about-final-cta__title reveal" id="final-cta-titre" style="transition-delay:80ms">
+          Un projet à donner<br>en image&nbsp;?
+        </h2>
+        <p class="about-final-cta__sub reveal" style="transition-delay:160ms">
+          Chaque commande commence par un échange. Demandez un devis personnalisé, ou écrivez-moi simplement pour parler de votre idée — toujours avec plaisir.
         </p>
-        <div style="margin-top:2rem" class="reveal" style="transition-delay:200ms">
-          <a href="contact.html" class="hero__cta" aria-label="Accéder à la page contact">
-            Écrire un message
-            <span class="hero__cta-arrow" aria-hidden="true">→</span>
+
+        <div class="about-final-cta__actions reveal" style="transition-delay:240ms">
+
+          <!-- CTA primaire — devis caramel premium -->
+          <a href="contact.html#devis" class="glass-cta glass-cta--primary" aria-label="Demander un devis personnalisé">
+            <svg class="glass-cta__icon" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <!-- Plume / quill -->
+              <path d="M3 15 L15 3 M15 3 L13 1 L11 3 M3 15 L1 17 M3 15 L5 13 M11 3 L13 5 L11 7"
+                    stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+              <line x1="3" y1="15" x2="6" y2="12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+            Demander un devis
+            <svg class="glass-cta__arrow" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </a>
+
+          <!-- CTA secondaire — message glass blanc -->
+          <a href="contact.html" class="glass-cta glass-cta--ghost" aria-label="Envoyer un message">
+            <svg class="glass-cta__icon" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <!-- Enveloppe stylisée -->
+              <rect x="1.5" y="4" width="15" height="11" rx="1.5"
+                    stroke="currentColor" stroke-width="1.3"/>
+              <path d="M1.5 5 L9 10 L16.5 5"
+                    stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Envoyer un message
+            <svg class="glass-cta__arrow" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+
         </div>
       </div>
     </section>
