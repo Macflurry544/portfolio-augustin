@@ -9,7 +9,7 @@
   <meta property="og:type" content="profile">
   <meta property="og:title" content="À propos — Augustin Fleury · Photographe Nancy & Paris">
   <meta property="og:description" content="Photographe et vidéaste à Nancy & Paris — valorisation de lieux, événements, portraits et architecture.">
-  <meta property="og:image" content="assets/photos/eglise.paysage.jpg">
+  <meta property="og:image" content="assets/photos/craffe.paysage.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <title>À propos — Augustin Fleury · Photographe & Vidéaste Nancy</title>
   <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg">
@@ -23,1233 +23,212 @@
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/liquid-glass.css">
   <link rel="stylesheet" href="assets/css/animations.css">
+
   <style>
-    /* Accents palette about (terracotta) */
-    .about-accent-text { color: var(--cream-2); }
+    /* ════════════════════════════════════════════════════════════
+       ABOUT — refonte complète · palette navy/blanc/noir
+    ════════════════════════════════════════════════════════════ */
+    body.page-about {
+      --navy-deep:  #0A1F3D;   /* navy ultra profond */
+      --navy:       #0C2C55;   /* navy principal */
+      --navy-mid:   #1E4480;   /* navy intermédiaire */
+      --navy-soft:  #4A6FA5;   /* navy doux pour accents */
+      --ice:        #E8EDF5;   /* blanc bleuté très pâle */
+      --off-white:  #FAFAF7;   /* blanc chaud */
+      --ink:        #0A0A0A;   /* presque noir */
+      --gold:       #C9A357;   /* doré chaud — accent rare */
 
-    /* ── Section Prestations — cartes liquid glass ──────────── */
-    .about-services__header {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 3rem;
-      flex-wrap: wrap;
-      margin-bottom: 3rem;
+      background: var(--off-white);
+      color: var(--navy);
     }
 
-    .sglass-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
+    /* SCROLL PROGRESS BAR — barre fine en haut qui suit le scroll */
+    .ab-progress {
+      position: fixed;
+      top: 0; left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(to right, var(--navy), var(--gold));
+      z-index: 9999;
+      transition: width 0.05s linear;
+      box-shadow: 0 0 12px rgba(201,163,87,0.5);
     }
 
-    .sglass-card {
-      background: rgba(255,255,255,0.58);
-      backdrop-filter: blur(28px) saturate(160%);
-      -webkit-backdrop-filter: blur(28px) saturate(160%);
-      border: 1px solid rgba(255,255,255,0.82);
-      box-shadow:
-        0 2px 32px rgba(26,22,16,0.06),
-        inset 0 1px 0 rgba(255,255,255,0.95);
-      border-radius: 18px;
-      padding: 2.25rem 2rem;
+    /* ════════════════════════════════════════════════════════════
+       HERO — pure typographie, navy profond, animations claquantes
+    ════════════════════════════════════════════════════════════ */
+    .ab-hero {
       position: relative;
+      min-height: 92dvh;
+      background: var(--navy-deep);
       overflow: hidden;
-      transition: transform 0.32s var(--ease-out), box-shadow 0.32s ease;
-    }
-    /* Reflet haut-gauche */
-    .sglass-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(to right, rgba(255,255,255,0.9), rgba(255,255,255,0.2));
-      border-radius: 18px 18px 0 0;
-    }
-    /* Trait accent bas au hover — détaché du bord */
-    .sglass-card::after {
-      content: '';
-      position: absolute;
-      bottom: 1.4rem; left: 2rem; right: 2rem;
-      height: 1.5px;
-      background: var(--cream-2);
-      border-radius: 999px;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.42s var(--ease-out);
-    }
-    .sglass-card:hover::after { transform: scaleX(1); }
-    .sglass-card:hover {
-      transform: translateY(-5px);
-      box-shadow:
-        0 16px 48px rgba(26,22,16,0.1),
-        inset 0 1px 0 rgba(255,255,255,0.95);
-    }
-
-    .sglass-card__icon {
-      width: 52px; height: 52px;
-      border-radius: 14px;
-      background: rgba(var(--cream-rgb), 0.06);
-      border: 1px solid rgba(var(--cream-rgb), 0.1);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 1.5rem;
-      color: var(--cream-2);
+      padding: 8rem var(--gutter) 6rem;
+      isolation: isolate;
     }
-
-    .sglass-card__title {
-      font-family: var(--font-titre);
-      font-size: clamp(1.15rem, 1.6vw, 1.5rem);
-      color: var(--cream);
-      margin-bottom: 0.3rem;
-    }
-
-    .sglass-card__sub {
-      font-family: var(--font-texte);
-      font-size: 0.68rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--cream-2);
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-    }
-
-    .sglass-card__list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-    }
-    .sglass-card__list li {
-      font-size: 0.85rem;
-      line-height: 1.5;
-      color: rgba(var(--cream-rgb), 0.6);
-      padding-left: 1rem;
-      position: relative;
-    }
-    .sglass-card__list li::before {
-      content: '—';
-      position: absolute;
-      left: 0;
-      color: var(--cream-2);
-      opacity: 0.5;
-      font-size: 0.7rem;
-    }
-
-    .sglass-note {
-      margin-top: 2.5rem;
-      font-size: 0.82rem;
-      font-style: italic;
-      color: rgba(var(--cream-rgb), 0.38);
-      text-align: center;
-    }
-    .sglass-note__cta {
-      display: inline-block;
-      margin-left: 0.8rem;
-      font-style: normal;
-      color: var(--cream-2);
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      transition: opacity 0.2s ease;
-    }
-    .sglass-note__cta:hover { opacity: 0.72; }
-
-    @media (max-width: 860px) {
-      .sglass-grid { grid-template-columns: 1fr 1fr; }
-      .about-services__header { flex-direction: column; gap: 1.5rem; }
-    }
-
-    /* ── TÉLÉPHONE : 1 carte par ligne, design aéré ──────────── */
-    @media (max-width: 680px) {
-
-      /* En-tête centré */
-      .about-services__header {
-        align-items: center;
-        text-align: center;
-        gap: 1rem;
-        margin-bottom: 2rem;
-      }
-      .about-services__header p {
-        text-align: center;
-        max-width: 32ch;
-        margin: 0 auto;
-      }
-
-      /* 1 colonne */
-      .sglass-grid {
-        grid-template-columns: 1fr;
-        gap: 1.1rem;
-      }
-
-      /* Carte mobile — légèrement simplifiée, bien aérée */
-      .sglass-card {
-        padding: 2rem 1.6rem 1.75rem;
-        border-radius: 14px;
-        /* Pas de lift au tap */
-        transition: box-shadow 0.28s ease;
-      }
-      .sglass-card:hover { transform: none; }
-
-      /* Trait caramel bas — toujours visible (pas seulement au hover) */
-      .sglass-card::after { transform: scaleX(1); }
-
-      /* Icône un peu plus petite */
-      .sglass-card__icon {
-        width: 44px; height: 44px;
-        border-radius: 12px;
-        margin-bottom: 1.2rem;
-      }
-
-      /* Titre et sous-titre */
-      .sglass-card__title { font-size: 1.2rem; margin-bottom: 0.25rem; }
-      .sglass-card__sub   { font-size: 0.64rem; margin-bottom: 1.2rem; }
-      .sglass-card__list li { font-size: 0.83rem; }
-
-      /* Note et CTA bas */
-      .sglass-note { text-align: center; margin-top: 1.75rem; }
-      .sglass-note__cta { display: block; margin: 0.4rem auto 0; }
-    }
-
-    /* ═══ SÉPARATION VISUELLE DES SECTIONS ══════════════════════
-       Chaque section a sa propre identité de fond
-    ═══════════════════════════════════════════════════════════ */
-
-    /* Bio — fond ivoire clair (défaut) */
-    .about-bio { background: var(--olive); }
-
-    /* Prestations — grège légèrement plus foncé */
-    .about-services {
-      background: var(--sage);
-    }
-
-    /* Bande de photos — fond sombre, plein cadre */
-    .about-photos-strip {
-      background: #16140F;
-      padding: clamp(3rem, 7vw, 6rem) 0;
-    }
-
-    /* Approche — section sombre inversée */
-    .about-approach {
-      --cream:     #E8E4DB;
-      --cream-rgb: 232, 228, 219;
-      --cream-2:   #A88B6E;
-      background:  #1C1A15;
-    }
-    /* Forcer la couleur du label accent dans le contexte sombre */
-    .about-approach .about-accent-text { color: #A88B6E; }
-
-    /* Lisibilité explicite — fond très sombre, variables CSS ne suffisent pas */
-    .about-approach .t-h2             { color: #E8E4DB; }
-    .about-approach .approach-item    { border-top-color: rgba(232,228,219,0.12); }
-    .about-approach .approach-item__num   { color: rgba(232,228,219,0.07); }
-    .about-approach .approach-item__title { color: #E8E4DB; }
-    .about-approach .approach-item__text  { color: rgba(232,228,219,0.58); }
-
-    /* Mobile : items empilés (1 colonne) */
-    @media (max-width: 800px) {
-      .about-approach__list { grid-template-columns: 1fr; gap: 2rem; }
-    }
-
-    /* Counters — retour ivoire clair */
-    .counters {
-      background: var(--olive);
-      border-top: none;
-    }
-
-    /* Supprimer les hr entre sections — les fonds font le travail */
-    hr.rule { display: none; }
-
-    /* ═══════════════════════════════════════════════════════════
-       BIO — cartes liquid glass sur fond sombre
-    ═══════════════════════════════════════════════════════════ */
-
-    .bio-heading {
-      font-family: var(--font-titre);
-      font-style: italic;
-      font-size: clamp(2rem, 4vw, 3.4rem);
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      color: var(--cream);
-      margin: 1.2rem 0 2.8rem;
-      max-width: 22ch;
-    }
-
-    .bio-cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.1rem;
-      margin-bottom: 3rem;
-    }
-
-    /* Carte verre sombre */
-    .bio-card {
-      background: rgba(255,255,255,0.055);
-      backdrop-filter: blur(24px) saturate(140%);
-      -webkit-backdrop-filter: blur(24px) saturate(140%);
-      border: 1px solid rgba(255,255,255,0.10);
-      box-shadow:
-        0 2px 28px rgba(0,0,0,0.22),
-        inset 0 1px 0 rgba(255,255,255,0.08);
-      border-radius: 18px;
-      padding: 2.2rem 1.8rem 2rem;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.32s var(--ease-out), box-shadow 0.32s ease;
-    }
-    /* Reflet haut */
-    .bio-card::before {
+    /* Halo radial doré subtil */
+    .ab-hero::before {
       content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(to right, rgba(255,255,255,0.14), rgba(255,255,255,0.03));
-      border-radius: 18px 18px 0 0;
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 30%, rgba(74,111,165,0.32) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 70%, rgba(201,163,87,0.10) 0%, transparent 55%);
+      z-index: -1;
     }
-    /* Trait caramel bas au hover — détaché du bord */
-    .bio-card::after {
+    /* Grille fine décorative en arrière-plan */
+    .ab-hero::after {
       content: '';
-      position: absolute;
-      bottom: 1.3rem; left: 1.8rem; right: 1.8rem;
-      height: 1.5px;
-      background: var(--cream-2);
-      border-radius: 999px;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.42s var(--ease-out);
-    }
-    .bio-card:hover::after { transform: scaleX(1); }
-    .bio-card:hover {
-      transform: translateY(-4px);
-      box-shadow:
-        0 14px 42px rgba(0,0,0,0.32),
-        inset 0 1px 0 rgba(255,255,255,0.08);
-    }
-
-    /* Icône SVG animée en haut de chaque carte */
-    .bio-card__icon {
-      width: 44px; height: 44px;
-      margin-bottom: 1.3rem;
-      color: var(--cream-2);
-      opacity: 0.9;
-    }
-    .bio-card__icon svg {
-      width: 100%; height: 100%;
-      overflow: visible;
-    }
-    .bio-card__icon svg * {
-      transform-box: fill-box;
-      transform-origin: center;
-    }
-
-    /* — Musique : notes qui montent en rythme — */
-    .bio-icon-music .note-1,
-    .bio-icon-music .note-2,
-    .bio-icon-music .note-3 {
-      opacity: 0.35;
-      transition: opacity 0.3s ease;
-    }
-    .bio-card:hover .bio-icon-music .note-1 { animation: bio-note 1.4s ease-in-out infinite; }
-    .bio-card:hover .bio-icon-music .note-2 { animation: bio-note 1.4s ease-in-out 0.2s infinite; }
-    .bio-card:hover .bio-icon-music .note-3 { animation: bio-note 1.4s ease-in-out 0.4s infinite; }
-    @keyframes bio-note {
-      0%, 100% { transform: translateY(0); opacity: 0.35; }
-      50%      { transform: translateY(-3px); opacity: 1; }
-    }
-
-    /* — Communication : ondes qui se propagent — */
-    .bio-icon-comm .wave-1,
-    .bio-icon-comm .wave-2 {
-      opacity: 0.45;
-      transform-origin: center center;
-    }
-    .bio-card:hover .bio-icon-comm .wave-1 { animation: bio-wave 2s ease-out infinite; }
-    .bio-card:hover .bio-icon-comm .wave-2 { animation: bio-wave 2s ease-out 0.6s infinite; }
-    @keyframes bio-wave {
-      0%   { transform: scale(0.6); opacity: 0.8; }
-      100% { transform: scale(1.3); opacity: 0; }
-    }
-
-    /* — Passion : flamme qui vacille — */
-    .bio-icon-passion .flame {
-      transform-origin: center bottom;
-    }
-    .bio-card:hover .bio-icon-passion .flame {
-      animation: bio-flicker 1.6s ease-in-out infinite;
-    }
-    @keyframes bio-flicker {
-      0%, 100% { transform: scale(1) rotate(0);      opacity: 0.9; }
-      25%      { transform: scale(1.08) rotate(-2deg); opacity: 1; }
-      50%      { transform: scale(0.95) rotate(1deg);  opacity: 0.85; }
-      75%      { transform: scale(1.05) rotate(-1deg); opacity: 1; }
-    }
-
-    .bio-card__title {
-      font-family: var(--font-titre);
-      font-size: clamp(1.05rem, 1.4vw, 1.3rem);
-      color: var(--cream);
-      margin-bottom: 0.9rem;
-    }
-    .bio-card__text {
-      font-size: 0.84rem;
-      line-height: 1.82;
-      color: rgba(var(--cream-rgb), 0.52);
-    }
-
-    @media (max-width: 860px) {
-      .bio-cards { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 560px) {
-      .bio-cards { grid-template-columns: 1fr; gap: 0.9rem; }
-      .bio-heading { font-size: clamp(1.7rem, 7vw, 2.6rem); margin-bottom: 2rem; }
-    }
-
-    /* ── Hero about — Porte de la Craffe, plein cadre ─────── */
-    .about-hero-full {
-      position: relative;
-      height: 78dvh;
-      min-height: 540px;
-      overflow: hidden;
-      display: flex;
-      align-items: flex-end;
-    }
-    .about-hero-full__bg {
-      position: absolute;
-      inset: 0;
-      background-image: url('assets/photos/craffe.paysage.jpg');
-      background-size: cover;
-      background-position: center 50%;
-      filter: brightness(0.55) grayscale(8%);
-      animation: hero-zoom-out 22s ease-out both;
-    }
-    @keyframes hero-zoom-out {
-      from { transform: scale(1.12); }
-      to   { transform: scale(1.0); }
-    }
-    .about-hero-full__bg::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top,
-        rgba(13,10,8,0.88) 0%,
-        rgba(13,10,8,0.32) 42%,
-        transparent        70%
-      );
-    }
-    .about-hero-full__content {
-      position: relative;
-      z-index: 1;
-      padding: 0 var(--gutter) clamp(2.5rem,5vw,4rem);
-      width: 100%;
-      max-width: var(--content-max);
-      margin: 0 auto;
-    }
-
-    /* Tous les textes du hero about : blanc codé dur + ombres portées */
-    .about-hero-full__content .t-label  {
-      color: rgba(255,255,255,0.62);
-      text-shadow: 0 1px 10px rgba(0,0,0,0.5);
-    }
-    .about-hero-full__content .t-h1     {
-      color: rgba(255,255,255,0.98);
-      text-shadow: 0 2px 28px rgba(0,0,0,0.65), 0 1px 6px rgba(0,0,0,0.45);
-    }
-    .about-hero-full__content .t-h1 em {
-      font-style: italic;
-      color: #E8C896;
-    }
-    .about-hero-full__content .t-large  {
-      color: rgba(255,255,255,0.92);
-      font-weight: 500;
-      text-shadow:
-        0 1px 2px rgba(0,0,0,0.85),
-        0 1px 16px rgba(0,0,0,0.6);
-    }
-
-    /* ── Séparateur SVG animé ────────────────────────────── */
-    .about-divider-svg {
-      display: block;
-      width: 160px;
-      height: 14px;
-      margin: 1.4rem 0 1.8rem;
-      overflow: visible;
-    }
-    .about-divider-svg .adiv-line {
-      stroke-dasharray: 120;
-      stroke-dashoffset: 120;
-    }
-    .about-divider-svg .adiv-dot1,
-    .about-divider-svg .adiv-dot2 {
-      opacity: 0;
-    }
-    /* déclenché quand le parent est is-visible */
-    .reveal.is-visible .about-divider-svg .adiv-line,
-    .about-hero-full__content .about-divider-svg .adiv-line {
-      animation: draw-line 0.9s var(--ease-out) 0.3s forwards;
-    }
-    .reveal.is-visible .about-divider-svg .adiv-dot1,
-    .about-hero-full__content .about-divider-svg .adiv-dot1 {
-      animation: dot-in 0.4s var(--ease-out) 0.6s forwards;
-    }
-    .reveal.is-visible .about-divider-svg .adiv-dot2,
-    .about-hero-full__content .about-divider-svg .adiv-dot2 {
-      animation: dot-in 0.4s var(--ease-out) 0.85s forwards;
-    }
-
-    /* ═══════════════════════════════════════════════════════════
-       PILIERS — Communication musiciens / Autres prestations
-       Inspiration Belle Époque : ornements fleurons, fines règles,
-       typographie italique, asymétrie éditoriale.
-    ═══════════════════════════════════════════════════════════ */
-    .about-pillars {
-      background: linear-gradient(180deg, var(--olive) 0%, #F2ECDF 100%);
-      padding: clamp(4rem, 8vw, 7rem) 0;
-      position: relative;
-    }
-
-    /* Ornement décoratif en haut de la section */
-    .pillars-ornament {
-      display: block;
-      width: 64px;
-      height: 24px;
-      margin: 0 auto 2rem;
-      color: var(--cream-2);
-      opacity: 0.8;
-    }
-
-    .pillars-intro {
-      max-width: 640px;
-      margin: 0 auto 4rem;
-      text-align: center;
-    }
-    .pillars-intro__label {
-      font-family: var(--font-texte);
-      font-size: 0.62rem;
-      letter-spacing: 0.32em;
-      text-transform: uppercase;
-      font-weight: 600;
-      color: var(--cream-2);
-      margin-bottom: 1rem;
-    }
-    .pillars-intro__title {
-      font-family: var(--font-titre);
-      font-style: italic;
-      font-size: clamp(2rem, 3.6vw, 3rem);
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      color: var(--cream);
-      margin-bottom: 1rem;
-    }
-    .pillars-intro__sub {
-      font-family: var(--font-texte);
-      font-size: clamp(0.94rem, 1.2vw, 1.05rem);
-      line-height: 1.78;
-      color: rgba(var(--cream-rgb), 0.62);
-      max-width: 52ch;
-      margin: 0 auto;
-    }
-
-    /* Grille des deux piliers */
-    .pillars-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(1.4rem, 2.4vw, 2.2rem);
-      max-width: var(--content-max);
-      margin: 0 auto;
-      padding: 0 var(--gutter);
-    }
-
-    /* Carte pilier — liquid glass premium, format vertical */
-    .pillar-card {
-      position: relative;
-      padding: clamp(2.4rem, 3.5vw, 3.4rem) clamp(1.8rem, 3vw, 2.8rem);
-      border-radius: 22px;
-      background: rgba(255,255,255,0.55);
-      backdrop-filter: blur(32px) saturate(160%);
-      -webkit-backdrop-filter: blur(32px) saturate(160%);
-      border: 1px solid rgba(255,255,255,0.75);
-      box-shadow:
-        0 4px 40px rgba(28,25,20,0.07),
-        inset 0 1px 0 rgba(255,255,255,0.95);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.42s var(--ease-out),
-                  box-shadow 0.42s var(--ease-out);
-    }
-    .pillar-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(to right,
-        rgba(255,255,255,0.95), rgba(255,255,255,0.3));
-      border-radius: 22px 22px 0 0;
-    }
-    /* Halo doré subtil au hover */
-    .pillar-card::after {
-      content: '';
-      position: absolute;
-      top: -120px; right: -120px;
-      width: 280px; height: 280px;
-      background: radial-gradient(circle at center,
-        rgba(176,132,90,0.20) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity 0.6s ease;
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
       pointer-events: none;
-    }
-    .pillar-card:hover {
-      transform: translateY(-8px);
-      box-shadow:
-        0 24px 64px rgba(28,25,20,0.14),
-        inset 0 1px 0 rgba(255,255,255,0.95);
-    }
-    .pillar-card:hover::after { opacity: 1; }
-
-    /* Header de la carte avec ornement */
-    .pillar-card__num {
-      font-family: var(--font-titre);
-      font-style: italic;
-      font-size: 0.85rem;
-      color: var(--cream-2);
-      letter-spacing: 0.1em;
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-    .pillar-card__num::before {
-      content: '';
-      width: 24px; height: 1px;
-      background: var(--cream-2);
+      z-index: -1;
     }
 
-    .pillar-card__title {
-      font-family: var(--font-titre);
-      font-size: clamp(1.55rem, 2.4vw, 2.05rem);
-      line-height: 1.12;
-      letter-spacing: -0.015em;
-      color: var(--cream);
-      margin-bottom: 1rem;
-    }
-    .pillar-card__title em {
-      font-style: italic;
-      color: var(--cream-2);
-    }
-    .pillar-card__desc {
-      font-family: var(--font-texte);
-      font-size: 0.9rem;
-      line-height: 1.78;
-      color: rgba(var(--cream-rgb), 0.6);
-      margin-bottom: 1.6rem;
-    }
-
-    /* Liste de services dans la carte */
-    .pillar-card__list {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-    }
-    .pillar-card__list li {
-      font-family: var(--font-texte);
-      font-size: 0.82rem;
-      line-height: 1.55;
-      color: rgba(var(--cream-rgb), 0.66);
-      padding-left: 1.4rem;
+    .ab-hero__inner {
+      max-width: 1100px;
+      width: 100%;
+      text-align: center;
       position: relative;
     }
-    .pillar-card__list li::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0.55rem;
-      width: 8px; height: 1px;
-      background: var(--cream-2);
-      opacity: 0.65;
-    }
 
-    /* CTA dans la carte — pill liquid glass dorée */
-    .pillar-card__cta {
+    .ab-hero__eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 0.7rem;
-      align-self: flex-start;
-      padding: 12px 22px;
-      border-radius: 999px;
-      font-family: var(--font-texte);
-      font-size: 0.66rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: var(--cream);
-      background: rgba(28,25,20,0.06);
-      border: 1px solid rgba(28,25,20,0.16);
-      transition: background 0.32s var(--ease-out),
-                  color 0.32s var(--ease-out),
-                  transform 0.32s var(--ease-out);
-      margin-top: auto;
-    }
-    .pillar-card__cta svg {
-      transition: transform 0.32s var(--ease-out);
-    }
-    .pillar-card__cta:hover {
-      background: var(--cream);
-      color: var(--olive);
-      transform: translateX(2px);
-    }
-    .pillar-card__cta:hover svg {
-      transform: translateX(3px);
-    }
-
-    /* Pilier #1 (Communication musiciens) — accent caramel */
-    .pillar-card--musicians {
-      background: linear-gradient(135deg,
-        rgba(255,255,255,0.65) 0%,
-        rgba(176,132,90,0.10) 100%);
-    }
-
-    /* Responsive piliers */
-    @media (max-width: 800px) {
-      .pillars-grid { grid-template-columns: 1fr; gap: 1.2rem; }
-      .about-pillars { padding: 3.5rem 0; }
-      .pillars-intro { margin-bottom: 2.5rem; }
-    }
-
-    /* ═══════════════════════════════════════════════════════════
-       FINAL CTA — duo de boutons liquid glass premium
-    ═══════════════════════════════════════════════════════════ */
-    .about-final-cta {
-      background: #16140F;
-      padding: clamp(4.5rem, 8vw, 7rem) var(--gutter);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    /* Ornement géométrique XIXe en arrière-plan */
-    .about-final-cta::before {
-      content: '';
-      position: absolute;
-      top: 50%; left: 50%;
-      width: clamp(420px, 70vw, 700px);
-      height: clamp(420px, 70vw, 700px);
-      transform: translate(-50%, -50%);
-      background: radial-gradient(circle at center,
-        rgba(176,132,90,0.10) 0%,
-        rgba(176,132,90,0.02) 40%,
-        transparent 65%);
-      pointer-events: none;
-    }
-    .about-final-cta__inner {
-      position: relative;
-      z-index: 1;
-      max-width: 720px;
-      margin: 0 auto;
-    }
-    .about-final-cta__ornament {
-      display: block;
-      width: 56px;
-      height: 22px;
-      margin: 0 auto 1.5rem;
-      color: #B0845A;
-    }
-    .about-final-cta__label {
+      gap: 0.8rem;
       font-family: var(--font-texte);
       font-size: 0.6rem;
-      letter-spacing: 0.32em;
+      letter-spacing: 0.42em;
       text-transform: uppercase;
-      font-weight: 600;
-      color: #B0845A;
-      margin-bottom: 1rem;
+      font-weight: 700;
+      color: rgba(232,237,245,0.55);
+      margin-bottom: 2rem;
+      animation: ab-fade-up 0.8s cubic-bezier(0.22,1,0.36,1) 0.1s both;
     }
-    .about-final-cta__title {
+    .ab-hero__eyebrow::before,
+    .ab-hero__eyebrow::after {
+      content: '';
+      width: 28px; height: 1px;
+      background: var(--gold);
+      opacity: 0.6;
+    }
+
+    /* Titre massif avec révélation ligne par ligne */
+    .ab-hero__title {
       font-family: var(--font-titre);
+      font-size: clamp(2.6rem, 7vw, 6rem);
+      line-height: 1.02;
+      letter-spacing: -0.035em;
+      color: #FFFFFF;
+      margin: 0 0 1.8rem;
+      max-width: 14ch;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .ab-hero__title .line {
+      display: block;
+      overflow: hidden;
+    }
+    .ab-hero__title .line span {
+      display: block;
+      transform: translateY(110%);
+      animation: ab-line-up 1s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+    .ab-hero__title .line:nth-child(1) span { animation-delay: 0.2s; }
+    .ab-hero__title .line:nth-child(2) span { animation-delay: 0.36s; }
+    .ab-hero__title em {
       font-style: italic;
-      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      color: #F0EBDD;
-      margin-bottom: 1.4rem;
+      color: var(--gold);
+      position: relative;
     }
-    .about-final-cta__sub {
+
+    .ab-hero__sub {
       font-family: var(--font-texte);
-      font-size: clamp(0.94rem, 1.2vw, 1.05rem);
+      font-size: clamp(0.95rem, 1.4vw, 1.15rem);
       line-height: 1.78;
-      color: rgba(240,235,221,0.55);
-      max-width: 44ch;
-      margin: 0 auto 2.6rem;
+      color: rgba(255,255,255,0.74);
+      max-width: 56ch;
+      margin: 0 auto 3rem;
+      font-weight: 400;
+      animation: ab-fade-up 0.85s cubic-bezier(0.22,1,0.36,1) 0.6s both;
     }
 
-    /* Duo de CTAs glass premium */
-    .about-final-cta__actions {
+    /* Hero CTAs duo */
+    .ab-hero__actions {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    /* CTA glass premium */
-    .glass-cta {
-      display: inline-flex;
       align-items: center;
       gap: 0.85rem;
-      padding: 16px 30px;
-      border-radius: 999px;
-      font-family: var(--font-texte);
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      font-weight: 700;
-      transition: background 0.32s var(--ease-out),
-                  border-color 0.32s var(--ease-out),
-                  color 0.32s var(--ease-out),
-                  transform 0.32s var(--ease-out),
-                  box-shadow 0.32s var(--ease-out);
-      position: relative;
-      overflow: hidden;
-    }
-    .glass-cta__icon {
-      width: 18px; height: 18px;
-      flex-shrink: 0;
-      transition: transform 0.4s var(--ease-out);
-    }
-    .glass-cta__arrow {
-      width: 14px; height: 14px;
-      flex-shrink: 0;
-      transition: transform 0.32s var(--ease-out);
-    }
-    .glass-cta:hover .glass-cta__arrow {
-      transform: translateX(4px);
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: ab-fade-up 0.85s cubic-bezier(0.22,1,0.36,1) 0.78s both;
     }
 
-    /* Variante "primaire" — devis (caramel proéminent) */
-    .glass-cta--primary {
-      background: linear-gradient(135deg, #B0845A 0%, #9C734D 100%);
-      color: #FFFCF4;
-      border: 1px solid rgba(176,132,90,0.5);
-      box-shadow:
-        0 6px 28px rgba(176,132,90,0.32),
-        inset 0 1px 0 rgba(255,255,255,0.2);
-    }
-    .glass-cta--primary:hover {
-      transform: translateY(-3px);
-      box-shadow:
-        0 12px 42px rgba(176,132,90,0.42),
-        inset 0 1px 0 rgba(255,255,255,0.3);
-    }
-    .glass-cta--primary:hover .glass-cta__icon {
-      transform: rotate(-8deg) scale(1.1);
-    }
-
-    /* Variante "secondaire" — message (glass blanc translucide) */
-    .glass-cta--ghost {
-      background: rgba(255,255,255,0.08);
-      backdrop-filter: blur(20px) saturate(140%);
-      -webkit-backdrop-filter: blur(20px) saturate(140%);
-      border: 1px solid rgba(255,255,255,0.18);
-      color: rgba(240,235,221,0.92);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
-    }
-    .glass-cta--ghost:hover {
-      background: rgba(255,255,255,0.16);
-      border-color: rgba(255,255,255,0.32);
-      transform: translateY(-3px);
-      color: #FFFCF4;
-    }
-    .glass-cta--ghost:hover .glass-cta__icon {
-      transform: scale(1.15);
-    }
-
-    @media (max-width: 600px) {
-      .about-final-cta__actions { flex-direction: column; gap: 0.75rem; width: 100%; }
-      .glass-cta { width: 100%; justify-content: center; }
-    }
-
-    /* ═══════════════════════════════════════════════════════════
-       Ornements XIXe partagés — fleuron SVG + règles fines
-    ═══════════════════════════════════════════════════════════ */
-    .belle-ornament {
-      display: block;
-      margin: 0 auto;
-      color: var(--cream-2);
-    }
-
-    /* ═══════════════════════════════════════════════════════════
-       PALETTE PAGE À PROPOS — navy / teal / cream
-       (override local ; n'affecte pas les autres pages)
-    ═══════════════════════════════════════════════════════════ */
-    body.page-about {
-      --p-deep:  #0C2C55;    /* navy profond — fonds sombres */
-      --p-teal:  #296374;    /* teal moyen — sections accent */
-      --p-light: #629FAD;    /* teal clair — accents, hover, italics */
-      --p-cream: #EDEDCE;    /* crème jaune — fonds clairs, textes sur sombre */
-    }
-
-    /* HERO — overlay navy au lieu de pur noir */
-    body.page-about .about-hero-full__bg {
-      filter: brightness(0.5) saturate(0.85);
-    }
-    body.page-about .about-hero-full__bg::after {
-      background: linear-gradient(to top,
-        rgba(12,44,85,0.92) 0%,
-        rgba(12,44,85,0.42) 42%,
-        rgba(12,44,85,0.05) 70%,
-        transparent 100%
-      );
-    }
-    body.page-about .about-hero-full__content .t-h1 em {
-      color: #629FAD;
-    }
-    body.page-about .about-hero-full__content .t-label {
-      color: rgba(237,237,206,0.72);
-    }
-
-    /* BIO — fond crème + cartes verre teintées teal */
-    body.page-about .about-bio {
-      background: var(--p-cream);
-    }
-    body.page-about .about-accent-text { color: var(--p-teal); }
-    body.page-about .bio-heading { color: var(--p-deep); }
-    body.page-about .bio-card {
-      background: rgba(255,255,255,0.55);
-      backdrop-filter: blur(28px) saturate(150%);
-      -webkit-backdrop-filter: blur(28px) saturate(150%);
-      border: 1px solid rgba(12,44,85,0.10);
-      box-shadow:
-        0 4px 28px rgba(12,44,85,0.07),
-        inset 0 1px 0 rgba(255,255,255,0.92);
-    }
-    body.page-about .bio-card::before {
-      background: linear-gradient(to right, rgba(255,255,255,0.95), rgba(255,255,255,0.3));
-    }
-    body.page-about .bio-card::after { background: var(--p-light); }
-    body.page-about .bio-card__icon { color: var(--p-teal); }
-    body.page-about .bio-card__title { color: var(--p-deep); }
-    body.page-about .bio-card__text  { color: rgba(12,44,85,0.66); }
-
-    /* PILIERS — photo nette derrière, voile très léger neutre */
-    body.page-about .about-pillars {
-      background-image: url('assets/photos/clavier-orgue-choeur.jpg');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      position: relative;
-      overflow: hidden;
-    }
-    /* Voile crème très léger — la photo reste visible et belle */
-    body.page-about .about-pillars::before {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse at center,
-          rgba(237,237,206,0.18) 0%,
-          rgba(237,237,206,0.42) 100%);
-      pointer-events: none;
-      z-index: 0;
-    }
-    body.page-about .about-pillars > .container {
-      position: relative; z-index: 1;
-    }
-    body.page-about .pillars-ornament { color: var(--p-deep); }
-    body.page-about .pillars-intro__label {
-      color: var(--p-deep);
-      text-shadow: 0 1px 8px rgba(255,253,245,0.5);
-    }
-    body.page-about .pillars-intro__title {
-      color: var(--p-deep);
-      text-shadow: 0 2px 24px rgba(255,253,245,0.6);
-    }
-    body.page-about .pillars-intro__sub   {
-      color: rgba(12,44,85,0.78);
-      text-shadow: 0 1px 8px rgba(255,253,245,0.5);
-    }
-
-    /* Cartes piliers — verre crème translucide, texte navy */
-    body.page-about .pillar-card {
-      background: rgba(255,253,245,0.32);
-      backdrop-filter: blur(28px) saturate(160%);
-      -webkit-backdrop-filter: blur(28px) saturate(160%);
-      border: 1px solid rgba(255,253,245,0.55);
-      box-shadow:
-        0 12px 42px rgba(12,44,85,0.18),
-        inset 0 1px 0 rgba(255,255,255,0.65),
-        inset 0 -1px 0 rgba(255,255,255,0.05);
-    }
-    body.page-about .pillar-card--musicians {
-      background: linear-gradient(135deg,
-        rgba(255,253,245,0.42) 0%,
-        rgba(237,237,206,0.30) 100%);
-    }
-    body.page-about .pillar-card::before {
-      background: linear-gradient(to right, rgba(255,255,255,0.85), rgba(255,255,255,0.2));
-    }
-    /* Halo doré au hover — teinté teal pour la page about */
-    body.page-about .pillar-card::after {
-      background: radial-gradient(circle at center,
-        rgba(98,159,173,0.32) 0%, transparent 65%);
-    }
-    body.page-about .pillar-card__num {
-      color: var(--p-teal);
-    }
-    body.page-about .pillar-card__num::before { background: var(--p-teal); }
-    body.page-about .pillar-card__title { color: var(--p-deep); }
-    body.page-about .pillar-card__title em { color: var(--p-teal); }
-    body.page-about .pillar-card__desc  { color: rgba(12,44,85,0.72); }
-    body.page-about .pillar-card__list li { color: rgba(12,44,85,0.72); }
-    body.page-about .pillar-card__list li::before { background: var(--p-teal); opacity: 1; }
-    body.page-about .pillar-card__cta {
-      background: rgba(12,44,85,0.06);
-      border: 1px solid rgba(12,44,85,0.22);
-      color: var(--p-deep);
-    }
-    body.page-about .pillar-card__cta:hover {
-      background: var(--p-deep);
-      color: var(--p-cream);
-    }
-
-    /* SERVICES — fond photo musée lorrain visible, voile crème léger */
-    body.page-about .about-services {
-      background-image: url('assets/photos/musee-lorrain.jpg');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      position: relative;
-      overflow: hidden;
-    }
-    body.page-about .about-services::before {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse at center,
-          rgba(237,237,206,0.16) 0%,
-          rgba(237,237,206,0.40) 100%);
-      pointer-events: none;
-      z-index: 0;
-    }
-    body.page-about .about-services > .container {
-      position: relative; z-index: 1;
-    }
-    body.page-about .about-services .t-h2 {
-      color: var(--p-deep);
-      text-shadow: 0 2px 24px rgba(255,253,245,0.6);
-    }
-    body.page-about .about-services .t-label {
-      color: var(--p-teal);
-      text-shadow: 0 1px 8px rgba(255,253,245,0.5);
-    }
-    body.page-about .about-services .t-body {
-      color: rgba(12,44,85,0.78);
-      text-shadow: 0 1px 8px rgba(255,253,245,0.5);
-    }
-
-    /* Cartes services — verre crème translucide, texte navy */
-    body.page-about .sglass-card {
-      background: rgba(255,253,245,0.34);
-      backdrop-filter: blur(26px) saturate(155%);
-      -webkit-backdrop-filter: blur(26px) saturate(155%);
-      border: 1px solid rgba(255,253,245,0.6);
-      box-shadow:
-        0 12px 38px rgba(12,44,85,0.16),
-        inset 0 1px 0 rgba(255,255,255,0.7);
-    }
-    body.page-about .sglass-card::before {
-      background: linear-gradient(to right, rgba(255,255,255,0.9), rgba(255,255,255,0.2));
-    }
-    /* Trait soulignement détaché du bas */
-    body.page-about .sglass-card::after {
-      background: var(--p-teal);
-      bottom: 1.2rem;
-    }
-    body.page-about .sglass-card__icon {
-      background: rgba(12,44,85,0.06);
-      border-color: rgba(12,44,85,0.18);
-      color: var(--p-teal);
-    }
-    body.page-about .sglass-card__title { color: var(--p-deep); }
-    body.page-about .sglass-card__sub   { color: var(--p-teal); }
-    body.page-about .sglass-card__list li { color: rgba(12,44,85,0.7); }
-    body.page-about .sglass-card__list li::before { color: var(--p-teal); }
-    body.page-about .sglass-note {
-      color: rgba(12,44,85,0.65);
-      text-shadow: 0 1px 6px rgba(255,253,245,0.5);
-    }
-    body.page-about .sglass-note__cta {
-      color: var(--p-deep);
-      font-weight: 700;
-    }
-    body.page-about .sglass-note__cta:hover { color: var(--p-teal); }
-
-    /* APPROACH — fond crème, texte navy */
-    body.page-about .about-approach {
-      background: var(--p-cream);
-      --cream:     var(--p-deep);
-      --cream-rgb: 12, 44, 85;
-      --cream-2:   var(--p-teal);
-    }
-    body.page-about .about-approach .about-accent-text { color: var(--p-teal); }
-    body.page-about .about-approach .t-h2 { color: var(--p-deep); }
-    body.page-about .about-approach .approach-item { border-top-color: rgba(12,44,85,0.14); }
-    body.page-about .about-approach .approach-item__num   { color: rgba(12,44,85,0.10); }
-    body.page-about .about-approach .approach-item__title { color: var(--p-deep); }
-    body.page-about .about-approach .approach-item__text  { color: rgba(12,44,85,0.65); }
-
-    /* COUNTERS — fond crème */
-    body.page-about .counters {
-      background: var(--p-cream);
-    }
-    body.page-about .counters .t-label { color: var(--p-teal); }
-    body.page-about .counter-item__value { color: var(--p-deep); }
-    body.page-about .counter-item__label { color: rgba(12,44,85,0.55); }
-
-    /* FINAL CTA — fond crème, texte navy */
-    body.page-about .about-final-cta {
-      background: var(--p-cream);
-    }
-    body.page-about .about-final-cta::before {
-      background: radial-gradient(circle at center,
-        rgba(98,159,173,0.18) 0%,
-        rgba(98,159,173,0.06) 40%,
-        transparent 65%);
-    }
-    body.page-about .about-final-cta__ornament { color: var(--p-teal); }
-    body.page-about .about-final-cta__label    { color: var(--p-teal); }
-    body.page-about .about-final-cta__title    { color: var(--p-deep); }
-    body.page-about .about-final-cta__sub      { color: rgba(12,44,85,0.6); }
-
-    body.page-about .glass-cta--primary {
-      background: linear-gradient(135deg, var(--p-deep) 0%, var(--p-teal) 100%);
-      color: var(--p-cream);
-      border: 1px solid rgba(12,44,85,0.4);
-      box-shadow:
-        0 6px 28px rgba(12,44,85,0.28),
-        inset 0 1px 0 rgba(255,255,255,0.22);
-    }
-    body.page-about .glass-cta--primary:hover {
-      box-shadow:
-        0 14px 42px rgba(12,44,85,0.36),
-        inset 0 1px 0 rgba(255,255,255,0.32);
-    }
-    body.page-about .glass-cta--ghost {
-      background: rgba(12,44,85,0.06);
-      backdrop-filter: blur(20px) saturate(160%);
-      -webkit-backdrop-filter: blur(20px) saturate(160%);
-      border: 1px solid rgba(12,44,85,0.22);
-      color: var(--p-deep);
-    }
-    body.page-about .glass-cta--ghost:hover {
-      background: rgba(12,44,85,0.14);
-      border-color: rgba(12,44,85,0.4);
-    }
-
-    /* CTA bio "Prendre contact" — liquid glass premium sur fond crème */
-    body.page-about .about-bio .hero__cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.7rem;
-      padding: 14px 28px;
-      border-radius: 999px;
-      background: rgba(12,44,85,0.08);
-      backdrop-filter: blur(20px) saturate(160%);
-      -webkit-backdrop-filter: blur(20px) saturate(160%);
-      border: 1px solid rgba(12,44,85,0.18);
-      box-shadow:
-        0 6px 22px rgba(12,44,85,0.10),
-        inset 0 1px 0 rgba(255,255,255,0.6);
-      color: var(--p-deep);
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      font-size: 0.7rem;
-      transition: background 0.32s var(--ease-out),
-                  border-color 0.32s var(--ease-out),
-                  color 0.32s var(--ease-out),
-                  transform 0.32s var(--ease-out),
-                  box-shadow 0.32s var(--ease-out);
-      position: relative;
-      overflow: hidden;
-    }
-    /* Reflet doré au survol — sweep à travers la pilule */
-    body.page-about .about-bio .hero__cta::before {
-      content: '';
+    /* Indicateur de défilement */
+    .ab-hero__scroll {
       position: absolute;
-      inset: 0;
-      background: linear-gradient(115deg,
-        transparent 38%,
-        rgba(232,200,150,0.35) 50%,
-        transparent 62%);
-      transform: translateX(-110%);
-      transition: transform 0.7s cubic-bezier(0.4,0,0.2,1);
-      pointer-events: none;
+      bottom: 2.5rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      color: rgba(255,255,255,0.42);
+      font-family: var(--font-texte);
+      font-size: 0.55rem;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      animation: ab-fade-up 0.85s cubic-bezier(0.22,1,0.36,1) 1s both;
     }
-    body.page-about .about-bio .hero__cta:hover::before {
-      transform: translateX(110%);
-    }
-    body.page-about .about-bio .hero__cta:hover {
-      background: rgba(12,44,85,0.16);
-      border-color: rgba(12,44,85,0.32);
-      transform: translateY(-2px);
-      box-shadow:
-        0 12px 32px rgba(12,44,85,0.18),
-        inset 0 1px 0 rgba(255,255,255,0.65);
-    }
-    body.page-about .about-bio .hero__cta-arrow {
-      transition: transform 0.32s var(--ease-out);
-    }
-    body.page-about .about-bio .hero__cta:hover .hero__cta-arrow {
-      transform: translateX(4px);
+    .ab-hero__scroll::after {
+      content: '';
+      width: 1px; height: 36px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+      animation: scroll-pulse 2s ease-in-out infinite;
     }
 
-    /* Sur les fonds avec photo, désactiver fixed sur mobile (perf iOS) */
-    @media (max-width: 900px) {
-      body.page-about .about-pillars,
-      body.page-about .about-services {
-        background-attachment: scroll;
-      }
-    }
-
-    /* ═══════════════════════════════════════════════════════════
-       SOMMAIRE / TOC — barre glass, sticky-feel sous le hero
-    ═══════════════════════════════════════════════════════════ */
-    .about-toc {
+    /* ════════════════════════════════════════════════════════════
+       TABLE OF CONTENTS — pilule glass flottante
+    ════════════════════════════════════════════════════════════ */
+    .ab-toc {
       position: relative;
       z-index: 5;
-      margin-top: -32px;       /* chevauche légèrement le hero pour effet "flotte" */
+      margin-top: -34px;
       padding: 0 var(--gutter);
-      animation: toc-rise 0.7s cubic-bezier(0.22,1,0.36,1) 0.6s both;
+      animation: ab-fade-up 0.8s cubic-bezier(0.22,1,0.36,1) 1.1s both;
     }
-    @keyframes toc-rise {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .about-toc__inner {
-      max-width: var(--content-max);
+    .ab-toc__inner {
+      max-width: 940px;
       margin: 0 auto;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.3rem;
       flex-wrap: wrap;
-      padding: 0.7rem 1.4rem;
+      padding: 0.6rem 1.1rem;
       border-radius: 999px;
-      background: rgba(255,253,245,0.78);
+      background: rgba(250,250,247,0.85);
       backdrop-filter: blur(28px) saturate(170%);
       -webkit-backdrop-filter: blur(28px) saturate(170%);
-      border: 1px solid rgba(255,253,245,0.92);
+      border: 1px solid rgba(12,44,85,0.10);
       box-shadow:
-        0 12px 42px rgba(12,44,85,0.18),
+        0 18px 48px rgba(10,31,61,0.18),
         inset 0 1px 0 rgba(255,255,255,0.95);
     }
-    .about-toc__label {
+    .ab-toc__label {
       font-family: var(--font-texte);
-      font-size: 0.55rem;
+      font-size: 0.52rem;
       letter-spacing: 0.32em;
       text-transform: uppercase;
       font-weight: 700;
-      color: var(--p-teal);
+      color: var(--navy-soft);
       padding: 0 0.6rem;
     }
-    .about-toc__link {
+    .ab-toc__link {
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
@@ -1258,159 +237,858 @@
       font-family: var(--font-texte);
       font-size: 0.7rem;
       font-weight: 600;
-      letter-spacing: 0.04em;
-      color: var(--p-deep);
+      color: var(--navy);
       transition: background 0.32s var(--ease-out),
                   color 0.32s var(--ease-out),
                   transform 0.32s var(--ease-out);
-      position: relative;
     }
-    .about-toc__link span {
+    .ab-toc__link span {
       font-family: var(--font-titre);
       font-style: italic;
-      font-size: 0.65rem;
-      color: var(--p-teal);
-      opacity: 0.85;
-      transition: color 0.32s var(--ease-out);
+      font-size: 0.62rem;
+      color: var(--navy-soft);
     }
-    .about-toc__link:hover {
-      background: rgba(12,44,85,0.08);
+    .ab-toc__link:hover {
+      background: rgba(12,44,85,0.07);
       transform: translateY(-1px);
     }
-    .about-toc__link--accent {
-      background: var(--p-deep);
-      color: var(--p-cream);
-      padding: 8px 16px;
+    .ab-toc__link--accent {
+      background: var(--navy);
+      color: #fff;
       margin-left: auto;
     }
-    .about-toc__link--accent span {
-      color: var(--p-cream);
+    .ab-toc__link--accent span {
+      color: #fff;
       font-style: normal;
       font-family: var(--font-texte);
-      font-size: 0.85rem;
     }
-    .about-toc__link--accent:hover {
-      background: var(--p-teal);
-      color: var(--p-cream);
-      transform: translateY(-1px);
+    .ab-toc__link--accent:hover {
+      background: var(--ink);
     }
-
-    /* Mobile : TOC scrollable horizontalement */
-    @media (max-width: 760px) {
-      .about-toc {
-        margin-top: -24px;
-        padding: 0 1rem;
-      }
-      .about-toc__inner {
-        padding: 0.5rem 0.8rem;
-        gap: 0.2rem;
+    @media (max-width: 780px) {
+      .ab-toc { margin-top: -24px; padding: 0 1rem; }
+      .ab-toc__inner {
+        padding: 0.4rem 0.8rem;
+        gap: 0.15rem;
         overflow-x: auto;
         flex-wrap: nowrap;
         scrollbar-width: none;
         -webkit-overflow-scrolling: touch;
         border-radius: 14px;
       }
-      .about-toc__inner::-webkit-scrollbar { display: none; }
-      .about-toc__label { display: none; }
-      .about-toc__link {
-        flex-shrink: 0;
-        font-size: 0.66rem;
-        padding: 7px 12px;
-      }
-      .about-toc__link--accent { margin-left: 0; }
+      .ab-toc__inner::-webkit-scrollbar { display: none; }
+      .ab-toc__label { display: none; }
+      .ab-toc__link { flex-shrink: 0; font-size: 0.65rem; padding: 7px 11px; }
+      .ab-toc__link--accent { margin-left: 0; }
     }
 
-    /* Décalage pour les anchors — la nav pill ne masque pas les titres */
+    /* ════════════════════════════════════════════════════════════
+       SECTIONS GÉNÉRALES — padding/margin/scroll-anchors
+    ════════════════════════════════════════════════════════════ */
+    .ab-section {
+      padding: clamp(5rem, 10vw, 9rem) var(--gutter);
+      position: relative;
+    }
+    .ab-section__inner {
+      max-width: var(--content-max);
+      margin: 0 auto;
+    }
+    body.page-about #manifesto,
     body.page-about #bio,
     body.page-about #pillars,
     body.page-about #services,
     body.page-about #approche,
     body.page-about #contact {
-      scroll-margin-top: 110px;
+      scroll-margin-top: 100px;
     }
     html { scroll-behavior: smooth; }
 
-    /* ═══════════════════════════════════════════════════════════
-       ANIMATIONS BONUS — qui claquent
-    ═══════════════════════════════════════════════════════════ */
+    /* En-tête de section commun */
+    .ab-h-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-family: var(--font-texte);
+      font-size: 0.58rem;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 1.6rem;
+    }
+    .ab-h-eyebrow::before {
+      content: '';
+      width: 32px; height: 1px;
+      background: currentColor;
+      opacity: 0.6;
+    }
+    .ab-h-title {
+      font-family: var(--font-titre);
+      font-size: clamp(2.2rem, 4.6vw, 3.8rem);
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      color: var(--navy);
+      margin: 0 0 1.2rem;
+    }
+    .ab-h-title em { font-style: italic; color: var(--gold); }
+    .ab-h-sub {
+      font-family: var(--font-texte);
+      font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+      line-height: 1.78;
+      color: rgba(12,44,85,0.62);
+      max-width: 56ch;
+    }
 
-    /* Bio heading : caractères qui apparaissent en cascade au scroll */
-    body.page-about .bio-heading.is-visible {
-      animation: bio-heading-in 1s cubic-bezier(0.22,1,0.36,1) both;
+    /* Variantes fonds */
+    .ab-section--off-white { background: var(--off-white); }
+    .ab-section--ice       { background: var(--ice); }
+    .ab-section--navy {
+      background: var(--navy-deep);
+      color: rgba(255,255,255,0.88);
+      isolation: isolate;
     }
-    @keyframes bio-heading-in {
-      0%   { opacity: 0; transform: translateY(20px); letter-spacing: 0.04em; }
-      100% { opacity: 1; transform: translateY(0); letter-spacing: -0.02em; }
+    .ab-section--navy::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 80% 20%, rgba(74,111,165,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse at 20% 80%, rgba(201,163,87,0.06) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    .ab-section--navy .ab-h-title { color: #fff; }
+    .ab-section--navy .ab-h-title em { color: var(--gold); }
+    .ab-section--navy .ab-h-sub   { color: rgba(255,255,255,0.62); }
+    .ab-section--ink {
+      background: var(--ink);
+      color: rgba(255,255,255,0.88);
+      isolation: isolate;
+    }
+    .ab-section--ink .ab-h-title { color: #fff; }
+    .ab-section--ink .ab-h-title em { color: var(--gold); }
+    .ab-section--ink .ab-h-sub   { color: rgba(255,255,255,0.55); }
+
+    /* ════════════════════════════════════════════════════════════
+       MANIFESTO — grand statement éditorial centré
+    ════════════════════════════════════════════════════════════ */
+    .ab-manifesto {
+      text-align: center;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .ab-manifesto__quote {
+      font-family: var(--font-titre);
+      font-style: italic;
+      font-size: clamp(1.8rem, 3.8vw, 3.4rem);
+      line-height: 1.18;
+      letter-spacing: -0.015em;
+      color: var(--navy);
+      margin: 1.2rem 0 2.4rem;
+    }
+    .ab-manifesto__quote em {
+      font-style: italic;
+      color: var(--gold);
+      position: relative;
+      display: inline-block;
+    }
+    /* Trait sous l'italique */
+    .ab-manifesto__quote em::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      bottom: -4px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.4;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.7s cubic-bezier(0.22,1,0.36,1) 0.4s;
+    }
+    .ab-manifesto.is-visible .ab-manifesto__quote em::after { transform: scaleX(1); }
+
+    .ab-manifesto__sig {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-family: var(--font-texte);
+      font-size: 0.62rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--navy-soft);
+    }
+    .ab-manifesto__sig::before {
+      content: '';
+      width: 24px; height: 1px;
+      background: currentColor;
+      opacity: 0.5;
     }
 
-    /* Pilier intro title : zoom-in italique */
-    body.page-about .pillars-intro__title.is-visible {
-      animation: pillars-zoom 1.1s cubic-bezier(0.22,1,0.36,1) both;
+    /* ════════════════════════════════════════════════════════════
+       BIO — 3 cartes alignées avec gros chiffres
+    ════════════════════════════════════════════════════════════ */
+    .ab-bio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.4rem;
+      margin-top: 4rem;
     }
-    @keyframes pillars-zoom {
-      0%   { opacity: 0; transform: scale(0.92); }
-      100% { opacity: 1; transform: scale(1); }
+    .ab-bio-card {
+      position: relative;
+      padding: 2.6rem 2rem 2.2rem;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(24px) saturate(140%);
+      -webkit-backdrop-filter: blur(24px) saturate(140%);
+      border: 1px solid rgba(255,255,255,0.10);
+      transition: transform 0.5s cubic-bezier(0.22,1,0.36,1),
+                  background 0.5s ease,
+                  border-color 0.5s ease;
+      overflow: hidden;
     }
-
-    /* Cartes piliers : entrent décalées avec rotation subtile */
-    body.page-about .pillar-card {
-      transform: translateY(40px) rotateX(6deg);
+    .ab-bio-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right,
+        rgba(255,255,255,0.4), rgba(255,255,255,0.05));
+    }
+    /* Halo doré en coin */
+    .ab-bio-card::after {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle at center,
+        rgba(201,163,87,0.22) 0%, transparent 65%);
       opacity: 0;
-      transition: opacity 1s cubic-bezier(0.22,1,0.36,1),
-                  transform 1s cubic-bezier(0.22,1,0.36,1),
-                  box-shadow 0.42s var(--ease-out);
+      transition: opacity 0.6s ease;
+      pointer-events: none;
     }
-    body.page-about .pillar-card.is-visible {
+    .ab-bio-card:hover {
+      transform: translateY(-6px);
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(201,163,87,0.32);
+    }
+    .ab-bio-card:hover::after { opacity: 1; }
+
+    .ab-bio-card__num {
+      font-family: var(--font-titre);
+      font-style: italic;
+      font-size: 3.2rem;
+      line-height: 1;
+      color: var(--gold);
+      opacity: 0.88;
+      margin-bottom: 1.4rem;
+      display: block;
+    }
+    .ab-bio-card__title {
+      font-family: var(--font-titre);
+      font-size: clamp(1.2rem, 1.6vw, 1.45rem);
+      color: #fff;
+      margin: 0 0 1rem;
+      letter-spacing: -0.01em;
+    }
+    .ab-bio-card__text {
+      font-family: var(--font-texte);
+      font-size: 0.86rem;
+      line-height: 1.82;
+      color: rgba(255,255,255,0.65);
+      margin: 0;
+    }
+    @media (max-width: 900px) {
+      .ab-bio-grid { grid-template-columns: 1fr; gap: 1rem; }
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       PILIERS — 2 grandes cartes premium asymétriques
+    ════════════════════════════════════════════════════════════ */
+    .ab-pillars-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(1.2rem, 2vw, 1.8rem);
+      margin-top: 4rem;
+    }
+    .ab-pillar {
+      position: relative;
+      padding: clamp(2.4rem, 3.5vw, 3.4rem);
+      border-radius: 22px;
+      background: #fff;
+      border: 1px solid rgba(12,44,85,0.10);
+      box-shadow: 0 4px 28px rgba(10,31,61,0.06);
+      transition: transform 0.5s cubic-bezier(0.22,1,0.36,1),
+                  box-shadow 0.5s ease,
+                  border-color 0.5s ease;
+      overflow: hidden;
+      isolation: isolate;
+      display: flex;
+      flex-direction: column;
+    }
+    /* Pilier MUSICIENS — fond navy distinctif */
+    .ab-pillar--musicians {
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy);
+    }
+    .ab-pillar--musicians::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 90% 10%, rgba(74,111,165,0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 0% 100%, rgba(201,163,87,0.10) 0%, transparent 55%);
+      z-index: -1;
+    }
+    .ab-pillar:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 64px rgba(10,31,61,0.18);
+    }
+    .ab-pillar--musicians:hover {
+      border-color: var(--gold);
+    }
+
+    .ab-pillar__num {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: var(--font-titre);
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+    .ab-pillar__num::before {
+      content: '';
+      width: 24px; height: 1px;
+      background: currentColor;
+      opacity: 0.7;
+    }
+    .ab-pillar__title {
+      font-family: var(--font-titre);
+      font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+      line-height: 1.1;
+      letter-spacing: -0.018em;
+      color: var(--navy);
+      margin: 0 0 1.2rem;
+    }
+    .ab-pillar--musicians .ab-pillar__title { color: #fff; }
+    .ab-pillar__title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .ab-pillar__desc {
+      font-family: var(--font-texte);
+      font-size: 0.92rem;
+      line-height: 1.78;
+      color: rgba(12,44,85,0.7);
+      margin: 0 0 1.8rem;
+    }
+    .ab-pillar--musicians .ab-pillar__desc { color: rgba(255,255,255,0.74); }
+
+    .ab-pillar__list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 2.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .ab-pillar__list li {
+      font-family: var(--font-texte);
+      font-size: 0.85rem;
+      line-height: 1.55;
+      color: rgba(12,44,85,0.72);
+      padding-left: 1.4rem;
+      position: relative;
+    }
+    .ab-pillar--musicians .ab-pillar__list li { color: rgba(255,255,255,0.78); }
+    .ab-pillar__list li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0.65rem;
+      width: 8px; height: 1px;
+      background: var(--gold);
+    }
+
+    /* CTA dans pilier */
+    .ab-pillar__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      align-self: flex-start;
+      padding: 13px 24px;
+      border-radius: 999px;
+      font-family: var(--font-texte);
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--navy);
+      background: rgba(12,44,85,0.06);
+      border: 1px solid rgba(12,44,85,0.18);
+      transition: all 0.32s var(--ease-out);
+      margin-top: auto;
+    }
+    .ab-pillar--musicians .ab-pillar__cta {
+      color: #fff;
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(255,255,255,0.25);
+    }
+    .ab-pillar__cta svg { transition: transform 0.32s var(--ease-out); }
+    .ab-pillar__cta:hover {
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy);
+      transform: translateX(2px);
+    }
+    .ab-pillar--musicians .ab-pillar__cta:hover {
+      background: var(--gold);
+      color: var(--ink);
+      border-color: var(--gold);
+    }
+    .ab-pillar__cta:hover svg { transform: translateX(3px); }
+
+    @media (max-width: 900px) {
+      .ab-pillars-grid { grid-template-columns: 1fr; gap: 1rem; }
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       SERVICES — 3 cartes glass sur fond ice
+    ════════════════════════════════════════════════════════════ */
+    .ab-services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+      margin-top: 4rem;
+    }
+    .ab-service {
+      position: relative;
+      padding: 2.4rem 2rem 2rem;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      border: 1px solid rgba(255,255,255,0.85);
+      box-shadow:
+        0 4px 32px rgba(10,31,61,0.06),
+        inset 0 1px 0 rgba(255,255,255,0.95);
+      transition: transform 0.5s cubic-bezier(0.22,1,0.36,1),
+                  box-shadow 0.5s ease;
+      overflow: hidden;
+    }
+    .ab-service::after {
+      content: '';
+      position: absolute;
+      bottom: 1.4rem; left: 2rem; right: 2rem;
+      height: 1.5px;
+      background: var(--gold);
+      border-radius: 999px;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s var(--ease-out);
+    }
+    .ab-service:hover {
+      transform: translateY(-6px);
+      box-shadow:
+        0 18px 48px rgba(10,31,61,0.12),
+        inset 0 1px 0 rgba(255,255,255,0.95);
+    }
+    .ab-service:hover::after { transform: scaleX(1); }
+
+    .ab-service__icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: rgba(12,44,85,0.06);
+      border: 1px solid rgba(12,44,85,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.4rem;
+      color: var(--navy);
+      transition: transform 0.5s var(--ease-out),
+                  background 0.32s ease,
+                  color 0.32s ease;
+    }
+    .ab-service:hover .ab-service__icon {
+      transform: rotate(-6deg) scale(1.06);
+      background: var(--navy);
+      color: var(--gold);
+    }
+    .ab-service__title {
+      font-family: var(--font-titre);
+      font-size: 1.3rem;
+      color: var(--navy);
+      margin: 0 0 0.3rem;
+    }
+    .ab-service__sub {
+      font-family: var(--font-texte);
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+      margin: 0 0 1.4rem;
+    }
+    .ab-service__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .ab-service__list li {
+      font-family: var(--font-texte);
+      font-size: 0.83rem;
+      line-height: 1.55;
+      color: rgba(12,44,85,0.7);
+      padding-left: 1rem;
+      position: relative;
+    }
+    .ab-service__list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      opacity: 0.7;
+    }
+
+    .ab-services__note {
+      margin-top: 3rem;
+      text-align: center;
+      font-family: var(--font-texte);
+      font-style: italic;
+      font-size: 0.85rem;
+      color: rgba(12,44,85,0.5);
+    }
+    .ab-services__note a {
+      font-style: normal;
+      color: var(--navy);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-left: 0.6rem;
+      transition: color 0.28s ease;
+    }
+    .ab-services__note a:hover { color: var(--gold); }
+
+    @media (max-width: 900px) {
+      .ab-services-grid { grid-template-columns: 1fr; gap: 1rem; }
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       APPROCHE — 4 principes sur fond ink, sparse, gros chiffres
+    ════════════════════════════════════════════════════════════ */
+    .ab-approach-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      margin-top: 4rem;
+      border-top: 1px solid rgba(255,255,255,0.10);
+    }
+    .ab-approach-item {
+      padding: 3rem 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+      border-right: 1px solid rgba(255,255,255,0.10);
+      position: relative;
+      transition: background 0.42s ease;
+    }
+    .ab-approach-item:nth-child(2n) { border-right: none; }
+    .ab-approach-item:hover { background: rgba(255,255,255,0.025); }
+
+    .ab-approach-item__num {
+      font-family: var(--font-titre);
+      font-style: italic;
+      font-size: 5rem;
+      line-height: 1;
+      color: rgba(255,255,255,0.06);
+      margin: 0 0 0.8rem;
+      transition: color 0.5s ease, transform 0.5s var(--ease-out);
+    }
+    .ab-approach-item:hover .ab-approach-item__num {
+      color: var(--gold);
+      transform: translateY(-4px);
+    }
+    .ab-approach-item__title {
+      font-family: var(--font-titre);
+      font-size: 1.5rem;
+      color: #fff;
+      margin: 0 0 0.8rem;
+      letter-spacing: -0.01em;
+    }
+    .ab-approach-item__text {
+      font-family: var(--font-texte);
+      font-size: 0.9rem;
+      line-height: 1.78;
+      color: rgba(255,255,255,0.6);
+      max-width: 38ch;
+      margin: 0;
+    }
+    @media (max-width: 760px) {
+      .ab-approach-grid { grid-template-columns: 1fr; }
+      .ab-approach-item {
+        border-right: none;
+        padding: 2.2rem 0;
+      }
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       COUNTERS — chiffres lumineux sur fond navy
+    ════════════════════════════════════════════════════════════ */
+    .ab-counters-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+    .ab-counter {
+      text-align: center;
+      padding: 1rem;
+      transition: transform 0.5s var(--ease-out);
+    }
+    .ab-counter:hover { transform: translateY(-4px); }
+    .ab-counter__value {
+      font-family: var(--font-titre);
+      font-style: italic;
+      font-size: clamp(3.2rem, 6vw, 5rem);
+      line-height: 1;
+      color: #fff;
+      letter-spacing: -0.04em;
+      margin: 0 0 0.6rem;
+      text-shadow: 0 0 32px rgba(201,163,87,0.18);
+    }
+    .ab-counter__value sup {
+      font-size: 0.5em;
+      color: var(--gold);
+      vertical-align: super;
+      margin-left: 0.1em;
+    }
+    .ab-counter__label {
+      font-family: var(--font-texte);
+      font-size: 0.62rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: rgba(255,255,255,0.55);
+      margin: 0;
+    }
+    .ab-counter__rule {
+      width: 24px; height: 1px;
+      background: var(--gold);
+      margin: 0 auto 1rem;
+      opacity: 0;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: opacity 0.5s ease, transform 0.5s var(--ease-out);
+    }
+    .ab-counter.is-visible .ab-counter__rule {
       opacity: 1;
-      transform: translateY(0) rotateX(0);
+      transform: scaleX(1);
+      transition-delay: 0.3s;
     }
-    body.page-about .pillar-card:hover {
-      transform: translateY(-8px) rotateX(0);
-    }
-
-    /* Subtle floating breathe on the photo backdrop sections */
-    @keyframes bg-breathe {
-      0%, 100% { background-size: 100% auto; }
-      50%      { background-size: 104% auto; }
-    }
-    body.page-about .about-pillars,
-    body.page-about .about-services {
-      animation: bg-breathe 22s ease-in-out infinite;
+    @media (max-width: 760px) {
+      .ab-counters-grid { grid-template-columns: 1fr; }
     }
 
-    /* Shine-sweep on glass-cta primary */
-    body.page-about .glass-cta--primary::before {
+    /* ════════════════════════════════════════════════════════════
+       FINAL CTA — section dramatique sur ink, deux gros boutons
+    ════════════════════════════════════════════════════════════ */
+    .ab-final {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .ab-final__ornament {
+      width: 56px; height: 22px;
+      margin: 0 auto 1.6rem;
+      color: var(--gold);
+      animation: ornament-spin-in 1.2s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    @keyframes ornament-spin-in {
+      0%   { opacity: 0; transform: scale(0.7) rotate(-12deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0); }
+    }
+    .ab-final__title {
+      font-family: var(--font-titre);
+      font-style: italic;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      color: #fff;
+      margin: 0 0 1.4rem;
+    }
+    .ab-final__title em { color: var(--gold); }
+    .ab-final__sub {
+      font-family: var(--font-texte);
+      font-size: clamp(0.95rem, 1.25vw, 1.08rem);
+      line-height: 1.78;
+      color: rgba(255,255,255,0.55);
+      max-width: 48ch;
+      margin: 0 auto 3rem;
+    }
+    .ab-final__actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       BOUTONS GLASS PREMIUM (réutilisable)
+    ════════════════════════════════════════════════════════════ */
+    .ab-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 16px 32px;
+      border-radius: 999px;
+      font-family: var(--font-texte);
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 700;
+      transition: all 0.32s var(--ease-out);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .ab-cta__icon {
+      width: 18px; height: 18px;
+      flex-shrink: 0;
+      transition: transform 0.4s var(--ease-out);
+    }
+    .ab-cta__arrow {
+      width: 14px; height: 14px;
+      flex-shrink: 0;
+      transition: transform 0.32s var(--ease-out);
+    }
+    .ab-cta:hover .ab-cta__arrow { transform: translateX(4px); }
+
+    /* Variante primaire — gradient gold premium */
+    .ab-cta--primary {
+      background: linear-gradient(135deg, var(--gold) 0%, #B08838 100%);
+      color: var(--ink);
+      border: 1px solid rgba(201,163,87,0.5);
+      box-shadow:
+        0 8px 32px rgba(201,163,87,0.32),
+        inset 0 1px 0 rgba(255,255,255,0.32);
+    }
+    .ab-cta--primary::before {
       content: '';
       position: absolute;
       inset: 0;
       background: linear-gradient(115deg,
         transparent 38%,
-        rgba(237,237,206,0.32) 50%,
+        rgba(255,255,255,0.4) 50%,
         transparent 62%);
       transform: translateX(-110%);
       transition: transform 0.7s cubic-bezier(0.4,0,0.2,1);
       pointer-events: none;
     }
-    body.page-about .glass-cta--primary:hover::before {
-      transform: translateX(110%);
+    .ab-cta--primary:hover::before { transform: translateX(110%); }
+    .ab-cta--primary:hover {
+      transform: translateY(-3px);
+      box-shadow:
+        0 14px 42px rgba(201,163,87,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.42);
+    }
+    .ab-cta--primary:hover .ab-cta__icon {
+      transform: rotate(-8deg) scale(1.1);
     }
 
-    /* Counters value : pulse subtil au load */
-    body.page-about .counter-item__value {
-      transition: transform 0.5s var(--ease-out);
+    /* Variante glass blanche translucide */
+    .ab-cta--glass {
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(24px) saturate(160%);
+      -webkit-backdrop-filter: blur(24px) saturate(160%);
+      border: 1px solid rgba(255,255,255,0.22);
+      color: #fff;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.14);
     }
-    body.page-about .counter-item:hover .counter-item__value {
-      transform: scale(1.04);
+    .ab-cta--glass:hover {
+      background: rgba(255,255,255,0.20);
+      border-color: rgba(255,255,255,0.42);
+      transform: translateY(-3px);
+    }
+    .ab-cta--glass:hover .ab-cta__icon { transform: scale(1.12); }
+
+    /* Variante pill blanche pleine — pour le hero */
+    .ab-cta--white {
+      background: #fff;
+      color: var(--navy);
+      border: 1px solid #fff;
+      box-shadow: 0 6px 24px rgba(255,255,255,0.18);
+    }
+    .ab-cta--white:hover {
+      transform: translateY(-3px);
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--ink);
     }
 
-    /* Ornament fade-in spin */
-    body.page-about .pillars-ornament,
-    body.page-about .about-final-cta__ornament {
-      animation: ornament-in 1.2s cubic-bezier(0.22,1,0.36,1) both;
+    /* Variante outline ghost — pour le hero */
+    .ab-cta--ghost {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.30);
+      color: #fff;
     }
-    @keyframes ornament-in {
-      0%   { opacity: 0; transform: scale(0.8) rotate(-8deg); }
-      100% { opacity: 1; transform: scale(1) rotate(0); }
+    .ab-cta--ghost:hover {
+      background: rgba(255,255,255,0.14);
+      border-color: rgba(255,255,255,0.60);
+      transform: translateY(-3px);
+    }
+
+    @media (max-width: 600px) {
+      .ab-final__actions,
+      .ab-hero__actions { flex-direction: column; gap: 0.7rem; width: 100%; }
+      .ab-cta { width: 100%; justify-content: center; }
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       ANIMATIONS — keyframes globaux + reveal-on-scroll
+    ════════════════════════════════════════════════════════════ */
+    @keyframes ab-fade-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes ab-line-up {
+      from { transform: translateY(110%); }
+      to   { transform: translateY(0); }
+    }
+    @keyframes scroll-pulse {
+      0%, 100% { transform: scaleY(0.6); opacity: 0.4; }
+      50%      { transform: scaleY(1);   opacity: 1; }
+    }
+
+    /* Cards & sections cachées au départ, révélées en scroll */
+    .ab-reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.85s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.85s cubic-bezier(0.22,1,0.36,1);
+    }
+    .ab-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .ab-reveal.delay-1 { transition-delay: 0.08s; }
+    .ab-reveal.delay-2 { transition-delay: 0.18s; }
+    .ab-reveal.delay-3 { transition-delay: 0.28s; }
+    .ab-reveal.delay-4 { transition-delay: 0.38s; }
+
+    /* Cards qui pivotent légèrement à l'entrée */
+    .ab-reveal--tilt {
+      opacity: 0;
+      transform: translateY(40px) rotateX(8deg);
+      transform-origin: center bottom;
+      transition: opacity 1s cubic-bezier(0.22,1,0.36,1),
+                  transform 1s cubic-bezier(0.22,1,0.36,1);
+    }
+    .ab-reveal--tilt.is-visible {
+      opacity: 1;
+      transform: translateY(0) rotateX(0);
     }
   </style>
 </head>
@@ -1431,6 +1109,8 @@
     </div>
   </div>
 
+  <!-- BARRE DE PROGRESSION SCROLL -->
+  <div class="ab-progress" id="ab-progress" aria-hidden="true"></div>
 
   <a href="#main" class="sr-only">Aller au contenu principal</a>
 
@@ -1448,7 +1128,6 @@
       <span></span><span></span><span></span>
     </button>
   </nav>
-
   <div id="nav-fullscreen" class="nav-fullscreen" role="dialog" aria-modal="true" aria-label="Menu navigation">
     <button class="nav-fullscreen-close" aria-label="Fermer le menu">✕</button>
     <nav class="nav-fullscreen-links">
@@ -1461,257 +1140,120 @@
 
   <main id="main">
 
-    <!-- HERO ABOUT -->
-    <section class="about-hero-full" aria-label="En-tête À propos">
-      <div class="about-hero-full__bg" role="img" aria-label="Porte de la Craffe, Nancy"></div>
-      <div class="about-hero-full__content">
-        <p class="t-label" style="animation:fade-up 0.7s var(--ease-out) 0.1s both">
-          À propos · Nancy
-        </p>
-        <!-- Ornement Belle Époque animé -->
-        <svg class="about-divider-svg" viewBox="0 0 160 14" aria-hidden="true">
-          <line class="adiv-line" x1="0" y1="7" x2="120" y2="7"
-                stroke="var(--cream-2)" stroke-width="1" opacity="0.55"/>
-          <circle class="adiv-dot1" cx="130" cy="7" r="2.5"
-                  fill="var(--cream-2)" opacity="0.8" style="transform-origin:130px 7px"/>
-          <circle class="adiv-dot2" cx="148" cy="7" r="1.5"
-                  fill="var(--cream-2)" opacity="0.45" style="transform-origin:148px 7px"/>
-        </svg>
-        <h1 class="t-h1" style="max-width:20ch;animation:fade-up 0.78s var(--ease-out) 0.22s both">
-          Valoriser ce qui mérite<br>d'<em>être vu</em>.
+    <!-- ════════════════════════════════════════════════════════════
+         HERO — pure typographie, navy profond
+    ════════════════════════════════════════════════════════════ -->
+    <section class="ab-hero" aria-label="Présentation">
+      <div class="ab-hero__inner">
+        <p class="ab-hero__eyebrow">À propos · Nancy · Paris</p>
+        <h1 class="ab-hero__title">
+          <span class="line"><span>Valoriser ce qui</span></span>
+          <span class="line"><span>mérite d'<em>être vu</em>.</span></span>
         </h1>
-        <p class="t-large" style="max-width:46ch;margin-top:1rem;animation:fade-up 0.72s var(--ease-out) 0.4s both">
-          Photographe et vidéaste à Nancy & Paris — spécialisé en communication visuelle pour musiciens, et présent pour valoriser vos lieux, événements et portraits.
+        <p class="ab-hero__sub">
+          Photographe et vidéaste à Nancy &amp; Paris — spécialisé en communication visuelle pour musiciens, et présent pour valoriser vos lieux, événements et portraits.
         </p>
-        <!-- Localisation discrète -->
-        <p style="position:absolute;bottom:1.6rem;right:var(--gutter);font-family:var(--font-texte);font-size:0.55rem;letter-spacing:0.32em;text-transform:uppercase;color:rgba(255,255,255,0.42);text-shadow:0 1px 6px rgba(0,0,0,0.6);margin:0">
-          Porte de la Craffe — Nancy
-        </p>
+        <div class="ab-hero__actions">
+          <a href="#pillars" class="ab-cta ab-cta--white">
+            Découvrir mes univers
+            <svg class="ab-cta__arrow" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="#contact" class="ab-cta ab-cta--ghost">
+            Travailler ensemble
+          </a>
+        </div>
       </div>
+      <a href="#manifesto" class="ab-hero__scroll" aria-label="Défiler">Défiler</a>
     </section>
 
-    <!-- SOMMAIRE — barre glass sticky-feel pour navigation rapide -->
-    <nav class="about-toc" aria-label="Sommaire de la page">
-      <div class="about-toc__inner">
-        <span class="about-toc__label">Naviguer ·</span>
-        <a href="#bio" class="about-toc__link"><span>i</span> Le parcours</a>
-        <a href="#pillars" class="about-toc__link"><span>ii</span> Mes deux univers</a>
-        <a href="#services" class="about-toc__link"><span>iii</span> Prestations</a>
-        <a href="#approche" class="about-toc__link"><span>iv</span> Approche</a>
-        <a href="#contact" class="about-toc__link about-toc__link--accent"><span>→</span> Contact</a>
+    <!-- TOC FLOTTANTE -->
+    <nav class="ab-toc" aria-label="Sommaire">
+      <div class="ab-toc__inner">
+        <span class="ab-toc__label">Naviguer ·</span>
+        <a href="#manifesto" class="ab-toc__link"><span>i</span> Manifeste</a>
+        <a href="#bio"       class="ab-toc__link"><span>ii</span> Le parcours</a>
+        <a href="#pillars"   class="ab-toc__link"><span>iii</span> Mes deux univers</a>
+        <a href="#services"  class="ab-toc__link"><span>iv</span> Prestations</a>
+        <a href="#approche"  class="ab-toc__link"><span>v</span> Approche</a>
+        <a href="#contact"   class="ab-toc__link ab-toc__link--accent"><span>→</span> Contact</a>
       </div>
     </nav>
 
-    <hr class="rule">
-
-    <!-- BIO — cartes liquid glass -->
-    <section id="bio" class="about-bio section" aria-labelledby="bio-titre">
-      <div class="container">
-
-        <p class="t-label reveal about-accent-text">Biographie</p>
-        <h2 class="bio-heading reveal" id="bio-titre" style="transition-delay:80ms">
-          Une oreille de musicien,<br>un œil de photographe.
-        </h2>
-
-        <div class="bio-cards">
-
-          <div class="bio-card reveal--scale" style="transition-delay:0ms">
-            <div class="bio-card__icon bio-icon-music" aria-hidden="true">
-              <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-                <!-- Portée stylisée -->
-                <line x1="4" y1="34" x2="40" y2="34" opacity="0.25"/>
-                <!-- Note 1 -->
-                <g class="note-1">
-                  <line x1="12" y1="26" x2="12" y2="14"/>
-                  <ellipse cx="10" cy="26" rx="3" ry="2.2" fill="currentColor" stroke="none"/>
-                </g>
-                <!-- Note 2 -->
-                <g class="note-2">
-                  <line x1="22" y1="26" x2="22" y2="10"/>
-                  <ellipse cx="20" cy="26" rx="3" ry="2.2" fill="currentColor" stroke="none"/>
-                </g>
-                <!-- Note 3 -->
-                <g class="note-3">
-                  <line x1="32" y1="26" x2="32" y2="16"/>
-                  <ellipse cx="30" cy="26" rx="3" ry="2.2" fill="currentColor" stroke="none"/>
-                </g>
-                <!-- Barre de liaison -->
-                <path d="M12 14 L32 16" opacity="0.6"/>
-              </svg>
-            </div>
-            <h3 class="bio-card__title">L'origine</h3>
-            <p class="bio-card__text">Je fais de l'orgue depuis l'âge de 6 ans, j'ai toujours été très sensible à l'art quelle que soit la forme qu'il prenne. La musique m'a appris à écouter, apprendre et comprendre ce qui apparaît parfois inintelligible.</p>
-          </div>
-
-          <div class="bio-card reveal--scale" style="transition-delay:80ms">
-            <div class="bio-card__icon bio-icon-comm" aria-hidden="true">
-              <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
-                <!-- Point central -->
-                <circle cx="22" cy="22" r="3" fill="currentColor" stroke="none"/>
-                <!-- Onde 1 -->
-                <circle class="wave-1" cx="22" cy="22" r="8"/>
-                <!-- Onde 2 -->
-                <circle class="wave-2" cx="22" cy="22" r="8"/>
-              </svg>
-            </div>
-            <h3 class="bio-card__title">La pratique</h3>
-            <p class="bio-card__text">Je photographie et filme des lieux, des événements, des portraits et des architectures. Chaque projet a son propre rythme : je m'adapte à ce que la scène demande, sans approche standardisée. Je sélectionne les projets spécifiquement, afin de m'engager uniquement là où je peux apporter un regard juste et un travail de qualité.</p>
-          </div>
-
-          <div class="bio-card reveal--scale" style="transition-delay:160ms">
-            <div class="bio-card__icon bio-icon-passion" aria-hidden="true">
-              <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-                <!-- Flamme -->
-                <path class="flame" d="M22 8 C 26 14, 30 18, 30 24 C 30 30, 26 34, 22 34 C 18 34, 14 30, 14 24 C 14 20, 17 18, 19 15 C 20 17, 21 18, 22 20 C 22 16, 22 12, 22 8 Z" fill="currentColor" fill-opacity="0.15"/>
-                <!-- Cœur -->
-                <path class="flame" d="M22 26 C 24 23, 26 23, 26 26 C 26 28, 22 30, 22 30 C 22 30, 18 28, 18 26 C 18 23, 20 23, 22 26 Z" fill="currentColor" stroke="none" opacity="0.7"/>
-              </svg>
-            </div>
-            <h3 class="bio-card__title">La passion</h3>
-            <p class="bio-card__text">Ce n'est pas mon métier principal — j'étudie le droit à côté. Je tiens à préserver cette pratique comme une passion, ce qui me permet d'investir chaque projet avec exigence et liberté.</p>
-          </div>
-
-        </div>
-
-        <div class="reveal" style="transition-delay:240ms">
-          <a href="contact.html" class="hero__cta" aria-label="Me contacter">
-            Prendre contact <span class="hero__cta-arrow" aria-hidden="true">→</span>
-          </a>
-        </div>
-
-      </div>
-    </section>
-
-    <hr class="rule">
-
-    <!-- PRESTATIONS — cartes liquid glass -->
-    <section id="services" class="about-services section" aria-labelledby="prestations-titre">
-      <div class="container">
-        <div class="about-services__header">
-          <div>
-            <p class="t-label reveal about-accent-text">Services</p>
-            <h2 class="t-h2 reveal" id="prestations-titre" style="transition-delay:80ms;max-width:18ch">
-              Ce que je propose.
-            </h2>
-          </div>
-          <p class="t-body reveal" style="transition-delay:160ms;max-width:44ch;color:rgba(var(--cream-rgb),0.52)">
-            Chaque commande fait l'objet d'un échange préalable pour définir le cadre, le rendu attendu et le calendrier. Les tarifs sont établis sur devis.
-          </p>
-        </div>
-
-        <div class="sglass-grid">
-
-          <!-- Photographie -->
-          <div class="sglass-card reveal--scale" style="transition-delay:0ms">
-            <div class="sglass-card__icon" aria-hidden="true">
-              <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <rect x="2" y="6" width="24" height="18" rx="3" stroke="currentColor" stroke-width="1.3"/>
-                <circle cx="14" cy="15" r="4.5" stroke="currentColor" stroke-width="1.3"/>
-                <path d="M10 6l1.5-3h5L18 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="21.5" cy="10" r="1" fill="currentColor"/>
-              </svg>
-            </div>
-            <h3 class="sglass-card__title">Photographie</h3>
-            <p class="sglass-card__sub">Lieux · Événements · Portraits</p>
-            <ul class="sglass-card__list">
-              <li>Mise en valeur de lieux, d'intérieurs, d'architecture</li>
-              <li>Couverture d'événement (privé, associatif, professionnel, culturel)</li>
-              <li>Portrait individuel ou de groupe, en studio ou sur le vif</li>
-              <li>Livraison haute résolution, options couleur & N&B</li>
-            </ul>
-          </div>
-
-          <!-- Vidéo -->
-          <div class="sglass-card reveal--scale" style="transition-delay:100ms">
-            <div class="sglass-card__icon" aria-hidden="true">
-              <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <rect x="2" y="7" width="18" height="14" rx="2.5" stroke="currentColor" stroke-width="1.3"/>
-                <path d="M20 11l6-3v12l-6-3V11z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <h3 class="sglass-card__title">Vidéographie</h3>
-            <p class="sglass-card__sub">Teaser · Interview · Événement</p>
-            <ul class="sglass-card__list">
-              <li>Teaser et vidéo de présentation d'un lieu ou d'un projet</li>
-              <li>Captation d'événement (selon le projet)</li>
-              <li>Interview, mini-documentaire</li>
-              <li>Montage, étalonnage et mixage sont inclus</li>
-            </ul>
-          </div>
-
-          <!-- Reels & Shorts -->
-          <div class="sglass-card reveal--scale" style="transition-delay:200ms">
-            <div class="sglass-card__icon" aria-hidden="true">
-              <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <rect x="8" y="2" width="12" height="24" rx="3" stroke="currentColor" stroke-width="1.3"/>
-                <line x1="8" y1="8" x2="20" y2="8" stroke="currentColor" stroke-width="1.3"/>
-                <line x1="8" y1="20" x2="20" y2="20" stroke="currentColor" stroke-width="1.3"/>
-                <path d="M12.5 13l4 1.5-4 1.5V13z" fill="currentColor"/>
-              </svg>
-            </div>
-            <h3 class="sglass-card__title">Reels & Shorts</h3>
-            <p class="sglass-card__sub">Instagram · YouTube · TikTok</p>
-            <ul class="sglass-card__list">
-              <li>Format vertical court, optimisé pour chaque plateforme</li>
-              <li>Présentation de lieu, mise en avant d'un événement ou d'une marque</li>
-              <li>Habillage sonore et sous-titrage disponibles</li>
-              <li>Livraison dans les spécifications natives des réseaux</li>
-            </ul>
-          </div>
-
-        </div>
-
-        <p class="sglass-note reveal" style="transition-delay:320ms">
-          Disponible à Nancy, Paris et en déplacement selon le projet.
-          <a href="contact.html" class="sglass-note__cta">Demander un devis →</a>
+    <!-- ════════════════════════════════════════════════════════════
+         MANIFESTO — déclaration éditoriale
+    ════════════════════════════════════════════════════════════ -->
+    <section id="manifesto" class="ab-section ab-section--off-white">
+      <div class="ab-section__inner ab-manifesto ab-reveal">
+        <p class="ab-h-eyebrow" style="justify-content:center">Manifeste</p>
+        <p class="ab-manifesto__quote">
+          Photographier, ce n'est pas accumuler.<br>
+          C'est <em>choisir ce qui mérite</em> d'exister à nouveau,<br>
+          dans une image qui dure.
         </p>
+        <p class="ab-manifesto__sig">Augustin Fleury · Photographe &amp; vidéaste</p>
       </div>
     </section>
 
-    <hr class="rule">
+    <!-- ════════════════════════════════════════════════════════════
+         BIO — 3 cartes glass sur navy
+    ════════════════════════════════════════════════════════════ -->
+    <section id="bio" class="ab-section ab-section--navy">
+      <div class="ab-section__inner">
+        <header class="ab-reveal" style="max-width:46ch">
+          <p class="ab-h-eyebrow">Le parcours</p>
+          <h2 class="ab-h-title">Une oreille de musicien,<br>un <em>œil</em> de photographe.</h2>
+          <p class="ab-h-sub">D'abord la musique, ensuite l'image — une formation qui m'apprend, encore aujourd'hui, à écouter avant de regarder.</p>
+        </header>
 
-    <!-- DEUX PILIERS — Communication musiciens / Autres prestations -->
-    <section id="pillars" class="about-pillars" aria-labelledby="pillars-titre">
-      <div class="container">
+        <div class="ab-bio-grid">
+          <article class="ab-bio-card ab-reveal--tilt delay-1">
+            <span class="ab-bio-card__num">01</span>
+            <h3 class="ab-bio-card__title">L'origine</h3>
+            <p class="ab-bio-card__text">Je fais de l'orgue depuis l'âge de 6 ans, j'ai toujours été très sensible à l'art quelle que soit la forme qu'il prenne. La musique m'a appris à écouter, apprendre et comprendre ce qui apparaît parfois inintelligible.</p>
+          </article>
 
-        <!-- Ornement Belle Époque -->
-        <svg class="pillars-ornament reveal" viewBox="0 0 64 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
-          <line x1="0" y1="12" x2="22" y2="12" stroke-linecap="round"/>
-          <line x1="42" y1="12" x2="64" y2="12" stroke-linecap="round"/>
-          <circle cx="32" cy="12" r="4" fill="currentColor" fill-opacity="0.15"/>
-          <circle cx="32" cy="12" r="2" fill="currentColor"/>
-          <circle cx="26" cy="12" r="0.9" fill="currentColor"/>
-          <circle cx="38" cy="12" r="0.9" fill="currentColor"/>
-        </svg>
+          <article class="ab-bio-card ab-reveal--tilt delay-2">
+            <span class="ab-bio-card__num">02</span>
+            <h3 class="ab-bio-card__title">La pratique</h3>
+            <p class="ab-bio-card__text">Je photographie et filme des lieux, des événements, des portraits et des architectures. Chaque projet a son propre rythme : je m'adapte à ce que la scène demande, sans approche standardisée. Je sélectionne les projets spécifiquement, afin de m'engager uniquement là où je peux apporter un regard juste et un travail de qualité.</p>
+          </article>
 
-        <div class="pillars-intro">
-          <p class="pillars-intro__label reveal">Mes deux univers</p>
-          <h2 class="pillars-intro__title reveal" id="pillars-titre" style="transition-delay:60ms">
-            Polyvalent, jamais générique.
-          </h2>
-          <p class="pillars-intro__sub reveal" style="transition-delay:140ms">
-            Mon expertise première : la communication visuelle pour musiciens et institutions culturelles. Mais je travaille aussi pour valoriser des lieux, des événements et des portraits — chaque projet appelle son propre regard.
-          </p>
+          <article class="ab-bio-card ab-reveal--tilt delay-3">
+            <span class="ab-bio-card__num">03</span>
+            <h3 class="ab-bio-card__title">La passion</h3>
+            <p class="ab-bio-card__text">Ce n'est pas mon métier principal — j'étudie le droit à côté. Je tiens à préserver cette pratique comme une passion, ce qui me permet d'investir chaque projet avec exigence et liberté.</p>
+          </article>
         </div>
+      </div>
+    </section>
 
-        <div class="pillars-grid">
+    <!-- ════════════════════════════════════════════════════════════
+         PILIERS — 2 grosses cartes asymétriques (cœur de la conversion)
+    ════════════════════════════════════════════════════════════ -->
+    <section id="pillars" class="ab-section ab-section--off-white">
+      <div class="ab-section__inner">
+        <header class="ab-reveal" style="text-align:center;max-width:680px;margin:0 auto">
+          <p class="ab-h-eyebrow" style="justify-content:center">Mes deux univers</p>
+          <h2 class="ab-h-title">Polyvalent,<br><em>jamais générique</em>.</h2>
+          <p class="ab-h-sub" style="margin:0 auto">Mon expertise première : la communication visuelle pour musiciens et institutions culturelles. Je travaille aussi pour valoriser des lieux, des événements et des portraits — chaque projet appelle son propre regard.</p>
+        </header>
 
-          <!-- Pilier 1 — Communication musiciens -->
-          <article class="pillar-card pillar-card--musicians reveal--left">
-            <p class="pillar-card__num" aria-hidden="true">i — Spécialité</p>
-            <h3 class="pillar-card__title">
-              Communication visuelle pour <em>musiciens</em>.
-            </h3>
-            <p class="pillar-card__desc">
-              Je connais le milieu musical de l'intérieur — j'y suis né. Pour les musiciens, ensembles, festivals et institutions culturelles, je propose une image cohérente avec votre univers artistique.
-            </p>
-            <ul class="pillar-card__list">
+        <div class="ab-pillars-grid">
+
+          <!-- Pilier 1 — Communication musiciens (navy distinctif) -->
+          <article class="ab-pillar ab-pillar--musicians ab-reveal--tilt delay-1">
+            <p class="ab-pillar__num"><em>i</em> Spécialité</p>
+            <h3 class="ab-pillar__title">Communication visuelle pour <em>musiciens</em>.</h3>
+            <p class="ab-pillar__desc">Je connais le milieu musical de l'intérieur — j'y suis né. Pour les musiciens, ensembles, festivals et institutions culturelles, je propose une image cohérente avec votre univers artistique.</p>
+            <ul class="ab-pillar__list">
               <li>Photographie de concert et de répétition</li>
               <li>Portraits d'artistes — pochettes, presse, communication</li>
               <li>Vidéos de captation, teasers, mini-documentaires</li>
               <li>Reels et formats courts pour les réseaux</li>
             </ul>
-            <a href="contact.html#musiciens" class="pillar-card__cta">
+            <a href="contact.html#musiciens" class="ab-pillar__cta">
               Discuter d'un projet musical
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                 <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1719,22 +1261,18 @@
             </a>
           </article>
 
-          <!-- Pilier 2 — Autres prestations -->
-          <article class="pillar-card reveal--right" style="transition-delay:140ms">
-            <p class="pillar-card__num" aria-hidden="true">ii — Polyvalence</p>
-            <h3 class="pillar-card__title">
-              Lieux, événements et <em>portraits</em>.
-            </h3>
-            <p class="pillar-card__desc">
-              Au-delà de la musique, je mets mon œil au service de tous les sujets qui méritent une image juste — qu'il s'agisse d'un lieu, d'un événement privé ou professionnel, ou d'un portrait personnel.
-            </p>
-            <ul class="pillar-card__list">
+          <!-- Pilier 2 — Autres prestations (blanc) -->
+          <article class="ab-pillar ab-reveal--tilt delay-2">
+            <p class="ab-pillar__num"><em>ii</em> Polyvalence</p>
+            <h3 class="ab-pillar__title">Lieux, événements et <em>portraits</em>.</h3>
+            <p class="ab-pillar__desc">Au-delà de la musique, je mets mon œil au service de tous les sujets qui méritent une image juste — qu'il s'agisse d'un lieu, d'un événement privé ou professionnel, ou d'un portrait personnel.</p>
+            <ul class="ab-pillar__list">
               <li>Mise en valeur de lieux, intérieurs, architecture</li>
               <li>Événementiel privé, associatif, professionnel</li>
               <li>Portrait individuel, famille, équipe</li>
               <li>Reels et vidéos de présentation pour marques et lieux</li>
             </ul>
-            <a href="contact.html#projet" class="pillar-card__cta">
+            <a href="contact.html#projet" class="ab-pillar__cta">
               Discuter d'un autre projet
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                 <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1746,116 +1284,189 @@
       </div>
     </section>
 
-    <hr class="rule">
-
-    <!-- APPROACH -->
-    <section id="approche" class="about-approach section" aria-labelledby="approach-titre">
-      <div class="container">
-        <header>
-          <p class="t-label reveal about-accent-text">Approche</p>
-          <h2 class="t-h2 reveal" id="approach-titre" style="transition-delay:80ms;max-width:16ch">
-            Ce qui guide le geste.
-          </h2>
+    <!-- ════════════════════════════════════════════════════════════
+         SERVICES — 3 cartes glass détaillées sur fond ice
+    ════════════════════════════════════════════════════════════ -->
+    <section id="services" class="ab-section ab-section--ice">
+      <div class="ab-section__inner">
+        <header class="ab-reveal" style="display:flex;align-items:flex-end;justify-content:space-between;gap:3rem;flex-wrap:wrap">
+          <div style="max-width:32ch">
+            <p class="ab-h-eyebrow">Prestations</p>
+            <h2 class="ab-h-title">Ce que je <em>propose</em>.</h2>
+          </div>
+          <p class="ab-h-sub">Chaque commande fait l'objet d'un échange préalable pour définir le cadre, le rendu attendu et le calendrier. Tarifs sur devis personnalisé.</p>
         </header>
-        <ul class="about-approach__list reveal-stagger" role="list">
-          <li class="approach-item">
-            <p class="approach-item__num" aria-hidden="true">I</p>
-            <h3 class="approach-item__title">La lenteur</h3>
-            <p class="approach-item__text">Ne pas multiplier les déclenchements. Attendre que la lumière, le sujet et le moment coexistent. Préférer une seule image juste à dix images correctes.</p>
-          </li>
-          <li class="approach-item">
-            <p class="approach-item__num" aria-hidden="true">II</p>
-            <h3 class="approach-item__title">L'attention</h3>
-            <p class="approach-item__text">Être présent à ce qui se passe avant de mettre l'œil au viseur. Lire l'espace, écouter la scène, comprendre le sujet — qu'il s'agisse d'un lieu, d'un événement ou d'un visage.</p>
-          </li>
-          <li class="approach-item">
-            <p class="approach-item__num" aria-hidden="true">III</p>
-            <h3 class="approach-item__title">La discrétion</h3>
-            <p class="approach-item__text">Ne pas interrompre ce qui existe. Photographier sans s'imposer dans l'espace de jeu, sans transformer l'événement en séance photo.</p>
-          </li>
-          <li class="approach-item">
-            <p class="approach-item__num" aria-hidden="true">IV</p>
-            <h3 class="approach-item__title">La trace</h3>
-            <p class="approach-item__text">Ce que la photographie garde, la mémoire ne peut pas. Ces images ne sont pas une documentation — elles prolongent l'expérience.</p>
-          </li>
-        </ul>
+
+        <div class="ab-services-grid">
+
+          <!-- Photographie -->
+          <article class="ab-service ab-reveal--tilt delay-1">
+            <div class="ab-service__icon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
+                <rect x="2" y="6" width="24" height="18" rx="3" stroke="currentColor" stroke-width="1.4"/>
+                <circle cx="14" cy="15" r="4.5" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M10 6l1.5-3h5L18 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="21.5" cy="10" r="1" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3 class="ab-service__title">Photographie</h3>
+            <p class="ab-service__sub">Lieux · Événements · Portraits</p>
+            <ul class="ab-service__list">
+              <li>Mise en valeur de lieux, d'intérieurs, d'architecture</li>
+              <li>Couverture d'événement (privé, associatif, pro, culturel)</li>
+              <li>Portrait individuel ou de groupe, en studio ou sur le vif</li>
+              <li>Livraison haute résolution, options couleur &amp; N&amp;B</li>
+            </ul>
+          </article>
+
+          <!-- Vidéo -->
+          <article class="ab-service ab-reveal--tilt delay-2">
+            <div class="ab-service__icon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
+                <rect x="2" y="7" width="18" height="14" rx="2.5" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M20 11l6-3v12l-6-3V11z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="ab-service__title">Vidéographie</h3>
+            <p class="ab-service__sub">Teaser · Interview · Événement</p>
+            <ul class="ab-service__list">
+              <li>Teaser et vidéo de présentation d'un lieu ou d'un projet</li>
+              <li>Captation d'événement (selon le projet)</li>
+              <li>Interview, mini-documentaire</li>
+              <li>Montage, étalonnage et mixage sont inclus</li>
+            </ul>
+          </article>
+
+          <!-- Reels & Shorts -->
+          <article class="ab-service ab-reveal--tilt delay-3">
+            <div class="ab-service__icon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
+                <rect x="8" y="2" width="12" height="24" rx="3" stroke="currentColor" stroke-width="1.4"/>
+                <line x1="8" y1="8" x2="20" y2="8" stroke="currentColor" stroke-width="1.4"/>
+                <line x1="8" y1="20" x2="20" y2="20" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M12.5 13l4 1.5-4 1.5V13z" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3 class="ab-service__title">Reels &amp; Shorts</h3>
+            <p class="ab-service__sub">Instagram · YouTube · TikTok</p>
+            <ul class="ab-service__list">
+              <li>Format vertical court, optimisé pour chaque plateforme</li>
+              <li>Présentation de lieu, mise en avant d'un événement ou d'une marque</li>
+              <li>Habillage sonore et sous-titrage disponibles</li>
+              <li>Livraison dans les spécifications natives des réseaux</li>
+            </ul>
+          </article>
+
+        </div>
+
+        <p class="ab-services__note ab-reveal delay-4">
+          Disponible à Nancy, Paris et en déplacement selon le projet.
+          <a href="contact.html">Demander un devis →</a>
+        </p>
       </div>
     </section>
 
-    <hr class="rule">
+    <!-- ════════════════════════════════════════════════════════════
+         APPROCHE — 4 principes sur fond ink (presque noir)
+    ════════════════════════════════════════════════════════════ -->
+    <section id="approche" class="ab-section ab-section--ink">
+      <div class="ab-section__inner">
+        <header class="ab-reveal" style="text-align:center;max-width:600px;margin:0 auto">
+          <p class="ab-h-eyebrow" style="justify-content:center">Approche</p>
+          <h2 class="ab-h-title">Ce qui guide<br>le <em>geste</em>.</h2>
+        </header>
 
-    <!-- COUNTERS -->
-    <section class="counters section" aria-label="Quelques chiffres">
-      <div class="container">
-        <p class="t-label reveal about-accent-text">En chiffres</p>
-        <div class="counters__grid" style="margin-top:2rem">
-          <div class="counter-item">
-            <p class="counter-item__value" aria-label="3 ans de pratique">3+</p>
-            <p class="counter-item__label">Années de pratique</p>
+        <div class="ab-approach-grid">
+          <article class="ab-approach-item ab-reveal delay-1">
+            <p class="ab-approach-item__num">i</p>
+            <h3 class="ab-approach-item__title">La lenteur</h3>
+            <p class="ab-approach-item__text">Ne pas multiplier les déclenchements. Attendre que la lumière, le sujet et le moment coexistent. Préférer une seule image juste à dix images correctes.</p>
+          </article>
+          <article class="ab-approach-item ab-reveal delay-2">
+            <p class="ab-approach-item__num">ii</p>
+            <h3 class="ab-approach-item__title">L'attention</h3>
+            <p class="ab-approach-item__text">Être présent à ce qui se passe avant de mettre l'œil au viseur. Lire l'espace, écouter la scène, comprendre le sujet — qu'il s'agisse d'un lieu, d'un événement ou d'un visage.</p>
+          </article>
+          <article class="ab-approach-item ab-reveal delay-3">
+            <p class="ab-approach-item__num">iii</p>
+            <h3 class="ab-approach-item__title">La discrétion</h3>
+            <p class="ab-approach-item__text">Ne pas interrompre ce qui existe. Photographier sans s'imposer dans l'espace de jeu, sans transformer l'événement en séance photo.</p>
+          </article>
+          <article class="ab-approach-item ab-reveal delay-4">
+            <p class="ab-approach-item__num">iv</p>
+            <h3 class="ab-approach-item__title">La trace</h3>
+            <p class="ab-approach-item__text">Ce que la photographie garde, la mémoire ne peut pas. Ces images ne sont pas une documentation — elles prolongent l'expérience.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════
+         COUNTERS — chiffres lumineux sur navy
+    ════════════════════════════════════════════════════════════ -->
+    <section class="ab-section ab-section--navy" style="padding-top:clamp(4rem,7vw,6rem);padding-bottom:clamp(4rem,7vw,6rem)">
+      <div class="ab-section__inner">
+        <header class="ab-reveal" style="text-align:center">
+          <p class="ab-h-eyebrow" style="justify-content:center">En chiffres</p>
+        </header>
+        <div class="ab-counters-grid">
+          <div class="ab-counter ab-reveal delay-1">
+            <div class="ab-counter__rule"></div>
+            <p class="ab-counter__value">3<sup>+</sup></p>
+            <p class="ab-counter__label">Années de pratique</p>
           </div>
-          <div class="counter-item">
-            <p class="counter-item__value" aria-label="10 000 images archivées">10000+</p>
-            <p class="counter-item__label">Images archivées</p>
+          <div class="ab-counter ab-reveal delay-2">
+            <div class="ab-counter__rule"></div>
+            <p class="ab-counter__value">10<sup>k</sup></p>
+            <p class="ab-counter__label">Images archivées</p>
           </div>
-          <div class="counter-item">
-            <p class="counter-item__value" aria-label="2 villes Paris et Nancy">2</p>
-            <p class="counter-item__label">Villes — Paris & Nancy</p>
+          <div class="ab-counter ab-reveal delay-3">
+            <div class="ab-counter__rule"></div>
+            <p class="ab-counter__value">2</p>
+            <p class="ab-counter__label">Villes — Nancy &amp; Paris</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- FINAL CTA — duo de boutons liquid glass premium -->
-    <section id="contact" class="about-final-cta" aria-labelledby="final-cta-titre">
-      <div class="about-final-cta__inner">
-
-        <!-- Ornement Belle Époque caramel -->
-        <svg class="about-final-cta__ornament reveal" viewBox="0 0 56 22" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+    <!-- ════════════════════════════════════════════════════════════
+         FINAL CTA — section dramatique, deux gros boutons
+    ════════════════════════════════════════════════════════════ -->
+    <section id="contact" class="ab-section ab-section--ink">
+      <div class="ab-section__inner ab-final ab-reveal">
+        <svg class="ab-final__ornament" viewBox="0 0 56 22" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
           <line x1="0" y1="11" x2="18" y2="11" stroke-linecap="round"/>
           <line x1="38" y1="11" x2="56" y2="11" stroke-linecap="round"/>
           <path d="M28 4 L32 11 L28 18 L24 11 Z" fill="currentColor" fill-opacity="0.25"/>
           <circle cx="28" cy="11" r="1.4" fill="currentColor"/>
         </svg>
+        <p class="ab-h-eyebrow" style="justify-content:center;margin-bottom:1.4rem">Travaillons ensemble</p>
+        <h2 class="ab-final__title">Un projet à donner<br>en <em>image</em>&nbsp;?</h2>
+        <p class="ab-final__sub">Chaque commande commence par un échange. Demandez un devis personnalisé, ou écrivez-moi simplement pour parler de votre idée — toujours avec plaisir.</p>
 
-        <p class="about-final-cta__label reveal">Travaillons ensemble</p>
-        <h2 class="about-final-cta__title reveal" id="final-cta-titre" style="transition-delay:80ms">
-          Un projet à donner<br>en image&nbsp;?
-        </h2>
-        <p class="about-final-cta__sub reveal" style="transition-delay:160ms">
-          Chaque commande commence par un échange. Demandez un devis personnalisé, ou écrivez-moi simplement pour parler de votre idée — toujours avec plaisir.
-        </p>
-
-        <div class="about-final-cta__actions reveal" style="transition-delay:240ms">
-
-          <!-- CTA primaire — devis caramel premium -->
-          <a href="contact.html#devis" class="glass-cta glass-cta--primary" aria-label="Demander un devis personnalisé">
-            <svg class="glass-cta__icon" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <!-- Plume / quill -->
+        <div class="ab-final__actions">
+          <a href="contact.html#devis" class="ab-cta ab-cta--primary" aria-label="Demander un devis personnalisé">
+            <svg class="ab-cta__icon" viewBox="0 0 18 18" fill="none" aria-hidden="true">
               <path d="M3 15 L15 3 M15 3 L13 1 L11 3 M3 15 L1 17 M3 15 L5 13 M11 3 L13 5 L11 7"
                     stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-              <line x1="3" y1="15" x2="6" y2="12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
             </svg>
             Demander un devis
-            <svg class="glass-cta__arrow" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <svg class="ab-cta__arrow" viewBox="0 0 14 14" fill="none" aria-hidden="true">
               <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
-
-          <!-- CTA secondaire — message glass blanc -->
-          <a href="contact.html" class="glass-cta glass-cta--ghost" aria-label="Envoyer un message">
-            <svg class="glass-cta__icon" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <!-- Enveloppe stylisée -->
+          <a href="contact.html" class="ab-cta ab-cta--glass" aria-label="Envoyer un message">
+            <svg class="ab-cta__icon" viewBox="0 0 18 18" fill="none" aria-hidden="true">
               <rect x="1.5" y="4" width="15" height="11" rx="1.5"
                     stroke="currentColor" stroke-width="1.3"/>
               <path d="M1.5 5 L9 10 L16.5 5"
                     stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             Envoyer un message
-            <svg class="glass-cta__arrow" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <svg class="ab-cta__arrow" viewBox="0 0 14 14" fill="none" aria-hidden="true">
               <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
-
         </div>
       </div>
     </section>
@@ -1864,7 +1475,7 @@
 
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
-      <p class="site-footer__copy">© 2025 Augustin Fleury · Nancy & Paris</p>
+      <p class="site-footer__copy">© 2025 Augustin Fleury · Nancy &amp; Paris</p>
       <a href="https://instagram.com/aug.ustinflry" class="site-footer__instagram"
          target="_blank" rel="noopener noreferrer" aria-label="Instagram @aug.ustinflry">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -1885,13 +1496,55 @@
   <script src="assets/js/scroll.js" defer></script>
   <script src="assets/js/transitions.js" defer></script>
   <script src="assets/js/liquid-glass.js" defer></script>
+
+  <!-- Loader hide -->
   <script>
     (function(){
       var l=document.getElementById("page-loader");
       if(!l)return;
-      function hide(){l.classList.add("is-hidden");setTimeout(function(){l.remove();},600);}
-      if(document.readyState==="complete"){setTimeout(hide,120);}
-      else{window.addEventListener("load",function(){setTimeout(hide,120);});}
+      function hide(){l.classList.add("is-hidden");setTimeout(function(){l.remove();},700);}
+      if(document.readyState==="complete"){setTimeout(hide,140);}
+      else{window.addEventListener("load",function(){setTimeout(hide,140);});}
+    })();
+  </script>
+
+  <!-- Reveal-on-scroll pour la page about -->
+  <script>
+    (function(){
+      var els = document.querySelectorAll('.ab-reveal, .ab-reveal--tilt, .ab-counter, .ab-manifesto');
+      if (!els.length || !('IntersectionObserver' in window)) {
+        els.forEach(function(el){ el.classList.add('is-visible'); });
+        return;
+      }
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if (e.isIntersecting) {
+            e.target.classList.add('is-visible');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+      els.forEach(function(el){ io.observe(el); });
+    })();
+  </script>
+
+  <!-- Barre de progression de scroll -->
+  <script>
+    (function(){
+      var bar = document.getElementById('ab-progress');
+      if (!bar) return;
+      var ticking = false;
+      function update(){
+        var h = document.documentElement;
+        var max = h.scrollHeight - h.clientHeight;
+        var p = max > 0 ? (h.scrollTop / max) * 100 : 0;
+        bar.style.width = p + '%';
+        ticking = false;
+      }
+      window.addEventListener('scroll', function(){
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+      }, { passive: true });
+      update();
     })();
   </script>
 </body>
