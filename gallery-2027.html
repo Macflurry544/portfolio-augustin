@@ -11,12 +11,12 @@
   <meta property="og:description" content="Lieux, événements, portraits et architecture — une sélection photographique d'Augustin Fleury.">
   <meta property="og:image" content="assets/photos/orgue.paysage.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <title>Galeries — Augustin Fleury · Photographe Nancy & Paris</title>
+  <title>Galerie 2027 — Augustin Fleury · Photographe Nancy & Paris</title>
   <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg">
   <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
   <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
   <link rel="manifest" href="favicon/site.webmanifest">
-  <link rel="canonical" href="https://macflurry544.github.io/portfolio-augustin/gallery.html">
+  <link rel="canonical" href="https://macflurry544.github.io/portfolio-augustin/gallery-2027.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Young+Serif&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -368,85 +368,86 @@
 
     .gal-swipe-hint { display: none !important; }
 
-    /* ════════════════════════════════════════════════════════════
-       PORTAIL DES GALERIES — scène minimaliste avec portail glow
-       Palette : 3 nuances + 1 accent. Typo site (Young Serif/Bitter).
-    ════════════════════════════════════════════════════════════ */
-    body.page-gallery {
-      --g-sky:      #E8E0D0;
-      --g-mid:      #B5A892;
-      --g-front:    #2E2A26;
-      --g-glow:     #F4E8C2;
-      --g-shadow:   #1F1B17;
-      background: var(--g-sky);
+    /* Bouton "Retour au portail" — pill liquid glass discret */
+    .g2-back {
+      position: fixed;
+      top: 90px;
+      left: 1.3rem;
+      z-index: 50;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 9px 16px;
+      border-radius: 999px;
+      font-family: var(--font-texte);
+      font-size: 0.55rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: #1E1810;
+      background: rgba(247,245,242,0.78);
+      backdrop-filter: blur(18px) saturate(150%);
+      -webkit-backdrop-filter: blur(18px) saturate(150%);
+      border: 1px solid rgba(30,24,16,0.14);
+      box-shadow: 0 4px 18px rgba(30,24,16,0.08);
+      transition: background 0.32s var(--ease-out),
+                  transform 0.32s var(--ease-out),
+                  border-color 0.32s var(--ease-out);
+    }
+    .g2-back:hover {
+      background: rgba(247,245,242,0.95);
+      border-color: rgba(30,24,16,0.32);
+      transform: translateY(-1px);
+    }
+    .g2-back svg {
+      width: 11px; height: 11px;
+      transition: transform 0.32s var(--ease-out);
+    }
+    .g2-back:hover svg { transform: translateX(-3px); }
+    @media (max-width: 760px) {
+      .g2-back { top: 80px; left: 1rem; padding: 8px 13px; font-size: 0.5rem; }
     }
 
-    /* Bloque le scroll sur la page portail */
-    body.page-gallery { overflow: hidden; height: 100dvh; }
+    /* ════════════════════════════════════════════════════════════
+       ENTRY SCENE — Monument Valley / Alto's vibes, minimaliste
+       Palette : 3 nuances + 1 accent lumineux (warm light)
+    ════════════════════════════════════════════════════════════ */
+    body.page-gallery {
+      --g-sky:      #E8E0D0;   /* cream sky */
+      --g-mid:      #B5A892;   /* mid taupe — couches mid */
+      --g-front:    #2E2A26;   /* sombre — premier plan, monolithe */
+      --g-glow:     #F4E8C2;   /* lumière chaude — serrure */
+      --g-shadow:   #1F1B17;   /* ombre longue */
+    }
 
-    /* Overlay plein écran (sous la nav qui reste visible) */
+    /* Lock du scroll tant que la serrure n'a pas été franchie */
+    body.page-gallery.is-locked { overflow: hidden; height: 100dvh; }
+
+    /* Overlay plein écran */
     .g-entry {
       position: fixed;
       inset: 0;
-      z-index: 50;
+      z-index: 800;
       overflow: hidden;
       background: var(--g-sky);
-      transition: opacity 0.6s ease;
+      transition: opacity 1.2s cubic-bezier(0.65,0,0.35,1),
+                  visibility 1.2s cubic-bezier(0.65,0,0.35,1);
     }
-
-    /* Layout en grille : zone titre haut · scène · zone bouton bas */
-    .g-entry__layout {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      align-items: stretch;
+    body.page-gallery.has-entered .g-entry {
+      opacity: 0;
+      visibility: hidden;
       pointer-events: none;
     }
-    .g-entry__layout > * { pointer-events: auto; }
 
-    /* Bandeau titre — au-dessus de la scène, pas par-dessus */
-    .g-entry__top {
-      padding: clamp(5rem, 10vh, 7rem) 1.5rem 0;
-      text-align: center;
-    }
-    .g-entry__eyebrow {
-      font-family: var(--font-texte), 'Bitter', serif;
-      font-size: 0.55rem;
-      letter-spacing: 0.42em;
-      text-transform: uppercase;
-      font-weight: 600;
-      color: var(--g-front);
-      opacity: 0.5;
-      margin: 0 0 0.8rem;
-      animation: g-fade-up 1.1s cubic-bezier(0.22,1,0.36,1) 0.4s both;
-    }
-    .g-entry__title {
-      font-family: var(--font-titre), 'Young Serif', Georgia, serif;
-      font-weight: 400;
-      font-style: italic;
-      font-size: clamp(2.4rem, 5.4vw, 4rem);
-      line-height: 1;
-      letter-spacing: -0.018em;
-      color: var(--g-front);
-      margin: 0;
-      animation: g-fade-up 1.2s cubic-bezier(0.22,1,0.36,1) 0.6s both;
-    }
-    .g-entry__title em { font-style: italic; opacity: 0.55; }
-
-    /* Scène SVG — entre titre et bouton */
-    .g-entry__scene {
-      position: relative;
-      overflow: hidden;
-    }
+    /* SVG scène plein écran (respiration très douce) */
     .g-entry__svg {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       display: block;
-      transform-origin: 50% 56%;
-      transition: transform 1.4s cubic-bezier(0.7,0,0.3,1);
+      transform-origin: 50% 48%;       /* centre = position serrure */
+      transition: transform 1.4s cubic-bezier(0.65,0,0.35,1);
       animation: g-breathe 14s ease-in-out infinite;
     }
     @keyframes g-breathe {
@@ -454,20 +455,60 @@
       50%      { transform: scale(1.012); }
     }
 
-    /* Bandeau bas — bouton + hint */
-    .g-entry__bottom {
-      padding: 0 1.5rem clamp(2.5rem, 5vh, 4rem);
-      text-align: center;
+    /* Stage central — titre + bouton + hint */
+    .g-entry__stage {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 6vh;
+      pointer-events: none;
     }
+    .g-entry__stage > * { pointer-events: auto; }
+
+    .g-entry__content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 540px;
+      padding: 0 1.5rem 2vh;
+    }
+
+    .g-entry__eyebrow {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--g-front);
+      opacity: 0.5;
+      margin: 0 0 0.7rem;
+      animation: g-fade-up 1.1s cubic-bezier(0.22,1,0.36,1) 0.5s both;
+    }
+
+    .g-entry__title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(2.4rem, 5.4vw, 4rem);
+      line-height: 1;
+      letter-spacing: -0.018em;
+      color: var(--g-front);
+      margin: 0 0 0.4rem;
+      animation: g-fade-up 1.2s cubic-bezier(0.22,1,0.36,1) 0.7s both;
+    }
+    .g-entry__title em { font-style: italic; opacity: 0.55; }
+
     .g-entry__sub {
-      font-family: var(--font-texte), 'Bitter', serif;
-      font-size: 0.72rem;
-      letter-spacing: 0.04em;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
       line-height: 1.5;
       color: var(--g-front);
       opacity: 0.55;
-      margin: 0 0 1.6rem;
-      animation: g-fade-up 1.2s cubic-bezier(0.22,1,0.36,1) 0.85s both;
+      margin: 0 0 2rem;
+      animation: g-fade-up 1.2s cubic-bezier(0.22,1,0.36,1) 0.92s both;
     }
 
     /* CTA "Entrer" — liquid glass minimal, calme */
@@ -477,30 +518,30 @@
       gap: 0.85rem;
       padding: 14px 28px;
       border-radius: 999px;
-      font-family: var(--font-texte), 'Bitter', serif;
-      font-size: 0.62rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.66rem;
       letter-spacing: 0.32em;
       text-transform: uppercase;
-      font-weight: 600;
+      font-weight: 500;
       color: var(--g-front);
-      background: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.42);
       backdrop-filter: blur(18px) saturate(140%);
       -webkit-backdrop-filter: blur(18px) saturate(140%);
-      border: 1px solid rgba(46,42,38,0.18);
+      border: 1px solid rgba(46,42,38,0.16);
       box-shadow:
-        0 6px 22px rgba(46,42,38,0.08),
-        inset 0 1px 0 rgba(255,255,255,0.65);
+        0 6px 24px rgba(46,42,38,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.55);
       cursor: pointer;
       position: relative;
       overflow: hidden;
       transition: background 0.5s var(--ease-out),
                   transform 0.5s var(--ease-out),
                   border-color 0.5s var(--ease-out);
-      animation: g-fade-up 1.2s cubic-bezier(0.22,1,0.36,1) 1.05s both;
+      animation: g-fade-up 1.2s cubic-bezier(0.22,1,0.36,1) 1.15s both;
     }
     .g-entry__cta:hover {
-      background: rgba(255,255,255,0.72);
-      border-color: rgba(46,42,38,0.34);
+      background: rgba(255,255,255,0.62);
+      border-color: rgba(46,42,38,0.32);
       transform: translateY(-1px);
     }
     .g-entry__cta__arrow {
@@ -509,88 +550,69 @@
     }
     .g-entry__cta:hover .g-entry__cta__arrow { transform: translateX(3px); }
 
-    /* Hint sous le bouton */
-    .g-entry__hint {
-      display: block;
-      margin-top: 1rem;
-      font-family: var(--font-texte), 'Bitter', serif;
-      font-size: 0.5rem;
-      letter-spacing: 0.4em;
+    /* Bouton retour discret (top-left) */
+    .g-entry__back {
+      position: absolute;
+      top: 1.3rem; left: 1.3rem;
+      z-index: 3;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.32em;
       text-transform: uppercase;
+      font-weight: 500;
       color: var(--g-front);
-      opacity: 0.35;
-      animation: g-fade-up 1.2s cubic-bezier(0.22,1,0.36,1) 1.25s both,
-                 hint-pulse 3s ease-in-out 2.5s infinite;
+      background: rgba(255,255,255,0.28);
+      backdrop-filter: blur(14px) saturate(140%);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      border: 1px solid rgba(46,42,38,0.10);
+      opacity: 0.6;
+      transition: opacity 0.32s var(--ease-out),
+                  background 0.32s var(--ease-out);
+      animation: g-fade-up 1.2s cubic-bezier(0.22,1,0.36,1) 0.4s both;
     }
-    @keyframes hint-pulse {
-      0%, 100% { opacity: 0.28; }
-      50%      { opacity: 0.55; }
+    .g-entry__back:hover {
+      opacity: 1;
+      background: rgba(255,255,255,0.55);
     }
+    .g-entry__back svg { width: 11px; height: 11px; transition: transform 0.32s var(--ease-out); }
+    .g-entry__back:hover svg { transform: translateX(-2px); }
 
-    /* Portail glow SVG — interactif (le "verrou" abstrait) */
+    /* Serrure SVG — interactive */
     .g-lock {
       cursor: pointer;
       transform-origin: 50% 50%;
       transition: filter 0.6s ease, transform 0.6s var(--ease-out);
     }
     .g-lock:hover {
-      filter: drop-shadow(0 0 18px rgba(244,232,194,0.5));
-      transform: scale(1.03);
+      filter: drop-shadow(0 0 12px rgba(244,232,194,0.35));
+      transform: scale(1.025);
     }
+    /* Pulse continu très doux du halo */
     .g-lock__halo {
       transform-origin: center;
       animation: lock-halo 3.6s ease-in-out infinite;
     }
     @keyframes lock-halo {
-      0%, 100% { opacity: 0.45; transform: scale(1); }
-      50%      { opacity: 0.85; transform: scale(1.10); }
-    }
-    .g-lock__core {
-      animation: lock-pulse 2.6s ease-in-out infinite;
-    }
-    @keyframes lock-pulse {
-      0%, 100% { opacity: 0.92; }
-      50%      { opacity: 1; }
+      0%, 100% { opacity: 0.42; transform: scale(1); }
+      50%      { opacity: 0.78; transform: scale(1.08); }
     }
 
-    /* TRANSITION D'ENTRÉE — comme si on entrait dans le portail
-       1. La scène zoome vers le portail
-       2. Un calque sombre approche (vignette qui se ferme)
-       3. Light flood chaud finit par tout remplir
-    */
+    /* TRANSITION : zoom INTO la serrure */
     body.page-gallery.is-opening .g-entry__svg {
-      transform: scale(32);
-      transition: transform 1.5s cubic-bezier(0.7,0,0.3,1);
+      transform: scale(28);
+      transition: transform 1.4s cubic-bezier(0.7,0,0.3,1);
     }
-    body.page-gallery.is-opening .g-entry__top,
-    body.page-gallery.is-opening .g-entry__bottom {
+    body.page-gallery.is-opening .g-entry__stage,
+    body.page-gallery.is-opening .g-entry__back {
       opacity: 0;
-      transform: translateY(-12px);
-      transition: opacity 0.4s ease, transform 0.6s ease;
+      transition: opacity 0.5s ease;
     }
-
-    /* Calque sombre qui approche (vignette tunnel) */
-    .g-tunnel {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 3;
-      opacity: 0;
-      background: radial-gradient(circle at 50% 56%,
-        transparent 0%,
-        transparent 25%,
-        rgba(31,27,23,0.6) 65%,
-        rgba(15,13,10,0.95) 100%);
-    }
-    body.page-gallery.is-opening .g-tunnel {
-      animation: tunnel-close 1.3s cubic-bezier(0.65,0,0.35,1) 0.05s forwards;
-    }
-    @keyframes tunnel-close {
-      0%   { opacity: 0;   transform: scale(2.5); }
-      100% { opacity: 1;   transform: scale(0.5); }
-    }
-
-    /* Light flood final */
+    /* Light flood pour terminer la transition (blanc qui remplit l'écran) */
     .g-flood {
       position: absolute;
       inset: 0;
@@ -600,11 +622,31 @@
       z-index: 4;
     }
     body.page-gallery.is-opening .g-flood {
-      animation: flood-in 0.55s ease-out 1.05s forwards;
+      animation: flood-in 0.6s ease-out 0.85s forwards;
     }
     @keyframes flood-in {
       0%   { opacity: 0; }
       100% { opacity: 1; }
+    }
+
+    /* Hint pulse */
+    .g-entry__hint {
+      position: absolute;
+      bottom: 1.6rem; left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.5rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--g-front);
+      opacity: 0.4;
+      pointer-events: none;
+      animation: g-fade-up 1.2s cubic-bezier(0.22,1,0.36,1) 1.4s both,
+                 hint-pulse 3s ease-in-out 2.5s infinite;
+    }
+    @keyframes hint-pulse {
+      0%, 100% { opacity: 0.32; }
+      50%      { opacity: 0.6; }
     }
 
     @keyframes g-fade-up {
@@ -614,10 +656,10 @@
 
     /* Responsive */
     @media (max-width: 760px) {
-      .g-entry__top    { padding-top: clamp(4.5rem, 9vh, 6rem); }
-      .g-entry__title  { font-size: clamp(2rem, 9vw, 3rem); }
-      .g-entry__cta    { padding: 12px 22px; font-size: 0.58rem; }
-      .g-entry__sub    { font-size: 0.66rem; }
+      .g-entry__content { padding-bottom: 6vh; }
+      .g-entry__title { font-size: clamp(2rem, 9vw, 3.2rem); }
+      .g-entry__cta { padding: 12px 22px; font-size: 0.6rem; }
+      .g-entry__back { font-size: 0.5rem; padding: 8px 12px; }
     }
   </style>
 </head>
@@ -673,152 +715,216 @@
 
   <main id="main">
 
-    <!-- ════════════════════════════════════════════════════════════
-         PORTAIL DES GALERIES — scène minimaliste avec portail glow
-         Layout en grille : titre haut · scène mid · bouton bas
-    ════════════════════════════════════════════════════════════ -->
-    <div id="g-entry" class="g-entry" role="dialog" aria-label="Portail des galeries">
+    <!-- Bouton retour vers le portail des galeries -->
+    <a href="gallery.html" class="g2-back" aria-label="Retour au portail des galeries">
+      <svg viewBox="0 0 14 14" fill="none" aria-hidden="true">
+        <path d="M12 7H2M6 3L2 7l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Toutes les galeries
+    </a>
 
-      <div class="g-entry__layout">
-
-        <!-- BANDEAU HAUT — éyebrow + titre (au-dessus de la scène) -->
-        <div class="g-entry__top">
-          <p class="g-entry__eyebrow">Augustin Fleury · Photographe</p>
-          <h1 class="g-entry__title">Une porte vers <em>l'image</em>.</h1>
+    <!-- EN-TÊTE -->
+    <header class="gal-header container">
+      <div class="gal-header__row">
+        <div>
+          <p class="t-label reveal">Galerie 2027</p>
+          <h1 class="t-h1 reveal" style="transition-delay:80ms;max-width:12ch">
+            Images<br>choisies.
+          </h1>
         </div>
-
-        <!-- SCÈNE — SVG minimaliste avec portail glow au centre -->
-        <div class="g-entry__scene">
-          <svg class="g-entry__svg" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <defs>
-              <radialGradient id="portalHalo" cx="50%" cy="50%" r="50%">
-                <stop offset="0%"  stop-color="#F4E8C2" stop-opacity="0.95"/>
-                <stop offset="55%" stop-color="#F4E8C2" stop-opacity="0.20"/>
-                <stop offset="100%" stop-color="#F4E8C2" stop-opacity="0"/>
-              </radialGradient>
-              <linearGradient id="skySoft" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%"   stop-color="#EFE7D6"/>
-                <stop offset="100%" stop-color="#DDD0BB"/>
-              </linearGradient>
-              <linearGradient id="portalCore" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%"   stop-color="#FFF6DB"/>
-                <stop offset="55%"  stop-color="#F4E8C2"/>
-                <stop offset="100%" stop-color="#E8C896"/>
-              </linearGradient>
-            </defs>
-
-            <!-- Ciel -->
-            <rect width="1200" height="900" fill="url(#skySoft)"/>
-
-            <!-- Couche LOINTAINE — silhouettes très pâles -->
-            <g fill="#C7BCA8" opacity="0.55">
-              <rect x="0"    y="430" width="180" height="470"/>
-              <path d="M180 430 L180 380 L260 380 L260 430 Z"/>
-              <rect x="260"  y="450" width="120" height="450"/>
-              <path d="M380 460 L380 600 Q380 530 430 530 Q480 530 480 600 L480 460 Z"/>
-              <rect x="480"  y="450" width="80"  height="450"/>
-              <rect x="900"  y="440" width="160" height="460"/>
-              <rect x="1060" y="450" width="80"  height="450"/>
-              <rect x="1140" y="430" width="60"  height="470"/>
-            </g>
-
-            <!-- Couche MID — taupe plus marqué -->
-            <g fill="#A89A82">
-              <rect x="0" y="550" width="220" height="350"/>
-              <rect x="220" y="600" width="60" height="300"/>
-              <path d="M280 600 L280 720 Q280 660 340 660 Q400 660 400 720 L400 600 Z" fill="#A89A82"/>
-              <rect x="280" y="720" width="120" height="180"/>
-              <rect x="0" y="700" width="1200" height="22"/>
-              <rect x="900" y="560" width="180" height="340"/>
-              <rect x="1080" y="600" width="120" height="300"/>
-            </g>
-            <g fill="#766B58">
-              <rect x="60"  y="680" width="40" height="20" rx="2"/>
-              <rect x="980" y="680" width="36" height="20" rx="2"/>
-            </g>
-
-            <!-- LONGUES OMBRES diagonales -->
-            <path d="M510 720 L900 900 L490 900 Z" fill="#1F1B17" opacity="0.18"/>
-            <path d="M690 720 L1100 900 L690 900 Z" fill="#1F1B17" opacity="0.10"/>
-
-            <!-- COUCHE FRONT — sol sombre + socle -->
-            <g fill="#2E2A26">
-              <rect x="0" y="780" width="1200" height="120"/>
-              <rect x="490" y="720" width="220" height="60"/>
-              <rect x="490" y="720" width="220" height="3" fill="#4A4540"/>
-            </g>
-
-            <!-- MONOLITHE — bloc vertical avec arche -->
-            <g>
-              <path d="M510 720 L510 380 Q510 330 600 330 Q690 330 690 380 L690 720 Z" fill="#2E2A26"/>
-              <path d="M510 720 L510 380 Q510 330 600 330"
-                    stroke="#4A4540" stroke-width="2" fill="none" opacity="0.5"/>
-            </g>
-
-            <!-- Halo derrière le portail (large, doux) -->
-            <circle cx="600" cy="510" r="140" fill="url(#portalHalo)" class="g-lock__halo"/>
-
-            <!-- ╔═══ PORTAIL ABSTRAIT — ne ressemble plus à une serrure ═══╗
-                 Forme : oblong vertical (passage/portal) avec anneau concentrique. -->
-            <g class="g-lock" id="g-lock" tabindex="0" role="button" aria-label="Entrer dans la galerie">
-              <!-- Anneau concentrique (frame du portail) -->
-              <ellipse cx="600" cy="510" rx="46" ry="68"
-                       fill="none" stroke="#5A5048" stroke-width="1.2" opacity="0.35"/>
-              <ellipse cx="600" cy="510" rx="38" ry="58"
-                       fill="none" stroke="#5A5048" stroke-width="0.8" opacity="0.55"/>
-
-              <!-- Cœur lumineux : oblong vertical glowing -->
-              <ellipse class="g-lock__core" cx="600" cy="510" rx="22" ry="44"
-                       fill="url(#portalCore)"/>
-
-              <!-- Trait horizontal très fin qui traverse (suggère un passage) -->
-              <line x1="568" y1="510" x2="632" y2="510"
-                    stroke="#FFF6DB" stroke-width="1.2" opacity="0.55"/>
-
-              <!-- Reflet doux haut-gauche -->
-              <ellipse cx="592" cy="490" rx="6" ry="14" fill="#FFFAE8" opacity="0.55"/>
-            </g>
-
-            <!-- Texte "GALERIE 2027" — typo site (Young Serif italic) -->
-            <g opacity="0.88">
-              <text x="600" y="278" text-anchor="middle"
-                    font-family="Young Serif, Georgia, serif"
-                    font-size="22" font-style="italic" font-weight="400"
-                    fill="#2E2A26" letter-spacing="8">
-                GALERIE
-              </text>
-              <line x1="552" y1="294" x2="648" y2="294" stroke="#2E2A26" stroke-width="0.6" opacity="0.4"/>
-              <text x="600" y="314" text-anchor="middle"
-                    font-family="Bitter, Georgia, serif"
-                    font-size="11" font-weight="500"
-                    fill="#2E2A26" letter-spacing="6" opacity="0.7">
-                2027
-              </text>
-            </g>
-          </svg>
+        <div style="text-align:right">
+          <p class="gal-count reveal" id="gallery-count" style="transition-delay:100ms">
+            13 photographies
+          </p>
+          <p class="t-caption reveal" style="transition-delay:160ms;margin-top:0.5rem;font-style:normal">
+            Nancy & Lorraine
+          </p>
         </div>
+      </div>
+    </header>
 
-        <!-- BANDEAU BAS — sub + bouton + hint -->
-        <div class="g-entry__bottom">
-          <p class="g-entry__sub">Touchez le portail pour entrer.</p>
-          <button type="button" class="g-entry__cta" id="g-enter-btn" aria-label="Entrer dans la galerie 2027">
-            Entrer · Galerie 2027
-            <svg class="g-entry__cta__arrow" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-          <span class="g-entry__hint">— Cliquer le portail pour entrer —</span>
-        </div>
+
+    <!-- GRILLE -->
+    <section aria-label="Grille de photographies">
+
+      <!-- Indicateur swipe — visible uniquement sur mobile -->
+      <p class="gal-swipe-hint" aria-hidden="true">
+        <svg width="16" height="10" viewBox="0 0 16 10" fill="none">
+          <path d="M1 5h14M10 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Glisser pour explorer
+      </p>
+
+      <div class="gal-grid">
+        <!--
+        ╔═══════════════════════════════════════════════════════════════╗
+        ║  AJOUTER UNE PHOTO — copier-coller le template ci-dessous    ║
+        ╠═══════════════════════════════════════════════════════════════╣
+        ║  FORMATS DISPONIBLES :                                        ║
+        ║    gi-cin  → plein écran cinématique (3 colonnes, 21:8)       ║
+        ║    gi-wide → large éditorial (2 colonnes, 16:9)               ║
+        ║    gi-land → paysage standard (1 col, 3:2)  ← auto-détecté   ║
+        ║    gi-port → portrait standard (1 col, 2:3) ← auto-détecté   ║
+        ║                                                               ║
+        ║  CATÉGORIES : concert | portrait | paysage                    ║
+        ║                                                               ║
+        ║  ⚠️  gi-land / gi-port sont auto-détectés depuis l'image.     ║
+        ║     Mettre gi-land par défaut, JS corrigera si portrait.      ║
+        ╠═══════════════════════════════════════════════════════════════╣
+        ║  TEMPLATE :                                                   ║
+        ║                                                               ║
+        ║  <article class="gallery-item gi-land"                        ║
+        ║    data-category="[concert|portrait|paysage]"                 ║
+        ║    tabindex="0" role="button" aria-label="[Titre accès.]">    ║
+        ║    <img src="Assets%20photos/[fichier.jpg]"                   ║
+        ║         alt="[Description précise]" loading="lazy"            ║
+        ║         width="1200" height="800">                            ║
+        ║    <span class="gallery-item__num" aria-hidden="true">        ║
+        ║      [numéro]</span>                                          ║
+        ║    <div class="gallery-item__overlay" aria-hidden="true">     ║
+        ║      <div class="gallery-item__meta">                         ║
+        ║        <span class="gallery-item__category">                  ║
+        ║          [Catégorie]</span>                                   ║
+        ║        <span class="gallery-item__title">[Titre]</span>       ║
+        ║      </div>                                                   ║
+        ║    </div>                                                     ║
+        ║  </article>                                                   ║
+        ╚═══════════════════════════════════════════════════════════════╝
+        -->
+
+        <!-- ── SECTION : PAYSAGE & ARCHITECTURE ───────────────────── -->
+
+        <!-- 01 · Full-width cinématique -->
+        <article class="gallery-item gi-cin" data-category="paysage"
+          tabindex="0" role="button" aria-label="Orgue, lumière naturelle">
+          <img src="assets/photos/orgue.paysage.jpg" alt="Grand orgue baigné de lumière naturelle" loading="eager" width="2100" height="800">
+        </article>
+
+        <!-- 02 · Wide landscape -->
+        <article class="gallery-item gi-wide" data-category="paysage"
+          tabindex="0" role="button" aria-label="Nef, lumière gothique">
+          <img src="assets/photos/eglise.paysage.jpg" alt="Nef d'église, architecture et lumière" loading="lazy" width="1600" height="900">
+        </article>
+
+        <!-- 03 · Portrait -->
+        <article class="gallery-item gi-port" data-category="portrait"
+          tabindex="0" role="button" aria-label="Musicien à l'orgue">
+          <img src="assets/photos/orgue.portrait.jpg" alt="Musicien interprétant l'orgue" loading="lazy" width="900" height="1350">
+        </article>
+
+        <!-- 04 · Portrait -->
+        <article class="gallery-item gi-port" data-category="portrait"
+          tabindex="0" role="button" aria-label="Ambiance nocturne">
+          <img src="assets/photos/bar.portrait.jpg" alt="Portrait, ambiance nocturne" loading="lazy" width="900" height="1350">
+        </article>
+
+        <!-- 05 · Wide -->
+        <article class="gallery-item gi-wide" data-category="portrait"
+          tabindex="0" role="button" aria-label="Tenue d'apparat">
+          <img src="assets/photos/projecteur.paysage.jpg" alt="Portrait militaire en tenue d'apparat" loading="lazy" width="1600" height="900">
+        </article>
+
+        <!-- 06 · Wide concert -->
+        <article class="gallery-item gi-wide" data-category="concert"
+          tabindex="0" role="button" aria-label="Sous la lumière de scène">
+          <img src="assets/photos/Exportsfinals_53_resultat.jpg" alt="Concert, musiciens sous la lumière" loading="lazy" width="1600" height="900">
+        </article>
+
+        <!-- 07 · Portrait scout -->
+        <article class="gallery-item gi-port" data-category="portrait"
+          tabindex="0" role="button" aria-label="Portrait scout, en uniforme">
+          <img src="assets/photos/scout.portrait.jpg" alt="Portrait d'un scout en uniforme, lumière naturelle" loading="lazy" width="900" height="1350">
+        </article>
+
+        <!-- 08 · Landscape -->
+        <article class="gallery-item gi-land" data-category="portrait"
+          tabindex="0" role="button" aria-label="Plein air, Lorraine">
+          <img src="assets/photos/champs.portrait.jpg" alt="Portrait en plein air, Lorraine" loading="lazy" width="1200" height="800">
+        </article>
+
+        <!-- 09 · Landscape -->
+        <article class="gallery-item gi-land" data-category="paysage"
+          tabindex="0" role="button" aria-label="Lumière dorée">
+          <img src="assets/photos/arme.paysage.jpg" alt="Paysage, lumière dorée de fin de journée" loading="lazy" width="1200" height="800">
+        </article>
+
+        <!-- 10 · Portrait place Carrière Nancy -->
+        <article class="gallery-item gi-port" data-category="portrait"
+          tabindex="0" role="button" aria-label="Portrait, place Carrière, Nancy">
+          <img src="assets/photos/portraitplacecarrierenancy.jpg" alt="Portrait place de la Carrière, Nancy" loading="lazy" width="900" height="1350">
+        </article>
+
+        <!-- 12 · Portrait Paul -->
+        <article class="gallery-item gi-land" data-category="portrait"
+          tabindex="0" role="button" aria-label="Portrait Paul">
+          <img src="assets/photos/portraitpaul.jpg" alt="Portrait de Paul" loading="lazy" width="1200" height="800">
+        </article>
+
+        <!-- 13 · Main sur clavier — Notre-Dame de Lourdes Nancy -->
+        <article class="gallery-item gi-land" data-category="concert"
+          tabindex="0" role="button" aria-label="Main sur clavier, Notre-Dame de Lourdes Nancy">
+          <img src="assets/photos/main-clavier-lourdes.jpg" alt="Main sur clavier d'orgue, Notre-Dame de Lourdes Nancy" loading="lazy" width="1600" height="1067">
+        </article>
+
+        <!-- 14 · Plaquette Merklin — détail orgue de chœur -->
+        <article class="gallery-item gi-port" data-category="paysage"
+          tabindex="0" role="button" aria-label="Plaquette Maison Merklin, orgue de chœur">
+          <img src="assets/photos/plaquette-merklin.jpg" alt="Plaquette Maison Merklin, orgue de chœur" loading="lazy" width="1067" height="1600">
+        </article>
+
+        <!-- ── AJOUTER ICI les prochaines photos ─────────────────── -->
+        <!-- Copier un bloc ci-dessus et incrémenter le numéro         -->
 
       </div>
+    </section>
 
-      <!-- Calque tunnel (vignette qui se ferme pendant la transition) -->
-      <div class="g-tunnel" aria-hidden="true"></div>
-      <!-- Light flood final -->
-      <div class="g-flood" aria-hidden="true"></div>
+    <!-- PIXIESET — galerie complète en ligne -->
+    <div class="gal-pixieset reveal--scale">
+      <div class="gal-pixieset__text">
+        <p class="gal-pixieset__label">Galerie complète</p>
+        <p class="gal-pixieset__title">Plus de 200 photos<br>disponibles en ligne.</p>
+        <p class="gal-pixieset__note">
+          Téléchargement disponible avec le code&nbsp;
+          <strong>5593</strong>
+        </p>
+      </div>
+      <a href="https://augustinfleury.pixieset.com/gallerie/"
+         target="_blank" rel="noopener noreferrer"
+         class="gal-pixieset__btn"
+         aria-label="Voir la galerie complète sur Pixieset">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Voir toutes les photos
+      </a>
+    </div>
+
+    <!-- CTA contact -->
+    <div class="gal-cta">
+      <div>
+        <p class="t-label reveal">Collaboration</p>
+        <p class="t-h3 reveal" style="transition-delay:60ms;font-style:italic">
+          Un projet à documenter ?
+        </p>
+      </div>
+      <a href="contact.html" class="hero__cta reveal" style="transition-delay:100ms">
+        Écrire <span class="hero__cta-arrow" aria-hidden="true">→</span>
+      </a>
     </div>
 
   </main>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Visionneuse">
+    <div id="lightbox-backdrop" class="lightbox__backdrop" aria-hidden="true"></div>
+    <div class="lightbox__content">
+      <button id="lightbox-close" class="lightbox__close" aria-label="Fermer">Fermer ✕</button>
+      <button id="lightbox-prev" class="lightbox__nav lightbox__prev" aria-label="Précédente">←</button>
+      <img id="lightbox-img" class="lightbox__img" src="" alt="" loading="lazy">
+      <button id="lightbox-next" class="lightbox__nav lightbox__next" aria-label="Suivante">→</button>
+      <p id="lightbox-caption" class="lightbox__caption"></p>
+    </div>
+  </div>
 
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
@@ -843,6 +949,8 @@
   <script src="assets/js/scroll.js" defer></script>
   <script src="assets/js/transitions.js" defer></script>
   <script src="assets/js/liquid-glass.js" defer></script>
+  <script src="assets/js/morphing.js" defer></script>
+  <script src="assets/js/lightbox.js" defer></script>
 
   <script>
     /* ── Curseur personnalisé ─────────────────────────────── */
@@ -892,44 +1000,5 @@
     })();
   </script>
 
-  <!-- PORTAIL — clic portail/bouton → transition + navigation vers gallery-2027 -->
-  <script>
-    (function(){
-      var body  = document.body;
-      var entry = document.getElementById('g-entry');
-      var lock  = document.getElementById('g-lock');
-      var btn   = document.getElementById('g-enter-btn');
-      if (!entry || !lock || !btn) return;
-
-      function openGallery(){
-        if (body.classList.contains('is-opening')) return;
-        body.classList.add('is-opening');
-
-        // Son discret de déclic
-        try {
-          var ctx = new (window.AudioContext || window.webkitAudioContext)();
-          var o = ctx.createOscillator(), g = ctx.createGain();
-          o.connect(g); g.connect(ctx.destination);
-          o.type = 'sine';
-          o.frequency.setValueAtTime(540, ctx.currentTime);
-          o.frequency.exponentialRampToValueAtTime(220, ctx.currentTime + 0.25);
-          g.gain.setValueAtTime(0.04, ctx.currentTime);
-          g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.30);
-          o.start(); o.stop(ctx.currentTime + 0.30);
-        } catch (_) {}
-
-        // Navigation vers la galerie après l'animation complète
-        setTimeout(function(){
-          window.location.href = 'gallery-2027.html';
-        }, 1500);
-      }
-
-      lock.addEventListener('click', openGallery);
-      btn.addEventListener('click',  openGallery);
-      lock.addEventListener('keydown', function(e){
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openGallery(); }
-      });
-    })();
-  </script>
 </body>
 </html>
