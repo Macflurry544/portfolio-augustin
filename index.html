@@ -680,6 +680,50 @@
       gap: 2rem;
       flex-wrap: wrap;
     }
+    /* Badge "Tarifs sur mesure" — pill liquid glass */
+    .srv-bespoke {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+      max-width: 720px;
+      margin: 2.5rem auto 1.5rem;
+      padding: 1.1rem 1.6rem;
+      border-radius: 16px;
+      background: rgba(var(--cream-rgb), 0.05);
+      backdrop-filter: blur(20px) saturate(150%);
+      -webkit-backdrop-filter: blur(20px) saturate(150%);
+      border: 1px solid rgba(var(--cream-rgb), 0.12);
+      box-shadow: inset 0 1px 0 rgba(var(--cream-rgb), 0.08);
+    }
+    .srv-bespoke__icon {
+      flex-shrink: 0;
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(var(--cream-rgb), 0.06);
+      border: 1px solid rgba(var(--cream-rgb), 0.14);
+      color: var(--cream-2);
+    }
+    .srv-bespoke__text {
+      display: flex; flex-direction: column; gap: 0.2rem;
+    }
+    .srv-bespoke__text strong {
+      font-family: var(--font-titre);
+      font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+      color: var(--cream);
+      font-weight: 500;
+      letter-spacing: -0.005em;
+    }
+    .srv-bespoke__text span {
+      font-family: var(--font-texte);
+      font-size: 0.78rem;
+      line-height: 1.62;
+      color: rgba(var(--cream-rgb), 0.5);
+    }
+    @media (max-width: 600px) {
+      .srv-bespoke { flex-direction: column; align-items: flex-start; padding: 1rem; }
+    }
+
     .srv-cta-note {
       font-size: 0.82rem;
       font-style: italic;
@@ -1028,9 +1072,23 @@
 
         </div>
 
+        <!-- Badge "Tarifs sur mesure" — positionnement haut de gamme -->
+        <div class="srv-bespoke reveal" style="transition-delay:200ms">
+          <span class="srv-bespoke__icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="1.2"/>
+              <path d="M9 4.5 L9 9 L11.5 11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <div class="srv-bespoke__text">
+            <strong>Tarifs entièrement sur mesure</strong>
+            <span>Chaque projet est unique — chaque devis l'est aussi. Pas de grille pré-faite, juste ce qui correspond à votre besoin.</span>
+          </div>
+        </div>
+
         <div class="srv-cta-wrap reveal">
           <p class="srv-cta-note">
-            Disponible à Nancy, Paris et en déplacement selon le projet — sur devis personnalisé.
+            Disponible à Nancy, Paris et en déplacement selon le projet.
           </p>
           <a href="about.html" class="hero__cta" aria-label="Découvrir toutes mes prestations">
             Voir toutes mes prestations <span class="hero__cta-arrow" aria-hidden="true">→</span>
