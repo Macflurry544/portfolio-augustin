@@ -36,10 +36,18 @@
       --ice:        #E8EDF5;   /* blanc bleuté très pâle */
       --off-white:  #FAFAF7;   /* blanc chaud */
       --ink:        #0A0A0A;   /* presque noir */
-      --gold:       #C9A357;   /* doré chaud — accent rare */
+      --accent-light: #E8EDF5;  /* accent sur fond sombre — ice */
+      --accent-dark:  #1E4480;  /* accent sur fond clair — navy mid */
+      --accent: var(--accent-dark);  /* défaut : sections claires */
 
       background: var(--off-white);
       color: var(--navy);
+    }
+    /* Override --accent dans les sections sombres */
+    body.page-about .ab-section--navy,
+    body.page-about .ab-section--ink,
+    body.page-about .ab-hero {
+      --accent: var(--accent-light);
     }
 
     /* SCROLL PROGRESS BAR — barre fine en haut qui suit le scroll */
@@ -48,45 +56,57 @@
       top: 0; left: 0;
       width: 0%;
       height: 3px;
-      background: linear-gradient(to right, var(--navy), var(--gold));
+      background: linear-gradient(to right, var(--navy), var(--navy-soft), #FFFFFF);
       z-index: 9999;
       transition: width 0.05s linear;
-      box-shadow: 0 0 12px rgba(201,163,87,0.5);
+      box-shadow: 0 0 12px rgba(74,111,165,0.5);
     }
 
     /* ════════════════════════════════════════════════════════════
-       HERO — pure typographie, navy profond, animations claquantes
+       HERO — Porte de la Craffe en arrière-plan, titre blanc
     ════════════════════════════════════════════════════════════ */
     .ab-hero {
       position: relative;
       min-height: 92dvh;
-      background: var(--navy-deep);
+      background-color: var(--navy-deep);
+      background-image: url('assets/photos/craffe.paysage.jpg');
+      background-size: cover;
+      background-position: center 45%;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 8rem var(--gutter) 6rem;
       isolation: isolate;
+      animation: hero-zoom 22s ease-out both;
     }
-    /* Halo radial doré subtil */
+    @keyframes hero-zoom {
+      from { background-size: 112%; }
+      to   { background-size: 100%; }
+    }
+    /* Voile navy profond pour lisibilité titre blanc */
     .ab-hero::before {
       content: '';
       position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse at 30% 30%, rgba(74,111,165,0.32) 0%, transparent 50%),
-        radial-gradient(ellipse at 70% 70%, rgba(201,163,87,0.10) 0%, transparent 55%);
+        linear-gradient(180deg,
+          rgba(10,31,61,0.92) 0%,
+          rgba(10,31,61,0.62) 35%,
+          rgba(10,31,61,0.55) 65%,
+          rgba(10,31,61,0.94) 100%),
+        radial-gradient(ellipse at 30% 30%, rgba(74,111,165,0.18) 0%, transparent 55%);
       z-index: -1;
     }
-    /* Grille fine décorative en arrière-plan */
+    /* Grille fine décorative très discrète */
     .ab-hero::after {
       content: '';
       position: absolute; inset: 0;
       background-image:
-        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
       background-size: 64px 64px;
-      mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
-      -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+      mask-image: radial-gradient(ellipse at center, black 35%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse at center, black 35%, transparent 80%);
       pointer-events: none;
       z-index: -1;
     }
@@ -115,7 +135,7 @@
     .ab-hero__eyebrow::after {
       content: '';
       width: 28px; height: 1px;
-      background: var(--gold);
+      background: var(--accent);
       opacity: 0.6;
     }
 
@@ -144,7 +164,7 @@
     .ab-hero__title .line:nth-child(2) span { animation-delay: 0.36s; }
     .ab-hero__title em {
       font-style: italic;
-      color: var(--gold);
+      color: var(--accent);
       position: relative;
     }
 
@@ -313,7 +333,7 @@
       letter-spacing: 0.42em;
       text-transform: uppercase;
       font-weight: 700;
-      color: var(--gold);
+      color: var(--accent);
       margin-bottom: 1.6rem;
     }
     .ab-h-eyebrow::before {
@@ -330,7 +350,29 @@
       color: var(--navy);
       margin: 0 0 1.2rem;
     }
-    .ab-h-title em { font-style: italic; color: var(--gold); }
+    .ab-h-title em {
+      font-style: italic;
+      color: var(--accent);
+      position: relative;
+      display: inline-block;
+    }
+    /* Trait sous l'italique des h-titles, anim au reveal */
+    .ab-h-title em::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      bottom: -0.05em;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.45;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.8s cubic-bezier(0.22,1,0.36,1) 0.5s;
+    }
+    .ab-reveal.is-visible .ab-h-title em::after,
+    .ab-reveal--tilt.is-visible .ab-h-title em::after {
+      transform: scaleX(1);
+    }
     .ab-h-sub {
       font-family: var(--font-texte);
       font-size: clamp(0.95rem, 1.3vw, 1.1rem);
@@ -352,12 +394,12 @@
       position: absolute; inset: 0;
       background:
         radial-gradient(ellipse at 80% 20%, rgba(74,111,165,0.18) 0%, transparent 55%),
-        radial-gradient(ellipse at 20% 80%, rgba(201,163,87,0.06) 0%, transparent 60%);
+        radial-gradient(ellipse at 20% 80%, rgba(232,237,245,0.06) 0%, transparent 60%);
       pointer-events: none;
       z-index: -1;
     }
     .ab-section--navy .ab-h-title { color: #fff; }
-    .ab-section--navy .ab-h-title em { color: var(--gold); }
+    .ab-section--navy .ab-h-title em { color: var(--accent); }
     .ab-section--navy .ab-h-sub   { color: rgba(255,255,255,0.62); }
     .ab-section--ink {
       background: var(--ink);
@@ -365,7 +407,7 @@
       isolation: isolate;
     }
     .ab-section--ink .ab-h-title { color: #fff; }
-    .ab-section--ink .ab-h-title em { color: var(--gold); }
+    .ab-section--ink .ab-h-title em { color: var(--accent); }
     .ab-section--ink .ab-h-sub   { color: rgba(255,255,255,0.55); }
 
     /* ════════════════════════════════════════════════════════════
@@ -387,7 +429,7 @@
     }
     .ab-manifesto__quote em {
       font-style: italic;
-      color: var(--gold);
+      color: var(--accent);
       position: relative;
       display: inline-block;
     }
@@ -461,7 +503,7 @@
       top: -80px; right: -80px;
       width: 200px; height: 200px;
       background: radial-gradient(circle at center,
-        rgba(201,163,87,0.22) 0%, transparent 65%);
+        rgba(232,237,245,0.22) 0%, transparent 65%);
       opacity: 0;
       transition: opacity 0.6s ease;
       pointer-events: none;
@@ -469,7 +511,7 @@
     .ab-bio-card:hover {
       transform: translateY(-6px);
       background: rgba(255,255,255,0.08);
-      border-color: rgba(201,163,87,0.32);
+      border-color: rgba(232,237,245,0.32);
     }
     .ab-bio-card:hover::after { opacity: 1; }
 
@@ -478,10 +520,37 @@
       font-style: italic;
       font-size: 3.2rem;
       line-height: 1;
-      color: var(--gold);
+      color: var(--accent);
       opacity: 0.88;
       margin-bottom: 1.4rem;
-      display: block;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+    /* Petite barre verticale décorative à droite du numéro */
+    .ab-bio-card__num::after {
+      content: '';
+      width: 1px;
+      height: 1.6rem;
+      background: currentColor;
+      opacity: 0.4;
+      align-self: center;
+    }
+
+    /* Coins SVG décoratifs en haut-droit de chaque carte bio */
+    .ab-bio-card__corner {
+      position: absolute;
+      top: 1.2rem; right: 1.2rem;
+      width: 22px; height: 22px;
+      stroke: var(--accent);
+      stroke-width: 1;
+      fill: none;
+      opacity: 0.35;
+      transition: opacity 0.4s ease, transform 0.4s var(--ease-out);
+    }
+    .ab-bio-card:hover .ab-bio-card__corner {
+      opacity: 0.85;
+      transform: scale(1.12);
     }
     .ab-bio-card__title {
       font-family: var(--font-titre);
@@ -536,7 +605,7 @@
       position: absolute; inset: 0;
       background:
         radial-gradient(ellipse at 90% 10%, rgba(74,111,165,0.25) 0%, transparent 50%),
-        radial-gradient(ellipse at 0% 100%, rgba(201,163,87,0.10) 0%, transparent 55%);
+        radial-gradient(ellipse at 0% 100%, rgba(232,237,245,0.10) 0%, transparent 55%);
       z-index: -1;
     }
     .ab-pillar:hover {
@@ -544,7 +613,7 @@
       box-shadow: 0 24px 64px rgba(10,31,61,0.18);
     }
     .ab-pillar--musicians:hover {
-      border-color: var(--gold);
+      border-color: var(--accent);
     }
 
     .ab-pillar__num {
@@ -554,7 +623,7 @@
       font-family: var(--font-titre);
       font-style: italic;
       font-size: 0.85rem;
-      color: var(--gold);
+      color: var(--accent);
       margin-bottom: 1.2rem;
     }
     .ab-pillar__num::before {
@@ -574,7 +643,7 @@
     .ab-pillar--musicians .ab-pillar__title { color: #fff; }
     .ab-pillar__title em {
       font-style: italic;
-      color: var(--gold);
+      color: var(--accent);
     }
     .ab-pillar__desc {
       font-family: var(--font-texte);
@@ -607,7 +676,7 @@
       position: absolute;
       left: 0; top: 0.65rem;
       width: 8px; height: 1px;
-      background: var(--gold);
+      background: var(--accent);
     }
 
     /* CTA dans pilier */
@@ -642,9 +711,9 @@
       transform: translateX(2px);
     }
     .ab-pillar--musicians .ab-pillar__cta:hover {
-      background: var(--gold);
+      background: var(--accent);
       color: var(--ink);
-      border-color: var(--gold);
+      border-color: var(--accent);
     }
     .ab-pillar__cta:hover svg { transform: translateX(3px); }
 
@@ -681,7 +750,7 @@
       position: absolute;
       bottom: 1.4rem; left: 2rem; right: 2rem;
       height: 1.5px;
-      background: var(--gold);
+      background: var(--accent);
       border-radius: 999px;
       transform: scaleX(0);
       transform-origin: left;
@@ -712,7 +781,7 @@
     .ab-service:hover .ab-service__icon {
       transform: rotate(-6deg) scale(1.06);
       background: var(--navy);
-      color: var(--gold);
+      color: var(--accent);
     }
     .ab-service__title {
       font-family: var(--font-titre);
@@ -725,7 +794,7 @@
       font-size: 0.62rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--accent);
       font-weight: 700;
       margin: 0 0 1.4rem;
     }
@@ -749,7 +818,7 @@
       content: '—';
       position: absolute;
       left: 0;
-      color: var(--gold);
+      color: var(--accent);
       opacity: 0.7;
     }
 
@@ -769,7 +838,7 @@
       margin-left: 0.6rem;
       transition: color 0.28s ease;
     }
-    .ab-services__note a:hover { color: var(--gold); }
+    .ab-services__note a:hover { color: var(--accent); }
 
     @media (max-width: 900px) {
       .ab-services-grid { grid-template-columns: 1fr; gap: 1rem; }
@@ -805,7 +874,7 @@
       transition: color 0.5s ease, transform 0.5s var(--ease-out);
     }
     .ab-approach-item:hover .ab-approach-item__num {
-      color: var(--gold);
+      color: var(--accent);
       transform: translateY(-4px);
     }
     .ab-approach-item__title {
@@ -854,11 +923,11 @@
       color: #fff;
       letter-spacing: -0.04em;
       margin: 0 0 0.6rem;
-      text-shadow: 0 0 32px rgba(201,163,87,0.18);
+      text-shadow: 0 0 32px rgba(232,237,245,0.18);
     }
     .ab-counter__value sup {
       font-size: 0.5em;
-      color: var(--gold);
+      color: var(--accent);
       vertical-align: super;
       margin-left: 0.1em;
     }
@@ -873,7 +942,7 @@
     }
     .ab-counter__rule {
       width: 24px; height: 1px;
-      background: var(--gold);
+      background: var(--accent);
       margin: 0 auto 1rem;
       opacity: 0;
       transform: scaleX(0);
@@ -900,7 +969,7 @@
     .ab-final__ornament {
       width: 56px; height: 22px;
       margin: 0 auto 1.6rem;
-      color: var(--gold);
+      color: var(--accent);
       animation: ornament-spin-in 1.2s cubic-bezier(0.22,1,0.36,1) both;
     }
     @keyframes ornament-spin-in {
@@ -916,7 +985,7 @@
       color: #fff;
       margin: 0 0 1.4rem;
     }
-    .ab-final__title em { color: var(--gold); }
+    .ab-final__title em { color: var(--accent); }
     .ab-final__sub {
       font-family: var(--font-texte);
       font-size: clamp(0.95rem, 1.25vw, 1.08rem);
@@ -964,14 +1033,14 @@
     }
     .ab-cta:hover .ab-cta__arrow { transform: translateX(4px); }
 
-    /* Variante primaire — gradient gold premium */
+    /* Variante primaire — blanc plein, contraste max sur fond ink */
     .ab-cta--primary {
-      background: linear-gradient(135deg, var(--gold) 0%, #B08838 100%);
-      color: var(--ink);
-      border: 1px solid rgba(201,163,87,0.5);
+      background: #FFFFFF;
+      color: var(--navy);
+      border: 1px solid #FFFFFF;
       box-shadow:
-        0 8px 32px rgba(201,163,87,0.32),
-        inset 0 1px 0 rgba(255,255,255,0.32);
+        0 8px 32px rgba(255,255,255,0.18),
+        inset 0 1px 0 rgba(255,255,255,1);
     }
     .ab-cta--primary::before {
       content: '';
@@ -979,7 +1048,7 @@
       inset: 0;
       background: linear-gradient(115deg,
         transparent 38%,
-        rgba(255,255,255,0.4) 50%,
+        rgba(74,111,165,0.18) 50%,
         transparent 62%);
       transform: translateX(-110%);
       transition: transform 0.7s cubic-bezier(0.4,0,0.2,1);
@@ -988,9 +1057,10 @@
     .ab-cta--primary:hover::before { transform: translateX(110%); }
     .ab-cta--primary:hover {
       transform: translateY(-3px);
+      background: var(--ice);
       box-shadow:
-        0 14px 42px rgba(201,163,87,0.45),
-        inset 0 1px 0 rgba(255,255,255,0.42);
+        0 14px 42px rgba(255,255,255,0.28),
+        inset 0 1px 0 rgba(255,255,255,1);
     }
     .ab-cta--primary:hover .ab-cta__icon {
       transform: rotate(-8deg) scale(1.1);
@@ -1021,8 +1091,8 @@
     }
     .ab-cta--white:hover {
       transform: translateY(-3px);
-      background: var(--gold);
-      border-color: var(--gold);
+      background: var(--accent);
+      border-color: var(--accent);
       color: var(--ink);
     }
 
@@ -1089,6 +1159,72 @@
     .ab-reveal--tilt.is-visible {
       opacity: 1;
       transform: translateY(0) rotateX(0);
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       SVG DECORATIFS — séparateurs entre sections + signature hero
+    ════════════════════════════════════════════════════════════ */
+    .ab-divider {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2.4rem 0;
+      position: relative;
+      margin: 0;
+    }
+    .ab-divider svg {
+      width: 90px;
+      height: 28px;
+      color: var(--accent);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.7s ease, transform 0.7s var(--ease-out);
+    }
+    .ab-divider.is-visible svg {
+      opacity: 0.7;
+      transform: translateY(0);
+    }
+    .ab-divider .div-line {
+      stroke-dasharray: 32;
+      stroke-dashoffset: 32;
+      transition: stroke-dashoffset 1s cubic-bezier(0.22,1,0.36,1) 0.2s;
+    }
+    .ab-divider.is-visible .div-line { stroke-dashoffset: 0; }
+    .ab-divider .div-dot {
+      transform-origin: center;
+      transform: scale(0);
+      transition: transform 0.5s cubic-bezier(0.22,1,0.36,1) 0.6s;
+    }
+    .ab-divider.is-visible .div-dot { transform: scale(1); }
+
+    /* Background des dividers selon la section précédente */
+    .ab-section--off-white + .ab-divider { background: var(--off-white); }
+    .ab-section--ice + .ab-divider       { background: var(--ice); }
+    .ab-section--navy + .ab-divider      { background: var(--navy-deep); --accent: var(--accent-light); }
+    .ab-section--ink + .ab-divider       { background: var(--ink);       --accent: var(--accent-light); }
+
+    /* SVG signature en bas du hero */
+    .ab-hero__sig {
+      position: absolute;
+      bottom: 1.5rem; right: var(--gutter);
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-family: var(--font-texte);
+      font-size: 0.55rem;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      animation: ab-fade-up 1s cubic-bezier(0.22,1,0.36,1) 1.3s both;
+    }
+    .ab-hero__sig svg {
+      width: 22px; height: 22px;
+      stroke: rgba(255,255,255,0.45);
+      stroke-width: 1.2;
+      fill: none;
+    }
+    @media (max-width: 600px) {
+      .ab-hero__sig { display: none; }
     }
   </style>
 </head>
@@ -1165,6 +1301,17 @@
           </a>
         </div>
       </div>
+      <div class="ab-hero__sig" aria-hidden="true">
+        <svg viewBox="0 0 22 22" stroke="currentColor" fill="none">
+          <circle cx="11" cy="11" r="9" stroke-width="1"/>
+          <circle cx="11" cy="11" r="3.5" stroke-width="1"/>
+          <line x1="11" y1="2" x2="11" y2="5.5" stroke-linecap="round"/>
+          <line x1="11" y1="16.5" x2="11" y2="20" stroke-linecap="round"/>
+          <line x1="2" y1="11" x2="5.5" y2="11" stroke-linecap="round"/>
+          <line x1="16.5" y1="11" x2="20" y2="11" stroke-linecap="round"/>
+        </svg>
+        <span>Porte de la Craffe · Nancy</span>
+      </div>
       <a href="#manifesto" class="ab-hero__scroll" aria-label="Défiler">Défiler</a>
     </section>
 
@@ -1172,11 +1319,11 @@
     <nav class="ab-toc" aria-label="Sommaire">
       <div class="ab-toc__inner">
         <span class="ab-toc__label">Naviguer ·</span>
-        <a href="#manifesto" class="ab-toc__link"><span>i</span> Manifeste</a>
-        <a href="#bio"       class="ab-toc__link"><span>ii</span> Le parcours</a>
-        <a href="#pillars"   class="ab-toc__link"><span>iii</span> Mes deux univers</a>
-        <a href="#services"  class="ab-toc__link"><span>iv</span> Prestations</a>
-        <a href="#approche"  class="ab-toc__link"><span>v</span> Approche</a>
+        <a href="#manifesto" class="ab-toc__link"><span>01</span> Manifeste</a>
+        <a href="#bio"       class="ab-toc__link"><span>02</span> Le parcours</a>
+        <a href="#pillars"   class="ab-toc__link"><span>03</span> Mes deux univers</a>
+        <a href="#services"  class="ab-toc__link"><span>04</span> Prestations</a>
+        <a href="#approche"  class="ab-toc__link"><span>05</span> Approche</a>
         <a href="#contact"   class="ab-toc__link ab-toc__link--accent"><span>→</span> Contact</a>
       </div>
     </nav>
@@ -1199,6 +1346,17 @@
     <!-- ════════════════════════════════════════════════════════════
          BIO — 3 cartes glass sur navy
     ════════════════════════════════════════════════════════════ -->
+    
+    <!-- Diviseur SVG décoratif -->
+    <div class="ab-divider ab-reveal" aria-hidden="true">
+      <svg viewBox="0 0 90 28" fill="none" stroke="currentColor" stroke-width="1">
+        <line class="div-line" x1="0" y1="14" x2="32" y2="14" stroke-linecap="round"/>
+        <line class="div-line" x1="58" y1="14" x2="90" y2="14" stroke-linecap="round"/>
+        <circle class="div-dot" cx="45" cy="14" r="4" stroke-width="1" fill="none"/>
+        <circle class="div-dot" cx="45" cy="14" r="1.4" fill="currentColor" stroke="none"/>
+      </svg>
+    </div>
+
     <section id="bio" class="ab-section ab-section--navy">
       <div class="ab-section__inner">
         <header class="ab-reveal" style="max-width:46ch">
@@ -1209,19 +1367,31 @@
 
         <div class="ab-bio-grid">
           <article class="ab-bio-card ab-reveal--tilt delay-1">
-            <span class="ab-bio-card__num">01</span>
+            <svg class="ab-bio-card__corner" viewBox="0 0 22 22" aria-hidden="true">
+              <path d="M0 8 L0 0 L8 0" stroke-linecap="round"/>
+              <path d="M14 22 L22 22 L22 14" stroke-linecap="round"/>
+            </svg>
+                        <span class="ab-bio-card__num">01</span>
             <h3 class="ab-bio-card__title">L'origine</h3>
             <p class="ab-bio-card__text">Je fais de l'orgue depuis l'âge de 6 ans, j'ai toujours été très sensible à l'art quelle que soit la forme qu'il prenne. La musique m'a appris à écouter, apprendre et comprendre ce qui apparaît parfois inintelligible.</p>
           </article>
 
           <article class="ab-bio-card ab-reveal--tilt delay-2">
-            <span class="ab-bio-card__num">02</span>
+            <svg class="ab-bio-card__corner" viewBox="0 0 22 22" aria-hidden="true">
+              <path d="M0 8 L0 0 L8 0" stroke-linecap="round"/>
+              <path d="M14 22 L22 22 L22 14" stroke-linecap="round"/>
+            </svg>
+                        <span class="ab-bio-card__num">02</span>
             <h3 class="ab-bio-card__title">La pratique</h3>
             <p class="ab-bio-card__text">Je photographie et filme des lieux, des événements, des portraits et des architectures. Chaque projet a son propre rythme : je m'adapte à ce que la scène demande, sans approche standardisée. Je sélectionne les projets spécifiquement, afin de m'engager uniquement là où je peux apporter un regard juste et un travail de qualité.</p>
           </article>
 
           <article class="ab-bio-card ab-reveal--tilt delay-3">
-            <span class="ab-bio-card__num">03</span>
+            <svg class="ab-bio-card__corner" viewBox="0 0 22 22" aria-hidden="true">
+              <path d="M0 8 L0 0 L8 0" stroke-linecap="round"/>
+              <path d="M14 22 L22 22 L22 14" stroke-linecap="round"/>
+            </svg>
+                        <span class="ab-bio-card__num">03</span>
             <h3 class="ab-bio-card__title">La passion</h3>
             <p class="ab-bio-card__text">Ce n'est pas mon métier principal — j'étudie le droit à côté. Je tiens à préserver cette pratique comme une passion, ce qui me permet d'investir chaque projet avec exigence et liberté.</p>
           </article>
@@ -1232,6 +1402,17 @@
     <!-- ════════════════════════════════════════════════════════════
          PILIERS — 2 grosses cartes asymétriques (cœur de la conversion)
     ════════════════════════════════════════════════════════════ -->
+    
+    <!-- Diviseur SVG décoratif -->
+    <div class="ab-divider ab-reveal" aria-hidden="true">
+      <svg viewBox="0 0 90 28" fill="none" stroke="currentColor" stroke-width="1">
+        <line class="div-line" x1="0" y1="14" x2="32" y2="14" stroke-linecap="round"/>
+        <line class="div-line" x1="58" y1="14" x2="90" y2="14" stroke-linecap="round"/>
+        <circle class="div-dot" cx="45" cy="14" r="4" stroke-width="1" fill="none"/>
+        <circle class="div-dot" cx="45" cy="14" r="1.4" fill="currentColor" stroke="none"/>
+      </svg>
+    </div>
+
     <section id="pillars" class="ab-section ab-section--off-white">
       <div class="ab-section__inner">
         <header class="ab-reveal" style="text-align:center;max-width:680px;margin:0 auto">
@@ -1244,7 +1425,7 @@
 
           <!-- Pilier 1 — Communication musiciens (navy distinctif) -->
           <article class="ab-pillar ab-pillar--musicians ab-reveal--tilt delay-1">
-            <p class="ab-pillar__num"><em>i</em> Spécialité</p>
+            <p class="ab-pillar__num"><em>01</em> Spécialité</p>
             <h3 class="ab-pillar__title">Communication visuelle pour <em>musiciens</em>.</h3>
             <p class="ab-pillar__desc">Je connais le milieu musical de l'intérieur — j'y suis né. Pour les musiciens, ensembles, festivals et institutions culturelles, je propose une image cohérente avec votre univers artistique.</p>
             <ul class="ab-pillar__list">
@@ -1263,7 +1444,7 @@
 
           <!-- Pilier 2 — Autres prestations (blanc) -->
           <article class="ab-pillar ab-reveal--tilt delay-2">
-            <p class="ab-pillar__num"><em>ii</em> Polyvalence</p>
+            <p class="ab-pillar__num"><em>02</em> Polyvalence</p>
             <h3 class="ab-pillar__title">Lieux, événements et <em>portraits</em>.</h3>
             <p class="ab-pillar__desc">Au-delà de la musique, je mets mon œil au service de tous les sujets qui méritent une image juste — qu'il s'agisse d'un lieu, d'un événement privé ou professionnel, ou d'un portrait personnel.</p>
             <ul class="ab-pillar__list">
@@ -1287,6 +1468,17 @@
     <!-- ════════════════════════════════════════════════════════════
          SERVICES — 3 cartes glass détaillées sur fond ice
     ════════════════════════════════════════════════════════════ -->
+    
+    <!-- Diviseur SVG décoratif -->
+    <div class="ab-divider ab-reveal" aria-hidden="true">
+      <svg viewBox="0 0 90 28" fill="none" stroke="currentColor" stroke-width="1">
+        <line class="div-line" x1="0" y1="14" x2="32" y2="14" stroke-linecap="round"/>
+        <line class="div-line" x1="58" y1="14" x2="90" y2="14" stroke-linecap="round"/>
+        <circle class="div-dot" cx="45" cy="14" r="4" stroke-width="1" fill="none"/>
+        <circle class="div-dot" cx="45" cy="14" r="1.4" fill="currentColor" stroke="none"/>
+      </svg>
+    </div>
+
     <section id="services" class="ab-section ab-section--ice">
       <div class="ab-section__inner">
         <header class="ab-reveal" style="display:flex;align-items:flex-end;justify-content:space-between;gap:3rem;flex-wrap:wrap">
@@ -1369,6 +1561,17 @@
     <!-- ════════════════════════════════════════════════════════════
          APPROCHE — 4 principes sur fond ink (presque noir)
     ════════════════════════════════════════════════════════════ -->
+    
+    <!-- Diviseur SVG décoratif -->
+    <div class="ab-divider ab-reveal" aria-hidden="true">
+      <svg viewBox="0 0 90 28" fill="none" stroke="currentColor" stroke-width="1">
+        <line class="div-line" x1="0" y1="14" x2="32" y2="14" stroke-linecap="round"/>
+        <line class="div-line" x1="58" y1="14" x2="90" y2="14" stroke-linecap="round"/>
+        <circle class="div-dot" cx="45" cy="14" r="4" stroke-width="1" fill="none"/>
+        <circle class="div-dot" cx="45" cy="14" r="1.4" fill="currentColor" stroke="none"/>
+      </svg>
+    </div>
+
     <section id="approche" class="ab-section ab-section--ink">
       <div class="ab-section__inner">
         <header class="ab-reveal" style="text-align:center;max-width:600px;margin:0 auto">
@@ -1378,22 +1581,22 @@
 
         <div class="ab-approach-grid">
           <article class="ab-approach-item ab-reveal delay-1">
-            <p class="ab-approach-item__num">i</p>
+            <p class="ab-approach-item__num">01</p>
             <h3 class="ab-approach-item__title">La lenteur</h3>
             <p class="ab-approach-item__text">Ne pas multiplier les déclenchements. Attendre que la lumière, le sujet et le moment coexistent. Préférer une seule image juste à dix images correctes.</p>
           </article>
           <article class="ab-approach-item ab-reveal delay-2">
-            <p class="ab-approach-item__num">ii</p>
+            <p class="ab-approach-item__num">02</p>
             <h3 class="ab-approach-item__title">L'attention</h3>
             <p class="ab-approach-item__text">Être présent à ce qui se passe avant de mettre l'œil au viseur. Lire l'espace, écouter la scène, comprendre le sujet — qu'il s'agisse d'un lieu, d'un événement ou d'un visage.</p>
           </article>
           <article class="ab-approach-item ab-reveal delay-3">
-            <p class="ab-approach-item__num">iii</p>
+            <p class="ab-approach-item__num">03</p>
             <h3 class="ab-approach-item__title">La discrétion</h3>
             <p class="ab-approach-item__text">Ne pas interrompre ce qui existe. Photographier sans s'imposer dans l'espace de jeu, sans transformer l'événement en séance photo.</p>
           </article>
           <article class="ab-approach-item ab-reveal delay-4">
-            <p class="ab-approach-item__num">iv</p>
+            <p class="ab-approach-item__num">04</p>
             <h3 class="ab-approach-item__title">La trace</h3>
             <p class="ab-approach-item__text">Ce que la photographie garde, la mémoire ne peut pas. Ces images ne sont pas une documentation — elles prolongent l'expérience.</p>
           </article>
@@ -1432,6 +1635,17 @@
     <!-- ════════════════════════════════════════════════════════════
          FINAL CTA — section dramatique, deux gros boutons
     ════════════════════════════════════════════════════════════ -->
+    
+    <!-- Diviseur SVG décoratif -->
+    <div class="ab-divider ab-reveal" aria-hidden="true">
+      <svg viewBox="0 0 90 28" fill="none" stroke="currentColor" stroke-width="1">
+        <line class="div-line" x1="0" y1="14" x2="32" y2="14" stroke-linecap="round"/>
+        <line class="div-line" x1="58" y1="14" x2="90" y2="14" stroke-linecap="round"/>
+        <circle class="div-dot" cx="45" cy="14" r="4" stroke-width="1" fill="none"/>
+        <circle class="div-dot" cx="45" cy="14" r="1.4" fill="currentColor" stroke="none"/>
+      </svg>
+    </div>
+
     <section id="contact" class="ab-section ab-section--ink">
       <div class="ab-section__inner ab-final ab-reveal">
         <svg class="ab-final__ornament" viewBox="0 0 56 22" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
