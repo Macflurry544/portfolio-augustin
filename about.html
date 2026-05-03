@@ -3,13 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="À propos d'Augustin Fleury — photographe et vidéaste à Nancy & Paris. Valorisation de lieux, événements, portraits, architecture et contenus vidéo pour les réseaux sociaux.">
-  <meta name="keywords" content="photographe Nancy, photographe Paris, photographe événement, portrait Nancy, vidéaste événementiel, photographe lieu, photographe architecture, Augustin Fleury photographe">
+  <meta name="description" content="À propos d'Augustin Fleury — photographe et vidéaste à Nancy & Paris.">
   <meta name="author" content="Augustin Fleury">
   <meta property="og:type" content="profile">
   <meta property="og:title" content="À propos — Augustin Fleury · Photographe Nancy & Paris">
-  <meta property="og:description" content="Photographe et vidéaste à Nancy & Paris — valorisation de lieux, événements, portraits et architecture.">
-  <meta property="og:image" content="assets/photos/craffe.paysage.jpg">
+  <meta property="og:image" content="assets/photos/orgue.paysage.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <title>À propos — Augustin Fleury · Photographe & Vidéaste Nancy</title>
   <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg">
@@ -19,1244 +17,288 @@
   <link rel="canonical" href="https://macflurry544.github.io/portfolio-augustin/about.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Young+Serif&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Young+Serif&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/liquid-glass.css">
   <link rel="stylesheet" href="assets/css/animations.css">
 
   <style>
-    /* ════════════════════════════════════════════════════════════
-       ABOUT — refonte complète · palette navy/blanc/noir
-    ════════════════════════════════════════════════════════════ */
+    /* ─── BASE ───────────────────────────────────────────────── */
     body.page-about {
-      --navy-deep:  #0A1F3D;   /* navy ultra profond */
-      --navy:       #0C2C55;   /* navy principal */
-      --navy-mid:   #1E4480;   /* navy intermédiaire */
-      --navy-soft:  #4A6FA5;   /* navy doux pour accents */
-      --ice:        #E8EDF5;   /* blanc bleuté très pâle */
-      --off-white:  #FAFAF7;   /* blanc chaud */
-      --ink:        #0A0A0A;   /* presque noir */
-      --accent-light: #E8EDF5;  /* accent sur fond sombre — ice */
-      --accent-dark:  #1E4480;  /* accent sur fond clair — navy mid */
-      --accent: var(--accent-dark);  /* défaut : sections claires */
-
-      background: var(--off-white);
-      color: var(--navy);
-    }
-    /* Override --accent dans les sections sombres */
-    body.page-about .ab-section--navy,
-    body.page-about .ab-section--ink,
-    body.page-about .ab-hero {
-      --accent: var(--accent-light);
+      background: #FDFCF9;
+      overflow: hidden;      /* scroll virtuel : pas de défilement natif */
+      height: 100%;
     }
 
-    /* SCROLL PROGRESS BAR — barre fine en haut qui suit le scroll */
-    .ab-progress {
-      position: fixed;
-      top: 0; left: 0;
-      width: 0%;
-      height: 3px;
-      background: linear-gradient(to right, var(--navy), var(--navy-soft), #FFFFFF);
-      z-index: 9999;
-      transition: width 0.05s linear;
-      box-shadow: 0 0 12px rgba(74,111,165,0.5);
+    /* ─── ENCRIER ────────────────────────────────────────────── */
+    /* Décalé plus bas (~2 pouces de plus que la version précédente) */
+    #inkwell {
+      position: fixed; top: 220px; left: 50%; transform: translateX(-50%);
+      z-index: 45; opacity: 0; transition: opacity .7s ease; pointer-events: none;
+    }
+    #inkwell.vis { opacity: 1; }
+
+    /* ─── PHRASE ITALIQUE (au-dessus du séparateur) ──────────── */
+    #sub-hint {
+      position: fixed; top: 283px; left: 50%; transform: translateX(-50%);
+      font-family: 'Playfair Display', Georgia, serif; font-style: italic;
+      font-size: .7rem; letter-spacing: .04em; color: rgba(30,26,20,.38);
+      white-space: nowrap; z-index: 44; opacity: 0; pointer-events: none;
+      transition: opacity 1s ease 1.6s;
+    }
+    #sub-hint.vis  { opacity: 1; }
+    #sub-hint.gone { opacity: 0; transition: opacity .5s ease; }
+
+    /* ─── SÉPARATEUR ─────────────────────────────────────────── */
+    #ink-rule {
+      position: fixed; top: 299px; left: 50%; transform: translateX(-50%);
+      height: 1px; width: 0; background: rgba(28,24,20,.10); z-index: 44;
+      transition: width 1.6s cubic-bezier(.22,1,.36,1) .6s;
+    }
+    #ink-rule.expanded { width: min(460px, 82vw); }
+
+    /* ─── STAGE ──────────────────────────────────────────────── */
+    /*
+      MASQUE BLANC : ::before de 374px de haut.
+      Blanc opaque sur 88 % (≈ 329px), puis fondu vers transparent.
+      329px > bas de l'encrier (220+56=276px) → le texte remontant
+      est systématiquement caché derrière ce masque.
+      Les éléments externes (encrier z-45, plume z-55) flottent
+      au-dessus de #stage (z-30) : toujours visibles.
+    */
+    #stage {
+      position: fixed; inset: 0;
+      display: flex; align-items: flex-start; justify-content: center;
+      padding: 360px 2.5rem 8rem;
+      z-index: 30; pointer-events: none; overflow: hidden;
+    }
+    #stage::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 374px;
+      background: linear-gradient(to bottom, #FDFCF9 0%, #FDFCF9 88%, transparent 100%);
+      pointer-events: none; z-index: 2;
+    }
+    #stage::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 7rem;
+      background: linear-gradient(to bottom, transparent, #FDFCF9 72%);
+      pointer-events: none; z-index: 2;
     }
 
-    /* ════════════════════════════════════════════════════════════
-       HERO — Porte de la Craffe en arrière-plan, titre blanc
-    ════════════════════════════════════════════════════════════ */
-    .ab-hero {
+    /* ─── TEXTE ──────────────────────────────────────────────── */
+    #tw {
+      max-width: 600px; width: 100%; text-align: center;
+      font-family: 'Playfair Display', 'Young Serif', Georgia, serif;
+      font-size: clamp(1.05rem, 1.85vw, 1.55rem); line-height: 1.88;
+      color: #1E1A14; font-style: italic;
+      will-change: transform; position: relative; z-index: 1;
+    }
+    #tw p { margin-top: 1.05em; }
+    #tw p:first-child { margin-top: 0; }
+
+    /* CHARS — invisibles au départ */
+    .c   { color: #FDFCF9; transition: color .05s linear; }
+    .c.v { color: #1E1A14; }
+
+    /*
+      EFFACEMENT COMPLET au scroll-up :
+      encre qui se délave jusqu'à complète transparence,
+      avec un léger flou pendant la transition (effet dilution).
+    */
+    .c.trace {
+      color: #FDFCF9;                  /* totalement invisible = fond */
+      filter: blur(.6px);
+      transition: color .55s ease, filter .55s ease;
+    }
+
+    /* ─── RATURES ────────────────────────────────────────────── */
+    .sg-wrap  { display: inline-block; position: relative; vertical-align: baseline; }
+    .sg-inner { display: inline; }
+    .sk-svg   { position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 100%; height: 10px; overflow: visible; pointer-events: none; }
+    .sk-l1 { stroke:#1E1A14;stroke-width:1.5;stroke-dasharray:108;stroke-dashoffset:108; }
+    .sk-l2 { stroke:#1E1A14;stroke-width:.7;stroke-dasharray:108;stroke-dashoffset:108;opacity:.55; }
+    .sg-wrap.struck .sk-l1 { animation:sk-draw1 .76s cubic-bezier(.4,0,.2,1) .22s forwards; }
+    .sg-wrap.struck .sk-l2 { animation:sk-draw2 .52s cubic-bezier(.4,0,.2,1) .60s forwards; }
+    @keyframes sk-draw1{0%{stroke-dashoffset:108}40%{stroke-dashoffset:46}50%{stroke-dashoffset:44}100%{stroke-dashoffset:0}}
+    @keyframes sk-draw2{0%{stroke-dashoffset:108}100%{stroke-dashoffset:0}}
+
+    /* ─── PLUME ──────────────────────────────────────────────── */
+    #quill {
+      position: fixed; width: 56px; height: 172px; pointer-events: none;
+      z-index: 55; opacity: 0; transform-origin: 50% 98.3%; transform: rotate(-28deg);
+      transition: opacity .9s ease; will-change: left, top; overflow: visible;
+    }
+    #quill.vis { opacity: 1; }
+    @keyframes qwob{
+      0%  {transform:rotate(-27.0deg) translateY(0.0px)}
+      14% {transform:rotate(-30.5deg) translateY(0.4px)}
+      28% {transform:rotate(-28.0deg) translateY(0.1px)}
+      42% {transform:rotate(-31.0deg) translateY(0.6px)}
+      57% {transform:rotate(-26.5deg) translateY(-0.2px)}
+      72% {transform:rotate(-29.5deg) translateY(0.3px)}
+      86% {transform:rotate(-27.5deg) translateY(0.0px)}
+      100%{transform:rotate(-27.0deg) translateY(0.0px)}
+    }
+    #quill.writing { animation: qwob 1.15s ease-in-out infinite; }
+    @keyframes qdip{
+      0%  {transform:rotate(-28deg) translateY(0)}
+      28% {transform:rotate(-25deg) translateY(15px)}
+      55% {transform:rotate(-25deg) translateY(12px)}
+      74% {transform:rotate(-27deg) translateY(5px)}
+      100%{transform:rotate(-28deg) translateY(0)}
+    }
+    #quill.dipping { animation: qdip 1.2s cubic-bezier(.4,0,.2,1) forwards; }
+    /* Plume au repos (rangée dans l'encrier, respiration douce) */
+    @keyframes qrest{
+      0%,100%{transform:rotate(-28deg) translateY(0)}
+      50%    {transform:rotate(-29.5deg) translateY(1.5px)}
+    }
+    #quill.resting { animation: qrest 3.2s ease-in-out infinite; }
+    @keyframes flamme{0%{transform:scaleX(1) scaleY(1)}50%{transform:scaleX(.7) scaleY(1.35) translateY(-1px)}100%{transform:scaleX(1) scaleY(1)}}
+    @keyframes encre-pulse{0%,72%,100%{opacity:0}42%,55%{opacity:.85}}
+
+    /* ─── DOT ────────────────────────────────────────────────── */
+    #dot{position:fixed;width:3px;height:3px;border-radius:50%;background:#1E1A14;transform:translate(-50%,-50%);pointer-events:none;z-index:56;left:-50px;top:-50px;opacity:0;transition:opacity .3s}
+    #dot.vis{opacity:.55}
+    @keyframes dblink{0%,44%{opacity:.55}50%,100%{opacity:0}}
+    #dot.writing{animation:dblink 1s steps(1) infinite}
+
+    /* ─── DROPS ──────────────────────────────────────────────── */
+    #drops-layer{position:fixed;inset:0;pointer-events:none;z-index:54;overflow:hidden}
+    .ink-drop{position:absolute;border-radius:50%;background:#1C1610}
+
+    /* ─── SIGNATURE ──────────────────────────────────────────── */
+    #sig-svg{position:fixed;left:50%;transform:translateX(-50%);width:200px;height:62px;z-index:36;pointer-events:none;display:none;overflow:visible}
+    #sig-path{fill:none;stroke:#1E1A14;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+    /* ─── CTA — carte mise en valeur ─────────────────────────── */
+    #cta {
+      position: fixed; left: 50%; transform: translateX(-50%);
+      opacity: 0; pointer-events: none;
+      transition: opacity 1.6s ease;
+      z-index: 38; white-space: nowrap;
+    }
+    #cta.on { opacity: 1; pointer-events: all; }
+
+    .cta-card {
+      display: flex; flex-direction: column; align-items: center; gap: .55rem;
+      background: #1E1A14;
+      border: 1px solid rgba(176,132,90,.28);
+      padding: 1.7rem 3.2rem 1.5rem;
+      text-decoration: none;
+      min-width: 240px;
       position: relative;
-      min-height: 92dvh;
-      background-color: var(--navy-deep);
-      background-image: url('assets/photos/craffe.paysage.jpg');
-      background-size: cover;
-      background-position: center 45%;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 8rem var(--gutter) 6rem;
-      isolation: isolate;
-      animation: hero-zoom 22s ease-out both;
-    }
-    @keyframes hero-zoom {
-      from { background-size: 112%; }
-      to   { background-size: 100%; }
-    }
-    /* Voile navy profond pour lisibilité titre blanc */
-    .ab-hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        linear-gradient(180deg,
-          rgba(10,31,61,0.92) 0%,
-          rgba(10,31,61,0.62) 35%,
-          rgba(10,31,61,0.55) 65%,
-          rgba(10,31,61,0.94) 100%),
-        radial-gradient(ellipse at 30% 30%, rgba(74,111,165,0.18) 0%, transparent 55%);
-      z-index: -1;
-    }
-    /* Grille fine décorative très discrète */
-    .ab-hero::after {
-      content: '';
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-      background-size: 64px 64px;
-      mask-image: radial-gradient(ellipse at center, black 35%, transparent 80%);
-      -webkit-mask-image: radial-gradient(ellipse at center, black 35%, transparent 80%);
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .ab-hero__inner {
-      max-width: 1100px;
-      width: 100%;
-      text-align: center;
-      position: relative;
-    }
-
-    .ab-hero__eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.8rem;
-      font-family: var(--font-texte);
-      font-size: 0.6rem;
-      letter-spacing: 0.42em;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: rgba(232,237,245,0.55);
-      margin-bottom: 2rem;
-      animation: ab-fade-up 0.8s cubic-bezier(0.22,1,0.36,1) 0.1s both;
-    }
-    .ab-hero__eyebrow::before,
-    .ab-hero__eyebrow::after {
-      content: '';
-      width: 28px; height: 1px;
-      background: var(--accent);
-      opacity: 0.6;
-    }
-
-    /* Titre massif avec révélation ligne par ligne */
-    .ab-hero__title {
-      font-family: var(--font-titre);
-      font-size: clamp(2.6rem, 7vw, 6rem);
-      line-height: 1.02;
-      letter-spacing: -0.035em;
-      color: #FFFFFF;
-      margin: 0 0 1.8rem;
-      max-width: 14ch;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .ab-hero__title .line {
-      display: block;
-      overflow: hidden;
-    }
-    .ab-hero__title .line span {
-      display: block;
-      transform: translateY(110%);
-      animation: ab-line-up 1s cubic-bezier(0.22,1,0.36,1) forwards;
-    }
-    .ab-hero__title .line:nth-child(1) span { animation-delay: 0.2s; }
-    .ab-hero__title .line:nth-child(2) span { animation-delay: 0.36s; }
-    .ab-hero__title em {
-      font-style: italic;
-      color: var(--accent);
-      position: relative;
-    }
-
-    .ab-hero__sub {
-      font-family: var(--font-texte);
-      font-size: clamp(0.95rem, 1.4vw, 1.15rem);
-      line-height: 1.78;
-      color: rgba(255,255,255,0.74);
-      max-width: 56ch;
-      margin: 0 auto 3rem;
-      font-weight: 400;
-      animation: ab-fade-up 0.85s cubic-bezier(0.22,1,0.36,1) 0.6s both;
-    }
-
-    /* Hero CTAs duo */
-    .ab-hero__actions {
-      display: flex;
-      align-items: center;
-      gap: 0.85rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      animation: ab-fade-up 0.85s cubic-bezier(0.22,1,0.36,1) 0.78s both;
-    }
-
-    /* Indicateur de défilement */
-    .ab-hero__scroll {
-      position: absolute;
-      bottom: 2.5rem; left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.6rem;
-      color: rgba(255,255,255,0.42);
-      font-family: var(--font-texte);
-      font-size: 0.55rem;
-      letter-spacing: 0.34em;
-      text-transform: uppercase;
-      animation: ab-fade-up 0.85s cubic-bezier(0.22,1,0.36,1) 1s both;
-    }
-    .ab-hero__scroll::after {
-      content: '';
-      width: 1px; height: 36px;
-      background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
-      animation: scroll-pulse 2s ease-in-out infinite;
-    }
-
-    /* ════════════════════════════════════════════════════════════
-       TABLE OF CONTENTS — pilule glass flottante
-    ════════════════════════════════════════════════════════════ */
-    .ab-toc {
-      position: relative;
-      z-index: 5;
-      margin-top: -34px;
-      padding: 0 var(--gutter);
-      animation: ab-fade-up 0.8s cubic-bezier(0.22,1,0.36,1) 1.1s both;
-    }
-    .ab-toc__inner {
-      max-width: 940px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      flex-wrap: wrap;
-      padding: 0.6rem 1.1rem;
-      border-radius: 999px;
-      background: rgba(250,250,247,0.85);
-      backdrop-filter: blur(28px) saturate(170%);
-      -webkit-backdrop-filter: blur(28px) saturate(170%);
-      border: 1px solid rgba(12,44,85,0.10);
-      box-shadow:
-        0 18px 48px rgba(10,31,61,0.18),
-        inset 0 1px 0 rgba(255,255,255,0.95);
-    }
-    .ab-toc__label {
-      font-family: var(--font-texte);
-      font-size: 0.52rem;
-      letter-spacing: 0.32em;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: var(--navy-soft);
-      padding: 0 0.6rem;
-    }
-    .ab-toc__link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 8px 14px;
-      border-radius: 999px;
-      font-family: var(--font-texte);
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--navy);
-      transition: background 0.32s var(--ease-out),
-                  color 0.32s var(--ease-out),
-                  transform 0.32s var(--ease-out);
-    }
-    .ab-toc__link span {
-      font-family: var(--font-titre);
-      font-style: italic;
-      font-size: 0.62rem;
-      color: var(--navy-soft);
-    }
-    .ab-toc__link:hover {
-      background: rgba(12,44,85,0.07);
-      transform: translateY(-1px);
-    }
-    .ab-toc__link--accent {
-      background: var(--navy);
-      color: #fff;
-      margin-left: auto;
-    }
-    .ab-toc__link--accent span {
-      color: #fff;
-      font-style: normal;
-      font-family: var(--font-texte);
-    }
-    .ab-toc__link--accent:hover {
-      background: var(--ink);
-    }
-    @media (max-width: 780px) {
-      .ab-toc { margin-top: -24px; padding: 0 1rem; }
-      .ab-toc__inner {
-        padding: 0.4rem 0.8rem;
-        gap: 0.15rem;
-        overflow-x: auto;
-        flex-wrap: nowrap;
-        scrollbar-width: none;
-        -webkit-overflow-scrolling: touch;
-        border-radius: 14px;
-      }
-      .ab-toc__inner::-webkit-scrollbar { display: none; }
-      .ab-toc__label { display: none; }
-      .ab-toc__link { flex-shrink: 0; font-size: 0.65rem; padding: 7px 11px; }
-      .ab-toc__link--accent { margin-left: 0; }
-    }
-
-    /* ════════════════════════════════════════════════════════════
-       SECTIONS GÉNÉRALES — padding/margin/scroll-anchors
-    ════════════════════════════════════════════════════════════ */
-    .ab-section {
-      padding: clamp(5rem, 10vw, 9rem) var(--gutter);
-      position: relative;
-    }
-    .ab-section__inner {
-      max-width: var(--content-max);
-      margin: 0 auto;
-    }
-    body.page-about #manifesto,
-    body.page-about #bio,
-    body.page-about #pillars,
-    body.page-about #services,
-    body.page-about #approche,
-    body.page-about #contact {
-      scroll-margin-top: 100px;
-    }
-    html { scroll-behavior: smooth; }
-
-    /* En-tête de section commun */
-    .ab-h-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.7rem;
-      font-family: var(--font-texte);
-      font-size: 0.58rem;
-      letter-spacing: 0.42em;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: var(--accent);
-      margin-bottom: 1.6rem;
-    }
-    .ab-h-eyebrow::before {
-      content: '';
-      width: 32px; height: 1px;
-      background: currentColor;
-      opacity: 0.6;
-    }
-    .ab-h-title {
-      font-family: var(--font-titre);
-      font-size: clamp(2.2rem, 4.6vw, 3.8rem);
-      line-height: 1.05;
-      letter-spacing: -0.025em;
-      color: var(--navy);
-      margin: 0 0 1.2rem;
-    }
-    .ab-h-title em {
-      font-style: italic;
-      color: var(--accent);
-      position: relative;
-      display: inline-block;
-    }
-    /* Trait sous l'italique des h-titles, anim au reveal */
-    .ab-h-title em::after {
-      content: '';
-      position: absolute;
-      left: 0; right: 0;
-      bottom: -0.05em;
-      height: 1px;
-      background: currentColor;
-      opacity: 0.45;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.8s cubic-bezier(0.22,1,0.36,1) 0.5s;
-    }
-    .ab-reveal.is-visible .ab-h-title em::after,
-    .ab-reveal--tilt.is-visible .ab-h-title em::after {
-      transform: scaleX(1);
-    }
-    .ab-h-sub {
-      font-family: var(--font-texte);
-      font-size: clamp(0.95rem, 1.3vw, 1.1rem);
-      line-height: 1.78;
-      color: rgba(12,44,85,0.62);
-      max-width: 56ch;
-    }
-
-    /* Variantes fonds */
-    .ab-section--off-white { background: var(--off-white); }
-    .ab-section--ice       { background: var(--ice); }
-    .ab-section--navy {
-      background: var(--navy-deep);
-      color: rgba(255,255,255,0.88);
-      isolation: isolate;
-    }
-    .ab-section--navy::before {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse at 80% 20%, rgba(74,111,165,0.18) 0%, transparent 55%),
-        radial-gradient(ellipse at 20% 80%, rgba(232,237,245,0.06) 0%, transparent 60%);
-      pointer-events: none;
-      z-index: -1;
-    }
-    .ab-section--navy .ab-h-title { color: #fff; }
-    .ab-section--navy .ab-h-title em { color: var(--accent); }
-    .ab-section--navy .ab-h-sub   { color: rgba(255,255,255,0.62); }
-    .ab-section--ink {
-      background: var(--ink);
-      color: rgba(255,255,255,0.88);
-      isolation: isolate;
-    }
-    .ab-section--ink .ab-h-title { color: #fff; }
-    .ab-section--ink .ab-h-title em { color: var(--accent); }
-    .ab-section--ink .ab-h-sub   { color: rgba(255,255,255,0.55); }
-
-    /* ════════════════════════════════════════════════════════════
-       MANIFESTO — grand statement éditorial centré
-    ════════════════════════════════════════════════════════════ */
-    .ab-manifesto {
-      text-align: center;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .ab-manifesto__quote {
-      font-family: var(--font-titre);
-      font-style: italic;
-      font-size: clamp(1.8rem, 3.8vw, 3.4rem);
-      line-height: 1.18;
-      letter-spacing: -0.015em;
-      color: var(--navy);
-      margin: 1.2rem 0 2.4rem;
-    }
-    .ab-manifesto__quote em {
-      font-style: italic;
-      color: var(--accent);
-      position: relative;
-      display: inline-block;
-    }
-    /* Trait sous l'italique */
-    .ab-manifesto__quote em::after {
-      content: '';
-      position: absolute;
-      left: 0; right: 0;
-      bottom: -4px;
-      height: 1px;
-      background: currentColor;
-      opacity: 0.4;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.7s cubic-bezier(0.22,1,0.36,1) 0.4s;
-    }
-    .ab-manifesto.is-visible .ab-manifesto__quote em::after { transform: scaleX(1); }
-
-    .ab-manifesto__sig {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.7rem;
-      font-family: var(--font-texte);
-      font-size: 0.62rem;
-      letter-spacing: 0.32em;
-      text-transform: uppercase;
-      font-weight: 600;
-      color: var(--navy-soft);
-    }
-    .ab-manifesto__sig::before {
-      content: '';
-      width: 24px; height: 1px;
-      background: currentColor;
-      opacity: 0.5;
-    }
-
-    /* ════════════════════════════════════════════════════════════
-       BIO — 3 cartes alignées avec gros chiffres
-    ════════════════════════════════════════════════════════════ */
-    .ab-bio-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.4rem;
-      margin-top: 4rem;
-    }
-    .ab-bio-card {
-      position: relative;
-      padding: 2.6rem 2rem 2.2rem;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(24px) saturate(140%);
-      -webkit-backdrop-filter: blur(24px) saturate(140%);
-      border: 1px solid rgba(255,255,255,0.10);
-      transition: transform 0.5s cubic-bezier(0.22,1,0.36,1),
-                  background 0.5s ease,
-                  border-color 0.5s ease;
-      overflow: hidden;
-    }
-    .ab-bio-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(to right,
-        rgba(255,255,255,0.4), rgba(255,255,255,0.05));
-    }
-    /* Halo doré en coin */
-    .ab-bio-card::after {
-      content: '';
-      position: absolute;
-      top: -80px; right: -80px;
-      width: 200px; height: 200px;
-      background: radial-gradient(circle at center,
-        rgba(232,237,245,0.22) 0%, transparent 65%);
-      opacity: 0;
-      transition: opacity 0.6s ease;
-      pointer-events: none;
-    }
-    .ab-bio-card:hover {
-      transform: translateY(-6px);
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(232,237,245,0.32);
-    }
-    .ab-bio-card:hover::after { opacity: 1; }
-
-    .ab-bio-card__num {
-      font-family: var(--font-titre);
-      font-style: italic;
-      font-size: 3.2rem;
-      line-height: 1;
-      color: var(--accent);
-      opacity: 0.88;
-      margin-bottom: 1.4rem;
-      display: inline-flex;
-      align-items: baseline;
-      gap: 0.6rem;
-    }
-    /* Petite barre verticale décorative à droite du numéro */
-    .ab-bio-card__num::after {
-      content: '';
-      width: 1px;
-      height: 1.6rem;
-      background: currentColor;
-      opacity: 0.4;
-      align-self: center;
-    }
-
-    /* Coins SVG décoratifs en haut-droit de chaque carte bio */
-    .ab-bio-card__corner {
-      position: absolute;
-      top: 1.2rem; right: 1.2rem;
-      width: 22px; height: 22px;
-      stroke: var(--accent);
-      stroke-width: 1;
-      fill: none;
-      opacity: 0.35;
-      transition: opacity 0.4s ease, transform 0.4s var(--ease-out);
-    }
-    .ab-bio-card:hover .ab-bio-card__corner {
-      opacity: 0.85;
-      transform: scale(1.12);
-    }
-    .ab-bio-card__title {
-      font-family: var(--font-titre);
-      font-size: clamp(1.2rem, 1.6vw, 1.45rem);
-      color: #fff;
-      margin: 0 0 1rem;
-      letter-spacing: -0.01em;
-    }
-    .ab-bio-card__text {
-      font-family: var(--font-texte);
-      font-size: 0.86rem;
-      line-height: 1.82;
-      color: rgba(255,255,255,0.65);
-      margin: 0;
-    }
-    @media (max-width: 900px) {
-      .ab-bio-grid { grid-template-columns: 1fr; gap: 1rem; }
-    }
-
-    /* ════════════════════════════════════════════════════════════
-       PILIERS — 2 grandes cartes premium asymétriques
-    ════════════════════════════════════════════════════════════ */
-    .ab-pillars-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(1.2rem, 2vw, 1.8rem);
-      margin-top: 4rem;
-    }
-    .ab-pillar {
-      position: relative;
-      padding: clamp(2.4rem, 3.5vw, 3.4rem);
-      border-radius: 22px;
-      background: #fff;
-      border: 1px solid rgba(12,44,85,0.10);
-      box-shadow: 0 4px 28px rgba(10,31,61,0.06);
-      transition: transform 0.5s cubic-bezier(0.22,1,0.36,1),
-                  box-shadow 0.5s ease,
-                  border-color 0.5s ease;
-      overflow: hidden;
-      isolation: isolate;
-      display: flex;
-      flex-direction: column;
-    }
-    /* Pilier MUSICIENS — fond navy distinctif */
-    .ab-pillar--musicians {
-      background: var(--navy);
-      color: #fff;
-      border-color: var(--navy);
-    }
-    .ab-pillar--musicians::before {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse at 90% 10%, rgba(74,111,165,0.25) 0%, transparent 50%),
-        radial-gradient(ellipse at 0% 100%, rgba(232,237,245,0.10) 0%, transparent 55%);
-      z-index: -1;
-    }
-    .ab-pillar:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 24px 64px rgba(10,31,61,0.18);
-    }
-    .ab-pillar--musicians:hover {
-      border-color: var(--accent);
-    }
-
-    .ab-pillar__num {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      font-family: var(--font-titre);
-      font-style: italic;
-      font-size: 0.85rem;
-      color: var(--accent);
-      margin-bottom: 1.2rem;
-    }
-    .ab-pillar__num::before {
-      content: '';
-      width: 24px; height: 1px;
-      background: currentColor;
-      opacity: 0.7;
-    }
-    .ab-pillar__title {
-      font-family: var(--font-titre);
-      font-size: clamp(1.6rem, 2.6vw, 2.2rem);
-      line-height: 1.1;
-      letter-spacing: -0.018em;
-      color: var(--navy);
-      margin: 0 0 1.2rem;
-    }
-    .ab-pillar--musicians .ab-pillar__title { color: #fff; }
-    .ab-pillar__title em {
-      font-style: italic;
-      color: var(--accent);
-    }
-    .ab-pillar__desc {
-      font-family: var(--font-texte);
-      font-size: 0.92rem;
-      line-height: 1.78;
-      color: rgba(12,44,85,0.7);
-      margin: 0 0 1.8rem;
-    }
-    .ab-pillar--musicians .ab-pillar__desc { color: rgba(255,255,255,0.74); }
-
-    .ab-pillar__list {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 2.4rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-    .ab-pillar__list li {
-      font-family: var(--font-texte);
-      font-size: 0.85rem;
-      line-height: 1.55;
-      color: rgba(12,44,85,0.72);
-      padding-left: 1.4rem;
-      position: relative;
-    }
-    .ab-pillar--musicians .ab-pillar__list li { color: rgba(255,255,255,0.78); }
-    .ab-pillar__list li::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0.65rem;
-      width: 8px; height: 1px;
-      background: var(--accent);
-    }
-
-    /* CTA dans pilier */
-    .ab-pillar__cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.7rem;
-      align-self: flex-start;
-      padding: 13px 24px;
-      border-radius: 999px;
-      font-family: var(--font-texte);
-      font-size: 0.65rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: var(--navy);
-      background: rgba(12,44,85,0.06);
-      border: 1px solid rgba(12,44,85,0.18);
-      transition: all 0.32s var(--ease-out);
-      margin-top: auto;
-    }
-    .ab-pillar--musicians .ab-pillar__cta {
-      color: #fff;
-      background: rgba(255,255,255,0.10);
-      border-color: rgba(255,255,255,0.25);
-    }
-    .ab-pillar__cta svg { transition: transform 0.32s var(--ease-out); }
-    .ab-pillar__cta:hover {
-      background: var(--navy);
-      color: #fff;
-      border-color: var(--navy);
-      transform: translateX(2px);
-    }
-    .ab-pillar--musicians .ab-pillar__cta:hover {
-      background: var(--accent);
-      color: var(--ink);
-      border-color: var(--accent);
-    }
-    .ab-pillar__cta:hover svg { transform: translateX(3px); }
-
-    @media (max-width: 900px) {
-      .ab-pillars-grid { grid-template-columns: 1fr; gap: 1rem; }
-    }
-
-    /* ════════════════════════════════════════════════════════════
-       SERVICES — 3 cartes glass sur fond ice
-    ════════════════════════════════════════════════════════════ */
-    .ab-services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.2rem;
-      margin-top: 4rem;
-    }
-    .ab-service {
-      position: relative;
-      padding: 2.4rem 2rem 2rem;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.6);
-      backdrop-filter: blur(20px) saturate(160%);
-      -webkit-backdrop-filter: blur(20px) saturate(160%);
-      border: 1px solid rgba(255,255,255,0.85);
-      box-shadow:
-        0 4px 32px rgba(10,31,61,0.06),
-        inset 0 1px 0 rgba(255,255,255,0.95);
-      transition: transform 0.5s cubic-bezier(0.22,1,0.36,1),
-                  box-shadow 0.5s ease;
-      overflow: hidden;
-    }
-    .ab-service::after {
-      content: '';
-      position: absolute;
-      bottom: 1.4rem; left: 2rem; right: 2rem;
-      height: 1.5px;
-      background: var(--accent);
-      border-radius: 999px;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.5s var(--ease-out);
-    }
-    .ab-service:hover {
-      transform: translateY(-6px);
-      box-shadow:
-        0 18px 48px rgba(10,31,61,0.12),
-        inset 0 1px 0 rgba(255,255,255,0.95);
-    }
-    .ab-service:hover::after { transform: scaleX(1); }
-
-    .ab-service__icon {
-      width: 48px; height: 48px;
-      border-radius: 12px;
-      background: rgba(12,44,85,0.06);
-      border: 1px solid rgba(12,44,85,0.12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.4rem;
-      color: var(--navy);
-      transition: transform 0.5s var(--ease-out),
-                  background 0.32s ease,
-                  color 0.32s ease;
-    }
-    .ab-service:hover .ab-service__icon {
-      transform: rotate(-6deg) scale(1.06);
-      background: var(--navy);
-      color: var(--accent);
-    }
-    .ab-service__title {
-      font-family: var(--font-titre);
-      font-size: 1.3rem;
-      color: var(--navy);
-      margin: 0 0 0.3rem;
-    }
-    .ab-service__sub {
-      font-family: var(--font-texte);
-      font-size: 0.62rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--accent);
-      font-weight: 700;
-      margin: 0 0 1.4rem;
-    }
-    .ab-service__list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-    }
-    .ab-service__list li {
-      font-family: var(--font-texte);
-      font-size: 0.83rem;
-      line-height: 1.55;
-      color: rgba(12,44,85,0.7);
-      padding-left: 1rem;
-      position: relative;
-    }
-    .ab-service__list li::before {
-      content: '—';
-      position: absolute;
-      left: 0;
-      color: var(--accent);
-      opacity: 0.7;
-    }
-
-    .ab-services__note {
-      margin-top: 3rem;
-      text-align: center;
-      font-family: var(--font-texte);
-      font-style: italic;
-      font-size: 0.85rem;
-      color: rgba(12,44,85,0.5);
-    }
-    .ab-services__note a {
-      font-style: normal;
-      color: var(--navy);
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      margin-left: 0.6rem;
-      transition: color 0.28s ease;
-    }
-    .ab-services__note a:hover { color: var(--accent); }
-
-    @media (max-width: 900px) {
-      .ab-services-grid { grid-template-columns: 1fr; gap: 1rem; }
-    }
-
-    /* ════════════════════════════════════════════════════════════
-       APPROCHE — 4 principes sur fond ink, sparse, gros chiffres
-    ════════════════════════════════════════════════════════════ */
-    .ab-approach-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0;
-      margin-top: 4rem;
-      border-top: 1px solid rgba(255,255,255,0.10);
-    }
-    .ab-approach-item {
-      padding: 3rem 2rem;
-      border-bottom: 1px solid rgba(255,255,255,0.10);
-      border-right: 1px solid rgba(255,255,255,0.10);
-      position: relative;
-      transition: background 0.42s ease;
-    }
-    .ab-approach-item:nth-child(2n) { border-right: none; }
-    .ab-approach-item:hover { background: rgba(255,255,255,0.025); }
-
-    .ab-approach-item__num {
-      font-family: var(--font-titre);
-      font-style: italic;
-      font-size: 5rem;
-      line-height: 1;
-      color: rgba(255,255,255,0.06);
-      margin: 0 0 0.8rem;
-      transition: color 0.5s ease, transform 0.5s var(--ease-out);
-    }
-    .ab-approach-item:hover .ab-approach-item__num {
-      color: var(--accent);
+      transition: transform .45s cubic-bezier(.22,1,.36,1),
+                  box-shadow .45s ease,
+                  border-color .45s ease;
+    }
+    .cta-card:hover {
       transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(28,22,14,.38);
+      border-color: rgba(176,132,90,.55);
     }
-    .ab-approach-item__title {
-      font-family: var(--font-titre);
-      font-size: 1.5rem;
-      color: #fff;
-      margin: 0 0 0.8rem;
-      letter-spacing: -0.01em;
+    /* Filet doré ornemental en haut et en bas de la carte */
+    .cta-ornament {
+      display: block;
+      width: 100%;
     }
-    .ab-approach-item__text {
-      font-family: var(--font-texte);
-      font-size: 0.9rem;
-      line-height: 1.78;
-      color: rgba(255,255,255,0.6);
-      max-width: 38ch;
-      margin: 0;
+    .cta-card-label {
+      font-family: 'Bitter', serif; font-size: .68rem;
+      letter-spacing: .34em; text-transform: uppercase;
+      color: #FDFCF9; margin: .1rem 0;
     }
-    @media (max-width: 760px) {
-      .ab-approach-grid { grid-template-columns: 1fr; }
-      .ab-approach-item {
-        border-right: none;
-        padding: 2.2rem 0;
-      }
+    .cta-card-sub {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: .6rem; letter-spacing: .18em;
+      color: rgba(253,252,249,.42);
     }
+    .cta-arrow-wrap { margin-top: .2rem; }
 
-    /* ════════════════════════════════════════════════════════════
-       COUNTERS — chiffres lumineux sur fond navy
-    ════════════════════════════════════════════════════════════ */
-    .ab-counters-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      margin-top: 4rem;
-    }
-    .ab-counter {
-      text-align: center;
-      padding: 1rem;
-      transition: transform 0.5s var(--ease-out);
-    }
-    .ab-counter:hover { transform: translateY(-4px); }
-    .ab-counter__value {
-      font-family: var(--font-titre);
-      font-style: italic;
-      font-size: clamp(3.2rem, 6vw, 5rem);
-      line-height: 1;
-      color: #fff;
-      letter-spacing: -0.04em;
-      margin: 0 0 0.6rem;
-      text-shadow: 0 0 32px rgba(232,237,245,0.18);
-    }
-    .ab-counter__value sup {
-      font-size: 0.5em;
-      color: var(--accent);
-      vertical-align: super;
-      margin-left: 0.1em;
-    }
-    .ab-counter__label {
-      font-family: var(--font-texte);
-      font-size: 0.62rem;
-      letter-spacing: 0.32em;
-      text-transform: uppercase;
-      font-weight: 600;
-      color: rgba(255,255,255,0.55);
-      margin: 0;
-    }
-    .ab-counter__rule {
-      width: 24px; height: 1px;
-      background: var(--accent);
-      margin: 0 auto 1rem;
-      opacity: 0;
-      transform: scaleX(0);
-      transform-origin: center;
-      transition: opacity 0.5s ease, transform 0.5s var(--ease-out);
-    }
-    .ab-counter.is-visible .ab-counter__rule {
-      opacity: 1;
-      transform: scaleX(1);
-      transition-delay: 0.3s;
-    }
-    @media (max-width: 760px) {
-      .ab-counters-grid { grid-template-columns: 1fr; }
-    }
+    /* ─── PAGE LABEL ─────────────────────────────────────────── */
+    #plbl{position:fixed;top:1.5rem;right:2rem;font-family:'Bitter',serif;font-size:.52rem;letter-spacing:.36em;text-transform:uppercase;color:rgba(30,26,20,.22);white-space:nowrap;z-index:20;opacity:0;transition:opacity .9s ease}
+    #plbl.vis{opacity:1}
 
-    /* ════════════════════════════════════════════════════════════
-       FINAL CTA — section dramatique sur ink, deux gros boutons
-    ════════════════════════════════════════════════════════════ */
-    .ab-final {
-      text-align: center;
-      max-width: 760px;
-      margin: 0 auto;
-    }
-    .ab-final__ornament {
-      width: 56px; height: 22px;
-      margin: 0 auto 1.6rem;
-      color: var(--accent);
-      animation: ornament-spin-in 1.2s cubic-bezier(0.22,1,0.36,1) both;
-    }
-    @keyframes ornament-spin-in {
-      0%   { opacity: 0; transform: scale(0.7) rotate(-12deg); }
-      100% { opacity: 1; transform: scale(1) rotate(0); }
-    }
-    .ab-final__title {
-      font-family: var(--font-titre);
-      font-style: italic;
-      font-size: clamp(2.4rem, 5vw, 4rem);
-      line-height: 1.08;
-      letter-spacing: -0.025em;
-      color: #fff;
-      margin: 0 0 1.4rem;
-    }
-    .ab-final__title em { color: var(--accent); }
-    .ab-final__sub {
-      font-family: var(--font-texte);
-      font-size: clamp(0.95rem, 1.25vw, 1.08rem);
-      line-height: 1.78;
-      color: rgba(255,255,255,0.55);
-      max-width: 48ch;
-      margin: 0 auto 3rem;
-    }
-    .ab-final__actions {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.85rem;
-      flex-wrap: wrap;
-    }
+    /* ─── PROGRESS ───────────────────────────────────────────── */
+    #prog{position:fixed;left:1.8rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:7px;z-index:20;opacity:0;transition:opacity .9s ease}
+    #prog.vis{opacity:1}
+    .pd{width:3px;height:3px;border-radius:50%;background:rgba(30,26,20,.14);transition:background .4s ease,transform .4s ease}
+    .pd.on{background:rgba(30,26,20,.52);transform:scale(1.3)}
 
-    /* ════════════════════════════════════════════════════════════
-       BOUTONS GLASS PREMIUM (réutilisable)
-    ════════════════════════════════════════════════════════════ */
-    .ab-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.85rem;
-      padding: 16px 32px;
-      border-radius: 999px;
-      font-family: var(--font-texte);
-      font-size: 0.7rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      font-weight: 700;
-      transition: all 0.32s var(--ease-out);
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
+    /* ─── SCROLL HINT (plus visible) ────────────────────────── */
+    #hint {
+      position: fixed; bottom: 3rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .65rem;
+      z-index: 20; opacity: 0; pointer-events: none; transition: opacity .6s ease;
     }
-    .ab-cta__icon {
-      width: 18px; height: 18px;
-      flex-shrink: 0;
-      transition: transform 0.4s var(--ease-out);
-    }
-    .ab-cta__arrow {
-      width: 14px; height: 14px;
-      flex-shrink: 0;
-      transition: transform 0.32s var(--ease-out);
-    }
-    .ab-cta:hover .ab-cta__arrow { transform: translateX(4px); }
+    #hint.vis  { opacity: 1; }
+    #hint.gone { display: none; }
 
-    /* Variante primaire — blanc plein, contraste max sur fond ink */
-    .ab-cta--primary {
-      background: #FFFFFF;
-      color: var(--navy);
-      border: 1px solid #FFFFFF;
-      box-shadow:
-        0 8px 32px rgba(255,255,255,0.18),
-        inset 0 1px 0 rgba(255,255,255,1);
+    /* Texte agrandi et bien visible */
+    .hint-label {
+      font-family: 'Playfair Display', Georgia, serif; font-style: italic;
+      font-size: .88rem;           /* 63 % plus grand qu'avant */
+      letter-spacing: .12em;
+      color: rgba(30,26,20,.58);   /* plus sombre */
+      white-space: nowrap;
     }
-    .ab-cta--primary::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(115deg,
-        transparent 38%,
-        rgba(74,111,165,0.18) 50%,
-        transparent 62%);
-      transform: translateX(-110%);
-      transition: transform 0.7s cubic-bezier(0.4,0,0.2,1);
-      pointer-events: none;
+    .hint-line {
+      width: 1px; height: 36px;
+      background: linear-gradient(to bottom, rgba(30,26,20,.35), transparent);
     }
-    .ab-cta--primary:hover::before { transform: translateX(110%); }
-    .ab-cta--primary:hover {
-      transform: translateY(-3px);
-      background: var(--ice);
-      box-shadow:
-        0 14px 42px rgba(255,255,255,0.28),
-        inset 0 1px 0 rgba(255,255,255,1);
+    /* Flèche SVG animée sous le texte */
+    .hint-arrow {
+      animation: hint-bob 2.2s ease-in-out infinite;
     }
-    .ab-cta--primary:hover .ab-cta__icon {
-      transform: rotate(-8deg) scale(1.1);
+    @keyframes hint-bob{
+      0%,100%{transform:translateY(0)}
+      50%    {transform:translateY(5px)}
     }
+    @keyframes hpulse{
+      0%,100%{opacity:.45;transform:translateX(-50%) translateY(0)}
+      50%    {opacity:1;  transform:translateX(-50%) translateY(-4px)}
+    }
+    #hint.vis { animation: hpulse 2.8s ease-in-out 1s infinite; }
 
-    /* Variante glass blanche translucide */
-    .ab-cta--glass {
-      background: rgba(255,255,255,0.10);
-      backdrop-filter: blur(24px) saturate(160%);
-      -webkit-backdrop-filter: blur(24px) saturate(160%);
-      border: 1px solid rgba(255,255,255,0.22);
-      color: #fff;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.14);
-    }
-    .ab-cta--glass:hover {
-      background: rgba(255,255,255,0.20);
-      border-color: rgba(255,255,255,0.42);
-      transform: translateY(-3px);
-    }
-    .ab-cta--glass:hover .ab-cta__icon { transform: scale(1.12); }
+    /* ─── BLOTS ──────────────────────────────────────────────── */
+    .ink-blot{position:fixed;pointer-events:none;z-index:3;overflow:visible}
 
-    /* Variante pill blanche pleine — pour le hero */
-    .ab-cta--white {
-      background: #fff;
-      color: var(--navy);
-      border: 1px solid #fff;
-      box-shadow: 0 6px 24px rgba(255,255,255,0.18);
-    }
-    .ab-cta--white:hover {
-      transform: translateY(-3px);
-      background: var(--accent);
-      border-color: var(--accent);
-      color: var(--ink);
-    }
+    body.page-about .site-footer { display: none; }
 
-    /* Variante outline ghost — pour le hero */
-    .ab-cta--ghost {
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.30);
-      color: #fff;
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width:680px){
+      #inkwell  { top: 140px; }
+      #sub-hint { top: 202px; }
+      #ink-rule { top: 218px; }
+      #stage    { padding: 274px 1.5rem 7rem; }
+      #stage::before { height: 286px; }
+      #tw       { font-size: clamp(.98rem,5vw,1.22rem); line-height:1.78; }
+      #quill    { width: 44px; height: 136px; }
+      #prog,#plbl { display:none; }
+      .cta-card { padding: 1.3rem 2rem 1.2rem; min-width:200px; }
     }
-    .ab-cta--ghost:hover {
-      background: rgba(255,255,255,0.14);
-      border-color: rgba(255,255,255,0.60);
-      transform: translateY(-3px);
-    }
-
-    @media (max-width: 600px) {
-      .ab-final__actions,
-      .ab-hero__actions { flex-direction: column; gap: 0.7rem; width: 100%; }
-      .ab-cta { width: 100%; justify-content: center; }
-    }
-
-    /* ════════════════════════════════════════════════════════════
-       ANIMATIONS — keyframes globaux + reveal-on-scroll
-    ════════════════════════════════════════════════════════════ */
-    @keyframes ab-fade-up {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes ab-line-up {
-      from { transform: translateY(110%); }
-      to   { transform: translateY(0); }
-    }
-    @keyframes scroll-pulse {
-      0%, 100% { transform: scaleY(0.6); opacity: 0.4; }
-      50%      { transform: scaleY(1);   opacity: 1; }
-    }
-
-    /* Cards & sections cachées au départ, révélées en scroll */
-    .ab-reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.85s cubic-bezier(0.22,1,0.36,1),
-                  transform 0.85s cubic-bezier(0.22,1,0.36,1);
-    }
-    .ab-reveal.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .ab-reveal.delay-1 { transition-delay: 0.08s; }
-    .ab-reveal.delay-2 { transition-delay: 0.18s; }
-    .ab-reveal.delay-3 { transition-delay: 0.28s; }
-    .ab-reveal.delay-4 { transition-delay: 0.38s; }
-
-    /* Cards qui pivotent légèrement à l'entrée */
-    .ab-reveal--tilt {
-      opacity: 0;
-      transform: translateY(40px) rotateX(8deg);
-      transform-origin: center bottom;
-      transition: opacity 1s cubic-bezier(0.22,1,0.36,1),
-                  transform 1s cubic-bezier(0.22,1,0.36,1);
-    }
-    .ab-reveal--tilt.is-visible {
-      opacity: 1;
-      transform: translateY(0) rotateX(0);
-    }
-
-    /* ════════════════════════════════════════════════════════════
-       SVG DECORATIFS — séparateurs entre sections + signature hero
-    ════════════════════════════════════════════════════════════ */
-    .ab-divider {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 2.4rem 0;
-      position: relative;
-      margin: 0;
-    }
-    .ab-divider svg {
-      width: 90px;
-      height: 28px;
-      color: var(--accent);
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 0.7s ease, transform 0.7s var(--ease-out);
-    }
-    .ab-divider.is-visible svg {
-      opacity: 0.7;
-      transform: translateY(0);
-    }
-    .ab-divider .div-line {
-      stroke-dasharray: 32;
-      stroke-dashoffset: 32;
-      transition: stroke-dashoffset 1s cubic-bezier(0.22,1,0.36,1) 0.2s;
-    }
-    .ab-divider.is-visible .div-line { stroke-dashoffset: 0; }
-    .ab-divider .div-dot {
-      transform-origin: center;
-      transform: scale(0);
-      transition: transform 0.5s cubic-bezier(0.22,1,0.36,1) 0.6s;
-    }
-    .ab-divider.is-visible .div-dot { transform: scale(1); }
-
-    /* Background des dividers selon la section précédente */
-    .ab-section--off-white + .ab-divider { background: var(--off-white); }
-    .ab-section--ice + .ab-divider       { background: var(--ice); }
-    .ab-section--navy + .ab-divider      { background: var(--navy-deep); --accent: var(--accent-light); }
-    .ab-section--ink + .ab-divider       { background: var(--ink);       --accent: var(--accent-light); }
-
-    /* SVG signature en bas du hero */
-    .ab-hero__sig {
-      position: absolute;
-      bottom: 1.5rem; right: var(--gutter);
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-      font-family: var(--font-texte);
-      font-size: 0.55rem;
-      letter-spacing: 0.34em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
-      animation: ab-fade-up 1s cubic-bezier(0.22,1,0.36,1) 1.3s both;
-    }
-    .ab-hero__sig svg {
-      width: 22px; height: 22px;
-      stroke: rgba(255,255,255,0.45);
-      stroke-width: 1.2;
-      fill: none;
-    }
-    @media (max-width: 600px) {
-      .ab-hero__sig { display: none; }
-    }
+    @media (max-width:380px){ #stage { padding:262px 1.2rem 6rem; } }
   </style>
 </head>
 <body class="page-about">
-  <!-- LOADER -->
+
   <div id="page-loader" aria-hidden="true">
     <div class="loader__stage">
       <svg class="loader__svg" viewBox="0 0 120 120" fill="none" stroke="#B0845A" stroke-width="1.4" stroke-linecap="round">
-        <circle class="lc-ring" cx="60" cy="60" r="42" stroke="#B0845A" stroke-opacity="0.5"/>
-        <line class="lc-blade" x1="60" y1="60" x2="60" y2="24"/>
-        <line class="lc-blade" x1="60" y1="60" x2="91.18" y2="42"/>
-        <line class="lc-blade" x1="60" y1="60" x2="91.18" y2="78"/>
-        <line class="lc-blade" x1="60" y1="60" x2="60" y2="96"/>
-        <line class="lc-blade" x1="60" y1="60" x2="28.82" y2="78"/>
-        <line class="lc-blade" x1="60" y1="60" x2="28.82" y2="42"/>
+        <circle class="lc-ring" cx="60" cy="60" r="42" stroke-opacity=".5"/>
+        <line class="lc-blade" x1="60" y1="60" x2="60" y2="24"/><line class="lc-blade" x1="60" y1="60" x2="91.18" y2="42"/>
+        <line class="lc-blade" x1="60" y1="60" x2="91.18" y2="78"/><line class="lc-blade" x1="60" y1="60" x2="60" y2="96"/>
+        <line class="lc-blade" x1="60" y1="60" x2="28.82" y2="78"/><line class="lc-blade" x1="60" y1="60" x2="28.82" y2="42"/>
         <circle class="lc-dot" cx="60" cy="60" r="3" fill="#B0845A" stroke="none"/>
       </svg>
     </div>
   </div>
 
-  <!-- BARRE DE PROGRESSION SCROLL -->
-  <div class="ab-progress" id="ab-progress" aria-hidden="true"></div>
-
   <a href="#main" class="sr-only">Aller au contenu principal</a>
 
-  <!-- NAV PILL -->
   <nav class="nav" role="navigation" aria-label="Navigation principale">
     <a href="index.html" class="nav-logo" aria-label="Retour à l'accueil">Augustin Fleury</a>
     <div class="nav-sep" aria-hidden="true"></div>
     <ul class="nav-links" role="list">
       <li><a href="index.html">Accueil</a></li>
-      <li><a href="gallery.html">Galerie</a></li>
+      <li><a href="gallery-2027.html">Galerie</a></li>
       <li><a href="about.html" aria-current="page">À&nbsp;propos</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
@@ -1268,497 +310,540 @@
     <button class="nav-fullscreen-close" aria-label="Fermer le menu">✕</button>
     <nav class="nav-fullscreen-links">
       <a href="index.html">Accueil</a>
-      <a href="gallery.html">Galerie</a>
+      <a href="gallery-2027.html">Galerie</a>
       <a href="about.html" class="active">À propos</a>
       <a href="contact.html">Contact</a>
     </nav>
   </div>
 
+  <!-- Taches d'encre décoratives -->
+  <svg class="ink-blot" aria-hidden="true" style="left:1%;bottom:18%;width:110px;height:72px;opacity:.055;" viewBox="0 0 110 72">
+    <defs><filter id="ib1"><feTurbulence type="turbulence" baseFrequency=".04 .06" numOctaves="4" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="6" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="1.2"/></filter></defs>
+    <ellipse cx="42" cy="34" rx="34" ry="20" fill="#1C1610" filter="url(#ib1)"/>
+    <circle cx="12" cy="18" r="5" fill="#1C1610" filter="url(#ib1)" opacity=".75"/>
+    <circle cx="78" cy="24" r="3.5" fill="#1C1610" filter="url(#ib1)" opacity=".65"/>
+    <circle cx="86" cy="46" r="2.5" fill="#1C1610" filter="url(#ib1)" opacity=".5"/>
+    <circle cx="30" cy="60" r="2" fill="#1C1610" filter="url(#ib1)" opacity=".55"/>
+    <path d="M68,48 C76,54 72,64 66,60" stroke="#1C1610" stroke-width="1.2" fill="none" stroke-linecap="round" filter="url(#ib1)" opacity=".6"/>
+    <circle cx="66" cy="60" r="1.8" fill="#1C1610" opacity=".4"/>
+  </svg>
+  <svg class="ink-blot" aria-hidden="true" style="right:4%;top:22%;width:68px;height:48px;opacity:.045;" viewBox="0 0 68 48">
+    <defs><filter id="ib2"><feTurbulence type="turbulence" baseFrequency=".05 .08" numOctaves="3" seed="13" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="1"/></filter></defs>
+    <ellipse cx="32" cy="22" rx="22" ry="13" fill="#1C1610" filter="url(#ib2)"/>
+    <circle cx="8" cy="14" r="3.5" fill="#1C1610" filter="url(#ib2)" opacity=".7"/>
+    <circle cx="56" cy="10" r="2.5" fill="#1C1610" filter="url(#ib2)" opacity=".6"/>
+    <circle cx="62" cy="34" r="1.8" fill="#1C1610" filter="url(#ib2)" opacity=".5"/>
+    <circle cx="18" cy="40" r="1.2" fill="#1C1610" opacity=".35"/>
+    <circle cx="48" cy="42" r=".9" fill="#1C1610" opacity=".3"/>
+  </svg>
+  <svg class="ink-blot" aria-hidden="true" style="left:2%;top:52%;width:52px;height:88px;opacity:.04;" viewBox="0 0 52 88">
+    <defs><filter id="ib3"><feTurbulence type="turbulence" baseFrequency=".06 .04" numOctaves="4" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="1.5"/></filter></defs>
+    <path d="M26,10 C36,16 40,32 36,48 C32,64 24,72 22,82 C20,72 12,64 14,48 C16,32 18,16 26,10Z" fill="#1C1610" filter="url(#ib3)"/>
+    <circle cx="14" cy="20" r="3" fill="#1C1610" filter="url(#ib3)" opacity=".6"/>
+    <circle cx="40" cy="38" r="2.2" fill="#1C1610" filter="url(#ib3)" opacity=".5"/>
+    <path d="M22,82 C21,86 22,90 24,88 C26,86 24,82 22,82Z" fill="#1C1610" opacity=".5"/>
+  </svg>
+  <svg class="ink-blot" aria-hidden="true" style="right:6%;bottom:28%;width:80px;height:56px;opacity:.05;" viewBox="0 0 80 56">
+    <defs><filter id="ib4"><feTurbulence type="turbulence" baseFrequency=".07" numOctaves="3" seed="21" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation=".8"/></filter></defs>
+    <ellipse cx="38" cy="28" rx="18" ry="11" fill="#1C1610" filter="url(#ib4)"/>
+    <circle cx="10" cy="22" r="2.5" fill="#1C1610" filter="url(#ib4)" opacity=".65"/>
+    <circle cx="64" cy="18" r="3" fill="#1C1610" filter="url(#ib4)" opacity=".55"/>
+    <circle cx="72" cy="40" r="1.8" fill="#1C1610" filter="url(#ib4)" opacity=".45"/>
+    <path d="M56,36 C64,40 68,48 64,50" stroke="#1C1610" stroke-width=".7" fill="none" stroke-linecap="round" filter="url(#ib4)" opacity=".5"/>
+  </svg>
+
+  <!-- ENCRIER -->
+  <div id="inkwell" aria-hidden="true">
+    <svg viewBox="0 0 68 56" width="68" height="56">
+      <ellipse cx="34" cy="52" rx="21" ry="3.5" fill="rgba(28,22,14,.10)"/>
+      <path d="M13,24 Q13,46 34,46 Q55,46 55,24 L51,17 Q45,10 34,10 Q23,10 17,17Z" fill="#F0E8D4" stroke="#2A1F12" stroke-width=".95" stroke-linejoin="round"/>
+      <path d="M16,30 Q16,44 34,44 Q52,44 52,30 Q48,22 34,22 Q20,22 16,30Z" fill="#1C1610"/>
+      <ellipse cx="34" cy="30" rx="15" ry="4.5" fill="#161208" opacity=".85"/>
+      <path d="M15,23 Q18,13 27,10.8" stroke="rgba(255,255,255,.36)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M51,19 Q53,24 52,30" stroke="rgba(255,255,255,.10)" stroke-width="1" fill="none" stroke-linecap="round"/>
+      <path d="M26,10 Q26,5 34,5 Q42,5 42,10" fill="#E4D4B4" stroke="#2A1F12" stroke-width=".9" stroke-linejoin="round"/>
+      <ellipse cx="34" cy="10" rx="8.2" ry="3.4" fill="#D8C8A0" stroke="#2A1F12" stroke-width=".9"/>
+      <ellipse cx="30" cy="31.5" rx="5" ry="1.8" fill="rgba(255,255,255,.06)"/>
+    </svg>
+  </div>
+
+  <p id="sub-hint" aria-hidden="true">défiler vers le bas pour faire apparaître le contenu</p>
+  <div id="ink-rule" aria-hidden="true"></div>
+  <div id="drops-layer" aria-hidden="true"></div>
+
   <main id="main">
-
-    <!-- ════════════════════════════════════════════════════════════
-         HERO — pure typographie, navy profond
-    ════════════════════════════════════════════════════════════ -->
-    <section class="ab-hero" aria-label="Présentation">
-      <div class="ab-hero__inner">
-        <p class="ab-hero__eyebrow">À propos · Nancy · Paris</p>
-        <h1 class="ab-hero__title">
-          <span class="line"><span>Valoriser ce qui</span></span>
-          <span class="line"><span>mérite d'<em>être vu</em>.</span></span>
-        </h1>
-        <p class="ab-hero__sub">
-          Photographe et vidéaste à Nancy &amp; Paris — spécialisé en communication visuelle pour musiciens, et présent pour valoriser vos lieux, événements et portraits.
-        </p>
-        <div class="ab-hero__actions">
-          <a href="#pillars" class="ab-cta ab-cta--white">
-            Découvrir mes univers
-            <svg class="ab-cta__arrow" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-          <a href="#contact" class="ab-cta ab-cta--ghost">
-            Travailler ensemble
-          </a>
-        </div>
-      </div>
-      <div class="ab-hero__sig" aria-hidden="true">
-        <svg viewBox="0 0 22 22" stroke="currentColor" fill="none">
-          <circle cx="11" cy="11" r="9" stroke-width="1"/>
-          <circle cx="11" cy="11" r="3.5" stroke-width="1"/>
-          <line x1="11" y1="2" x2="11" y2="5.5" stroke-linecap="round"/>
-          <line x1="11" y1="16.5" x2="11" y2="20" stroke-linecap="round"/>
-          <line x1="2" y1="11" x2="5.5" y2="11" stroke-linecap="round"/>
-          <line x1="16.5" y1="11" x2="20" y2="11" stroke-linecap="round"/>
-        </svg>
-        <span>Porte de la Craffe · Nancy</span>
-      </div>
-      <a href="#manifesto" class="ab-hero__scroll" aria-label="Défiler">Défiler</a>
-    </section>
-
-    <!-- TOC FLOTTANTE -->
-    <nav class="ab-toc" aria-label="Sommaire">
-      <div class="ab-toc__inner">
-        <span class="ab-toc__label">Naviguer ·</span>
-        <a href="#manifesto" class="ab-toc__link"><span>01</span> Manifeste</a>
-        <a href="#bio"       class="ab-toc__link"><span>02</span> Le parcours</a>
-        <a href="#pillars"   class="ab-toc__link"><span>03</span> Mes deux univers</a>
-        <a href="#services"  class="ab-toc__link"><span>04</span> Prestations</a>
-        <a href="#approche"  class="ab-toc__link"><span>05</span> Approche</a>
-        <a href="#contact"   class="ab-toc__link ab-toc__link--accent"><span>→</span> Contact</a>
-      </div>
-    </nav>
-
-    <!-- ════════════════════════════════════════════════════════════
-         MANIFESTO — déclaration éditoriale
-    ════════════════════════════════════════════════════════════ -->
-    <section id="manifesto" class="ab-section ab-section--off-white">
-      <div class="ab-section__inner ab-manifesto ab-reveal">
-        <p class="ab-h-eyebrow" style="justify-content:center">Manifeste</p>
-        <p class="ab-manifesto__quote">
-          Photographier, ce n'est pas accumuler.<br>
-          C'est <em>choisir ce qui mérite</em> d'exister à nouveau,<br>
-          dans une image qui dure.
-        </p>
-        <p class="ab-manifesto__sig">Augustin Fleury · Photographe &amp; vidéaste</p>
-      </div>
-    </section>
-
-    <!-- ════════════════════════════════════════════════════════════
-         BIO — 3 cartes glass sur navy
-    ════════════════════════════════════════════════════════════ -->
-    
-    <!-- Diviseur SVG décoratif -->
-    <div class="ab-divider ab-reveal" aria-hidden="true">
-      <svg viewBox="0 0 90 28" fill="none" stroke="currentColor" stroke-width="1">
-        <line class="div-line" x1="0" y1="14" x2="32" y2="14" stroke-linecap="round"/>
-        <line class="div-line" x1="58" y1="14" x2="90" y2="14" stroke-linecap="round"/>
-        <circle class="div-dot" cx="45" cy="14" r="4" stroke-width="1" fill="none"/>
-        <circle class="div-dot" cx="45" cy="14" r="1.4" fill="currentColor" stroke="none"/>
-      </svg>
+    <div id="stage">
+      <div id="tw" aria-label="Présentation d'Augustin Fleury" role="text"></div>
     </div>
-
-    <section id="bio" class="ab-section ab-section--navy">
-      <div class="ab-section__inner">
-        <header class="ab-reveal" style="max-width:46ch">
-          <p class="ab-h-eyebrow">Le parcours</p>
-          <h2 class="ab-h-title">Une oreille de musicien,<br>un <em>œil</em> de photographe.</h2>
-          <p class="ab-h-sub">D'abord la musique, ensuite l'image — une formation qui m'apprend, encore aujourd'hui, à écouter avant de regarder.</p>
-        </header>
-
-        <div class="ab-bio-grid">
-          <article class="ab-bio-card ab-reveal--tilt delay-1">
-            <svg class="ab-bio-card__corner" viewBox="0 0 22 22" aria-hidden="true">
-              <path d="M0 8 L0 0 L8 0" stroke-linecap="round"/>
-              <path d="M14 22 L22 22 L22 14" stroke-linecap="round"/>
-            </svg>
-                        <span class="ab-bio-card__num">01</span>
-            <h3 class="ab-bio-card__title">L'origine</h3>
-            <p class="ab-bio-card__text">Je fais de l'orgue depuis l'âge de 6 ans, j'ai toujours été très sensible à l'art quelle que soit la forme qu'il prenne. La musique m'a appris à écouter, apprendre et comprendre ce qui apparaît parfois inintelligible.</p>
-          </article>
-
-          <article class="ab-bio-card ab-reveal--tilt delay-2">
-            <svg class="ab-bio-card__corner" viewBox="0 0 22 22" aria-hidden="true">
-              <path d="M0 8 L0 0 L8 0" stroke-linecap="round"/>
-              <path d="M14 22 L22 22 L22 14" stroke-linecap="round"/>
-            </svg>
-                        <span class="ab-bio-card__num">02</span>
-            <h3 class="ab-bio-card__title">La pratique</h3>
-            <p class="ab-bio-card__text">Je photographie et filme des lieux, des événements, des portraits et des architectures. Chaque projet a son propre rythme : je m'adapte à ce que la scène demande, sans approche standardisée. Je sélectionne les projets spécifiquement, afin de m'engager uniquement là où je peux apporter un regard juste et un travail de qualité.</p>
-          </article>
-
-          <article class="ab-bio-card ab-reveal--tilt delay-3">
-            <svg class="ab-bio-card__corner" viewBox="0 0 22 22" aria-hidden="true">
-              <path d="M0 8 L0 0 L8 0" stroke-linecap="round"/>
-              <path d="M14 22 L22 22 L22 14" stroke-linecap="round"/>
-            </svg>
-                        <span class="ab-bio-card__num">03</span>
-            <h3 class="ab-bio-card__title">La passion</h3>
-            <p class="ab-bio-card__text">Ce n'est pas mon métier principal — j'étudie le droit à côté. Je tiens à préserver cette pratique comme une passion, ce qui me permet d'investir chaque projet avec exigence et liberté.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ════════════════════════════════════════════════════════════
-         PILIERS — 2 grosses cartes asymétriques (cœur de la conversion)
-    ════════════════════════════════════════════════════════════ -->
-    
-    <!-- Diviseur SVG décoratif -->
-    <div class="ab-divider ab-reveal" aria-hidden="true">
-      <svg viewBox="0 0 90 28" fill="none" stroke="currentColor" stroke-width="1">
-        <line class="div-line" x1="0" y1="14" x2="32" y2="14" stroke-linecap="round"/>
-        <line class="div-line" x1="58" y1="14" x2="90" y2="14" stroke-linecap="round"/>
-        <circle class="div-dot" cx="45" cy="14" r="4" stroke-width="1" fill="none"/>
-        <circle class="div-dot" cx="45" cy="14" r="1.4" fill="currentColor" stroke="none"/>
-      </svg>
-    </div>
-
-    <section id="pillars" class="ab-section ab-section--off-white">
-      <div class="ab-section__inner">
-        <header class="ab-reveal" style="text-align:center;max-width:680px;margin:0 auto">
-          <p class="ab-h-eyebrow" style="justify-content:center">Mes deux univers</p>
-          <h2 class="ab-h-title">Polyvalent,<br><em>jamais générique</em>.</h2>
-          <p class="ab-h-sub" style="margin:0 auto">Mon expertise première : la communication visuelle pour musiciens et institutions culturelles. Je travaille aussi pour valoriser des lieux, des événements et des portraits — chaque projet appelle son propre regard.</p>
-        </header>
-
-        <div class="ab-pillars-grid">
-
-          <!-- Pilier 1 — Communication musiciens (navy distinctif) -->
-          <article class="ab-pillar ab-pillar--musicians ab-reveal--tilt delay-1">
-            <p class="ab-pillar__num"><em>01</em> Spécialité</p>
-            <h3 class="ab-pillar__title">Communication visuelle pour <em>musiciens</em>.</h3>
-            <p class="ab-pillar__desc">Je connais le milieu musical de l'intérieur — j'y suis né. Pour les musiciens, ensembles, festivals et institutions culturelles, je propose une image cohérente avec votre univers artistique.</p>
-            <ul class="ab-pillar__list">
-              <li>Photographie de concert et de répétition</li>
-              <li>Portraits d'artistes — pochettes, presse, communication</li>
-              <li>Vidéos de captation, teasers, mini-documentaires</li>
-              <li>Reels et formats courts pour les réseaux</li>
-            </ul>
-            <a href="contact.html#musiciens" class="ab-pillar__cta">
-              Discuter d'un projet musical
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </a>
-          </article>
-
-          <!-- Pilier 2 — Autres prestations (blanc) -->
-          <article class="ab-pillar ab-reveal--tilt delay-2">
-            <p class="ab-pillar__num"><em>02</em> Polyvalence</p>
-            <h3 class="ab-pillar__title">Lieux, événements et <em>portraits</em>.</h3>
-            <p class="ab-pillar__desc">Au-delà de la musique, je mets mon œil au service de tous les sujets qui méritent une image juste — qu'il s'agisse d'un lieu, d'un événement privé ou professionnel, ou d'un portrait personnel.</p>
-            <ul class="ab-pillar__list">
-              <li>Mise en valeur de lieux, intérieurs, architecture</li>
-              <li>Événementiel privé, associatif, professionnel</li>
-              <li>Portrait individuel, famille, équipe</li>
-              <li>Reels et vidéos de présentation pour marques et lieux</li>
-            </ul>
-            <a href="contact.html#projet" class="ab-pillar__cta">
-              Discuter d'un autre projet
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </a>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ════════════════════════════════════════════════════════════
-         SERVICES — 3 cartes glass détaillées sur fond ice
-    ════════════════════════════════════════════════════════════ -->
-    
-    <!-- Diviseur SVG décoratif -->
-    <div class="ab-divider ab-reveal" aria-hidden="true">
-      <svg viewBox="0 0 90 28" fill="none" stroke="currentColor" stroke-width="1">
-        <line class="div-line" x1="0" y1="14" x2="32" y2="14" stroke-linecap="round"/>
-        <line class="div-line" x1="58" y1="14" x2="90" y2="14" stroke-linecap="round"/>
-        <circle class="div-dot" cx="45" cy="14" r="4" stroke-width="1" fill="none"/>
-        <circle class="div-dot" cx="45" cy="14" r="1.4" fill="currentColor" stroke="none"/>
-      </svg>
-    </div>
-
-    <section id="services" class="ab-section ab-section--ice">
-      <div class="ab-section__inner">
-        <header class="ab-reveal" style="display:flex;align-items:flex-end;justify-content:space-between;gap:3rem;flex-wrap:wrap">
-          <div style="max-width:32ch">
-            <p class="ab-h-eyebrow">Prestations</p>
-            <h2 class="ab-h-title">Ce que je <em>propose</em>.</h2>
-          </div>
-          <p class="ab-h-sub">Chaque commande fait l'objet d'un échange préalable pour définir le cadre, le rendu attendu et le calendrier. Tarifs sur devis personnalisé.</p>
-        </header>
-
-        <div class="ab-services-grid">
-
-          <!-- Photographie -->
-          <article class="ab-service ab-reveal--tilt delay-1">
-            <div class="ab-service__icon" aria-hidden="true">
-              <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
-                <rect x="2" y="6" width="24" height="18" rx="3" stroke="currentColor" stroke-width="1.4"/>
-                <circle cx="14" cy="15" r="4.5" stroke="currentColor" stroke-width="1.4"/>
-                <path d="M10 6l1.5-3h5L18 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="21.5" cy="10" r="1" fill="currentColor"/>
-              </svg>
-            </div>
-            <h3 class="ab-service__title">Photographie</h3>
-            <p class="ab-service__sub">Lieux · Événements · Portraits</p>
-            <ul class="ab-service__list">
-              <li>Mise en valeur de lieux, d'intérieurs, d'architecture</li>
-              <li>Couverture d'événement (privé, associatif, pro, culturel)</li>
-              <li>Portrait individuel ou de groupe, en studio ou sur le vif</li>
-              <li>Livraison haute résolution, options couleur &amp; N&amp;B</li>
-            </ul>
-          </article>
-
-          <!-- Vidéo -->
-          <article class="ab-service ab-reveal--tilt delay-2">
-            <div class="ab-service__icon" aria-hidden="true">
-              <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
-                <rect x="2" y="7" width="18" height="14" rx="2.5" stroke="currentColor" stroke-width="1.4"/>
-                <path d="M20 11l6-3v12l-6-3V11z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <h3 class="ab-service__title">Vidéographie</h3>
-            <p class="ab-service__sub">Teaser · Interview · Événement</p>
-            <ul class="ab-service__list">
-              <li>Teaser et vidéo de présentation d'un lieu ou d'un projet</li>
-              <li>Captation d'événement (selon le projet)</li>
-              <li>Interview, mini-documentaire</li>
-              <li>Montage, étalonnage et mixage sont inclus</li>
-            </ul>
-          </article>
-
-          <!-- Reels & Shorts -->
-          <article class="ab-service ab-reveal--tilt delay-3">
-            <div class="ab-service__icon" aria-hidden="true">
-              <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
-                <rect x="8" y="2" width="12" height="24" rx="3" stroke="currentColor" stroke-width="1.4"/>
-                <line x1="8" y1="8" x2="20" y2="8" stroke="currentColor" stroke-width="1.4"/>
-                <line x1="8" y1="20" x2="20" y2="20" stroke="currentColor" stroke-width="1.4"/>
-                <path d="M12.5 13l4 1.5-4 1.5V13z" fill="currentColor"/>
-              </svg>
-            </div>
-            <h3 class="ab-service__title">Reels &amp; Shorts</h3>
-            <p class="ab-service__sub">Instagram · YouTube · TikTok</p>
-            <ul class="ab-service__list">
-              <li>Format vertical court, optimisé pour chaque plateforme</li>
-              <li>Présentation de lieu, mise en avant d'un événement ou d'une marque</li>
-              <li>Habillage sonore et sous-titrage disponibles</li>
-              <li>Livraison dans les spécifications natives des réseaux</li>
-            </ul>
-          </article>
-
-        </div>
-
-        <p class="ab-services__note ab-reveal delay-4">
-          Disponible à Nancy, Paris et en déplacement selon le projet.
-          <a href="contact.html">Demander un devis →</a>
-        </p>
-      </div>
-    </section>
-
-    <!-- ════════════════════════════════════════════════════════════
-         APPROCHE — 4 principes sur fond ink (presque noir)
-    ════════════════════════════════════════════════════════════ -->
-    
-    <!-- Diviseur SVG décoratif -->
-    <div class="ab-divider ab-reveal" aria-hidden="true">
-      <svg viewBox="0 0 90 28" fill="none" stroke="currentColor" stroke-width="1">
-        <line class="div-line" x1="0" y1="14" x2="32" y2="14" stroke-linecap="round"/>
-        <line class="div-line" x1="58" y1="14" x2="90" y2="14" stroke-linecap="round"/>
-        <circle class="div-dot" cx="45" cy="14" r="4" stroke-width="1" fill="none"/>
-        <circle class="div-dot" cx="45" cy="14" r="1.4" fill="currentColor" stroke="none"/>
-      </svg>
-    </div>
-
-    <section id="approche" class="ab-section ab-section--ink">
-      <div class="ab-section__inner">
-        <header class="ab-reveal" style="text-align:center;max-width:600px;margin:0 auto">
-          <p class="ab-h-eyebrow" style="justify-content:center">Approche</p>
-          <h2 class="ab-h-title">Ce qui guide<br>le <em>geste</em>.</h2>
-        </header>
-
-        <div class="ab-approach-grid">
-          <article class="ab-approach-item ab-reveal delay-1">
-            <p class="ab-approach-item__num">01</p>
-            <h3 class="ab-approach-item__title">La lenteur</h3>
-            <p class="ab-approach-item__text">Ne pas multiplier les déclenchements. Attendre que la lumière, le sujet et le moment coexistent. Préférer une seule image juste à dix images correctes.</p>
-          </article>
-          <article class="ab-approach-item ab-reveal delay-2">
-            <p class="ab-approach-item__num">02</p>
-            <h3 class="ab-approach-item__title">L'attention</h3>
-            <p class="ab-approach-item__text">Être présent à ce qui se passe avant de mettre l'œil au viseur. Lire l'espace, écouter la scène, comprendre le sujet — qu'il s'agisse d'un lieu, d'un événement ou d'un visage.</p>
-          </article>
-          <article class="ab-approach-item ab-reveal delay-3">
-            <p class="ab-approach-item__num">03</p>
-            <h3 class="ab-approach-item__title">La discrétion</h3>
-            <p class="ab-approach-item__text">Ne pas interrompre ce qui existe. Photographier sans s'imposer dans l'espace de jeu, sans transformer l'événement en séance photo.</p>
-          </article>
-          <article class="ab-approach-item ab-reveal delay-4">
-            <p class="ab-approach-item__num">04</p>
-            <h3 class="ab-approach-item__title">La trace</h3>
-            <p class="ab-approach-item__text">Ce que la photographie garde, la mémoire ne peut pas. Ces images ne sont pas une documentation — elles prolongent l'expérience.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ════════════════════════════════════════════════════════════
-         COUNTERS — chiffres lumineux sur navy
-    ════════════════════════════════════════════════════════════ -->
-    <section class="ab-section ab-section--navy" style="padding-top:clamp(4rem,7vw,6rem);padding-bottom:clamp(4rem,7vw,6rem)">
-      <div class="ab-section__inner">
-        <header class="ab-reveal" style="text-align:center">
-          <p class="ab-h-eyebrow" style="justify-content:center">En chiffres</p>
-        </header>
-        <div class="ab-counters-grid">
-          <div class="ab-counter ab-reveal delay-1">
-            <div class="ab-counter__rule"></div>
-            <p class="ab-counter__value">3<sup>+</sup></p>
-            <p class="ab-counter__label">Années de pratique</p>
-          </div>
-          <div class="ab-counter ab-reveal delay-2">
-            <div class="ab-counter__rule"></div>
-            <p class="ab-counter__value">10<sup>k</sup></p>
-            <p class="ab-counter__label">Images archivées</p>
-          </div>
-          <div class="ab-counter ab-reveal delay-3">
-            <div class="ab-counter__rule"></div>
-            <p class="ab-counter__value">2</p>
-            <p class="ab-counter__label">Villes — Nancy &amp; Paris</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ════════════════════════════════════════════════════════════
-         FINAL CTA — section dramatique, deux gros boutons
-    ════════════════════════════════════════════════════════════ -->
-    
-    <!-- Diviseur SVG décoratif -->
-    <div class="ab-divider ab-reveal" aria-hidden="true">
-      <svg viewBox="0 0 90 28" fill="none" stroke="currentColor" stroke-width="1">
-        <line class="div-line" x1="0" y1="14" x2="32" y2="14" stroke-linecap="round"/>
-        <line class="div-line" x1="58" y1="14" x2="90" y2="14" stroke-linecap="round"/>
-        <circle class="div-dot" cx="45" cy="14" r="4" stroke-width="1" fill="none"/>
-        <circle class="div-dot" cx="45" cy="14" r="1.4" fill="currentColor" stroke="none"/>
-      </svg>
-    </div>
-
-    <section id="contact" class="ab-section ab-section--ink">
-      <div class="ab-section__inner ab-final ab-reveal">
-        <svg class="ab-final__ornament" viewBox="0 0 56 22" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
-          <line x1="0" y1="11" x2="18" y2="11" stroke-linecap="round"/>
-          <line x1="38" y1="11" x2="56" y2="11" stroke-linecap="round"/>
-          <path d="M28 4 L32 11 L28 18 L24 11 Z" fill="currentColor" fill-opacity="0.25"/>
-          <circle cx="28" cy="11" r="1.4" fill="currentColor"/>
-        </svg>
-        <p class="ab-h-eyebrow" style="justify-content:center;margin-bottom:1.4rem">Travaillons ensemble</p>
-        <h2 class="ab-final__title">Un projet à donner<br>en <em>image</em>&nbsp;?</h2>
-        <p class="ab-final__sub">Chaque commande commence par un échange. Demandez un devis personnalisé, ou écrivez-moi simplement pour parler de votre idée — toujours avec plaisir.</p>
-
-        <div class="ab-final__actions">
-          <a href="contact.html#devis" class="ab-cta ab-cta--primary" aria-label="Demander un devis personnalisé">
-            <svg class="ab-cta__icon" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <path d="M3 15 L15 3 M15 3 L13 1 L11 3 M3 15 L1 17 M3 15 L5 13 M11 3 L13 5 L11 7"
-                    stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            Demander un devis
-            <svg class="ab-cta__arrow" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-          <a href="contact.html" class="ab-cta ab-cta--glass" aria-label="Envoyer un message">
-            <svg class="ab-cta__icon" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <rect x="1.5" y="4" width="15" height="11" rx="1.5"
-                    stroke="currentColor" stroke-width="1.3"/>
-              <path d="M1.5 5 L9 10 L16.5 5"
-                    stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            Envoyer un message
-            <svg class="ab-cta__arrow" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-        </div>
-      </div>
-    </section>
-
   </main>
 
-  <footer class="site-footer" role="contentinfo">
-    <div class="container site-footer__inner">
-      <p class="site-footer__copy">© 2025 Augustin Fleury · Nancy &amp; Paris</p>
-      <a href="https://instagram.com/aug.ustinflry" class="site-footer__instagram"
-         target="_blank" rel="noopener noreferrer" aria-label="Instagram @aug.ustinflry">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="1.6"/>
-          <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.6"/>
-          <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+  <!-- PLUME GOTHIQUE -->
+  <svg id="quill" viewBox="-40 -210 80 245" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="qbd1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#2a2030"/><stop offset="50%" stop-color="#1a1225"/><stop offset="100%" stop-color="#0d0910"/></linearGradient>
+      <linearGradient id="qbd2" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#38284a"/><stop offset="60%" stop-color="#241830"/><stop offset="100%" stop-color="#100a18"/></linearGradient>
+      <linearGradient id="qbr" x1="0%" y1="0%" x2="100%" y2="50%"><stop offset="0%" stop-color="#5a3a7a" stop-opacity=".5"/><stop offset="100%" stop-color="#1a0a28" stop-opacity="0"/></linearGradient>
+      <linearGradient id="qra" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#0a0810"/><stop offset="40%" stop-color="#2a1840"/><stop offset="100%" stop-color="#080610"/></linearGradient>
+      <linearGradient id="qpo" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1a0a30"/><stop offset="100%" stop-color="#050208"/></linearGradient>
+      <filter id="qgp"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>
+    <path d="M 0 0 C -6 -30,-14 -65,-20 -105 C -26 -145,-24 -175,-16 -190 C -10 -200,-2 -195,2 -175 C 10 -145,14 -110,10 -70 C 6 -40,2 -15,0 0Z" fill="url(#qbd1)"/>
+    <path d="M 0 0 C 6 -28,14 -63,20 -103 C 26 -143,24 -173,16 -188 C 10 -198,2 -193,-2 -173 C -10 -143,-14 -108,-10 -68 C -6 -38,-2 -13,0 0Z" fill="url(#qbd2)"/>
+    <path d="M 0 0 C -4 -25,-10 -58,-16 -95 C -22 -130,-20 -158,-12 -168 C -6 -175,0 -168,2 -150 C 8 -125,10 -95,6 -60 C 2 -32,0 -12,0 0Z" fill="url(#qbr)" opacity=".7"/>
+    <path d="M -2 -8 C -12 -38,-24 -72,-28 -108 C -30 -130,-24 -145,-16 -135 C -8 -122,-4 -96,-4 -62 C -4 -38,-2 -18,-2 -8Z" fill="#38204a" opacity=".6"/>
+    <path d="M  2 -6 C 12 -36,24 -70,28 -106 C 30 -128,24 -143,16 -133 C 8 -120,4 -94,4 -60 C 4 -36,2 -16,2 -6Z" fill="#2a1838" opacity=".55"/>
+    <path d="M -4 -22 C -18 -50,-30 -82,-32 -114 C -33 -130,-26 -142,-18 -133 C -10 -120,-6 -96,-6 -68 C -6 -48,-4 -32,-4 -22Z" fill="#241530" opacity=".45"/>
+    <path d="M  4 -20 C 18 -48,30 -80,32 -112 C 33 -128,26 -140,18 -131 C 10 -118,6 -94,6 -66 C 6 -46,4 -30,4 -20Z" fill="#1a1028" opacity=".42"/>
+    <path d="M -8 -45 C -20 -68,-28 -95,-26 -120 C -22 -135,-14 -140,-8 -128 C -2 -114,0 -90,-2 -65Z" fill="#2a1840" opacity=".35"/>
+    <path d="M  8 -43 C 20 -66,28 -93,26 -118 C 22 -133,14 -138,8 -126 C 2 -112,0 -88,2 -63Z" fill="#1e1030" opacity=".32"/>
+    <path d="M -14 -70 C -22 -88,-26 -108,-22 -124 C -18 -134,-10 -138,-6 -126 C -2 -114,0 -94,-4 -76Z" fill="#20103a" opacity=".28"/>
+    <path d="M  14 -68 C 22 -86,26 -106,22 -122 C 18 -132,10 -136,6 -124 C 2 -112,0 -92,4 -74Z" fill="#180c2c" opacity=".25"/>
+    <path d="M -18 -110 C -20 -125,-18 -140,-12 -150 C -8 -158,-2 -155,0 -145 C 2 -155,8 -158,12 -150 C 18 -140,20 -125,18 -110 C 10 -118,0 -122,-18 -110Z" fill="#150a20" opacity=".9"/>
+    <path d="M -3 -168 C -8 -178,-6 -192,0 -200 C 6 -192,8 -178,3 -168Z" fill="#0d0818" opacity=".95"/>
+    <line x1="-1" y1="-165" x2="1" y2="-198" stroke="#4a2870" stroke-width=".5" opacity=".6"/>
+    <line x1="0" y1="6" x2="0" y2="-188" stroke="url(#qra)" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M -1.5 -2 C -3 4,-2 12,0 18 C 2 12,3 4,1.5 -2Z" fill="url(#qpo)"/>
+    <path d="M -1 10 C -2 18,-1.5 26,0 32 C 1.5 26,2 18,1 10Z" fill="#0a0510" opacity=".9"/>
+    <g style="transform-origin:0px 22px;animation:flamme .8s ease-in-out infinite">
+      <ellipse cx="0" cy="22" rx="2.5" ry="5" fill="#8b0070" opacity=".75" filter="url(#qgp)"/>
+      <ellipse cx="0" cy="22" rx="1.2" ry="3" fill="#cc00aa" opacity=".55"/>
+    </g>
+    <circle cx="0" cy="28" r="1.5" fill="#6b0050" style="animation:encre-pulse 6s .4s infinite;opacity:0"/>
+  </svg>
+
+  <div id="dot" aria-hidden="true"></div>
+  <div id="plbl" aria-hidden="true">À propos · Augustin Fleury</div>
+  <div id="prog" aria-hidden="true"></div>
+
+  <!-- HINT — plus grand, avec flèche SVG animée -->
+  <div id="hint" role="note">
+    <span class="hint-label">Défiler pour lire</span>
+    <svg class="hint-arrow" width="16" height="22" viewBox="0 0 16 22" fill="none" aria-hidden="true">
+      <line x1="8" y1="0" x2="8" y2="16" stroke="rgba(30,26,20,.45)" stroke-width="1"/>
+      <polyline points="3,12 8,18 13,12" fill="none" stroke="rgba(30,26,20,.45)" stroke-width="1" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <svg id="sig-svg" viewBox="0 0 200 62" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path id="sig-path" d="M12,44 C14,30 18,8 22,14 C26,20 23,34 17,40 C15,44 12,48 12,48 C18,45 25,38 29,36 C31,25 34,25 38,25 C42,25 43,36 45,40 C49,40 51,25 55,25 C59,25 59,36 57,45 C55,54 51,56 47,52 C51,44 57,40 61,37 C63,27 66,26 70,27 C74,28 74,38 76,42 C80,41 83,31 80,23 C77,15 81,10 85,18 C89,26 87,38 83,43 C85,35 86,8 88,9 C90,10 89,26 87,44 C91,40 91,26 95,26 C99,26 99,37 102,29 C105,21 107,31 107,44 C114,44 128,38 142,50 C146,56 142,62 132,57"/>
+  </svg>
+
+  <!-- CTA — carte mise en valeur -->
+  <div id="cta">
+    <a href="contact.html" class="cta-card" aria-label="Me contacter pour travailler ensemble">
+      <!-- Filet ornemental haut -->
+      <svg class="cta-ornament" height="14" viewBox="0 0 200 14" fill="none" aria-hidden="true">
+        <line x1="0" y1="7" x2="82" y2="7" stroke="#B0845A" stroke-width=".7" opacity=".5"/>
+        <path d="M91,7 L96,2 L101,7 L96,12 Z" fill="none" stroke="#B0845A" stroke-width=".7" opacity=".75"/>
+        <line x1="110" y1="7" x2="200" y2="7" stroke="#B0845A" stroke-width=".7" opacity=".5"/>
+      </svg>
+
+      <span class="cta-card-label">Travailler ensemble</span>
+      <span class="cta-card-sub">Nancy · Paris</span>
+
+      <!-- Flèche ambrée -->
+      <div class="cta-arrow-wrap">
+        <svg width="40" height="10" viewBox="0 0 40 10" fill="none" aria-hidden="true">
+          <line x1="0" y1="5" x2="34" y2="5" stroke="#B0845A" stroke-width="1"/>
+          <polyline points="28,1 34,5 28,9" fill="none" stroke="#B0845A" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
         </svg>
-        @aug.ustinflry
-      </a>
-      <nav class="site-footer__nav" aria-label="Navigation secondaire">
-        <a href="index.html"   class="site-footer__link">Accueil</a>
-        <a href="gallery.html" class="site-footer__link">Galerie</a>
-        <a href="contact.html" class="site-footer__link">Contact</a>
-      </nav>
-    </div>
-  </footer>
+      </div>
+
+      <!-- Filet ornemental bas -->
+      <svg class="cta-ornament" height="14" viewBox="0 0 200 14" fill="none" aria-hidden="true">
+        <line x1="0" y1="7" x2="82" y2="7" stroke="#B0845A" stroke-width=".7" opacity=".5"/>
+        <path d="M91,7 L96,2 L101,7 L96,12 Z" fill="none" stroke="#B0845A" stroke-width=".7" opacity=".75"/>
+        <line x1="110" y1="7" x2="200" y2="7" stroke="#B0845A" stroke-width=".7" opacity=".5"/>
+      </svg>
+    </a>
+  </div>
 
   <script src="assets/js/scroll.js" defer></script>
   <script src="assets/js/transitions.js" defer></script>
   <script src="assets/js/liquid-glass.js" defer></script>
 
-  <!-- Loader hide -->
   <script>
-    (function(){
-      var l=document.getElementById("page-loader");
-      if(!l)return;
-      function hide(){l.classList.add("is-hidden");setTimeout(function(){l.remove();},700);}
-      if(document.readyState==="complete"){setTimeout(hide,140);}
-      else{window.addEventListener("load",function(){setTimeout(hide,140);});}
-    })();
-  </script>
+  'use strict';
 
-  <!-- Reveal-on-scroll pour la page about -->
-  <script>
-    (function(){
-      var els = document.querySelectorAll('.ab-reveal, .ab-reveal--tilt, .ab-counter, .ab-manifesto');
-      if (!els.length || !('IntersectionObserver' in window)) {
-        els.forEach(function(el){ el.classList.add('is-visible'); });
-        return;
+  /* ═══════════════════════════════════════════════════════════
+     SCROLL VIRTUEL — anti-scroll-rapide
+     Prend le contrôle complet de la molette, de la touche
+     clavier et du touch. La vitesse est plafonnée par
+     MAX_WHEEL_STEP et lissée par SCROLL_LERP.
+     Plus de window.scrollY — pas de conflit avec la hauteur
+     du body ou la restauration de scroll du navigateur.
+  ═══════════════════════════════════════════════════════════ */
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+
+  const VIRT_DIST     = 6400; /* distance virtuelle totale */
+  const WHEEL_FACTOR  = 0.38; /* atténuation de la molette */
+  const MAX_WHEEL_STEP= 78;   /* plafond par événement wheel (px virtuels) */
+  const SCROLL_LERP   = 0.068;/* lissage position virtuelle */
+
+  let scrollTarget  = 0;
+  let virtualScroll = 0;
+  let prevVirtual   = 0;
+
+  /* Molette */
+  window.addEventListener('wheel', e => {
+    e.preventDefault();
+    const step = Math.sign(e.deltaY) *
+                 Math.min(Math.abs(e.deltaY) * WHEEL_FACTOR, MAX_WHEEL_STEP);
+    scrollTarget = Math.max(0, Math.min(VIRT_DIST, scrollTarget + step));
+  }, { passive: false });
+
+  /* Clavier */
+  window.addEventListener('keydown', e => {
+    const STEP = 130;
+    if ([' ', 'ArrowDown', 'PageDown'].includes(e.key)) {
+      e.preventDefault(); scrollTarget = Math.min(VIRT_DIST, scrollTarget + STEP);
+    } else if (['ArrowUp', 'PageUp'].includes(e.key)) {
+      e.preventDefault(); scrollTarget = Math.max(0, scrollTarget - STEP);
+    } else if (e.key === 'Home') {
+      e.preventDefault(); scrollTarget = 0;
+    } else if (e.key === 'End') {
+      e.preventDefault(); scrollTarget = VIRT_DIST;
+    }
+  });
+
+  /* Touch */
+  let touchY0 = null;
+  window.addEventListener('touchstart', e => { touchY0 = e.touches[0].clientY; }, { passive: true });
+  window.addEventListener('touchmove', e => {
+    if (touchY0 === null) return;
+    const dy = (touchY0 - e.touches[0].clientY) * 1.15;
+    touchY0 = e.touches[0].clientY;
+    scrollTarget = Math.max(0, Math.min(VIRT_DIST, scrollTarget + dy));
+  }, { passive: true });
+  window.addEventListener('touchend', () => { touchY0 = null; }, { passive: true });
+
+  /* ═══════════════════════════════════════════════════════════
+     CONTENU
+  ═══════════════════════════════════════════════════════════ */
+  const PARAGRAPHS = [
+    {lines:[[{t:'tx',v:'Je suis photographe\u00a0\u2014\u00a0'},{t:'sk',v:'quelqu\u2019un qui d\u00e9clenche au hasard',id:'s0'},{t:'tx',v:'. Quelqu\u2019un qui choisit.'}]]},
+    {lines:[[{t:'tx',v:'Quelqu\u2019un qui attend\u00a0\u2014\u00a0'},{t:'sk',v:'quelqu\u2019un qui force les choses',id:'s1'},{t:'tx',v:'.'}],[{t:'tx',v:'Que la lumi\u00e8re, le sujet et le moment coexistent.'}]]},
+    {lines:[[{t:'tx',v:'J\u2019ai toujours aim\u00e9 la photographie\u00a0\u2014\u00a0'},{t:'sk',v:'une passion r\u00e9cente',id:'s2'},{t:'tx',v:'.'}],[{t:'tx',v:'Mais j\u2019ai r\u00e9ellement commenc\u00e9 en 2023.'}]]},
+    {lines:[[{t:'tx',v:'J\u2019ai commenc\u00e9 l\u2019orgue \u00e0 l\u2019\u00e2ge de six ans\u00a0\u2014\u00a0'},{t:'sk',v:'seulement un parcours classique',id:'s3'},{t:'tx',v:'.'}],[{t:'tx',v:'J\u2019ai toujours \u00e9t\u00e9 profond\u00e9ment sensible \u00e0 l\u2019art.'}]]},
+    {lines:[[{t:'sk',v:'Cette fa\u00e7on d\u2019\u00e9couter avant de regarder ne m\u2019a jamais quitt\u00e9',id:'s4'},{t:'tx',v:'. Elle est devenue mon regard\u00a0\u2014\u00a0'},{t:'sk',v:'juste une mani\u00e8re de voir',id:'s5'},{t:'tx',v:'.'}]]},
+    {lines:[[{t:'tx',v:'L\u2019image est pour moi une fa\u00e7on\u00a0\u2014\u00a0'},{t:'sk',v:'faire de jolies photos',id:'s6'},{t:'tx',v:'.'}],[{t:'tx',v:'De partager ce que je trouve beau.'}]]},
+    {lines:[[{t:'tx',v:'Une mani\u00e8re\u00a0\u2014\u00a0'},{t:'sk',v:'suivre des tendances',id:'s7'},{t:'tx',v:'.'}],[{t:'tx',v:'De rendre visible ce qui pourrait passer inaper\u00e7u.'}]]},
+    {lines:[[{t:'tx',v:'J\u2019ai r\u00e9alis\u00e9 de nombreuses prestations priv\u00e9es.'}],[{t:'tx',v:'Chaque rencontre. Nourrit ma fa\u00e7on de travailler.'}]]},
+    {lines:[[{t:'tx',v:'C\u2019est important\u00a0\u2014\u00a0'},{t:'sk',v:'imposer un style',id:'s8'},{t:'tx',v:'.'}],[{t:'tx',v:'Parce que je peux y apporter ma vision.'}]]},
+    {lines:[[{t:'tx',v:'Je m\u2019adapte\u00a0\u2014\u00a0'},{t:'sk',v:'appliquer une recette',id:'s9'},{t:'tx',v:'. Toujours aux personnes, aux lieux, aux attentes.'}]]},
+    {lines:[[{t:'tx',v:'Une pr\u00e9sence\u00a0\u2014\u00a0'},{t:'sk',v:'une mise en sc\u00e8ne permanente',id:'s10'},{t:'tx',v:'. Discr\u00e8te, une attention.'}]]},
+    {lines:[[{t:'tx',v:'Je souhaite travailler\u00a0\u2014\u00a0'},{t:'sk',v:'remplir un feed',id:'s11'},{t:'tx',v:'.'}],[{t:'tx',v:'Pour des musiciens, des lieux, des projets.'}]]},
+    {lines:[[{t:'tx',v:'Pour ce qui a du sens\u00a0\u2014\u00a0'},{t:'sk',v:'produire \u00e0 vide',id:'s12'},{t:'tx',v:'. Une n\u00e9cessit\u00e9.'}]]},
+    {lines:[[{t:'tx',v:'Je veux\u00a0\u2014\u00a0'},{t:'sk',v:'tout montrer',id:'s13'},{t:'tx',v:'. Tout ce qui m\u00e9rite d\u2019\u00eatre vu.'}]]},
+    {lines:[[{t:'tx',v:'Je cherche\u00a0\u2014\u00a0'},{t:'sk',v:'la perfection',id:'s14'},{t:'tx',v:'. Tout ce que je peux faire avec justesse.'}]]}
+  ];
+
+  /* ─── BUILD DOM ─────────────────────────────────────────── */
+  const tw=document.getElementById('tw'),spans=[],triggers=[];
+  let total=0;
+  const paraCharEnds=[];
+  const NS='http://www.w3.org/2000/svg';
+
+  PARAGRAPHS.forEach(para=>{
+    const p=document.createElement('p');
+    para.lines.forEach((line,li)=>{
+      if(li>0)p.appendChild(document.createElement('br'));
+      line.forEach(seg=>{
+        if(seg.t==='tx'){
+          for(const ch of seg.v){const s=document.createElement('span');s.className='c';s.textContent=ch;p.appendChild(s);spans.push(s);total++;}
+        }else{
+          const w=document.createElement('span');w.className='sg-wrap';w.id=seg.id;
+          const inn=document.createElement('span');inn.className='sg-inner';
+          for(const ch of seg.v){const s=document.createElement('span');s.className='c';s.textContent=ch;inn.appendChild(s);spans.push(s);total++;}
+          w.appendChild(inn);
+          const sv=document.createElementNS(NS,'svg');sv.setAttribute('class','sk-svg');sv.setAttribute('viewBox','0 0 100 10');sv.setAttribute('preserveAspectRatio','none');sv.setAttribute('aria-hidden','true');
+          const l1=document.createElementNS(NS,'path');l1.setAttribute('class','sk-l1');l1.setAttribute('d','M1,5 C18,3 38,6.5 52,4 C66,1.5 82,5.8 99,4.2');l1.setAttribute('fill','none');l1.setAttribute('stroke-linecap','round');
+          const l2=document.createElementNS(NS,'path');l2.setAttribute('class','sk-l2');l2.setAttribute('d','M2,5.8 C22,7.2 42,3.2 62,5.5 C78,7.2 93,3.5 98,5.2');l2.setAttribute('fill','none');l2.setAttribute('stroke-linecap','round');
+          sv.appendChild(l1);sv.appendChild(l2);w.appendChild(sv);p.appendChild(w);
+          triggers.push({at:total-1,id:seg.id});
+        }
+      });
+    });
+    paraCharEnds.push(total);tw.appendChild(p);
+  });
+
+  const progEl=document.getElementById('prog');
+  PARAGRAPHS.forEach((_,i)=>{const d=document.createElement('div');d.className='pd';d.id='pd'+i;progEl.appendChild(d);});
+
+  /* ─── REFS ──────────────────────────────────────────────── */
+  const quillEl=document.getElementById('quill'),dotEl=document.getElementById('dot'),
+        inkwellEl=document.getElementById('inkwell'),inkRule=document.getElementById('ink-rule'),
+        subHintEl=document.getElementById('sub-hint'),hintEl=document.getElementById('hint'),
+        ctaEl=document.getElementById('cta'),plblEl=document.getElementById('plbl'),
+        sigSvgEl=document.getElementById('sig-svg'),sigPathEl=document.getElementById('sig-path'),
+        dropsLayer=document.getElementById('drops-layer');
+
+  const NIB_X=28,NIB_Y=169;
+  function inkwellEntry(){const r=inkwellEl.getBoundingClientRect();return{x:r.left+r.width*.5,y:r.top+r.height*.28};}
+  let qx=0,qy=0;
+  function placeQuill(nx,ny){quillEl.style.left=(nx-NIB_X)+'px';quillEl.style.top=(ny-NIB_Y)+'px';dotEl.style.left=nx+'px';dotEl.style.top=ny+'px';}
+
+  /* ─── DROPS ─────────────────────────────────────────────── */
+  function spawnDrops(x,y,count,spread){
+    spread=spread||8;
+    for(let i=0;i<count;i++){
+      const el=document.createElement('div');
+      const size=1.2+Math.random()*2.8,dx=(Math.random()-.5)*spread*2;
+      const fall=10+Math.random()*18,dur=.4+Math.random()*.45,opa=.28+Math.random()*.35;
+      el.className='ink-drop';
+      el.style.cssText='width:'+size+'px;height:'+size+'px;left:'+(x+dx-size/2)+'px;top:'+(y-size/2)+'px;opacity:'+opa+';transition:transform '+dur+'s cubic-bezier(.2,.8,.4,1),opacity '+(dur+.12)+'s ease;';
+      dropsLayer.appendChild(el);
+      requestAnimationFrame(()=>requestAnimationFrame(()=>{el.style.transform='translateY('+fall+'px)';el.style.opacity='0';}));
+      setTimeout(()=>el.remove(),(dur+.35)*1000);
+    }
+  }
+
+  /* ─── DIPPING ────────────────────────────────────────────── */
+  let isDipping=false,lastDippedPara=-1,isParked=false;
+  const DIP_AT=[3,7,11];
+  function getParaIdx(n){for(let i=0;i<paraCharEnds.length;i++)if(n<=paraCharEnds[i])return i;return paraCharEnds.length;}
+
+  function triggerDip(isReturn){
+    if(isDipping)return;isDipping=true;isParked=false;
+    const ie=inkwellEntry();tNibX=ie.x;tNibY=ie.y;
+    quillEl.classList.add('dipping');
+    quillEl.classList.remove('writing','resting');
+    dotEl.classList.remove('vis','writing');
+    setTimeout(()=>spawnDrops(ie.x,ie.y+10,isReturn?2:3,5),360);
+    setTimeout(()=>spawnDrops(ie.x,ie.y+4,2,3),500);
+    setTimeout(()=>{
+      quillEl.classList.remove('dipping');
+      isDipping=false;
+      /* Si c'est un retour (scroll-up terminé), rester au repos */
+      if(isReturn){quillEl.classList.add('resting');isParked=true;}
+    },1250);
+  }
+
+  /* ─── WRITING DROPS ──────────────────────────────────────── */
+  let wdc=0;
+  function maybeWriteDrop(n){
+    if(++wdc<32)return;wdc=0;
+    const wp=writingPos(n);if(wp)spawnDrops(wp.x,wp.y+1,1,3);
+  }
+
+  /* ─── VIEWPORT TRACKING ──────────────────────────────────── */
+  let twY=0,targetTwY=0;
+  const TW_LERP=.042,WRITE_ZONE=.56;
+
+  function updateTwPosition(n){
+    if(n<=0){targetTwY=0;return;}
+    if(n>=total)return;
+    const wp=writingPos(Math.min(n,spans.length-1));
+    if(!wp)return;
+    const zoneY=window.innerHeight*WRITE_ZONE;
+    if(wp.y>zoneY)     { targetTwY=Math.min(0,zoneY-(wp.y-twY)); }
+    else if(wp.y<zoneY*.35&&targetTwY<0){ targetTwY=Math.min(0,zoneY-(wp.y-twY)); }
+  }
+
+  /* ─── INDEX ──────────────────────────────────────────────── */
+  function targetIdx(){return(virtualScroll/VIRT_DIST)*total;}
+
+  /* ─── SYNC CHARS ─────────────────────────────────────────── */
+  let revN=0;
+  function syncChars(n){
+    if(n>revN){for(let i=revN;i<n&&i<spans.length;i++){spans[i].classList.add('v');spans[i].classList.remove('trace');}}
+    else if(n<revN){for(let i=revN-1;i>=n&&i>=0;i--){spans[i].classList.remove('v');spans[i].classList.add('trace');}}
+    revN=Math.max(0,Math.min(n,spans.length));
+  }
+
+  /* ─── TRIGGERS ───────────────────────────────────────────── */
+  const fired=new Set();
+  function checkTriggers(n){
+    triggers.forEach((tr,i)=>{
+      const el=document.getElementById(tr.id);if(!el)return;
+      if(n>tr.at){if(!fired.has(i)){fired.add(i);setTimeout(()=>el.classList.add('struck'),260);}}
+      else{if(fired.has(i)){fired.delete(i);el.classList.remove('struck');}}
+    });
+  }
+
+  /* ─── WRITING POSITION ───────────────────────────────────── */
+  function writingPos(n){
+    const i=Math.min(n,spans.length-1);if(i<0)return null;
+    const r=spans[i].getBoundingClientRect();
+    if(r.width>.5)return{x:r.left+r.width*.2,y:r.top+r.height*.68};
+    for(let j=i-1;j>=0;j--){const rj=spans[j].getBoundingClientRect();if(rj.width>.5)return{x:rj.right+1,y:rj.top+rj.height*.68};}
+    return null;
+  }
+
+  function updateProg(n){paraCharEnds.forEach((end,i)=>{const d=document.getElementById('pd'+i);if(d)d.classList.toggle('on',n>=end);});}
+
+  /* ─── SIGNATURE ──────────────────────────────────────────── */
+  let sigActive=false,sigRafId=null;
+  function startSignature(){
+    const twR=tw.getBoundingClientRect();
+    sigSvgEl.style.top=Math.round(twR.bottom+22)+'px';sigSvgEl.style.bottom='auto';sigSvgEl.style.display='block';
+    const pl=sigPathEl.getTotalLength();
+    sigPathEl.style.strokeDasharray=pl;sigPathEl.style.strokeDashoffset=pl;
+    const pt0=sigPathEl.getPointAtLength(0),ctm0=sigSvgEl.getScreenCTM();
+    tNibX=ctm0.a*pt0.x+ctm0.c*pt0.y+ctm0.e;tNibY=ctm0.b*pt0.x+ctm0.d*pt0.y+ctm0.f;
+    setTimeout(()=>{
+      sigActive=true;let t0=null;const DUR=3400;
+      function sl(ts){
+        if(!t0)t0=ts;const t=Math.min(1,(ts-t0)/DUR);
+        const et=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+        sigPathEl.style.strokeDashoffset=pl*(1-et);
+        const pt=sigPathEl.getPointAtLength(et*pl),c=sigSvgEl.getScreenCTM();
+        tNibX=c.a*pt.x+c.c*pt.y+c.e;tNibY=c.b*pt.x+c.d*pt.y+c.f;
+        if(t<1){sigRafId=requestAnimationFrame(sl);}
+        else{
+          sigActive=false;sigRafId=null;
+          const sr=sigSvgEl.getBoundingClientRect();
+          ctaEl.style.top=(sr.bottom+20)+'px';ctaEl.style.bottom='auto';
+          const ie=inkwellEntry();tNibX=ie.x;tNibY=ie.y;
+          quillEl.classList.remove('writing');quillEl.classList.add('resting');
+          setTimeout(()=>ctaEl.classList.add('on'),900);
+        }
       }
-      var io = new IntersectionObserver(function(entries){
-        entries.forEach(function(e){
-          if (e.isIntersecting) {
-            e.target.classList.add('is-visible');
-            io.unobserve(e.target);
+      sigRafId=requestAnimationFrame(sl);
+    },480);
+  }
+
+  /* ─── MAIN LOOP ──────────────────────────────────────────── */
+  let curIdx=0,tNibX=0,tNibY=0,done=false,started=false;
+
+  /* Fluidité : IDX_LERP réduit = transitions plus douces */
+  const IDX_LERP=0.072;
+  const NIB_LERP=0.18;
+
+  /* Gestion du retour plume à l'encrier */
+  let returnQuillTimer=null;
+  let quillReturnPending=false;
+
+  function scheduleQuillReturn(){
+    if(quillReturnPending)return;
+    quillReturnPending=true;
+    clearTimeout(returnQuillTimer);
+    returnQuillTimer=setTimeout(()=>{
+      /* Si on est toujours en scroll-up après 300ms, lancer le retour */
+      if(virtualScroll<prevVirtual+2&&!isDipping&&!sigActive&&started){
+        triggerDip(true);/* retour encrier avec animation */
+      }
+      quillReturnPending=false;
+    },320);
+  }
+
+  function loop(){
+    /* ─ Scroll virtuel ─ */
+    virtualScroll+=(scrollTarget-virtualScroll)*SCROLL_LERP;
+    const scrollingBack=virtualScroll<prevVirtual-0.1;
+
+    const ti=targetIdx();
+    curIdx+=(ti-curIdx)*IDX_LERP;
+    const n=Math.round(curIdx);
+
+    if(started){
+      syncChars(n);
+      checkTriggers(n);
+      updateProg(n);
+      updateTwPosition(n);
+
+      /* Cache le hint dès qu'on scrolle */
+      if(scrollTarget>15){hintEl.classList.add('gone');}
+    }
+
+    /* translateY fluidifié */
+    twY+=(targetTwY-twY)*TW_LERP;
+    tw.style.transform='translateY('+twY.toFixed(2)+'px)';
+
+    if(started){
+      if(n<=0){
+        /* Retour au début absolu */
+        if(!isParked){quillEl.classList.remove('writing');quillEl.classList.add('resting');dotEl.classList.remove('vis','writing');isParked=true;}
+        const ie=inkwellEntry();tNibX=ie.x;tNibY=ie.y;
+
+      }else if(n<total&&!done){
+
+        if(scrollingBack){
+          /* SCROLL UP : plume retourne à l'encrier avec fluidité */
+          quillEl.classList.remove('writing');
+          dotEl.classList.remove('writing');
+          isParked=false;
+          /* Retour rapide vers l'encrier */
+          const ie=inkwellEntry();
+          tNibX+=(ie.x-tNibX)*.055;
+          tNibY+=(ie.y-tNibY)*.055;
+          /* Planifier un ancrage dans l'encrier si le scroll s'arrête */
+          scheduleQuillReturn();
+          lastDippedPara=Math.min(lastDippedPara,getParaIdx(n)-1);
+
+        }else{
+          /* SCROLL AVANT : écriture */
+          quillReturnPending=false;clearTimeout(returnQuillTimer);
+          isParked=false;
+          if(!isDipping&&!sigActive){
+            const np=getParaIdx(n);
+            if(DIP_AT.indexOf(np)!==-1&&lastDippedPara<np){lastDippedPara=np;triggerDip(false);}
           }
-        });
-      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-      els.forEach(function(el){ io.observe(el); });
-    })();
+          if(!isDipping){
+            const wp=writingPos(n);if(wp){tNibX=wp.x;tNibY=wp.y;}
+            quillEl.classList.add('writing');quillEl.classList.remove('resting');
+            dotEl.classList.add('vis','writing');
+            maybeWriteDrop(n);
+          }
+        }
+
+      }else if(n>=total&&!done){
+        done=true;quillEl.classList.remove('writing');dotEl.classList.remove('writing');
+        setTimeout(startSignature,520);
+      }
+
+      /* Annulation fin au scroll-up */
+      if(done&&n<total){
+        done=false;
+        if(sigRafId){cancelAnimationFrame(sigRafId);sigRafId=null;}
+        sigActive=false;
+        sigSvgEl.style.display='none';sigSvgEl.style.top='';
+        if(sigPathEl.getTotalLength)sigPathEl.style.strokeDashoffset=sigPathEl.getTotalLength();
+        ctaEl.classList.remove('on');ctaEl.style.top='';ctaEl.style.bottom='';
+        hintEl.classList.remove('gone');hintEl.classList.add('vis');
+        quillEl.classList.remove('resting');
+      }
+
+      qx+=(tNibX-qx)*NIB_LERP;
+      qy+=(tNibY-qy)*NIB_LERP;
+      placeQuill(qx,qy);
+    }
+
+    prevVirtual=virtualScroll;
+    requestAnimationFrame(loop);
+  }
+
+  /* ─── INIT ──────────────────────────────────────────────── */
+  window.addEventListener('load',function(){
+    const ie=inkwellEntry();
+    qx=ie.x;qy=ie.y;tNibX=ie.x;tNibY=ie.y;placeQuill(qx,qy);
+
+    setTimeout(()=>{inkwellEl.classList.add('vis');plblEl.classList.add('vis');progEl.classList.add('vis');},180);
+    setTimeout(()=>{quillEl.classList.add('vis');quillEl.classList.add('dipping');},320);
+    setTimeout(()=>{const ie2=inkwellEntry();spawnDrops(ie2.x,ie2.y+10,4,7);},680);
+    setTimeout(()=>{
+      quillEl.classList.remove('dipping');
+      quillEl.classList.add('resting'); /* repos dans l'encrier */
+      isParked=true;
+      inkRule.classList.add('expanded');
+      subHintEl.classList.add('vis');
+    },1380);
+    setTimeout(()=>{
+      hintEl.classList.add('vis');
+      started=true;
+    },1950);
+  });
+
+  requestAnimationFrame(loop);
   </script>
 
-  <!-- Barre de progression de scroll -->
   <script>
     (function(){
-      var bar = document.getElementById('ab-progress');
-      if (!bar) return;
-      var ticking = false;
-      function update(){
-        var h = document.documentElement;
-        var max = h.scrollHeight - h.clientHeight;
-        var p = max > 0 ? (h.scrollTop / max) * 100 : 0;
-        bar.style.width = p + '%';
-        ticking = false;
-      }
-      window.addEventListener('scroll', function(){
-        if (!ticking) { requestAnimationFrame(update); ticking = true; }
-      }, { passive: true });
-      update();
+      var l=document.getElementById('page-loader');if(!l)return;
+      function hide(){l.classList.add('is-hidden');setTimeout(function(){l.remove();},600);}
+      if(document.readyState==='complete'){setTimeout(hide,120);}
+      else{window.addEventListener('load',function(){setTimeout(hide,120);});}
     })();
   </script>
 </body>
