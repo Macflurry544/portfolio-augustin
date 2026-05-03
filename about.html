@@ -33,16 +33,23 @@
     }
     #inkwell.vis { opacity:1; }
 
-    /* PHRASE AU-DESSUS DU SÉPARATEUR */
-    #sub-hint {
-      position:fixed; top:283px; left:50%; transform:translateX(-50%);
-      font-family:'Playfair Display',Georgia,serif; font-style:italic;
-      font-size:.7rem; letter-spacing:.04em; color:rgba(30,26,20,.38);
-      white-space:nowrap; z-index:44; opacity:0; pointer-events:none;
-      transition:opacity 1s ease 1.6s;
+    /* CARTE SCROLL HINT — liquid glass, visible dès le départ */
+    #scroll-hint-card {
+      position:fixed; top:318px; left:50%; transform:translateX(-50%);
+      display:inline-flex; align-items:center; gap:.75rem;
+      padding:.65rem 1.5rem; border-radius:999px;
+      background:rgba(253,252,249,.58);
+      backdrop-filter:blur(22px) saturate(1.3);
+      -webkit-backdrop-filter:blur(22px) saturate(1.3);
+      border:1px solid rgba(30,26,20,.11);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.85), 0 4px 18px rgba(30,26,20,.07);
+      font-family:'Bitter',serif; font-size:.78rem; letter-spacing:.1em;
+      color:rgba(30,26,20,.7);
+      z-index:44; white-space:nowrap; opacity:0; pointer-events:none;
+      transition:opacity .7s ease;
     }
-    #sub-hint.vis  { opacity:1; }
-    #sub-hint.gone { opacity:0; transition:opacity .5s ease; }
+    #scroll-hint-card.vis  { opacity:1; }
+    #scroll-hint-card.gone { opacity:0; transition:opacity .5s ease; }
 
     /* SÉPARATEUR */
     #ink-rule {
@@ -84,13 +91,6 @@
     /* CHARS */
     .c   { color:#FDFCF9; transition:color .05s linear; }
     .c.v { color:#1E1A14; }
-    /* Effacement complet — encre qui se dissout entièrement */
-    .c.trace {
-      color:#FDFCF9;
-      filter:blur(.55px);
-      transition:color .5s ease, filter .5s ease;
-    }
-
     /* RATURES — contrôlées par JS, plus de CSS animation */
     .sg-wrap  { display:inline-block; position:relative; vertical-align:baseline; }
     .sg-inner { display:inline; }
@@ -151,54 +151,55 @@
     #drops-layer{position:fixed;inset:0;pointer-events:none;z-index:54;overflow:hidden}
     .ink-drop{position:absolute;border-radius:50%;background:#1C1610}
 
-    /* SIGNATURE */
-    #sig-svg{position:fixed;left:50%;transform:translateX(-50%);width:200px;height:62px;z-index:36;pointer-events:none;display:none;overflow:visible}
-    #sig-path{fill:none;stroke:#1E1A14;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 
-    /* CTA — Liquid Glass */
-    #cta {
+    /* CTA — Liquid Glass Pills */
+    #cta-wrap {
       position:fixed; left:50%; transform:translateX(-50%);
+      display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;
       opacity:0; pointer-events:none;
-      transition:opacity 1.6s ease;
-      z-index:38; white-space:nowrap;
+      transition:opacity 1.6s ease; z-index:38; white-space:nowrap;
     }
-    #cta.on { opacity:1; pointer-events:all; }
-
-    .cta-card {
-      display:flex; flex-direction:column; align-items:center; gap:.55rem;
-      /* Liquid glass sur fond clair */
-      background:rgba(253,252,249,.62);
+    #cta-wrap.on { opacity:1; pointer-events:all; }
+    .cta-pill {
+      display:inline-flex; align-items:center; gap:.65rem;
+      padding:.75rem 1.8rem; border-radius:999px;
       backdrop-filter:blur(22px) saturate(1.35);
       -webkit-backdrop-filter:blur(22px) saturate(1.35);
-      border:1px solid rgba(30,26,20,.13);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.88),
-        inset 0 -1px 0 rgba(30,26,20,.05),
-        0 6px 28px rgba(30,26,20,.08),
-        0 1px 4px rgba(30,26,20,.06);
-      padding:1.7rem 3.2rem 1.5rem;
-      text-decoration:none; min-width:240px; position:relative;
-      transition:transform .45s cubic-bezier(.22,1,.36,1),
-                 box-shadow .45s ease, border-color .45s ease;
+      font-family:'Bitter',serif; font-size:.72rem;
+      letter-spacing:.28em; text-transform:uppercase;
+      text-decoration:none; cursor:pointer;
+      transition:transform .4s cubic-bezier(.22,1,.36,1), box-shadow .4s ease, border-color .4s ease, background .4s ease;
     }
-    .cta-card:hover {
-      transform:translateY(-4px);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.9),
-                 0 16px 48px rgba(30,26,20,.12),
-                 0 2px 8px rgba(30,26,20,.08);
-      border-color:rgba(176,132,90,.4);
+    /* Contact — teinte ambre/or */
+    a.cta-pill-contact {
+      background:rgba(176,132,90,.18);
+      border:1px solid rgba(176,132,90,.35);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.72), 0 6px 28px rgba(176,132,90,.1);
+      color:#6B4A22;
     }
-    .cta-ornament { display:block; width:100%; }
-    .cta-card-label {
-      font-family:'Bitter',serif; font-size:.68rem;
-      letter-spacing:.34em; text-transform:uppercase;
-      color:#1E1A14; margin:.1rem 0;
+    a.cta-pill-contact:hover {
+      background:rgba(176,132,90,.28);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.8), 0 14px 40px rgba(176,132,90,.18);
+      border-color:rgba(176,132,90,.55);
     }
-    .cta-card-sub {
-      font-family:'Playfair Display',serif; font-style:italic;
-      font-size:.6rem; letter-spacing:.18em; color:rgba(30,26,20,.5);
+    /* Reset — teinte encre sombre */
+    button.cta-pill-reset {
+      background:rgba(30,26,20,.08);
+      border:1px solid rgba(30,26,20,.18);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.65), 0 6px 28px rgba(30,26,20,.07);
+      color:#1E1A14;
     }
-    .cta-arrow-wrap { margin-top:.2rem; }
+    button.cta-pill-reset:hover {
+      background:rgba(30,26,20,.14);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.75), 0 14px 40px rgba(30,26,20,.12);
+      border-color:rgba(30,26,20,.3);
+    }
+    .cta-pill:hover { transform:translateY(-3px); }
+    .cta-pill svg { overflow:visible; flex-shrink:0; }
+    .cta-pill-contact .arr { transition:transform .4s cubic-bezier(.22,1,.36,1); }
+    .cta-pill-contact:hover .arr { transform:translateX(5px); }
+    .cta-pill-reset .arr { transition:transform .4s cubic-bezier(.22,1,.36,1); }
+    .cta-pill-reset:hover .arr { transform:translateY(-4px); }
 
     /* BOUTON RETOUR EN HAUT */
     #btn-top {
@@ -237,8 +238,8 @@
     #hint.vis  { opacity:1; }
     #hint.gone { display:none; }
     .hint-label {
-      font-family:'Playfair Display',Georgia,serif; font-style:italic;
-      font-size:.88rem; letter-spacing:.12em; color:rgba(30,26,20,.58);
+      font-family:'Bitter',Georgia,serif;
+      font-size:1rem; letter-spacing:.12em; color:rgba(30,26,20,.62);
       white-space:nowrap;
     }
     .hint-arrow { display:block; }
@@ -253,15 +254,17 @@
 
     /* RESPONSIVE */
     @media(max-width:680px){
-      #inkwell  { top:140px; }
-      #sub-hint { top:202px; }
-      #ink-rule { top:218px; }
-      #stage    { padding:274px 1.4rem 7rem; }
-      #stage::before { height:286px; }
-      #tw       { font-size:clamp(.95rem,5vw,1.18rem); line-height:1.76; }
-      #plbl,#prog { display:none; }
-      .cta-card { padding:1.2rem 1.8rem 1.1rem; min-width:180px; }
-      #btn-top  { bottom:1.2rem; right:1.2rem; width:34px; height:34px; }
+      #inkwell          { top:140px; }
+      #ink-rule         { top:218px; }
+      #scroll-hint-card { top:238px; font-size:.7rem; padding:.55rem 1.1rem; }
+      #stage            { padding:310px 1.4rem 7rem; }
+      #stage::before    { height:320px; }
+      #tw               { font-size:clamp(.95rem,5vw,1.18rem); line-height:1.76; }
+      #plbl,#prog       { display:none; }
+    }
+    @media(max-width:480px){
+      #cta-wrap { flex-direction:column; align-items:center; gap:.75rem; }
+      .cta-pill { padding:.65rem 1.4rem; font-size:.65rem; }
     }
     @media(max-width:380px){ #stage { padding:262px 1rem 6rem; } }
   </style>
@@ -356,7 +359,13 @@
     </svg>
   </div>
 
-  <p id="sub-hint" aria-hidden="true">défiler vers le bas pour faire apparaître le contenu</p>
+  <div id="scroll-hint-card" aria-hidden="true">
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
+      <line x1="6.5" y1="1" x2="6.5" y2="11" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+      <polyline points="2.5,7.5 6.5,11.5 10.5,7.5" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round" stroke-linecap="round"/>
+    </svg>
+    <span>Défiler vers le bas pour faire apparaître le contenu</span>
+  </div>
   <div id="ink-rule" aria-hidden="true"></div>
   <div id="drops-layer" aria-hidden="true"></div>
 
@@ -411,36 +420,26 @@
     </svg>
   </div>
 
-  <svg id="sig-svg" viewBox="0 0 200 62" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <path id="sig-path" d="M12,44 C14,30 18,8 22,14 C26,20 23,34 17,40 C15,44 12,48 12,48 C18,45 25,38 29,36 C31,25 34,25 38,25 C42,25 43,36 45,40 C49,40 51,25 55,25 C59,25 59,36 57,45 C55,54 51,56 47,52 C51,44 57,40 61,37 C63,27 66,26 70,27 C74,28 74,38 76,42 C80,41 83,31 80,23 C77,15 81,10 85,18 C89,26 87,38 83,43 C85,35 86,8 88,9 C90,10 89,26 87,44 C91,40 91,26 95,26 C99,26 99,37 102,29 C105,21 107,31 107,44 C114,44 128,38 142,50 C146,56 142,62 132,57"/>
-  </svg>
-
-  <!-- CTA — Liquid Glass -->
-  <div id="cta">
-    <a href="contact.html" class="cta-card" aria-label="Me contacter pour travailler ensemble">
-      <svg class="cta-ornament" height="14" viewBox="0 0 200 14" fill="none" aria-hidden="true">
-        <line x1="0" y1="7" x2="82" y2="7" stroke="#B0845A" stroke-width=".7" opacity=".5"/>
-        <path d="M91,7 L96,2 L101,7 L96,12 Z" fill="none" stroke="#B0845A" stroke-width=".7" opacity=".75"/>
-        <line x1="110" y1="7" x2="200" y2="7" stroke="#B0845A" stroke-width=".7" opacity=".5"/>
-      </svg>
-      <span class="cta-card-label">Travailler ensemble</span>
-      <span class="cta-card-sub">Nancy · Paris</span>
-      <div class="cta-arrow-wrap">
-        <svg width="40" height="10" viewBox="0 0 40 10" fill="none" aria-hidden="true">
-          <line x1="0" y1="5" x2="34" y2="5" stroke="#B0845A" stroke-width="1"/>
-          <polyline points="28,1 34,5 28,9" fill="none" stroke="#B0845A" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <svg class="cta-ornament" height="14" viewBox="0 0 200 14" fill="none" aria-hidden="true">
-        <line x1="0" y1="7" x2="82" y2="7" stroke="#B0845A" stroke-width=".7" opacity=".5"/>
-        <path d="M91,7 L96,2 L101,7 L96,12 Z" fill="none" stroke="#B0845A" stroke-width=".7" opacity=".75"/>
-        <line x1="110" y1="7" x2="200" y2="7" stroke="#B0845A" stroke-width=".7" opacity=".5"/>
+  <!-- CTA — Liquid Glass Pills -->
+  <div id="cta-wrap">
+    <a href="contact.html" class="cta-pill cta-pill-contact" aria-label="Me contacter">
+      <span>Me contacter</span>
+      <svg class="arr" width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
+        <line x1="0" y1="6" x2="13" y2="6" stroke="#1E1A14" stroke-width="1.2" stroke-linecap="round"/>
+        <polyline points="8,1 13,6 8,11" fill="none" stroke="#1E1A14" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
       </svg>
     </a>
+    <button class="cta-pill cta-pill-reset" onclick="resetAll()" aria-label="Recommencer depuis le début">
+      <span>Recommencer</span>
+      <svg class="arr" width="12" height="16" viewBox="0 0 12 16" fill="none" aria-hidden="true">
+        <line x1="6" y1="15" x2="6" y2="2" stroke="#1E1A14" stroke-width="1.2" stroke-linecap="round"/>
+        <polyline points="1,7 6,2 11,7" fill="none" stroke="#1E1A14" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+      </svg>
+    </button>
   </div>
 
   <!-- BOUTON RETOUR EN HAUT -->
-  <button id="btn-top" aria-label="Recommencer depuis le début" title="Recommencer">
+  <button id="btn-top" aria-label="Recommencer depuis le début" title="Recommencer" style="display:none">
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
       <line x1="8" y1="13" x2="8" y2="3"/>
       <polyline points="4,7 8,3 12,7"/>
@@ -503,21 +502,42 @@
 
   /* ═══ CONTENU ════════════════════════════════════════════ */
   const PARAGRAPHS = [
-    {lines:[[{t:'tx',v:'Je suis photographe\u00a0\u2014\u00a0'},{t:'sk',v:'quelqu\u2019un qui d\u00e9clenche au hasard',id:'s0'},{t:'tx',v:'. Quelqu\u2019un qui choisit.'}]]},
-    {lines:[[{t:'tx',v:'Quelqu\u2019un qui attend\u00a0\u2014\u00a0'},{t:'sk',v:'quelqu\u2019un qui force les choses',id:'s1'},{t:'tx',v:'.'}],[{t:'tx',v:'Que la lumi\u00e8re, le sujet et le moment coexistent.'}]]},
-    {lines:[[{t:'tx',v:'J\u2019ai toujours aim\u00e9 la photographie\u00a0\u2014\u00a0'},{t:'sk',v:'une passion r\u00e9cente',id:'s2'},{t:'tx',v:'.'}],[{t:'tx',v:'Mais j\u2019ai r\u00e9ellement commenc\u00e9 en 2023.'}]]},
-    {lines:[[{t:'tx',v:'J\u2019ai commenc\u00e9 l\u2019orgue \u00e0 l\u2019\u00e2ge de six ans\u00a0\u2014\u00a0'},{t:'sk',v:'seulement un parcours classique',id:'s3'},{t:'tx',v:'.'}],[{t:'tx',v:'J\u2019ai toujours \u00e9t\u00e9 profond\u00e9ment sensible \u00e0 l\u2019art.'}]]},
-    {lines:[[{t:'sk',v:'Cette fa\u00e7on d\u2019\u00e9couter avant de regarder ne m\u2019a jamais quitt\u00e9',id:'s4'},{t:'tx',v:'. Elle est devenue mon regard\u00a0\u2014\u00a0'},{t:'sk',v:'juste une mani\u00e8re de voir',id:'s5'},{t:'tx',v:'.'}]]},
-    {lines:[[{t:'tx',v:'L\u2019image est pour moi une fa\u00e7on\u00a0\u2014\u00a0'},{t:'sk',v:'faire de jolies photos',id:'s6'},{t:'tx',v:'.'}],[{t:'tx',v:'De partager ce que je trouve beau.'}]]},
-    {lines:[[{t:'tx',v:'Une mani\u00e8re\u00a0\u2014\u00a0'},{t:'sk',v:'suivre des tendances',id:'s7'},{t:'tx',v:'.'}],[{t:'tx',v:'De rendre visible ce qui pourrait passer inaper\u00e7u.'}]]},
-    {lines:[[{t:'tx',v:'J\u2019ai r\u00e9alis\u00e9 de nombreuses prestations priv\u00e9es.'}],[{t:'tx',v:'Chaque rencontre. Nourrit ma fa\u00e7on de travailler.'}]]},
-    {lines:[[{t:'tx',v:'C\u2019est important\u00a0\u2014\u00a0'},{t:'sk',v:'imposer un style',id:'s8'},{t:'tx',v:'.'}],[{t:'tx',v:'Parce que je peux y apporter ma vision.'}]]},
-    {lines:[[{t:'tx',v:'Je m\u2019adapte\u00a0\u2014\u00a0'},{t:'sk',v:'appliquer une recette',id:'s9'},{t:'tx',v:'. Toujours aux personnes, aux lieux, aux attentes.'}]]},
-    {lines:[[{t:'tx',v:'Une pr\u00e9sence\u00a0\u2014\u00a0'},{t:'sk',v:'une mise en sc\u00e8ne permanente',id:'s10'},{t:'tx',v:'. Discr\u00e8te, une attention.'}]]},
-    {lines:[[{t:'tx',v:'Je souhaite travailler\u00a0\u2014\u00a0'},{t:'sk',v:'remplir un feed',id:'s11'},{t:'tx',v:'.'}],[{t:'tx',v:'Pour des musiciens, des lieux, des projets.'}]]},
-    {lines:[[{t:'tx',v:'Pour ce qui a du sens\u00a0\u2014\u00a0'},{t:'sk',v:'produire \u00e0 vide',id:'s12'},{t:'tx',v:'. Une n\u00e9cessit\u00e9.'}]]},
-    {lines:[[{t:'tx',v:'Je veux\u00a0\u2014\u00a0'},{t:'sk',v:'tout montrer',id:'s13'},{t:'tx',v:'. Tout ce qui m\u00e9rite d\u2019\u00eatre vu.'}]]},
-    {lines:[[{t:'tx',v:'Je cherche\u00a0\u2014\u00a0'},{t:'sk',v:'la perfection',id:'s14'},{t:'tx',v:'. Tout ce que je peux faire avec justesse.'}]]}
+    {lines:[
+      [{t:'tx',v:'Je suis photographe, '},{t:'sk',v:'quelqu\u2019un qui d\u00e9clenche au hasard',id:'s0'},{t:'tx',v:'. Quelqu\u2019un qui choisit.'}],
+      [{t:'tx',v:'Quelqu\u2019un qui attend, que la lumi\u00e8re, le sujet et surtout le moment coexistent.'}],
+      [{t:'tx',v:'J\u2019ai toujours aim\u00e9 la photographie, ce n\u2019est donc pas tout \u00e0 fait une passion r\u00e9cente.'}],
+      [{t:'tx',v:'Mais j\u2019ai r\u00e9ellement commenc\u00e9 en 2024.'}]
+    ]},
+    {lines:[
+      [{t:'tx',v:'J\u2019ai commenc\u00e9 l\u2019orgue \u00e0 l\u2019\u00e2ge de six ans.'}],
+      [{t:'tx',v:'J\u2019ai toujours \u00e9t\u00e9 profond\u00e9ment sensible \u00e0 l\u2019art.'}],
+      [{t:'tx',v:'Je vois l\u2019art comme l\u2019\u00e9clat divin que dieu a mis dans les hommes.'}],
+      [{t:'tx',v:'Cette fa\u00e7on d\u2019\u00e9couter et de regarder ne m\u2019a jamais quitt\u00e9.'}],
+      [{t:'tx',v:'Elle est devenue mon regard, '},{t:'sk',v:'juste une mani\u00e8re de voir',id:'s1'},{t:'tx',v:'.'}],
+      [{t:'tx',v:'L\u2019image est pour moi une fa\u00e7on '},{t:'sk',v:'de capturer des moments',id:'s2'},{t:'tx',v:'.'}],
+      [{t:'tx',v:'De partager ce que je trouve beau, et par-dessus tout vrai.'}],
+      [{t:'tx',v:'Une mani\u00e8re '},{t:'sk',v:'de suivre des tendances',id:'s3'},{t:'tx',v:'.'}],
+      [{t:'tx',v:'De rendre visible ce qui pourrait passer inaper\u00e7u.'}]
+    ]},
+    {lines:[
+      [{t:'tx',v:'J\u2019ai r\u00e9alis\u00e9 de nombreuses prestations priv\u00e9es.'}],
+      [{t:'tx',v:'Chaque rencontre nourrit ma fa\u00e7on de travailler.'}],
+      [{t:'tx',v:'C\u2019est important, je ne souhaite pas m\u2019imposer de style.'}],
+      [{t:'tx',v:'Parce que je peux y apporter ma vision.'}]
+    ]},
+    {lines:[
+      [{t:'tx',v:'Je m\u2019adapte toujours aux personnes, aux lieux, aux attentes.'}],
+      [{t:'tx',v:'Une pr\u00e9sence, une mise en sc\u00e8ne permanente discr\u00e8te, une attention.'}],
+      [{t:'tx',v:'Je souhaite travailler, '},{t:'sk',v:'remplir un feed',id:'s4'},{t:'tx',v:'.'}],
+      [{t:'tx',v:'Pour des musiciens, des lieux, des projets.'}],
+      [{t:'tx',v:'Pour ce qui a du sens '},{t:'sk',v:'produire \u00e0 vide',id:'s5'},{t:'tx',v:'. Une n\u00e9cessit\u00e9.'}]
+    ]},
+    {lines:[
+      [{t:'tx',v:'Je veux '},{t:'sk',v:'tout montrer',id:'s6'},{t:'tx',v:'.'}],
+      [{t:'tx',v:'Tout ce qui m\u00e9rite d\u2019\u00eatre vu.'}],
+      [{t:'tx',v:'Je cherche '},{t:'sk',v:'la perfection',id:'s7'},{t:'tx',v:'.'}],
+      [{t:'tx',v:'Tout ce que je peux faire avec justesse.'}]
+    ]}
   ];
 
   /* ═══ BUILD DOM ═════════════════════════════════════════ */
@@ -555,18 +575,16 @@
   PARAGRAPHS.forEach((_,i)=>{const d=document.createElement('div');d.className='pd';d.id='pd'+i;progEl.appendChild(d);});
 
   /* ═══ REFS ══════════════════════════════════════════════ */
-  const quillEl   =document.getElementById('quill'),
-        dotEl     =document.getElementById('dot'),
-        inkwellEl =document.getElementById('inkwell'),
-        inkRule   =document.getElementById('ink-rule'),
-        subHintEl =document.getElementById('sub-hint'),
-        hintEl    =document.getElementById('hint'),
-        ctaEl     =document.getElementById('cta'),
-        plblEl    =document.getElementById('plbl'),
-        sigSvgEl  =document.getElementById('sig-svg'),
-        sigPathEl =document.getElementById('sig-path'),
-        dropsLayer=document.getElementById('drops-layer'),
-        btnTop    =document.getElementById('btn-top');
+  const quillEl       =document.getElementById('quill'),
+        dotEl         =document.getElementById('dot'),
+        inkwellEl     =document.getElementById('inkwell'),
+        inkRule       =document.getElementById('ink-rule'),
+        scrollHintEl  =document.getElementById('scroll-hint-card'),
+        hintEl        =document.getElementById('hint'),
+        ctaWrapEl     =document.getElementById('cta-wrap'),
+        plblEl        =document.getElementById('plbl'),
+        dropsLayer    =document.getElementById('drops-layer'),
+        btnTop        =document.getElementById('btn-top');
 
   /* ═══ PLUME — géométrie responsive ══════════════════════
      FIX RESPONSIVE : NIB_X/NIB_Y calculés selon la taille
@@ -615,7 +633,7 @@
 
   /* ═══ DIPPING ════════════════════════════════════════════ */
   let isDipping=false,lastDippedPara=-1,isParked=false;
-  const DIP_AT=[3,7,11];
+  const DIP_AT=[1,3];
   function getParaIdx(n){for(let i=0;i<paraCharEnds.length;i++)if(n<=paraCharEnds[i])return i;return paraCharEnds.length;}
 
   function triggerDip(isReturn){
@@ -660,8 +678,8 @@
   /* ═══ SYNC CHARS ══════════════════════════════════════════ */
   let revN=0;
   function syncChars(n){
-    if(n>revN){for(let i=revN;i<n&&i<spans.length;i++){spans[i].classList.add('v');spans[i].classList.remove('trace');}}
-    else if(n<revN){for(let i=revN-1;i>=n&&i>=0;i--){spans[i].classList.remove('v');spans[i].classList.add('trace');}}
+    if(n>revN){for(let i=revN;i<n&&i<spans.length;i++){spans[i].classList.add('v');}}
+    else if(n<revN){for(let i=revN-1;i>=n&&i>=0;i--){spans[i].classList.remove('v');}}
     revN=Math.max(0,Math.min(n,spans.length));
   }
 
@@ -707,37 +725,6 @@
 
   function updateProg(n){paraCharEnds.forEach((end,i)=>{const d=document.getElementById('pd'+i);if(d)d.classList.toggle('on',n>=end);});}
 
-  /* ═══ SIGNATURE ═══════════════════════════════════════════ */
-  let sigActive=false,sigRafId=null;
-  function startSignature(){
-    const twR=tw.getBoundingClientRect();
-    sigSvgEl.style.top=Math.round(twR.bottom+22)+'px';sigSvgEl.style.bottom='auto';sigSvgEl.style.display='block';
-    const pl=sigPathEl.getTotalLength();
-    sigPathEl.style.strokeDasharray=pl;sigPathEl.style.strokeDashoffset=pl;
-    const pt0=sigPathEl.getPointAtLength(0),ctm0=sigSvgEl.getScreenCTM();
-    tNibX=ctm0.a*pt0.x+ctm0.c*pt0.y+ctm0.e;tNibY=ctm0.b*pt0.x+ctm0.d*pt0.y+ctm0.f;
-    setTimeout(()=>{
-      sigActive=true;let t0=null;const DUR=3400;
-      function sl(ts){
-        if(!t0)t0=ts;const t=Math.min(1,(ts-t0)/DUR);
-        const et=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
-        sigPathEl.style.strokeDashoffset=pl*(1-et);
-        const pt=sigPathEl.getPointAtLength(et*pl),c=sigSvgEl.getScreenCTM();
-        tNibX=c.a*pt.x+c.c*pt.y+c.e;tNibY=c.b*pt.x+c.d*pt.y+c.f;
-        if(t<1){sigRafId=requestAnimationFrame(sl);}
-        else{
-          sigActive=false;sigRafId=null;
-          const sr=sigSvgEl.getBoundingClientRect();
-          ctaEl.style.top=(sr.bottom+20)+'px';ctaEl.style.bottom='auto';
-          const ie=inkwellEntry();tNibX=ie.x;tNibY=ie.y;
-          quillEl.classList.remove('writing');quillEl.classList.add('resting');isParked=true;
-          setTimeout(()=>ctaEl.classList.add('on'),900);
-        }
-      }
-      sigRafId=requestAnimationFrame(sl);
-    },480);
-  }
-
   /* ═══ RESET COMPLET ═══════════════════════════════════════ */
   function resetAll(){
     scrollTarget=0;virtualScroll=0;prevVirtual=0;curIdx=0;
@@ -750,12 +737,8 @@
       const l1=el.querySelector('.sk-l1');const l2=el.querySelector('.sk-l2');
       if(l1)l1.style.strokeDashoffset='108';if(l2)l2.style.strokeDashoffset='108';
     });
-    /* Signature */
-    if(sigRafId){cancelAnimationFrame(sigRafId);sigRafId=null;}
-    sigActive=false;sigSvgEl.style.display='none';sigSvgEl.style.top='';
-    if(sigPathEl.getTotalLength)sigPathEl.style.strokeDashoffset=sigPathEl.getTotalLength();
     /* CTA */
-    ctaEl.classList.remove('on');ctaEl.style.top='';ctaEl.style.bottom='';
+    ctaWrapEl.classList.remove('on');ctaWrapEl.style.top='';
     /* État */
     done=false;lastDippedPara=-1;isParked=false;
     targetTwY=0;twY=0;tw.style.transform='';
@@ -764,8 +747,8 @@
     const ie=inkwellEntry();tNibX=ie.x;tNibY=ie.y;qx=ie.x;qy=ie.y;placeQuill(qx,qy);
     /* Hint */
     hintEl.classList.remove('gone');hintEl.classList.add('vis');
-    subHintEl.classList.remove('gone');subHintEl.classList.add('vis');
-    btnTop.classList.remove('vis');
+    scrollHintEl.classList.remove('gone');scrollHintEl.classList.add('vis');
+    if(btnTop)btnTop.classList.remove('vis');
     updateProg(0);
   }
 
@@ -780,7 +763,7 @@
     if(quillReturnPending)return;quillReturnPending=true;
     clearTimeout(returnQuillTimer);
     returnQuillTimer=setTimeout(()=>{
-      if(virtualScroll<prevVirtual+2&&!isDipping&&!sigActive&&started)triggerDip(true);
+      if(virtualScroll<prevVirtual+2&&!isDipping&&started)triggerDip(true);
       quillReturnPending=false;
     },320);
   }
@@ -795,24 +778,27 @@
     const n=Math.round(curIdx);
 
     if(started){
-      syncChars(n);
-      updateStrikes(n);   /* ratures synchronisées avec la plume */
+      /* Quand done=true : texte gelé, on ne touche plus aux chars ni à la position */
+      if(!done){
+        syncChars(n);
+        updateStrikes(n);
+        updateTwPosition(n);
+        twY+=(targetTwY-twY)*TW_LERP;
+        tw.style.transform='translateY('+twY.toFixed(2)+'px)';
+      }
       updateProg(n);
-      updateTwPosition(n);
-      /* Bouton retour visible dès 10 % du parcours */
-      btnTop.classList.toggle('vis', virtualScroll > VIRT_DIST * 0.10);
-      if(scrollTarget>15){hintEl.classList.add('gone');}
+      if(btnTop)btnTop.classList.toggle('vis', virtualScroll > VIRT_DIST * 0.10);
+      if(scrollTarget>15){hintEl.classList.add('gone');scrollHintEl.classList.add('gone');}
+    } else {
+      twY+=(targetTwY-twY)*TW_LERP;
+      tw.style.transform='translateY('+twY.toFixed(2)+'px)';
     }
 
-    twY+=(targetTwY-twY)*TW_LERP;
-    tw.style.transform='translateY('+twY.toFixed(2)+'px)';
-
-    if(started){
+    if(started&&!done){
       if(n<=0){
         if(!isParked){quillEl.classList.remove('writing');quillEl.classList.add('resting');dotEl.classList.remove('vis','writing');isParked=true;}
         const ie=inkwellEntry();tNibX=ie.x;tNibY=ie.y;
-
-      }else if(n<total&&!done){
+      }else if(n<total){
         if(scrollingBack){
           quillEl.classList.remove('writing');dotEl.classList.remove('writing');
           isParked=false;
@@ -822,7 +808,7 @@
           lastDippedPara=Math.min(lastDippedPara,getParaIdx(n)-1);
         }else{
           quillReturnPending=false;clearTimeout(returnQuillTimer);isParked=false;
-          if(!isDipping&&!sigActive){
+          if(!isDipping){
             const np=getParaIdx(n);
             if(DIP_AT.indexOf(np)!==-1&&lastDippedPara<np){lastDippedPara=np;triggerDip(false);}
           }
@@ -834,23 +820,19 @@
           }
         }
         hintEl.classList.add('gone');
-      }else if(n>=total&&!done){
-        done=true;quillEl.classList.remove('writing');dotEl.classList.remove('writing');
-        setTimeout(startSignature,520);
+      }else if(n>=total){
+        /* Tout écrit — figer l'état */
+        done=true;
+        quillEl.classList.remove('writing');dotEl.classList.remove('writing');
+        const twR=tw.getBoundingClientRect();
+        ctaWrapEl.style.top=Math.round(Math.min(twR.bottom+32,window.innerHeight-120))+'px';
+        ctaWrapEl.classList.add('on');
+        const ie=inkwellEntry();tNibX=ie.x;tNibY=ie.y;
+        quillEl.classList.add('resting');isParked=true;
       }
-
-      if(done&&n<total){
-        done=false;
-        if(sigRafId){cancelAnimationFrame(sigRafId);sigRafId=null;}
-        sigActive=false;sigSvgEl.style.display='none';sigSvgEl.style.top='';
-        if(sigPathEl.getTotalLength)sigPathEl.style.strokeDashoffset=sigPathEl.getTotalLength();
-        ctaEl.classList.remove('on');ctaEl.style.top='';ctaEl.style.bottom='';
-        hintEl.classList.remove('gone');hintEl.classList.add('vis');
-        quillEl.classList.remove('resting');
-      }
-
-      qx+=(tNibX-qx)*NIB_LERP;qy+=(tNibY-qy)*NIB_LERP;placeQuill(qx,qy);
     }
+
+    if(started){qx+=(tNibX-qx)*NIB_LERP;qy+=(tNibY-qy)*NIB_LERP;placeQuill(qx,qy);}
 
     prevVirtual=virtualScroll;
     requestAnimationFrame(loop);
@@ -864,9 +846,10 @@
     setTimeout(()=>{inkwellEl.classList.add('vis');plblEl.classList.add('vis');progEl.classList.add('vis');},180);
     setTimeout(()=>{quillEl.classList.add('vis');quillEl.classList.add('dipping');},320);
     setTimeout(()=>{const ie2=inkwellEntry();spawnDrops(ie2.x,ie2.y+10,4,7);},680);
+    setTimeout(()=>{scrollHintEl.classList.add('vis');},200);
     setTimeout(()=>{
       quillEl.classList.remove('dipping');quillEl.classList.add('resting');isParked=true;
-      inkRule.classList.add('expanded');subHintEl.classList.add('vis');
+      inkRule.classList.add('expanded');
     },1380);
     setTimeout(()=>{hintEl.classList.add('vis');started=true;},1950);
   });
