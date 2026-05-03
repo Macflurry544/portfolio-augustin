@@ -23,111 +23,95 @@
   <link rel="stylesheet" href="assets/css/animations.css">
 
   <style>
-    /* ─── BASE ───────────────────────────────────────────────── */
-    body.page-about {
-      background: #FDFCF9;
-      overflow: hidden;      /* scroll virtuel : pas de défilement natif */
-      height: 100%;
-    }
+    /* BASE */
+    body.page-about { background:#FDFCF9; overflow:hidden; height:100%; }
 
-    /* ─── ENCRIER ────────────────────────────────────────────── */
-    /* Décalé plus bas (~2 pouces de plus que la version précédente) */
+    /* INKWELL */
     #inkwell {
-      position: fixed; top: 220px; left: 50%; transform: translateX(-50%);
-      z-index: 45; opacity: 0; transition: opacity .7s ease; pointer-events: none;
+      position:fixed; top:220px; left:50%; transform:translateX(-50%);
+      z-index:45; opacity:0; transition:opacity .7s ease; pointer-events:none;
     }
-    #inkwell.vis { opacity: 1; }
+    #inkwell.vis { opacity:1; }
 
-    /* ─── PHRASE ITALIQUE (au-dessus du séparateur) ──────────── */
+    /* PHRASE AU-DESSUS DU SÉPARATEUR */
     #sub-hint {
-      position: fixed; top: 283px; left: 50%; transform: translateX(-50%);
-      font-family: 'Playfair Display', Georgia, serif; font-style: italic;
-      font-size: .7rem; letter-spacing: .04em; color: rgba(30,26,20,.38);
-      white-space: nowrap; z-index: 44; opacity: 0; pointer-events: none;
-      transition: opacity 1s ease 1.6s;
+      position:fixed; top:283px; left:50%; transform:translateX(-50%);
+      font-family:'Playfair Display',Georgia,serif; font-style:italic;
+      font-size:.7rem; letter-spacing:.04em; color:rgba(30,26,20,.38);
+      white-space:nowrap; z-index:44; opacity:0; pointer-events:none;
+      transition:opacity 1s ease 1.6s;
     }
-    #sub-hint.vis  { opacity: 1; }
-    #sub-hint.gone { opacity: 0; transition: opacity .5s ease; }
+    #sub-hint.vis  { opacity:1; }
+    #sub-hint.gone { opacity:0; transition:opacity .5s ease; }
 
-    /* ─── SÉPARATEUR ─────────────────────────────────────────── */
+    /* SÉPARATEUR */
     #ink-rule {
-      position: fixed; top: 299px; left: 50%; transform: translateX(-50%);
-      height: 1px; width: 0; background: rgba(28,24,20,.10); z-index: 44;
-      transition: width 1.6s cubic-bezier(.22,1,.36,1) .6s;
+      position:fixed; top:299px; left:50%; transform:translateX(-50%);
+      height:1px; width:0; background:rgba(28,24,20,.10); z-index:44;
+      transition:width 1.6s cubic-bezier(.22,1,.36,1) .6s;
     }
-    #ink-rule.expanded { width: min(460px, 82vw); }
+    #ink-rule.expanded { width:min(460px,82vw); }
 
-    /* ─── STAGE ──────────────────────────────────────────────── */
-    /*
-      MASQUE BLANC : ::before de 374px de haut.
-      Blanc opaque sur 88 % (≈ 329px), puis fondu vers transparent.
-      329px > bas de l'encrier (220+56=276px) → le texte remontant
-      est systématiquement caché derrière ce masque.
-      Les éléments externes (encrier z-45, plume z-55) flottent
-      au-dessus de #stage (z-30) : toujours visibles.
-    */
+    /* STAGE — masque blanc couvrant la zone encrier/nav */
     #stage {
-      position: fixed; inset: 0;
-      display: flex; align-items: flex-start; justify-content: center;
-      padding: 360px 2.5rem 8rem;
-      z-index: 30; pointer-events: none; overflow: hidden;
+      position:fixed; inset:0;
+      display:flex; align-items:flex-start; justify-content:center;
+      padding:360px 2.5rem 8rem;
+      z-index:30; pointer-events:none; overflow:hidden;
     }
     #stage::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 374px;
-      background: linear-gradient(to bottom, #FDFCF9 0%, #FDFCF9 88%, transparent 100%);
-      pointer-events: none; z-index: 2;
+      content:''; position:absolute; top:0; left:0; right:0; height:374px;
+      background:linear-gradient(to bottom,#FDFCF9 0%,#FDFCF9 88%,transparent 100%);
+      pointer-events:none; z-index:2;
     }
     #stage::after {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 7rem;
-      background: linear-gradient(to bottom, transparent, #FDFCF9 72%);
-      pointer-events: none; z-index: 2;
+      content:''; position:absolute; bottom:0; left:0; right:0; height:7rem;
+      background:linear-gradient(to bottom,transparent,#FDFCF9 72%);
+      pointer-events:none; z-index:2;
     }
 
-    /* ─── TEXTE ──────────────────────────────────────────────── */
+    /* TEXTE */
     #tw {
-      max-width: 600px; width: 100%; text-align: center;
-      font-family: 'Playfair Display', 'Young Serif', Georgia, serif;
-      font-size: clamp(1.05rem, 1.85vw, 1.55rem); line-height: 1.88;
-      color: #1E1A14; font-style: italic;
-      will-change: transform; position: relative; z-index: 1;
+      max-width:600px; width:100%; text-align:center;
+      font-family:'Playfair Display','Young Serif',Georgia,serif;
+      font-size:clamp(1.05rem,1.85vw,1.55rem); line-height:1.88;
+      color:#1E1A14; font-style:italic;
+      will-change:transform; position:relative; z-index:1;
     }
-    #tw p { margin-top: 1.05em; }
-    #tw p:first-child { margin-top: 0; }
+    #tw p { margin-top:1.05em; }
+    #tw p:first-child { margin-top:0; }
 
-    /* CHARS — invisibles au départ */
-    .c   { color: #FDFCF9; transition: color .05s linear; }
-    .c.v { color: #1E1A14; }
-
-    /*
-      EFFACEMENT COMPLET au scroll-up :
-      encre qui se délave jusqu'à complète transparence,
-      avec un léger flou pendant la transition (effet dilution).
-    */
+    /* CHARS */
+    .c   { color:#FDFCF9; transition:color .05s linear; }
+    .c.v { color:#1E1A14; }
+    /* Effacement complet — encre qui se dissout entièrement */
     .c.trace {
-      color: #FDFCF9;                  /* totalement invisible = fond */
-      filter: blur(.6px);
-      transition: color .55s ease, filter .55s ease;
+      color:#FDFCF9;
+      filter:blur(.55px);
+      transition:color .5s ease, filter .5s ease;
     }
 
-    /* ─── RATURES ────────────────────────────────────────────── */
-    .sg-wrap  { display: inline-block; position: relative; vertical-align: baseline; }
-    .sg-inner { display: inline; }
-    .sk-svg   { position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 100%; height: 10px; overflow: visible; pointer-events: none; }
-    .sk-l1 { stroke:#1E1A14;stroke-width:1.5;stroke-dasharray:108;stroke-dashoffset:108; }
-    .sk-l2 { stroke:#1E1A14;stroke-width:.7;stroke-dasharray:108;stroke-dashoffset:108;opacity:.55; }
-    .sg-wrap.struck .sk-l1 { animation:sk-draw1 .76s cubic-bezier(.4,0,.2,1) .22s forwards; }
-    .sg-wrap.struck .sk-l2 { animation:sk-draw2 .52s cubic-bezier(.4,0,.2,1) .60s forwards; }
-    @keyframes sk-draw1{0%{stroke-dashoffset:108}40%{stroke-dashoffset:46}50%{stroke-dashoffset:44}100%{stroke-dashoffset:0}}
-    @keyframes sk-draw2{0%{stroke-dashoffset:108}100%{stroke-dashoffset:0}}
+    /* RATURES — contrôlées par JS, plus de CSS animation */
+    .sg-wrap  { display:inline-block; position:relative; vertical-align:baseline; }
+    .sg-inner { display:inline; }
+    .sk-svg   {
+      position:absolute; left:0; top:50%; transform:translateY(-50%);
+      width:100%; height:10px; overflow:visible; pointer-events:none;
+    }
+    .sk-l1 { stroke:#1E1A14; stroke-width:1.5; stroke-dasharray:108; stroke-dashoffset:108; }
+    .sk-l2 { stroke:#1E1A14; stroke-width:.7;  stroke-dasharray:108; stroke-dashoffset:108; opacity:.55; }
+    /* Pas de CSS animation : le strokeDashoffset est géré en JS,
+       synchronisé avec la position de la plume sur les lettres. */
 
-    /* ─── PLUME ──────────────────────────────────────────────── */
+    /* PLUME */
     #quill {
-      position: fixed; width: 56px; height: 172px; pointer-events: none;
-      z-index: 55; opacity: 0; transform-origin: 50% 98.3%; transform: rotate(-28deg);
-      transition: opacity .9s ease; will-change: left, top; overflow: visible;
+      position:fixed; pointer-events:none; z-index:55; opacity:0;
+      transform-origin:50% 98.3%; transform:rotate(-28deg);
+      transition:opacity .9s ease; will-change:left,top; overflow:visible;
     }
-    #quill.vis { opacity: 1; }
-    @keyframes qwob{
+    #quill.vis { opacity:1; }
+
+    @keyframes qwob {
       0%  {transform:rotate(-27.0deg) translateY(0.0px)}
       14% {transform:rotate(-30.5deg) translateY(0.4px)}
       28% {transform:rotate(-28.0deg) translateY(0.1px)}
@@ -137,144 +121,149 @@
       86% {transform:rotate(-27.5deg) translateY(0.0px)}
       100%{transform:rotate(-27.0deg) translateY(0.0px)}
     }
-    #quill.writing { animation: qwob 1.15s ease-in-out infinite; }
-    @keyframes qdip{
+    #quill.writing { animation:qwob 1.15s ease-in-out infinite; }
+
+    @keyframes qdip {
       0%  {transform:rotate(-28deg) translateY(0)}
       28% {transform:rotate(-25deg) translateY(15px)}
       55% {transform:rotate(-25deg) translateY(12px)}
       74% {transform:rotate(-27deg) translateY(5px)}
       100%{transform:rotate(-28deg) translateY(0)}
     }
-    #quill.dipping { animation: qdip 1.2s cubic-bezier(.4,0,.2,1) forwards; }
-    /* Plume au repos (rangée dans l'encrier, respiration douce) */
-    @keyframes qrest{
+    #quill.dipping { animation:qdip 1.2s cubic-bezier(.4,0,.2,1) forwards; }
+
+    @keyframes qrest {
       0%,100%{transform:rotate(-28deg) translateY(0)}
       50%    {transform:rotate(-29.5deg) translateY(1.5px)}
     }
-    #quill.resting { animation: qrest 3.2s ease-in-out infinite; }
+    #quill.resting { animation:qrest 3.2s ease-in-out infinite; }
+
     @keyframes flamme{0%{transform:scaleX(1) scaleY(1)}50%{transform:scaleX(.7) scaleY(1.35) translateY(-1px)}100%{transform:scaleX(1) scaleY(1)}}
     @keyframes encre-pulse{0%,72%,100%{opacity:0}42%,55%{opacity:.85}}
 
-    /* ─── DOT ────────────────────────────────────────────────── */
+    /* DOT */
     #dot{position:fixed;width:3px;height:3px;border-radius:50%;background:#1E1A14;transform:translate(-50%,-50%);pointer-events:none;z-index:56;left:-50px;top:-50px;opacity:0;transition:opacity .3s}
     #dot.vis{opacity:.55}
     @keyframes dblink{0%,44%{opacity:.55}50%,100%{opacity:0}}
     #dot.writing{animation:dblink 1s steps(1) infinite}
 
-    /* ─── DROPS ──────────────────────────────────────────────── */
+    /* DROPS */
     #drops-layer{position:fixed;inset:0;pointer-events:none;z-index:54;overflow:hidden}
     .ink-drop{position:absolute;border-radius:50%;background:#1C1610}
 
-    /* ─── SIGNATURE ──────────────────────────────────────────── */
+    /* SIGNATURE */
     #sig-svg{position:fixed;left:50%;transform:translateX(-50%);width:200px;height:62px;z-index:36;pointer-events:none;display:none;overflow:visible}
     #sig-path{fill:none;stroke:#1E1A14;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 
-    /* ─── CTA — carte mise en valeur ─────────────────────────── */
+    /* CTA — Liquid Glass */
     #cta {
-      position: fixed; left: 50%; transform: translateX(-50%);
-      opacity: 0; pointer-events: none;
-      transition: opacity 1.6s ease;
-      z-index: 38; white-space: nowrap;
+      position:fixed; left:50%; transform:translateX(-50%);
+      opacity:0; pointer-events:none;
+      transition:opacity 1.6s ease;
+      z-index:38; white-space:nowrap;
     }
-    #cta.on { opacity: 1; pointer-events: all; }
+    #cta.on { opacity:1; pointer-events:all; }
 
     .cta-card {
-      display: flex; flex-direction: column; align-items: center; gap: .55rem;
-      background: #1E1A14;
-      border: 1px solid rgba(176,132,90,.28);
-      padding: 1.7rem 3.2rem 1.5rem;
-      text-decoration: none;
-      min-width: 240px;
-      position: relative;
-      transition: transform .45s cubic-bezier(.22,1,.36,1),
-                  box-shadow .45s ease,
-                  border-color .45s ease;
+      display:flex; flex-direction:column; align-items:center; gap:.55rem;
+      /* Liquid glass sur fond clair */
+      background:rgba(253,252,249,.62);
+      backdrop-filter:blur(22px) saturate(1.35);
+      -webkit-backdrop-filter:blur(22px) saturate(1.35);
+      border:1px solid rgba(30,26,20,.13);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.88),
+        inset 0 -1px 0 rgba(30,26,20,.05),
+        0 6px 28px rgba(30,26,20,.08),
+        0 1px 4px rgba(30,26,20,.06);
+      padding:1.7rem 3.2rem 1.5rem;
+      text-decoration:none; min-width:240px; position:relative;
+      transition:transform .45s cubic-bezier(.22,1,.36,1),
+                 box-shadow .45s ease, border-color .45s ease;
     }
     .cta-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 48px rgba(28,22,14,.38);
-      border-color: rgba(176,132,90,.55);
+      transform:translateY(-4px);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.9),
+                 0 16px 48px rgba(30,26,20,.12),
+                 0 2px 8px rgba(30,26,20,.08);
+      border-color:rgba(176,132,90,.4);
     }
-    /* Filet doré ornemental en haut et en bas de la carte */
-    .cta-ornament {
-      display: block;
-      width: 100%;
-    }
+    .cta-ornament { display:block; width:100%; }
     .cta-card-label {
-      font-family: 'Bitter', serif; font-size: .68rem;
-      letter-spacing: .34em; text-transform: uppercase;
-      color: #FDFCF9; margin: .1rem 0;
+      font-family:'Bitter',serif; font-size:.68rem;
+      letter-spacing:.34em; text-transform:uppercase;
+      color:#1E1A14; margin:.1rem 0;
     }
     .cta-card-sub {
-      font-family: 'Playfair Display', serif; font-style: italic;
-      font-size: .6rem; letter-spacing: .18em;
-      color: rgba(253,252,249,.42);
+      font-family:'Playfair Display',serif; font-style:italic;
+      font-size:.6rem; letter-spacing:.18em; color:rgba(30,26,20,.5);
     }
-    .cta-arrow-wrap { margin-top: .2rem; }
+    .cta-arrow-wrap { margin-top:.2rem; }
 
-    /* ─── PAGE LABEL ─────────────────────────────────────────── */
+    /* BOUTON RETOUR EN HAUT */
+    #btn-top {
+      position:fixed; bottom:2rem; right:2rem;
+      width:38px; height:38px; border-radius:50%;
+      background:rgba(253,252,249,.55);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+      border:1px solid rgba(30,26,20,.14);
+      box-shadow:0 2px 12px rgba(30,26,20,.08);
+      cursor:pointer; color:rgba(30,26,20,.52);
+      display:flex; align-items:center; justify-content:center;
+      opacity:0; pointer-events:none;
+      transition:opacity .4s ease, transform .3s ease, background .3s ease;
+      z-index:25;
+    }
+    #btn-top.vis { opacity:1; pointer-events:all; }
+    #btn-top:hover { background:rgba(253,252,249,.8); transform:translateY(-2px); color:rgba(30,26,20,.8); }
+
+    /* PAGE LABEL */
     #plbl{position:fixed;top:1.5rem;right:2rem;font-family:'Bitter',serif;font-size:.52rem;letter-spacing:.36em;text-transform:uppercase;color:rgba(30,26,20,.22);white-space:nowrap;z-index:20;opacity:0;transition:opacity .9s ease}
     #plbl.vis{opacity:1}
 
-    /* ─── PROGRESS ───────────────────────────────────────────── */
+    /* PROGRESS */
     #prog{position:fixed;left:1.8rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:7px;z-index:20;opacity:0;transition:opacity .9s ease}
     #prog.vis{opacity:1}
-    .pd{width:3px;height:3px;border-radius:50%;background:rgba(30,26,20,.14);transition:background .4s ease,transform .4s ease}
+    .pd{width:3px;height:3px;border-radius:50%;background:rgba(30,26,20,.14);transition:background .4s,transform .4s}
     .pd.on{background:rgba(30,26,20,.52);transform:scale(1.3)}
 
-    /* ─── SCROLL HINT (plus visible) ────────────────────────── */
+    /* SCROLL HINT — plus visible */
     #hint {
-      position: fixed; bottom: 3rem; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: .65rem;
-      z-index: 20; opacity: 0; pointer-events: none; transition: opacity .6s ease;
+      position:fixed; bottom:3rem; left:50%; transform:translateX(-50%);
+      display:flex; flex-direction:column; align-items:center; gap:.6rem;
+      z-index:20; opacity:0; pointer-events:none; transition:opacity .6s ease;
     }
-    #hint.vis  { opacity: 1; }
-    #hint.gone { display: none; }
-
-    /* Texte agrandi et bien visible */
+    #hint.vis  { opacity:1; }
+    #hint.gone { display:none; }
     .hint-label {
-      font-family: 'Playfair Display', Georgia, serif; font-style: italic;
-      font-size: .88rem;           /* 63 % plus grand qu'avant */
-      letter-spacing: .12em;
-      color: rgba(30,26,20,.58);   /* plus sombre */
-      white-space: nowrap;
+      font-family:'Playfair Display',Georgia,serif; font-style:italic;
+      font-size:.88rem; letter-spacing:.12em; color:rgba(30,26,20,.58);
+      white-space:nowrap;
     }
-    .hint-line {
-      width: 1px; height: 36px;
-      background: linear-gradient(to bottom, rgba(30,26,20,.35), transparent);
-    }
-    /* Flèche SVG animée sous le texte */
-    .hint-arrow {
-      animation: hint-bob 2.2s ease-in-out infinite;
-    }
-    @keyframes hint-bob{
-      0%,100%{transform:translateY(0)}
-      50%    {transform:translateY(5px)}
-    }
-    @keyframes hpulse{
-      0%,100%{opacity:.45;transform:translateX(-50%) translateY(0)}
-      50%    {opacity:1;  transform:translateX(-50%) translateY(-4px)}
-    }
-    #hint.vis { animation: hpulse 2.8s ease-in-out 1s infinite; }
+    .hint-arrow { display:block; }
+    @keyframes hint-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+    .hint-arrow { animation:hint-bob 2.2s ease-in-out infinite; }
+    @keyframes hpulse{0%,100%{opacity:.45;transform:translateX(-50%) translateY(0)}50%{opacity:1;transform:translateX(-50%) translateY(-3px)}}
+    #hint.vis { animation:hpulse 2.8s ease-in-out 1s infinite; }
 
-    /* ─── BLOTS ──────────────────────────────────────────────── */
+    /* BLOTS */
     .ink-blot{position:fixed;pointer-events:none;z-index:3;overflow:visible}
+    body.page-about .site-footer{display:none}
 
-    body.page-about .site-footer { display: none; }
-
-    /* ─── RESPONSIVE ─────────────────────────────────────────── */
-    @media (max-width:680px){
-      #inkwell  { top: 140px; }
-      #sub-hint { top: 202px; }
-      #ink-rule { top: 218px; }
-      #stage    { padding: 274px 1.5rem 7rem; }
-      #stage::before { height: 286px; }
-      #tw       { font-size: clamp(.98rem,5vw,1.22rem); line-height:1.78; }
-      #quill    { width: 44px; height: 136px; }
-      #prog,#plbl { display:none; }
-      .cta-card { padding: 1.3rem 2rem 1.2rem; min-width:200px; }
+    /* RESPONSIVE */
+    @media(max-width:680px){
+      #inkwell  { top:140px; }
+      #sub-hint { top:202px; }
+      #ink-rule { top:218px; }
+      #stage    { padding:274px 1.4rem 7rem; }
+      #stage::before { height:286px; }
+      #tw       { font-size:clamp(.95rem,5vw,1.18rem); line-height:1.76; }
+      #plbl,#prog { display:none; }
+      .cta-card { padding:1.2rem 1.8rem 1.1rem; min-width:180px; }
+      #btn-top  { bottom:1.2rem; right:1.2rem; width:34px; height:34px; }
     }
-    @media (max-width:380px){ #stage { padding:262px 1.2rem 6rem; } }
+    @media(max-width:380px){ #stage { padding:262px 1rem 6rem; } }
   </style>
 </head>
 <body class="page-about">
@@ -316,7 +305,7 @@
     </nav>
   </div>
 
-  <!-- Taches d'encre décoratives -->
+  <!-- Taches d'encre -->
   <svg class="ink-blot" aria-hidden="true" style="left:1%;bottom:18%;width:110px;height:72px;opacity:.055;" viewBox="0 0 110 72">
     <defs><filter id="ib1"><feTurbulence type="turbulence" baseFrequency=".04 .06" numOctaves="4" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="6" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="1.2"/></filter></defs>
     <ellipse cx="42" cy="34" rx="34" ry="20" fill="#1C1610" filter="url(#ib1)"/>
@@ -377,8 +366,8 @@
     </div>
   </main>
 
-  <!-- PLUME GOTHIQUE -->
-  <svg id="quill" viewBox="-40 -210 80 245" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <!-- PLUME — dimensionnée dynamiquement par JS (responsive) -->
+  <svg id="quill" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <defs>
       <linearGradient id="qbd1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#2a2030"/><stop offset="50%" stop-color="#1a1225"/><stop offset="100%" stop-color="#0d0910"/></linearGradient>
       <linearGradient id="qbd2" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#38284a"/><stop offset="60%" stop-color="#241830"/><stop offset="100%" stop-color="#100a18"/></linearGradient>
@@ -396,8 +385,6 @@
     <path d="M  4 -20 C 18 -48,30 -80,32 -112 C 33 -128,26 -140,18 -131 C 10 -118,6 -94,6 -66 C 6 -46,4 -30,4 -20Z" fill="#1a1028" opacity=".42"/>
     <path d="M -8 -45 C -20 -68,-28 -95,-26 -120 C -22 -135,-14 -140,-8 -128 C -2 -114,0 -90,-2 -65Z" fill="#2a1840" opacity=".35"/>
     <path d="M  8 -43 C 20 -66,28 -93,26 -118 C 22 -133,14 -138,8 -126 C 2 -112,0 -88,2 -63Z" fill="#1e1030" opacity=".32"/>
-    <path d="M -14 -70 C -22 -88,-26 -108,-22 -124 C -18 -134,-10 -138,-6 -126 C -2 -114,0 -94,-4 -76Z" fill="#20103a" opacity=".28"/>
-    <path d="M  14 -68 C 22 -86,26 -106,22 -122 C 18 -132,10 -136,6 -124 C 2 -112,0 -92,4 -74Z" fill="#180c2c" opacity=".25"/>
     <path d="M -18 -110 C -20 -125,-18 -140,-12 -150 C -8 -158,-2 -155,0 -145 C 2 -155,8 -158,12 -150 C 18 -140,20 -125,18 -110 C 10 -118,0 -122,-18 -110Z" fill="#150a20" opacity=".9"/>
     <path d="M -3 -168 C -8 -178,-6 -192,0 -200 C 6 -192,8 -178,3 -168Z" fill="#0d0818" opacity=".95"/>
     <line x1="-1" y1="-165" x2="1" y2="-198" stroke="#4a2870" stroke-width=".5" opacity=".6"/>
@@ -415,7 +402,7 @@
   <div id="plbl" aria-hidden="true">À propos · Augustin Fleury</div>
   <div id="prog" aria-hidden="true"></div>
 
-  <!-- HINT — plus grand, avec flèche SVG animée -->
+  <!-- HINT -->
   <div id="hint" role="note">
     <span class="hint-label">Défiler pour lire</span>
     <svg class="hint-arrow" width="16" height="22" viewBox="0 0 16 22" fill="none" aria-hidden="true">
@@ -428,28 +415,22 @@
     <path id="sig-path" d="M12,44 C14,30 18,8 22,14 C26,20 23,34 17,40 C15,44 12,48 12,48 C18,45 25,38 29,36 C31,25 34,25 38,25 C42,25 43,36 45,40 C49,40 51,25 55,25 C59,25 59,36 57,45 C55,54 51,56 47,52 C51,44 57,40 61,37 C63,27 66,26 70,27 C74,28 74,38 76,42 C80,41 83,31 80,23 C77,15 81,10 85,18 C89,26 87,38 83,43 C85,35 86,8 88,9 C90,10 89,26 87,44 C91,40 91,26 95,26 C99,26 99,37 102,29 C105,21 107,31 107,44 C114,44 128,38 142,50 C146,56 142,62 132,57"/>
   </svg>
 
-  <!-- CTA — carte mise en valeur -->
+  <!-- CTA — Liquid Glass -->
   <div id="cta">
     <a href="contact.html" class="cta-card" aria-label="Me contacter pour travailler ensemble">
-      <!-- Filet ornemental haut -->
       <svg class="cta-ornament" height="14" viewBox="0 0 200 14" fill="none" aria-hidden="true">
         <line x1="0" y1="7" x2="82" y2="7" stroke="#B0845A" stroke-width=".7" opacity=".5"/>
         <path d="M91,7 L96,2 L101,7 L96,12 Z" fill="none" stroke="#B0845A" stroke-width=".7" opacity=".75"/>
         <line x1="110" y1="7" x2="200" y2="7" stroke="#B0845A" stroke-width=".7" opacity=".5"/>
       </svg>
-
       <span class="cta-card-label">Travailler ensemble</span>
       <span class="cta-card-sub">Nancy · Paris</span>
-
-      <!-- Flèche ambrée -->
       <div class="cta-arrow-wrap">
         <svg width="40" height="10" viewBox="0 0 40 10" fill="none" aria-hidden="true">
           <line x1="0" y1="5" x2="34" y2="5" stroke="#B0845A" stroke-width="1"/>
           <polyline points="28,1 34,5 28,9" fill="none" stroke="#B0845A" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
         </svg>
       </div>
-
-      <!-- Filet ornemental bas -->
       <svg class="cta-ornament" height="14" viewBox="0 0 200 14" fill="none" aria-hidden="true">
         <line x1="0" y1="7" x2="82" y2="7" stroke="#B0845A" stroke-width=".7" opacity=".5"/>
         <path d="M91,7 L96,2 L101,7 L96,12 Z" fill="none" stroke="#B0845A" stroke-width=".7" opacity=".75"/>
@@ -458,6 +439,14 @@
     </a>
   </div>
 
+  <!-- BOUTON RETOUR EN HAUT -->
+  <button id="btn-top" aria-label="Recommencer depuis le début" title="Recommencer">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="8" y1="13" x2="8" y2="3"/>
+      <polyline points="4,7 8,3 12,7"/>
+    </svg>
+  </button>
+
   <script src="assets/js/scroll.js" defer></script>
   <script src="assets/js/transitions.js" defer></script>
   <script src="assets/js/liquid-glass.js" defer></script>
@@ -465,62 +454,54 @@
   <script>
   'use strict';
 
-  /* ═══════════════════════════════════════════════════════════
-     SCROLL VIRTUEL — anti-scroll-rapide
-     Prend le contrôle complet de la molette, de la touche
-     clavier et du touch. La vitesse est plafonnée par
-     MAX_WHEEL_STEP et lissée par SCROLL_LERP.
-     Plus de window.scrollY — pas de conflit avec la hauteur
-     du body ou la restauration de scroll du navigateur.
-  ═══════════════════════════════════════════════════════════ */
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   window.scrollTo(0, 0);
 
-  const VIRT_DIST     = 6400; /* distance virtuelle totale */
-  const WHEEL_FACTOR  = 0.38; /* atténuation de la molette */
-  const MAX_WHEEL_STEP= 78;   /* plafond par événement wheel (px virtuels) */
-  const SCROLL_LERP   = 0.068;/* lissage position virtuelle */
+  /* ═══ SCROLL VIRTUEL ══════════════════════════════════════════
+     Molette : bloquée pendant isDipping.
+     Vitesse plafonnée par MAX_WHEEL_STEP.
+  ════════════════════════════════════════════════════════════ */
+  const VIRT_DIST      = 6400;
+  const WHEEL_FACTOR   = 0.38;
+  const MAX_WHEEL_STEP = 78;
+  const SCROLL_LERP    = 0.068;
 
   let scrollTarget  = 0;
   let virtualScroll = 0;
   let prevVirtual   = 0;
 
-  /* Molette */
+  function canScroll() { return !isDipping; }
+
   window.addEventListener('wheel', e => {
     e.preventDefault();
-    const step = Math.sign(e.deltaY) *
-                 Math.min(Math.abs(e.deltaY) * WHEEL_FACTOR, MAX_WHEEL_STEP);
+    if (!canScroll()) return;
+    const step = Math.sign(e.deltaY) * Math.min(Math.abs(e.deltaY) * WHEEL_FACTOR, MAX_WHEEL_STEP);
     scrollTarget = Math.max(0, Math.min(VIRT_DIST, scrollTarget + step));
   }, { passive: false });
 
-  /* Clavier */
   window.addEventListener('keydown', e => {
     const STEP = 130;
-    if ([' ', 'ArrowDown', 'PageDown'].includes(e.key)) {
-      e.preventDefault(); scrollTarget = Math.min(VIRT_DIST, scrollTarget + STEP);
-    } else if (['ArrowUp', 'PageUp'].includes(e.key)) {
-      e.preventDefault(); scrollTarget = Math.max(0, scrollTarget - STEP);
-    } else if (e.key === 'Home') {
-      e.preventDefault(); scrollTarget = 0;
-    } else if (e.key === 'End') {
-      e.preventDefault(); scrollTarget = VIRT_DIST;
-    }
+    if ([' ','ArrowDown','PageDown'].includes(e.key)) {
+      e.preventDefault();
+      if (canScroll()) scrollTarget = Math.min(VIRT_DIST, scrollTarget + STEP);
+    } else if (['ArrowUp','PageUp'].includes(e.key)) {
+      e.preventDefault();
+      if (canScroll()) scrollTarget = Math.max(0, scrollTarget - STEP);
+    } else if (e.key === 'Home') { e.preventDefault(); scrollTarget = 0; }
+    else if (e.key === 'End')   { e.preventDefault(); scrollTarget = VIRT_DIST; }
   });
 
-  /* Touch */
   let touchY0 = null;
   window.addEventListener('touchstart', e => { touchY0 = e.touches[0].clientY; }, { passive: true });
   window.addEventListener('touchmove', e => {
-    if (touchY0 === null) return;
+    if (touchY0 === null || !canScroll()) return;
     const dy = (touchY0 - e.touches[0].clientY) * 1.15;
     touchY0 = e.touches[0].clientY;
     scrollTarget = Math.max(0, Math.min(VIRT_DIST, scrollTarget + dy));
   }, { passive: true });
   window.addEventListener('touchend', () => { touchY0 = null; }, { passive: true });
 
-  /* ═══════════════════════════════════════════════════════════
-     CONTENU
-  ═══════════════════════════════════════════════════════════ */
+  /* ═══ CONTENU ════════════════════════════════════════════ */
   const PARAGRAPHS = [
     {lines:[[{t:'tx',v:'Je suis photographe\u00a0\u2014\u00a0'},{t:'sk',v:'quelqu\u2019un qui d\u00e9clenche au hasard',id:'s0'},{t:'tx',v:'. Quelqu\u2019un qui choisit.'}]]},
     {lines:[[{t:'tx',v:'Quelqu\u2019un qui attend\u00a0\u2014\u00a0'},{t:'sk',v:'quelqu\u2019un qui force les choses',id:'s1'},{t:'tx',v:'.'}],[{t:'tx',v:'Que la lumi\u00e8re, le sujet et le moment coexistent.'}]]},
@@ -539,7 +520,7 @@
     {lines:[[{t:'tx',v:'Je cherche\u00a0\u2014\u00a0'},{t:'sk',v:'la perfection',id:'s14'},{t:'tx',v:'. Tout ce que je peux faire avec justesse.'}]]}
   ];
 
-  /* ─── BUILD DOM ─────────────────────────────────────────── */
+  /* ═══ BUILD DOM ═════════════════════════════════════════ */
   const tw=document.getElementById('tw'),spans=[],triggers=[];
   let total=0;
   const paraCharEnds=[];
@@ -555,13 +536,15 @@
         }else{
           const w=document.createElement('span');w.className='sg-wrap';w.id=seg.id;
           const inn=document.createElement('span');inn.className='sg-inner';
+          const wordStart=total; /* index du premier char du mot barré */
           for(const ch of seg.v){const s=document.createElement('span');s.className='c';s.textContent=ch;inn.appendChild(s);spans.push(s);total++;}
           w.appendChild(inn);
+          /* SVG rature — dashoffset contrôlé en JS (synchronisé avec la plume) */
           const sv=document.createElementNS(NS,'svg');sv.setAttribute('class','sk-svg');sv.setAttribute('viewBox','0 0 100 10');sv.setAttribute('preserveAspectRatio','none');sv.setAttribute('aria-hidden','true');
           const l1=document.createElementNS(NS,'path');l1.setAttribute('class','sk-l1');l1.setAttribute('d','M1,5 C18,3 38,6.5 52,4 C66,1.5 82,5.8 99,4.2');l1.setAttribute('fill','none');l1.setAttribute('stroke-linecap','round');
           const l2=document.createElementNS(NS,'path');l2.setAttribute('class','sk-l2');l2.setAttribute('d','M2,5.8 C22,7.2 42,3.2 62,5.5 C78,7.2 93,3.5 98,5.2');l2.setAttribute('fill','none');l2.setAttribute('stroke-linecap','round');
           sv.appendChild(l1);sv.appendChild(l2);w.appendChild(sv);p.appendChild(w);
-          triggers.push({at:total-1,id:seg.id});
+          triggers.push({startAt:wordStart, at:total-1, id:seg.id});
         }
       });
     });
@@ -571,20 +554,51 @@
   const progEl=document.getElementById('prog');
   PARAGRAPHS.forEach((_,i)=>{const d=document.createElement('div');d.className='pd';d.id='pd'+i;progEl.appendChild(d);});
 
-  /* ─── REFS ──────────────────────────────────────────────── */
-  const quillEl=document.getElementById('quill'),dotEl=document.getElementById('dot'),
-        inkwellEl=document.getElementById('inkwell'),inkRule=document.getElementById('ink-rule'),
-        subHintEl=document.getElementById('sub-hint'),hintEl=document.getElementById('hint'),
-        ctaEl=document.getElementById('cta'),plblEl=document.getElementById('plbl'),
-        sigSvgEl=document.getElementById('sig-svg'),sigPathEl=document.getElementById('sig-path'),
-        dropsLayer=document.getElementById('drops-layer');
+  /* ═══ REFS ══════════════════════════════════════════════ */
+  const quillEl   =document.getElementById('quill'),
+        dotEl     =document.getElementById('dot'),
+        inkwellEl =document.getElementById('inkwell'),
+        inkRule   =document.getElementById('ink-rule'),
+        subHintEl =document.getElementById('sub-hint'),
+        hintEl    =document.getElementById('hint'),
+        ctaEl     =document.getElementById('cta'),
+        plblEl    =document.getElementById('plbl'),
+        sigSvgEl  =document.getElementById('sig-svg'),
+        sigPathEl =document.getElementById('sig-path'),
+        dropsLayer=document.getElementById('drops-layer'),
+        btnTop    =document.getElementById('btn-top');
 
-  const NIB_X=28,NIB_Y=169;
+  /* ═══ PLUME — géométrie responsive ══════════════════════
+     FIX RESPONSIVE : NIB_X/NIB_Y calculés selon la taille
+     réelle de l'élément SVG (redimensionné en CSS).
+  ════════════════════════════════════════════════════════ */
+  function applyQuillSize(){
+    const mobile = window.innerWidth <= 680;
+    const w = mobile ? 44 : 56;
+    const h = mobile ? 136 : 172;
+    quillEl.setAttribute('viewBox','-40 -210 80 245');
+    quillEl.style.width  = w + 'px';
+    quillEl.style.height = h + 'px';
+  }
+  applyQuillSize();
+
+  function getNib(){
+    const r = quillEl.getBoundingClientRect();
+    return { x: r.width * 0.5, y: r.height * 0.983 };
+  }
+
   function inkwellEntry(){const r=inkwellEl.getBoundingClientRect();return{x:r.left+r.width*.5,y:r.top+r.height*.28};}
-  let qx=0,qy=0;
-  function placeQuill(nx,ny){quillEl.style.left=(nx-NIB_X)+'px';quillEl.style.top=(ny-NIB_Y)+'px';dotEl.style.left=nx+'px';dotEl.style.top=ny+'px';}
 
-  /* ─── DROPS ─────────────────────────────────────────────── */
+  let qx=0,qy=0;
+  function placeQuill(nx,ny){
+    const nib=getNib();
+    quillEl.style.left=(nx-nib.x)+'px';
+    quillEl.style.top =(ny-nib.y)+'px';
+    dotEl.style.left  =nx+'px';
+    dotEl.style.top   =ny+'px';
+  }
+
+  /* ═══ DROPS ══════════════════════════════════════════════ */
   function spawnDrops(x,y,count,spread){
     spread=spread||8;
     for(let i=0;i<count;i++){
@@ -599,7 +613,7 @@
     }
   }
 
-  /* ─── DIPPING ────────────────────────────────────────────── */
+  /* ═══ DIPPING ════════════════════════════════════════════ */
   let isDipping=false,lastDippedPara=-1,isParked=false;
   const DIP_AT=[3,7,11];
   function getParaIdx(n){for(let i=0;i<paraCharEnds.length;i++)if(n<=paraCharEnds[i])return i;return paraCharEnds.length;}
@@ -610,41 +624,40 @@
     quillEl.classList.add('dipping');
     quillEl.classList.remove('writing','resting');
     dotEl.classList.remove('vis','writing');
-    setTimeout(()=>spawnDrops(ie.x,ie.y+10,isReturn?2:3,5),360);
-    setTimeout(()=>spawnDrops(ie.x,ie.y+4,2,3),500);
+    /* Scroll bloqué pendant isDipping (voir canScroll()) */
+    setTimeout(()=>spawnDrops(ie.x,ie.y+10,3,5),360);
+    setTimeout(()=>spawnDrops(ie.x,ie.y+4, 2,3),500);
     setTimeout(()=>{
       quillEl.classList.remove('dipping');
       isDipping=false;
-      /* Si c'est un retour (scroll-up terminé), rester au repos */
       if(isReturn){quillEl.classList.add('resting');isParked=true;}
     },1250);
   }
 
-  /* ─── WRITING DROPS ──────────────────────────────────────── */
+  /* ═══ DROPS D'ÉCRITURE ═══════════════════════════════════ */
   let wdc=0;
   function maybeWriteDrop(n){
     if(++wdc<32)return;wdc=0;
     const wp=writingPos(n);if(wp)spawnDrops(wp.x,wp.y+1,1,3);
   }
 
-  /* ─── VIEWPORT TRACKING ──────────────────────────────────── */
+  /* ═══ VIEWPORT TRACKING ══════════════════════════════════ */
   let twY=0,targetTwY=0;
   const TW_LERP=.042,WRITE_ZONE=.56;
 
   function updateTwPosition(n){
     if(n<=0){targetTwY=0;return;}
     if(n>=total)return;
-    const wp=writingPos(Math.min(n,spans.length-1));
-    if(!wp)return;
-    const zoneY=window.innerHeight*WRITE_ZONE;
-    if(wp.y>zoneY)     { targetTwY=Math.min(0,zoneY-(wp.y-twY)); }
-    else if(wp.y<zoneY*.35&&targetTwY<0){ targetTwY=Math.min(0,zoneY-(wp.y-twY)); }
+    const wp=writingPos(Math.min(n,spans.length-1));if(!wp)return;
+    const zY=window.innerHeight*WRITE_ZONE;
+    if(wp.y>zY)              targetTwY=Math.min(0,zY-(wp.y-twY));
+    else if(wp.y<zY*.35&&targetTwY<0) targetTwY=Math.min(0,zY-(wp.y-twY));
   }
 
-  /* ─── INDEX ──────────────────────────────────────────────── */
+  /* ═══ INDEX ══════════════════════════════════════════════ */
   function targetIdx(){return(virtualScroll/VIRT_DIST)*total;}
 
-  /* ─── SYNC CHARS ─────────────────────────────────────────── */
+  /* ═══ SYNC CHARS ══════════════════════════════════════════ */
   let revN=0;
   function syncChars(n){
     if(n>revN){for(let i=revN;i<n&&i<spans.length;i++){spans[i].classList.add('v');spans[i].classList.remove('trace');}}
@@ -652,17 +665,38 @@
     revN=Math.max(0,Math.min(n,spans.length));
   }
 
-  /* ─── TRIGGERS ───────────────────────────────────────────── */
-  const fired=new Set();
-  function checkTriggers(n){
-    triggers.forEach((tr,i)=>{
+  /* ═══ RATURES — LA PLUME BARRE LES MOTS ════════════════════
+     Le strokeDashoffset est mis à jour à chaque frame,
+     proportionnellement au nombre de caractères du mot barré
+     déjà révélés. Ainsi la ligne se dessine PENDANT que la
+     plume écrit chaque lettre du mot — pas après.
+  ═══════════════════════════════════════════════════════════ */
+  function updateStrikes(n){
+    triggers.forEach(tr=>{
       const el=document.getElementById(tr.id);if(!el)return;
-      if(n>tr.at){if(!fired.has(i)){fired.add(i);setTimeout(()=>el.classList.add('struck'),260);}}
-      else{if(fired.has(i)){fired.delete(i);el.classList.remove('struck');}}
+      const l1=el.querySelector('.sk-l1');
+      const l2=el.querySelector('.sk-l2');
+
+      if(n>tr.at){
+        /* Mot entièrement écrit et passé : rature complète */
+        if(l1)l1.style.strokeDashoffset='0';
+        if(l2)l2.style.strokeDashoffset='0';
+      }else if(n>=tr.startAt){
+        /* La plume est en train d'écrire ce mot */
+        const wordLen=Math.max(1,tr.at-tr.startAt);
+        const progress=(n-tr.startAt)/wordLen; /* 0→1 */
+        if(l1)l1.style.strokeDashoffset=String(108*(1-progress));
+        /* Deuxième trait légèrement décalé */
+        if(l2)l2.style.strokeDashoffset=String(108*(1-Math.max(0,progress-.28)/.72));
+      }else{
+        /* Mot pas encore atteint : rature effacée */
+        if(l1)l1.style.strokeDashoffset='108';
+        if(l2)l2.style.strokeDashoffset='108';
+      }
     });
   }
 
-  /* ─── WRITING POSITION ───────────────────────────────────── */
+  /* ═══ POSITION D'ÉCRITURE ════════════════════════════════ */
   function writingPos(n){
     const i=Math.min(n,spans.length-1);if(i<0)return null;
     const r=spans[i].getBoundingClientRect();
@@ -673,7 +707,7 @@
 
   function updateProg(n){paraCharEnds.forEach((end,i)=>{const d=document.getElementById('pd'+i);if(d)d.classList.toggle('on',n>=end);});}
 
-  /* ─── SIGNATURE ──────────────────────────────────────────── */
+  /* ═══ SIGNATURE ═══════════════════════════════════════════ */
   let sigActive=false,sigRafId=null;
   function startSignature(){
     const twR=tw.getBoundingClientRect();
@@ -696,7 +730,7 @@
           const sr=sigSvgEl.getBoundingClientRect();
           ctaEl.style.top=(sr.bottom+20)+'px';ctaEl.style.bottom='auto';
           const ie=inkwellEntry();tNibX=ie.x;tNibY=ie.y;
-          quillEl.classList.remove('writing');quillEl.classList.add('resting');
+          quillEl.classList.remove('writing');quillEl.classList.add('resting');isParked=true;
           setTimeout(()=>ctaEl.classList.add('on'),900);
         }
       }
@@ -704,34 +738,57 @@
     },480);
   }
 
-  /* ─── MAIN LOOP ──────────────────────────────────────────── */
+  /* ═══ RESET COMPLET ═══════════════════════════════════════ */
+  function resetAll(){
+    scrollTarget=0;virtualScroll=0;prevVirtual=0;curIdx=0;
+    /* Chars → tous invisibles instantanément */
+    for(const s of spans)s.classList.remove('v','trace');
+    revN=0;
+    /* Ratures */
+    triggers.forEach(tr=>{
+      const el=document.getElementById(tr.id);if(!el)return;
+      const l1=el.querySelector('.sk-l1');const l2=el.querySelector('.sk-l2');
+      if(l1)l1.style.strokeDashoffset='108';if(l2)l2.style.strokeDashoffset='108';
+    });
+    /* Signature */
+    if(sigRafId){cancelAnimationFrame(sigRafId);sigRafId=null;}
+    sigActive=false;sigSvgEl.style.display='none';sigSvgEl.style.top='';
+    if(sigPathEl.getTotalLength)sigPathEl.style.strokeDashoffset=sigPathEl.getTotalLength();
+    /* CTA */
+    ctaEl.classList.remove('on');ctaEl.style.top='';ctaEl.style.bottom='';
+    /* État */
+    done=false;lastDippedPara=-1;isParked=false;
+    targetTwY=0;twY=0;tw.style.transform='';
+    /* Plume */
+    quillEl.classList.remove('writing');quillEl.classList.add('resting');isParked=true;
+    const ie=inkwellEntry();tNibX=ie.x;tNibY=ie.y;qx=ie.x;qy=ie.y;placeQuill(qx,qy);
+    /* Hint */
+    hintEl.classList.remove('gone');hintEl.classList.add('vis');
+    subHintEl.classList.remove('gone');subHintEl.classList.add('vis');
+    btnTop.classList.remove('vis');
+    updateProg(0);
+  }
+
+  btnTop.addEventListener('click', resetAll);
+
+  /* ═══ MAIN LOOP ═══════════════════════════════════════════ */
   let curIdx=0,tNibX=0,tNibY=0,done=false,started=false;
+  const IDX_LERP=.072,NIB_LERP=.18;
 
-  /* Fluidité : IDX_LERP réduit = transitions plus douces */
-  const IDX_LERP=0.072;
-  const NIB_LERP=0.18;
-
-  /* Gestion du retour plume à l'encrier */
-  let returnQuillTimer=null;
-  let quillReturnPending=false;
-
+  let returnQuillTimer=null,quillReturnPending=false;
   function scheduleQuillReturn(){
-    if(quillReturnPending)return;
-    quillReturnPending=true;
+    if(quillReturnPending)return;quillReturnPending=true;
     clearTimeout(returnQuillTimer);
     returnQuillTimer=setTimeout(()=>{
-      /* Si on est toujours en scroll-up après 300ms, lancer le retour */
-      if(virtualScroll<prevVirtual+2&&!isDipping&&!sigActive&&started){
-        triggerDip(true);/* retour encrier avec animation */
-      }
+      if(virtualScroll<prevVirtual+2&&!isDipping&&!sigActive&&started)triggerDip(true);
       quillReturnPending=false;
     },320);
   }
 
   function loop(){
-    /* ─ Scroll virtuel ─ */
+    /* Scroll virtuel */
     virtualScroll+=(scrollTarget-virtualScroll)*SCROLL_LERP;
-    const scrollingBack=virtualScroll<prevVirtual-0.1;
+    const scrollingBack=virtualScroll<prevVirtual-.08;
 
     const ti=targetIdx();
     curIdx+=(ti-curIdx)*IDX_LERP;
@@ -739,43 +796,32 @@
 
     if(started){
       syncChars(n);
-      checkTriggers(n);
+      updateStrikes(n);   /* ratures synchronisées avec la plume */
       updateProg(n);
       updateTwPosition(n);
-
-      /* Cache le hint dès qu'on scrolle */
+      /* Bouton retour visible dès 10 % du parcours */
+      btnTop.classList.toggle('vis', virtualScroll > VIRT_DIST * 0.10);
       if(scrollTarget>15){hintEl.classList.add('gone');}
     }
 
-    /* translateY fluidifié */
     twY+=(targetTwY-twY)*TW_LERP;
     tw.style.transform='translateY('+twY.toFixed(2)+'px)';
 
     if(started){
       if(n<=0){
-        /* Retour au début absolu */
         if(!isParked){quillEl.classList.remove('writing');quillEl.classList.add('resting');dotEl.classList.remove('vis','writing');isParked=true;}
         const ie=inkwellEntry();tNibX=ie.x;tNibY=ie.y;
 
       }else if(n<total&&!done){
-
         if(scrollingBack){
-          /* SCROLL UP : plume retourne à l'encrier avec fluidité */
-          quillEl.classList.remove('writing');
-          dotEl.classList.remove('writing');
+          quillEl.classList.remove('writing');dotEl.classList.remove('writing');
           isParked=false;
-          /* Retour rapide vers l'encrier */
           const ie=inkwellEntry();
-          tNibX+=(ie.x-tNibX)*.055;
-          tNibY+=(ie.y-tNibY)*.055;
-          /* Planifier un ancrage dans l'encrier si le scroll s'arrête */
+          tNibX+=(ie.x-tNibX)*.055;tNibY+=(ie.y-tNibY)*.055;
           scheduleQuillReturn();
           lastDippedPara=Math.min(lastDippedPara,getParaIdx(n)-1);
-
         }else{
-          /* SCROLL AVANT : écriture */
-          quillReturnPending=false;clearTimeout(returnQuillTimer);
-          isParked=false;
+          quillReturnPending=false;clearTimeout(returnQuillTimer);isParked=false;
           if(!isDipping&&!sigActive){
             const np=getParaIdx(n);
             if(DIP_AT.indexOf(np)!==-1&&lastDippedPara<np){lastDippedPara=np;triggerDip(false);}
@@ -787,34 +833,30 @@
             maybeWriteDrop(n);
           }
         }
-
+        hintEl.classList.add('gone');
       }else if(n>=total&&!done){
         done=true;quillEl.classList.remove('writing');dotEl.classList.remove('writing');
         setTimeout(startSignature,520);
       }
 
-      /* Annulation fin au scroll-up */
       if(done&&n<total){
         done=false;
         if(sigRafId){cancelAnimationFrame(sigRafId);sigRafId=null;}
-        sigActive=false;
-        sigSvgEl.style.display='none';sigSvgEl.style.top='';
+        sigActive=false;sigSvgEl.style.display='none';sigSvgEl.style.top='';
         if(sigPathEl.getTotalLength)sigPathEl.style.strokeDashoffset=sigPathEl.getTotalLength();
         ctaEl.classList.remove('on');ctaEl.style.top='';ctaEl.style.bottom='';
         hintEl.classList.remove('gone');hintEl.classList.add('vis');
         quillEl.classList.remove('resting');
       }
 
-      qx+=(tNibX-qx)*NIB_LERP;
-      qy+=(tNibY-qy)*NIB_LERP;
-      placeQuill(qx,qy);
+      qx+=(tNibX-qx)*NIB_LERP;qy+=(tNibY-qy)*NIB_LERP;placeQuill(qx,qy);
     }
 
     prevVirtual=virtualScroll;
     requestAnimationFrame(loop);
   }
 
-  /* ─── INIT ──────────────────────────────────────────────── */
+  /* ═══ INIT ════════════════════════════════════════════════ */
   window.addEventListener('load',function(){
     const ie=inkwellEntry();
     qx=ie.x;qy=ie.y;tNibX=ie.x;tNibY=ie.y;placeQuill(qx,qy);
@@ -823,16 +865,16 @@
     setTimeout(()=>{quillEl.classList.add('vis');quillEl.classList.add('dipping');},320);
     setTimeout(()=>{const ie2=inkwellEntry();spawnDrops(ie2.x,ie2.y+10,4,7);},680);
     setTimeout(()=>{
-      quillEl.classList.remove('dipping');
-      quillEl.classList.add('resting'); /* repos dans l'encrier */
-      isParked=true;
-      inkRule.classList.add('expanded');
-      subHintEl.classList.add('vis');
+      quillEl.classList.remove('dipping');quillEl.classList.add('resting');isParked=true;
+      inkRule.classList.add('expanded');subHintEl.classList.add('vis');
     },1380);
-    setTimeout(()=>{
-      hintEl.classList.add('vis');
-      started=true;
-    },1950);
+    setTimeout(()=>{hintEl.classList.add('vis');started=true;},1950);
+  });
+
+  /* Responsive : recalculer taille plume au resize */
+  window.addEventListener('resize',()=>{
+    applyQuillSize();
+    if(isParked){const ie=inkwellEntry();tNibX=ie.x;tNibY=ie.y;qx=ie.x;qy=ie.y;placeQuill(qx,qy);}
   });
 
   requestAnimationFrame(loop);
