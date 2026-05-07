@@ -1,290 +1,675 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" itemscope itemtype="https://schema.org/ProfilePage">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="À propos d'Augustin Fleury — photographe et vidéaste à Nancy & Paris.">
+
+  <!-- ══ SEO primaire ═══════════════════════════════════════════ -->
+  <title>Augustin Fleury — Photographe & Vidéaste Nancy & Paris | À propos</title>
+  <meta name="description" content="Augustin Fleury, photographe et vidéaste basé à Nancy et Paris. Prestations photo pour musiciens, lieux, événements et portraits. Disponible pour tout projet sur mesure.">
+  <meta name="keywords" content="photographe Nancy, vidéaste Nancy, photographe portrait Lorraine, photographe événement Nancy, photographe musicien Nancy, Augustin Fleury photographe">
   <meta name="author" content="Augustin Fleury">
-  <meta property="og:type" content="profile">
-  <meta property="og:title" content="À propos — Augustin Fleury · Photographe Nancy & Paris">
-  <meta property="og:image" content="assets/photos/orgue.paysage.jpg">
-  <meta name="twitter:card" content="summary_large_image">
-  <title>À propos — Augustin Fleury · Photographe & Vidéaste Nancy</title>
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#213448">
+  <link rel="canonical" href="https://macflurry544.github.io/portfolio-augustin/about.html">
+
+  <!-- ══ Open Graph ════════════════════════════════════════════ -->
+  <meta property="og:type"        content="profile">
+  <meta property="og:url"         content="https://macflurry544.github.io/portfolio-augustin/about.html">
+  <meta property="og:site_name"   content="Augustin Fleury · Photographe">
+  <meta property="og:locale"      content="fr_FR">
+  <meta property="og:title"       content="Augustin Fleury — Photographe & Vidéaste Nancy & Paris">
+  <meta property="og:description" content="Photographe basé à Nancy et Paris. Prestations pour musiciens, lieux, événements. Chaque projet est unique — chaque devis l'est aussi.">
+  <meta property="og:image"       content="https://macflurry544.github.io/portfolio-augustin/assets/photos/orgue.paysage.jpg">
+  <meta property="og:image:alt"   content="Augustin Fleury — photographe Nancy & Paris">
+  <meta property="og:image:width"  content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="profile:first_name" content="Augustin">
+  <meta property="profile:last_name"  content="Fleury">
+
+  <!-- ══ Twitter Card ══════════════════════════════════════════ -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Augustin Fleury — Photographe & Vidéaste Nancy & Paris">
+  <meta name="twitter:description" content="Photographe basé à Nancy et Paris. Pour des musiciens, des lieux, des projets.">
+  <meta name="twitter:image"       content="https://macflurry544.github.io/portfolio-augustin/assets/photos/orgue.paysage.jpg">
+  <meta name="twitter:image:alt"   content="Augustin Fleury — photographe">
+
+  <!-- ══ Données structurées JSON-LD ══════════════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Augustin Fleury",
+    "jobTitle": "Photographe & Vidéaste",
+    "description": "Photographe et vidéaste basé à Nancy et Paris. Prestations pour musiciens, lieux, événements et portraits. Actif depuis 2024.",
+    "url": "https://macflurry544.github.io/portfolio-augustin/about.html",
+    "image": "https://macflurry544.github.io/portfolio-augustin/assets/photos/orgue.paysage.jpg",
+    "sameAs": ["https://www.instagram.com/aug.ustinflry"],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Nancy",
+      "addressRegion": "Lorraine",
+      "addressCountry": "FR"
+    },
+    "knowsAbout": ["Photographie", "Vidéographie", "Portrait", "Événementiel", "Réseaux sociaux"],
+    "offers": {
+      "@type": "Offer",
+      "description": "Prestations photo et vidéo sur mesure pour musiciens, lieux et événements",
+      "areaServed": ["Nancy", "Paris", "Lorraine"]
+    }
+  }
+  </script>
+
+  <!-- ══ Favicons ══════════════════════════════════════════════ -->
   <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg">
   <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
   <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
   <link rel="manifest" href="favicon/site.webmanifest">
-  <link rel="canonical" href="https://macflurry544.github.io/portfolio-augustin/about.html">
+
+  <!-- ══ Performance — preload ressources critiques ════════════ -->
+  <link rel="preload" as="image" href="assets/photos/orgue.paysage.jpg" fetchpriority="high">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Young+Serif&display=swap" rel="stylesheet">
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+  <!-- ══ Polices — display=swap pour éviter le FOIT ═══════════ -->
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Young+Serif&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/liquid-glass.css">
   <link rel="stylesheet" href="assets/css/animations.css">
 
   <style>
-    /* BASE */
-    body.page-about { background:#FDFCF9; overflow:hidden; height:100%; }
-
-    /* INKWELL */
-    #inkwell {
-      position:fixed; top:220px; left:50%; transform:translateX(-50%);
-      z-index:45; opacity:0; transition:opacity .7s ease; pointer-events:none;
-    }
-    #inkwell.vis { opacity:1; }
-
-    /* CARTE SCROLL HINT — liquid glass, visible dès le départ */
-    #scroll-hint-card {
-      position:fixed; top:318px; left:50%; transform:translateX(-50%);
-      display:inline-flex; align-items:center; gap:.75rem;
-      padding:.65rem 1.5rem; border-radius:999px;
-      background:rgba(253,252,249,.58);
-      backdrop-filter:blur(22px) saturate(1.3);
-      -webkit-backdrop-filter:blur(22px) saturate(1.3);
-      border:1px solid rgba(30,26,20,.11);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.85), 0 4px 18px rgba(30,26,20,.07);
-      font-family:'Bitter',serif; font-size:.78rem; letter-spacing:.1em;
-      color:rgba(30,26,20,.7);
-      z-index:44; white-space:nowrap; opacity:0; pointer-events:none;
-      transition:opacity .7s ease;
-    }
-    #scroll-hint-card.vis  { opacity:1; }
-    #scroll-hint-card.gone { opacity:0; transition:opacity .5s ease; }
-
-    /* SÉPARATEUR */
-    #ink-rule {
-      position:fixed; top:299px; left:50%; transform:translateX(-50%);
-      height:1px; width:0; background:rgba(28,24,20,.10); z-index:44;
-      transition:width 1.6s cubic-bezier(.22,1,.36,1) .6s;
-    }
-    #ink-rule.expanded { width:min(460px,82vw); }
-
-    /* STAGE — masque blanc couvrant la zone encrier/nav */
-    #stage {
-      position:fixed; inset:0;
-      display:flex; align-items:flex-start; justify-content:center;
-      padding:360px 2.5rem 8rem;
-      z-index:30; pointer-events:none; overflow:hidden;
-    }
-    #stage::before {
-      content:''; position:absolute; top:0; left:0; right:0; height:374px;
-      background:linear-gradient(to bottom,#FDFCF9 0%,#FDFCF9 88%,transparent 100%);
-      pointer-events:none; z-index:2;
-    }
-    #stage::after {
-      content:''; position:absolute; bottom:0; left:0; right:0; height:7rem;
-      background:linear-gradient(to bottom,transparent,#FDFCF9 72%);
-      pointer-events:none; z-index:2;
+    /* ══ VARIABLES ══════════════════════════════════════════════ */
+    /* ── Isolation des couleurs : scoped sur body.page-about
+       Aucun autre CSS du site ne peut écraser ces valeurs ── */
+    body.page-about {
+      --cream:        #EAE0CF;
+      --cream-2:      #94B4C1;
+      --sage:         #547792;
+      --olive:        #213448;
+      --olive-rgb:    33, 52, 72;
+      --font-display: 'Young Serif', Georgia, serif;
+      --font-body:    'Bitter', Georgia, serif;
+      --nav-h:        64px;
+      --ease-out:     cubic-bezier(0.22, 1, 0.36, 1);
+      --gutter:       clamp(1.4rem, 6vw, 5rem);
     }
 
-    /* TEXTE */
-    #tw {
-      max-width:600px; width:100%; text-align:center;
-      font-family:'Playfair Display','Young Serif',Georgia,serif;
-      font-size:clamp(1.05rem,1.85vw,1.55rem); line-height:1.88;
-      color:#1E1A14; font-style:italic;
-      will-change:transform; position:relative; z-index:1;
-    }
-    #tw p { margin-top:1.05em; }
-    #tw p:first-child { margin-top:0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* CHARS */
-    .c   { color:#FDFCF9; transition:color .05s linear; }
-    .c.v { color:#1E1A14; }
-    /* RATURES — contrôlées par JS, plus de CSS animation */
-    .sg-wrap  { display:inline-block; position:relative; vertical-align:baseline; }
-    .sg-inner { display:inline; }
-    .sk-svg   {
-      position:absolute; left:0; top:50%; transform:translateY(-50%);
-      width:100%; height:10px; overflow:visible; pointer-events:none;
+    html {
+      scroll-behavior: smooth;
+      /* Réduction de mouvement respectée */
     }
-    .sk-l1 { stroke:#1E1A14; stroke-width:1.5; stroke-dasharray:108; stroke-dashoffset:108; }
-    .sk-l2 { stroke:#1E1A14; stroke-width:.7;  stroke-dasharray:108; stroke-dashoffset:108; opacity:.55; }
-    /* Pas de CSS animation : le strokeDashoffset est géré en JS,
-       synchronisé avec la position de la plume sur les lettres. */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
 
-    /* PLUME */
-    #quill {
-      position:fixed; pointer-events:none; z-index:55; opacity:0;
-      transform-origin:50% 98.3%; transform:rotate(-28deg);
-      transition:opacity .9s ease; will-change:left,top; overflow:visible;
+    body.page-about {
+      background-color: var(--cream) !important;
+      color: var(--olive) !important;
+      font-family: var(--font-body) !important;
+      font-size: 16px;
+      font-weight: 500;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      text-rendering: optimizeLegibility;
     }
-    #quill.vis { opacity:1; }
+    a { text-decoration: none; color: inherit; }
 
-    @keyframes qwob {
-      0%  {transform:rotate(-27.0deg) translateY(0.0px)}
-      14% {transform:rotate(-30.5deg) translateY(0.4px)}
-      28% {transform:rotate(-28.0deg) translateY(0.1px)}
-      42% {transform:rotate(-31.0deg) translateY(0.6px)}
-      57% {transform:rotate(-26.5deg) translateY(-0.2px)}
-      72% {transform:rotate(-29.5deg) translateY(0.3px)}
-      86% {transform:rotate(-27.5deg) translateY(0.0px)}
-      100%{transform:rotate(-27.0deg) translateY(0.0px)}
+    /* Focus visible — accessibilité clavier */
+    :focus-visible {
+      outline: 2px solid var(--sage);
+      outline-offset: 3px;
+      border-radius: 2px;
     }
-    #quill.writing { animation:qwob 1.15s ease-in-out infinite; }
 
-    @keyframes qdip {
-      0%  {transform:rotate(-28deg) translateY(0)}
-      28% {transform:rotate(-25deg) translateY(15px)}
-      55% {transform:rotate(-25deg) translateY(12px)}
-      74% {transform:rotate(-27deg) translateY(5px)}
-      100%{transform:rotate(-28deg) translateY(0)}
+    /* ══ LOADER ═════════════════════════════════════════════════ */
+    #page-loader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--olive);
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.6s var(--ease-out);
     }
-    #quill.dipping { animation:qdip 1.2s cubic-bezier(.4,0,.2,1) forwards; }
+    #page-loader.is-hidden { opacity: 0; pointer-events: none; }
+    .loader__svg { width: 54px; height: 54px; animation: spin 2.2s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    @keyframes qrest {
-      0%,100%{transform:rotate(-28deg) translateY(0)}
-      50%    {transform:rotate(-29.5deg) translateY(1.5px)}
+    /* ══ ANIMATIONS ═════════════════════════════════════════════ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    #quill.resting { animation:qrest 3.2s ease-in-out infinite; }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; }
+      50%       { opacity: 1; }
+    }
 
-    @keyframes flamme{0%{transform:scaleX(1) scaleY(1)}50%{transform:scaleX(.7) scaleY(1.35) translateY(-1px)}100%{transform:scaleX(1) scaleY(1)}}
-    @keyframes encre-pulse{0%,72%,100%{opacity:0}42%,55%{opacity:.85}}
+    /* Reveal au scroll — éléments */
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.84s var(--ease-out), transform 0.84s var(--ease-out);
+      will-change: opacity, transform;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+      will-change: auto;
+    }
+    .d1 { transition-delay: 0.12s; }
+    .d2 { transition-delay: 0.26s; }
+    .d3 { transition-delay: 0.42s; }
 
-    /* DOT */
-    #dot{position:fixed;width:3px;height:3px;border-radius:50%;background:#1E1A14;transform:translate(-50%,-50%);pointer-events:none;z-index:56;left:-50px;top:-50px;opacity:0;transition:opacity .3s}
-    #dot.vis{opacity:.55}
-    @keyframes dblink{0%,44%{opacity:.55}50%,100%{opacity:0}}
-    #dot.writing{animation:dblink 1s steps(1) infinite}
+    /* ── Animations d'entrée des sections ──────────────────────── */
 
-    /* DROPS */
-    #drops-layer{position:fixed;inset:0;pointer-events:none;z-index:54;overflow:hidden}
-    .ink-drop{position:absolute;border-radius:50%;background:#1C1610}
+    /* Fondu + glissement depuis le bas */
+    .section-enter {
+      opacity: 0;
+      transform: translateY(40px);
+      transition:
+        opacity  0.9s  var(--ease-out),
+        transform 0.9s var(--ease-out);
+      will-change: opacity, transform;
+    }
+    /* Fondu + glissement depuis la gauche (pullquote) */
+    .section-enter-left {
+      opacity: 0;
+      transform: translateX(-36px);
+      transition:
+        opacity  1s    var(--ease-out),
+        transform 1s   var(--ease-out);
+      will-change: opacity, transform;
+    }
+    /* Fondu seul, sans déplacement (closing — déjà décoratif) */
+    .section-enter-fade {
+      opacity: 0;
+      transition: opacity 1.1s var(--ease-out);
+      will-change: opacity;
+    }
+    /* État visible commun */
+    .section-enter.in-view,
+    .section-enter-left.in-view,
+    .section-enter-fade.in-view {
+      opacity: 1;
+      transform: none;
+      will-change: auto;
+    }
+    /* Délai optionnel pour enchaîner avec les .reveal internes */
+    .section-enter       { transition-delay: 0s; }
+    .section-enter-left  { transition-delay: 0.05s; }
+    .section-enter-fade  { transition-delay: 0.1s; }
 
+    /* ══ UTILITAIRES ════════════════════════════════════════════ */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+    .section-label {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 0.62rem; font-weight: 600;
+      letter-spacing: 0.26em; text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+    .section-label-cream { color: rgba(var(--olive-rgb), 0.4); }
+    .section-label-dark  { color: rgba(148, 180, 193, 0.65); }
+    .divider {
+      width: 100%; height: 1px;
+      background: linear-gradient(to right, transparent, rgba(var(--olive-rgb), 0.12), transparent);
+    }
+    .divider-sage {
+      background: linear-gradient(to right, transparent, rgba(84,119,146,0.2), transparent);
+    }
 
-    /* CTA — Liquid Glass Pills */
-    #cta-wrap {
-      position:fixed; left:50%; transform:translateX(-50%);
-      display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;
-      opacity:0; pointer-events:none;
-      transition:opacity 1.6s ease; z-index:38; white-space:nowrap;
+    /* ══ HERO ═══════════════════════════════════════════════════ */
+    .hero {
+      min-height: 100svh; /* svh = unité stable, évite le jump mobile */
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center; text-align: center;
+      padding: 6rem var(--gutter);
+      position: relative; overflow: hidden;
     }
-    #cta-wrap.on { opacity:1; pointer-events:all; }
-    .cta-pill {
-      display:inline-flex; align-items:center; gap:.65rem;
-      padding:.75rem 1.8rem; border-radius:999px;
-      backdrop-filter:blur(22px) saturate(1.35);
-      -webkit-backdrop-filter:blur(22px) saturate(1.35);
-      font-family:'Bitter',serif; font-size:.72rem;
-      letter-spacing:.28em; text-transform:uppercase;
-      text-decoration:none; cursor:pointer;
-      transition:transform .4s cubic-bezier(.22,1,.36,1), box-shadow .4s ease, border-color .4s ease, background .4s ease;
+    .hero-photo {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center 28%;
+      z-index: 0;
+      filter: brightness(0.35) saturate(80%);
+      transform: scale(1.04);
     }
-    /* Contact — teinte ambre/or */
-    a.cta-pill-contact {
-      background:rgba(176,132,90,.18);
-      border:1px solid rgba(176,132,90,.35);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.72), 0 6px 28px rgba(176,132,90,.1);
-      color:#6B4A22;
+    .hero-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(
+        to bottom,
+        rgba(33,52,72,0.18) 0%,
+        rgba(33,52,72,0.45) 45%,
+        rgba(33,52,72,0.88) 100%
+      );
     }
-    a.cta-pill-contact:hover {
-      background:rgba(176,132,90,.28);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.8), 0 14px 40px rgba(176,132,90,.18);
-      border-color:rgba(176,132,90,.55);
-    }
-    /* Reset — teinte encre sombre */
-    button.cta-pill-reset {
-      background:rgba(30,26,20,.08);
-      border:1px solid rgba(30,26,20,.18);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.65), 0 6px 28px rgba(30,26,20,.07);
-      color:#1E1A14;
-    }
-    button.cta-pill-reset:hover {
-      background:rgba(30,26,20,.14);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.75), 0 14px 40px rgba(30,26,20,.12);
-      border-color:rgba(30,26,20,.3);
-    }
-    .cta-pill:hover { transform:translateY(-3px); }
-    .cta-pill svg { overflow:visible; flex-shrink:0; }
-    .cta-pill-contact .arr { transition:transform .4s cubic-bezier(.22,1,.36,1); }
-    .cta-pill-contact:hover .arr { transform:translateX(5px); }
-    .cta-pill-reset .arr { transition:transform .4s cubic-bezier(.22,1,.36,1); }
-    .cta-pill-reset:hover .arr { transform:translateY(-4px); }
+    .hero > *:not(.hero-photo):not(.hero-overlay) { position: relative; z-index: 2; }
 
-    /* BOUTON RETOUR EN HAUT */
-    #btn-top {
-      position:fixed; bottom:2rem; right:2rem;
-      width:38px; height:38px; border-radius:50%;
-      background:rgba(253,252,249,.55);
-      backdrop-filter:blur(12px);
-      -webkit-backdrop-filter:blur(12px);
-      border:1px solid rgba(30,26,20,.14);
-      box-shadow:0 2px 12px rgba(30,26,20,.08);
-      cursor:pointer; color:rgba(30,26,20,.52);
-      display:flex; align-items:center; justify-content:center;
-      opacity:0; pointer-events:none;
-      transition:opacity .4s ease, transform .3s ease, background .3s ease;
-      z-index:25;
+    .hero-watermark {
+      position: absolute; top: 50%; right: -0.04em;
+      transform: translateY(-50%);
+      font-family: var(--font-display);
+      font-size: clamp(12rem, 36vw, 30rem);
+      line-height: 1; letter-spacing: -0.04em;
+      color: rgba(148,180,193,0.04);
+      user-select: none; pointer-events: none; z-index: 1;
     }
-    #btn-top.vis { opacity:1; pointer-events:all; }
-    #btn-top:hover { background:rgba(253,252,249,.8); transform:translateY(-2px); color:rgba(30,26,20,.8); }
-
-    /* PAGE LABEL */
-    #plbl{position:fixed;top:1.5rem;right:2rem;font-family:'Bitter',serif;font-size:.52rem;letter-spacing:.36em;text-transform:uppercase;color:rgba(30,26,20,.22);white-space:nowrap;z-index:20;opacity:0;transition:opacity .9s ease}
-    #plbl.vis{opacity:1}
-
-    /* PROGRESS */
-    #prog{position:fixed;left:1.8rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:7px;z-index:20;opacity:0;transition:opacity .9s ease}
-    #prog.vis{opacity:1}
-    .pd{width:3px;height:3px;border-radius:50%;background:rgba(30,26,20,.14);transition:background .4s,transform .4s}
-    .pd.on{background:rgba(30,26,20,.52);transform:scale(1.3)}
-
-    /* SCROLL HINT — plus visible */
-    #hint {
-      position:fixed; bottom:3rem; left:50%; transform:translateX(-50%);
-      display:flex; flex-direction:column; align-items:center; gap:.6rem;
-      z-index:20; opacity:0; pointer-events:none; transition:opacity .6s ease;
+    .hero-rule {
+      width: 44px; height: 1px;
+      background: var(--cream-2);
+      margin: 0 auto 2.2rem;
+      opacity: 0; animation: fadeUp 1s ease forwards 0.2s;
     }
-    #hint.vis  { opacity:1; }
-    #hint.gone { display:none; }
-    .hint-label {
-      font-family:'Bitter',Georgia,serif;
-      font-size:1rem; letter-spacing:.12em; color:rgba(30,26,20,.62);
-      white-space:nowrap;
+    .hero-eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.64rem; font-weight: 600;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--cream-2);
+      margin-bottom: 1.4rem;
+      opacity: 0; animation: fadeUp 1s ease forwards 0.4s;
     }
-    .hint-arrow { display:block; }
-    @keyframes hint-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
-    .hint-arrow { animation:hint-bob 2.2s ease-in-out infinite; }
-    @keyframes hpulse{0%,100%{opacity:.45;transform:translateX(-50%) translateY(0)}50%{opacity:1;transform:translateX(-50%) translateY(-3px)}}
-    #hint.vis { animation:hpulse 2.8s ease-in-out 1s infinite; }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.6rem, 10vw, 9rem);
+      line-height: 0.94; letter-spacing: -0.025em;
+      color: var(--cream);
+      text-shadow: 0 2px 40px rgba(33,52,72,0.5);
+      opacity: 0; animation: fadeUp 1s ease forwards 0.6s;
+    }
+    .hero-subtitle {
+      font-family: var(--font-body);
+      font-size: clamp(0.92rem, 1.5vw, 1.05rem);
+      font-style: italic; font-weight: 400;
+      color: rgba(234,224,207,0.62);
+      max-width: 36ch; line-height: 1.75;
+      margin-top: 1.8rem;
+      opacity: 0; animation: fadeUp 1s ease forwards 0.8s;
+    }
+    .hero-buttons {
+      display: flex; gap: 1rem;
+      margin-top: 3.2rem;
+      flex-wrap: wrap; justify-content: center;
+      opacity: 0; animation: fadeUp 1s ease forwards 1s;
+    }
+    .scroll-hint {
+      position: absolute; bottom: 2.2rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      opacity: 0; animation: fadeUp 1s ease forwards 1.4s; z-index: 2;
+    }
+    .scroll-hint span {
+      font-size: 0.56rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: rgba(234,224,207,0.38);
+    }
+    .scroll-line {
+      width: 1px; height: 36px;
+      background: linear-gradient(to bottom, var(--cream-2), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
 
-    /* BLOTS */
-    .ink-blot{position:fixed;pointer-events:none;z-index:3;overflow:visible}
-    body.page-about .site-footer{display:none}
+    /* ══ BOUTONS — liquid glass ══════════════════════════════════ */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.8rem;
+      font-family: var(--font-body);
+      font-size: 0.74rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 1rem 2.2rem;
+      border-radius: 999px;
+      cursor: pointer;
+      position: relative; overflow: hidden;
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      transition: transform 0.28s var(--ease-out), box-shadow 0.28s ease, background 0.28s ease;
+    }
+    .btn:hover { transform: scale(1.04); }
+    .btn-olive {
+      background: rgba(33,52,72,0.72);
+      color: var(--cream);
+      border: 1px solid rgba(234,224,207,0.18);
+      box-shadow: inset 0 1px 0 rgba(234,224,207,0.12), 0 8px 32px rgba(33,52,72,0.28);
+    }
+    .btn-olive:hover {
+      background: rgba(84,119,146,0.72);
+      box-shadow: inset 0 1px 0 rgba(234,224,207,0.16), 0 12px 40px rgba(33,52,72,0.35);
+    }
+    .btn-outline {
+      background: rgba(234,224,207,0.1);
+      color: var(--cream);
+      border: 1px solid rgba(234,224,207,0.28);
+      box-shadow: inset 0 1px 0 rgba(234,224,207,0.1), 0 8px 28px rgba(33,52,72,0.2);
+    }
+    .btn-outline:hover {
+      background: rgba(234,224,207,0.18);
+      box-shadow: inset 0 1px 0 rgba(234,224,207,0.16), 0 12px 36px rgba(33,52,72,0.28);
+    }
+    .btn svg { transition: transform 0.28s ease; flex-shrink: 0; }
+    .btn:hover svg { transform: translateX(4px); }
 
-    /* RESPONSIVE */
-    @media(max-width:680px){
-      #inkwell          { top:140px; }
-      #ink-rule         { top:218px; }
-      #scroll-hint-card { top:238px; font-size:.7rem; padding:.55rem 1.1rem; }
-      #stage            { padding:310px 1.4rem 7rem; }
-      #stage::before    { height:320px; }
-      #tw               { font-size:clamp(.95rem,5vw,1.18rem); line-height:1.76; }
-      #plbl,#prog       { display:none; }
+    /* ══ INTRO ══════════════════════════════════════════════════ */
+    .intro {
+      background: var(--cream);
+      padding: 8rem var(--gutter);
+      display: flex; justify-content: center;
+      position: relative; overflow: hidden;
     }
-    @media(max-width:480px){
-      #cta-wrap { flex-direction:column; align-items:center; gap:.75rem; }
-      .cta-pill { padding:.65rem 1.4rem; font-size:.65rem; }
+    .intro-deco {
+      position: absolute; bottom: -1.5rem; right: -1.5rem;
+      opacity: 0.08; pointer-events: none;
     }
-    @media(max-width:380px){ #stage { padding:262px 1rem 6rem; } }
+    .intro-inner { max-width: 640px; text-align: center; position: relative; z-index: 1; }
+    .intro-text { font-size: 16px; line-height: 1.9; color: rgba(var(--olive-rgb), 0.7); }
+
+    /* ══ FEATURES ═══════════════════════════════════════════════ */
+    .features {
+      background: var(--cream-2);
+      padding: 8rem var(--gutter);
+      position: relative;
+    }
+    .features-inner { max-width: 1140px; margin: 0 auto; }
+    .features-header { text-align: center; margin-bottom: 5rem; }
+    .features-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: var(--olive); line-height: 1.1; letter-spacing: -0.015em;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(var(--olive-rgb), 0.1);
+    }
+    .feature-card {
+      background: var(--cream);
+      padding: 3.2rem 2.8rem 3rem;
+      display: flex; flex-direction: column; gap: 1.4rem;
+      position: relative; overflow: hidden;
+      transition: background 0.3s ease;
+    }
+    .feature-card:hover { background: #f5ede0; }
+    .feature-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.45s var(--ease-out);
+    }
+    .feature-card:nth-child(1)::before { background: var(--sage); }
+    .feature-card:nth-child(2)::before { background: var(--olive); }
+    .feature-card:nth-child(3)::before { background: var(--sage); }
+    .feature-card:hover::before { transform: scaleX(1); }
+    .feature-num {
+      font-family: var(--font-display);
+      font-size: 4.5rem; line-height: 1;
+      color: rgba(var(--olive-rgb), 0.05);
+      user-select: none; pointer-events: none;
+    }
+    .feature-text { font-size: 16px; line-height: 1.88; color: rgba(var(--olive-rgb), 0.65); flex: 1; }
+
+    /* ══ PULLQUOTE ══════════════════════════════════════════════ */
+    .pullquote-section {
+      background: var(--olive);
+      padding: 9rem var(--gutter);
+      display: flex; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .pq-ghost {
+      position: absolute; top: -0.15em; left: 0.02em;
+      font-family: var(--font-display);
+      font-size: clamp(14rem, 36vw, 30rem);
+      line-height: 1;
+      color: rgba(148,180,193,0.05);
+      user-select: none; pointer-events: none; z-index: 0;
+    }
+    .pq-svg-grid {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none; opacity: 0.04;
+    }
+    .pullquote-inner {
+      max-width: 760px; text-align: left;
+      position: relative; z-index: 1;
+      padding-left: 2.8rem;
+    }
+    .pullquote-inner::before {
+      content: '';
+      position: absolute; left: 0; top: 0.2em; bottom: 0.2em;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--cream-2), rgba(148,180,193,0.1));
+      border-radius: 2px;
+    }
+    .pullquote-text {
+      font-family: var(--font-display);
+      font-size: clamp(1.7rem, 3.6vw, 3rem);
+      line-height: 1.3; letter-spacing: -0.015em;
+      color: var(--cream);
+    }
+    .pullquote-attr {
+      margin-top: 1.8rem;
+      font-family: var(--font-body);
+      font-size: 0.62rem; font-style: normal;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(148,180,193,0.55);
+    }
+
+    /* ══ INFO ════════════════════════════════════════════════════ */
+    .info {
+      background: var(--cream);
+      padding: 7rem var(--gutter);
+      border-top: 1px solid rgba(var(--olive-rgb), 0.1);
+    }
+    .info-inner {
+      max-width: 1140px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 4rem; align-items: start;
+    }
+    .info-sage-line {
+      width: 28px; height: 2px;
+      background: var(--sage);
+      margin-bottom: 1.6rem; border-radius: 2px; opacity: 0.7;
+    }
+    .info-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem; color: var(--olive);
+      margin-bottom: 1.1rem; line-height: 1.2;
+    }
+    .info-body { font-size: 16px; line-height: 1.9; color: rgba(var(--olive-rgb), 0.58); }
+    .info-link {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      margin-top: 1.6rem;
+      font-family: var(--font-body);
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--olive);
+      border-bottom: 1px solid rgba(var(--olive-rgb), 0.3);
+      padding-bottom: 2px;
+      transition: border-color 0.25s, opacity 0.25s;
+      opacity: 0.55;
+    }
+    .info-link:hover { opacity: 1; border-color: var(--olive); }
+    .info-link svg { transition: transform 0.28s ease; }
+    .info-link:hover svg { transform: translateX(4px); }
+
+    /* ══ CLOSING ════════════════════════════════════════════════ */
+    .closing {
+      background: var(--sage);
+      padding: 6rem var(--gutter) 5rem;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .closing-svg {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      pointer-events: none; opacity: 0.07;
+    }
+    .closing-ornament { display: block; margin: 0 auto 2.4rem; opacity: 0.4; }
+    .closing-mark {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 6vw, 5.5rem);
+      color: var(--cream); letter-spacing: 0.02em;
+      user-select: none; opacity: 0.15;
+    }
+    .closing-sub {
+      margin-top: 1.4rem;
+      font-family: var(--font-body);
+      font-size: 0.6rem; letter-spacing: 0.24em;
+      text-transform: uppercase; color: rgba(234,224,207,0.55);
+    }
+
+    /* ══ FOOTER ═════════════════════════════════════════════════ */
+    .site-footer {
+      background: var(--olive);
+      border-top: 1px solid rgba(148,180,193,0.12);
+      padding: 2rem var(--gutter);
+    }
+    .site-footer__inner {
+      max-width: 1140px; margin: 0 auto;
+      display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+    .site-footer__copy { font-family: var(--font-body); font-size: 0.7rem; color: rgba(234,224,207,0.3); }
+    .site-footer__ig {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--font-body); font-size: 0.7rem; color: rgba(234,224,207,0.32);
+      transition: color 0.25s;
+    }
+    .site-footer__ig:hover { color: var(--cream-2); }
+    .site-footer__nav { display: flex; gap: 1.2rem; }
+    .site-footer__link {
+      font-family: var(--font-body); font-size: 0.7rem; color: rgba(234,224,207,0.32);
+      transition: color 0.25s;
+    }
+    .site-footer__link:hover { color: var(--cream-2); }
+
+    /* ══ RESPONSIVE ═════════════════════════════════════════════ */
+    @media (max-width: 960px) {
+      .features-grid { grid-template-columns: 1fr; gap: 2px; }
+      .info-inner    { grid-template-columns: 1fr; gap: 3rem; }
+    }
+    @media (max-width: 600px) {
+      .hero-buttons { flex-direction: column; align-items: center; width: 100%; }
+      .btn { width: 100%; max-width: 300px; justify-content: center; }
+      .pullquote-inner { padding-left: 1.8rem; }
+    }
+
+    /* ══ SVG DÉCORATIFS — keyframes ═════════════════════════════ */
+    @keyframes svg-rotate-cw  { to { transform: rotate(360deg); } }
+    @keyframes svg-rotate-ccw { to { transform: rotate(-360deg); } }
+    @keyframes svg-float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-10px); }
+    }
+    @keyframes svg-float-x {
+      0%, 100% { transform: translateX(0); }
+      50%       { transform: translateX(8px); }
+    }
+    @keyframes svg-breathe {
+      0%, 100% { opacity: 0.07; }
+      50%       { opacity: 0.14; }
+    }
+    @keyframes svg-draw-on { to { stroke-dashoffset: 0; } }
+
+    /* draw-on déclenché par .drawn */
+    .svg-draw { stroke-dashoffset: var(--dash-len, 500); }
+    .drawn .svg-draw {
+      animation: svg-draw-on 2.2s var(--ease-out) forwards;
+      animation-delay: var(--draw-delay, 0s);
+    }
+
+    /* ── Hero — diaphragme d'objectif ── */
+    .hero-deco-aperture {
+      position: absolute; top: 2rem; left: 2.5rem; z-index: 1;
+      width: clamp(80px, 12vw, 140px);
+      opacity: 0.12; pointer-events: none;
+      animation: svg-rotate-cw 50s linear infinite;
+      transform-origin: center;
+    }
+
+    /* ── Intro — arcs dessinés ── */
+    .intro-deco { position: absolute; bottom: -1.5rem; right: -1.5rem; pointer-events: none; }
+    .intro-deco .svg-draw { stroke-dasharray: 500; --dash-len: 500; }
+    .intro-deco .svg-draw.arc-1 { --draw-delay: 0.1s; }
+    .intro-deco .svg-draw.arc-2 { --draw-delay: 0.55s; }
+    .intro-deco .svg-draw.arc-3 { --draw-delay: 1s; }
+
+    /* ── Features — viseur optique ── */
+    .features-deco-lens {
+      position: absolute; top: 3rem; right: 3rem; z-index: 0;
+      width: clamp(90px, 13vw, 160px);
+      opacity: 0.1; pointer-events: none;
+      animation: svg-float 9s ease-in-out infinite;
+    }
+
+    /* ── Pullquote — tuyaux d'orgue ── */
+    .pq-pipes {
+      position: absolute; right: clamp(1rem, 4vw, 4rem); top: 50%;
+      transform: translateY(-50%);
+      width: clamp(50px, 7vw, 90px);
+      opacity: 0.08; pointer-events: none;
+      animation: svg-float 11s ease-in-out infinite 1s;
+    }
+    .pq-pipes-left {
+      position: absolute; left: clamp(1rem, 4vw, 4rem); top: 50%;
+      transform: translateY(-50%) scaleX(-1);
+      width: clamp(40px, 6vw, 75px);
+      opacity: 0.06; pointer-events: none;
+      animation: svg-float 13s ease-in-out infinite reverse;
+    }
+
+    /* ── Info — boussole ── */
+    .info-deco-compass {
+      position: absolute; bottom: 1.5rem; right: 2rem; z-index: 0;
+      width: clamp(80px, 11vw, 130px);
+      opacity: 0; pointer-events: none;
+      transition: opacity 1.2s ease;
+    }
+    .info-deco-compass.drawn { opacity: 0.08; animation: svg-breathe 7s ease-in-out infinite 1.2s; }
+    .info-deco-compass .rose-ring { transform-origin: 65px 65px; animation: svg-rotate-ccw 28s linear infinite; }
+
+    /* ── Closing — orbite ── */
+    .closing-deco-orbit {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: clamp(200px, 45vw, 400px);
+      opacity: 0.06; pointer-events: none;
+      animation: svg-rotate-cw 70s linear infinite;
+    }
+    /* ornement central draw-on */
+    .closing-ornament .svg-draw { stroke-dasharray: 200; --dash-len: 200; }
+    .closing-ornament .svg-draw.c1 { --draw-delay: 0s; }
+    .closing-ornament .svg-draw.c2 { --draw-delay: 0.4s; }
+    .closing-ornament .svg-draw.c3 { --draw-delay: 0.75s; }
+    .closing-ornament .svg-draw.c4 { --draw-delay: 1.1s; }
   </style>
 </head>
 <body class="page-about">
 
-  <div id="page-loader" aria-hidden="true">
-    <div class="loader__stage">
-      <svg class="loader__svg" viewBox="0 0 120 120" fill="none" stroke="#B0845A" stroke-width="1.4" stroke-linecap="round">
-        <circle class="lc-ring" cx="60" cy="60" r="42" stroke-opacity=".5"/>
-        <line class="lc-blade" x1="60" y1="60" x2="60" y2="24"/><line class="lc-blade" x1="60" y1="60" x2="91.18" y2="42"/>
-        <line class="lc-blade" x1="60" y1="60" x2="91.18" y2="78"/><line class="lc-blade" x1="60" y1="60" x2="60" y2="96"/>
-        <line class="lc-blade" x1="60" y1="60" x2="28.82" y2="78"/><line class="lc-blade" x1="60" y1="60" x2="28.82" y2="42"/>
-        <circle class="lc-dot" cx="60" cy="60" r="3" fill="#B0845A" stroke="none"/>
-      </svg>
-    </div>
+  <!-- LOADER -->
+  <div id="page-loader" aria-hidden="true" role="status">
+    <svg class="loader__svg" viewBox="0 0 120 120" fill="none" stroke="#94B4C1" stroke-width="1.4" stroke-linecap="round" aria-label="Chargement…">
+      <circle cx="60" cy="60" r="42" stroke="#94B4C1" stroke-opacity="0.4"/>
+      <line x1="60" y1="60" x2="60" y2="24"/>
+      <line x1="60" y1="60" x2="91.18" y2="42"/>
+      <line x1="60" y1="60" x2="91.18" y2="78"/>
+      <line x1="60" y1="60" x2="60" y2="96"/>
+      <line x1="60" y1="60" x2="28.82" y2="78"/>
+      <line x1="60" y1="60" x2="28.82" y2="42"/>
+      <circle cx="60" cy="60" r="3" fill="#94B4C1" stroke="none"/>
+    </svg>
   </div>
 
-  <a href="#main" class="sr-only">Aller au contenu principal</a>
+  <!-- Lien d'évitement — accessibilité clavier -->
+  <a href="#main-content" class="sr-only">Aller au contenu principal</a>
 
+  <!-- ═══ NAV ════════════════════════════════════════════════ -->
   <nav class="nav" role="navigation" aria-label="Navigation principale">
     <a href="index.html" class="nav-logo" aria-label="Retour à l'accueil">Augustin Fleury</a>
     <div class="nav-sep" aria-hidden="true"></div>
@@ -298,6 +683,7 @@
       <span></span><span></span><span></span>
     </button>
   </nav>
+
   <div id="nav-fullscreen" class="nav-fullscreen" role="dialog" aria-modal="true" aria-label="Menu navigation">
     <button class="nav-fullscreen-close" aria-label="Fermer le menu">✕</button>
     <nav class="nav-fullscreen-links">
@@ -308,567 +694,396 @@
     </nav>
   </div>
 
-  <!-- Taches d'encre -->
-  <svg class="ink-blot" aria-hidden="true" style="left:1%;bottom:18%;width:110px;height:72px;opacity:.055;" viewBox="0 0 110 72">
-    <defs><filter id="ib1"><feTurbulence type="turbulence" baseFrequency=".04 .06" numOctaves="4" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="6" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="1.2"/></filter></defs>
-    <ellipse cx="42" cy="34" rx="34" ry="20" fill="#1C1610" filter="url(#ib1)"/>
-    <circle cx="12" cy="18" r="5" fill="#1C1610" filter="url(#ib1)" opacity=".75"/>
-    <circle cx="78" cy="24" r="3.5" fill="#1C1610" filter="url(#ib1)" opacity=".65"/>
-    <circle cx="86" cy="46" r="2.5" fill="#1C1610" filter="url(#ib1)" opacity=".5"/>
-    <circle cx="30" cy="60" r="2" fill="#1C1610" filter="url(#ib1)" opacity=".55"/>
-    <path d="M68,48 C76,54 72,64 66,60" stroke="#1C1610" stroke-width="1.2" fill="none" stroke-linecap="round" filter="url(#ib1)" opacity=".6"/>
-    <circle cx="66" cy="60" r="1.8" fill="#1C1610" opacity=".4"/>
-  </svg>
-  <svg class="ink-blot" aria-hidden="true" style="right:4%;top:22%;width:68px;height:48px;opacity:.045;" viewBox="0 0 68 48">
-    <defs><filter id="ib2"><feTurbulence type="turbulence" baseFrequency=".05 .08" numOctaves="3" seed="13" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="1"/></filter></defs>
-    <ellipse cx="32" cy="22" rx="22" ry="13" fill="#1C1610" filter="url(#ib2)"/>
-    <circle cx="8" cy="14" r="3.5" fill="#1C1610" filter="url(#ib2)" opacity=".7"/>
-    <circle cx="56" cy="10" r="2.5" fill="#1C1610" filter="url(#ib2)" opacity=".6"/>
-    <circle cx="62" cy="34" r="1.8" fill="#1C1610" filter="url(#ib2)" opacity=".5"/>
-    <circle cx="18" cy="40" r="1.2" fill="#1C1610" opacity=".35"/>
-    <circle cx="48" cy="42" r=".9" fill="#1C1610" opacity=".3"/>
-  </svg>
-  <svg class="ink-blot" aria-hidden="true" style="left:2%;top:52%;width:52px;height:88px;opacity:.04;" viewBox="0 0 52 88">
-    <defs><filter id="ib3"><feTurbulence type="turbulence" baseFrequency=".06 .04" numOctaves="4" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="1.5"/></filter></defs>
-    <path d="M26,10 C36,16 40,32 36,48 C32,64 24,72 22,82 C20,72 12,64 14,48 C16,32 18,16 26,10Z" fill="#1C1610" filter="url(#ib3)"/>
-    <circle cx="14" cy="20" r="3" fill="#1C1610" filter="url(#ib3)" opacity=".6"/>
-    <circle cx="40" cy="38" r="2.2" fill="#1C1610" filter="url(#ib3)" opacity=".5"/>
-    <path d="M22,82 C21,86 22,90 24,88 C26,86 24,82 22,82Z" fill="#1C1610" opacity=".5"/>
-  </svg>
-  <svg class="ink-blot" aria-hidden="true" style="right:6%;bottom:28%;width:80px;height:56px;opacity:.05;" viewBox="0 0 80 56">
-    <defs><filter id="ib4"><feTurbulence type="turbulence" baseFrequency=".07" numOctaves="3" seed="21" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation=".8"/></filter></defs>
-    <ellipse cx="38" cy="28" rx="18" ry="11" fill="#1C1610" filter="url(#ib4)"/>
-    <circle cx="10" cy="22" r="2.5" fill="#1C1610" filter="url(#ib4)" opacity=".65"/>
-    <circle cx="64" cy="18" r="3" fill="#1C1610" filter="url(#ib4)" opacity=".55"/>
-    <circle cx="72" cy="40" r="1.8" fill="#1C1610" filter="url(#ib4)" opacity=".45"/>
-    <path d="M56,36 C64,40 68,48 64,50" stroke="#1C1610" stroke-width=".7" fill="none" stroke-linecap="round" filter="url(#ib4)" opacity=".5"/>
-  </svg>
+  <!-- ═══ HERO ═══════════════════════════════════════════════ -->
+  <header class="hero" role="banner">
+    <img
+      class="hero-photo"
+      src="assets/photos/orgue.paysage.jpg"
+      alt="Augustin Fleury, photographe — Nancy & Paris"
+      width="1920" height="1080"
+      loading="eager" fetchpriority="high"
+      decoding="async"
+    >
+    <div class="hero-overlay" aria-hidden="true"></div>
 
-  <!-- ENCRIER -->
-  <div id="inkwell" aria-hidden="true">
-    <svg viewBox="0 0 68 56" width="68" height="56">
-      <ellipse cx="34" cy="52" rx="21" ry="3.5" fill="rgba(28,22,14,.10)"/>
-      <path d="M13,24 Q13,46 34,46 Q55,46 55,24 L51,17 Q45,10 34,10 Q23,10 17,17Z" fill="#F0E8D4" stroke="#2A1F12" stroke-width=".95" stroke-linejoin="round"/>
-      <path d="M16,30 Q16,44 34,44 Q52,44 52,30 Q48,22 34,22 Q20,22 16,30Z" fill="#1C1610"/>
-      <ellipse cx="34" cy="30" rx="15" ry="4.5" fill="#161208" opacity=".85"/>
-      <path d="M15,23 Q18,13 27,10.8" stroke="rgba(255,255,255,.36)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <path d="M51,19 Q53,24 52,30" stroke="rgba(255,255,255,.10)" stroke-width="1" fill="none" stroke-linecap="round"/>
-      <path d="M26,10 Q26,5 34,5 Q42,5 42,10" fill="#E4D4B4" stroke="#2A1F12" stroke-width=".9" stroke-linejoin="round"/>
-      <ellipse cx="34" cy="10" rx="8.2" ry="3.4" fill="#D8C8A0" stroke="#2A1F12" stroke-width=".9"/>
-      <ellipse cx="30" cy="31.5" rx="5" ry="1.8" fill="rgba(255,255,255,.06)"/>
+    <!-- SVG diaphragme d'objectif — tourne lentement -->
+    <svg class="hero-deco-aperture" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+      <circle cx="60" cy="60" r="56" stroke="#94B4C1" stroke-width="0.8" stroke-dasharray="6 5"/>
+      <circle cx="60" cy="60" r="38" stroke="#94B4C1" stroke-width="0.6"/>
+      <circle cx="60" cy="60" r="18" stroke="#EAE0CF" stroke-width="1"/>
+      <!-- Lamelles du diaphragme -->
+      <path d="M60 22 Q74 40 60 60 Q46 40 60 22Z" stroke="#94B4C1" stroke-width="0.7" fill="none"/>
+      <path d="M60 22 Q74 40 60 60 Q46 40 60 22Z" stroke="#94B4C1" stroke-width="0.7" fill="none" transform="rotate(60 60 60)"/>
+      <path d="M60 22 Q74 40 60 60 Q46 40 60 22Z" stroke="#94B4C1" stroke-width="0.7" fill="none" transform="rotate(120 60 60)"/>
+      <path d="M60 22 Q74 40 60 60 Q46 40 60 22Z" stroke="#94B4C1" stroke-width="0.7" fill="none" transform="rotate(180 60 60)"/>
+      <path d="M60 22 Q74 40 60 60 Q46 40 60 22Z" stroke="#94B4C1" stroke-width="0.7" fill="none" transform="rotate(240 60 60)"/>
+      <path d="M60 22 Q74 40 60 60 Q46 40 60 22Z" stroke="#94B4C1" stroke-width="0.7" fill="none" transform="rotate(300 60 60)"/>
+      <circle cx="60" cy="60" r="3" fill="#94B4C1" opacity="0.6"/>
     </svg>
-  </div>
 
-  <div id="scroll-hint-card" aria-hidden="true">
-    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
-      <line x1="6.5" y1="1" x2="6.5" y2="11" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
-      <polyline points="2.5,7.5 6.5,11.5 10.5,7.5" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round" stroke-linecap="round"/>
-    </svg>
-    <span>Défiler vers le bas pour faire apparaître le contenu</span>
-  </div>
-  <div id="ink-rule" aria-hidden="true"></div>
-  <div id="drops-layer" aria-hidden="true"></div>
+    <div class="hero-rule" aria-hidden="true"></div>
+    <p class="hero-eyebrow">Nancy &amp; Paris · Photographe · Depuis 2024</p>
 
-  <main id="main">
-    <div id="stage">
-      <div id="tw" aria-label="Présentation d'Augustin Fleury" role="text"></div>
+    <h1 class="hero-title">Je suis<br>photographe.</h1>
+
+    <p class="hero-subtitle">
+      L’art, c’est le reflet que renvoie l’âme humaine éblouie de la splendeur du beau.<br>
+      <cite>— Victor Hugo</cite>
+    </p>
+
+    <nav class="hero-buttons" aria-label="Actions principales">
+      <a href="gallery-2027.html" class="btn btn-olive">
+        Galerie
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a href="contact.html" class="btn btn-outline">
+        Écrire
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </nav>
+
+    <div class="scroll-hint" aria-hidden="true">
+      <span>Descendre</span>
+      <div class="scroll-line"></div>
     </div>
+  </header>
+
+  <div class="divider" role="separator" aria-hidden="true"></div>
+
+  <!-- ═══ CONTENU PRINCIPAL ═══════════════════════════════════ -->
+  <main id="main-content">
+
+    <!-- INTRO — cream -->
+    <section class="intro section-enter" aria-labelledby="intro-heading">
+      <svg class="intro-deco" width="220" height="220" viewBox="0 0 220 220" fill="none" aria-hidden="true">
+        <circle class="svg-draw arc-1" cx="180" cy="180" r="160" stroke="#213448" stroke-width="1"/>
+        <circle class="svg-draw arc-2" cx="180" cy="180" r="100" stroke="#213448" stroke-width="0.6"/>
+        <circle class="svg-draw arc-3" cx="180" cy="180" r="50"  stroke="#547792" stroke-width="0.8"/>
+        <!-- Petite croix centrale -->
+        <line x1="175" y1="180" x2="185" y2="180" stroke="#547792" stroke-width="0.8" opacity="0.5"/>
+        <line x1="180" y1="175" x2="180" y2="185" stroke="#547792" stroke-width="0.8" opacity="0.5"/>
+      </svg>
+      <div class="intro-inner reveal">
+        <span id="intro-heading" class="section-label section-label-cream">À propos</span>
+        <p class="intro-text">
+          Regarder.<br>
+          C'est là que tout commence.<br>
+          Je photographie depuis 2024.
+        </p>
+      </div>
+    </section>
+
+    <div class="divider" role="separator" aria-hidden="true"></div>
+
+    <!-- FEATURES — cream-2 -->
+    <section class="features section-enter" aria-labelledby="features-heading">
+      <!-- SVG viseur optique — flotte doucement -->
+      <svg class="features-deco-lens" viewBox="0 0 130 130" fill="none" aria-hidden="true">
+        <circle cx="65" cy="65" r="60" stroke="#213448" stroke-width="0.8" stroke-dasharray="4 6"/>
+        <circle cx="65" cy="65" r="42" stroke="#213448" stroke-width="1.2"/>
+        <circle cx="65" cy="65" r="22" stroke="#547792" stroke-width="0.8"/>
+        <circle cx="65" cy="65" r="6"  stroke="#213448" stroke-width="1"/>
+        <!-- Réticule -->
+        <line x1="65" y1="5"  x2="65" y2="30" stroke="#213448" stroke-width="0.7"/>
+        <line x1="65" y1="100" x2="65" y2="125" stroke="#213448" stroke-width="0.7"/>
+        <line x1="5"  y1="65" x2="30" y2="65"  stroke="#213448" stroke-width="0.7"/>
+        <line x1="100" y1="65" x2="125" y2="65" stroke="#213448" stroke-width="0.7"/>
+        <!-- Petits repères 45° -->
+        <line x1="22" y1="22" x2="31" y2="31" stroke="#547792" stroke-width="0.5" opacity="0.6"/>
+        <line x1="99" y1="99" x2="108" y2="108" stroke="#547792" stroke-width="0.5" opacity="0.6"/>
+        <line x1="108" y1="22" x2="99" y2="31" stroke="#547792" stroke-width="0.5" opacity="0.6"/>
+        <line x1="22" y1="108" x2="31" y2="99" stroke="#547792" stroke-width="0.5" opacity="0.6"/>
+      </svg>
+      <div class="features-inner">
+        <div class="features-header reveal">
+          <span id="features-heading" class="section-label section-label-cream">Le regard</span>
+          <h2 class="features-title">Ce que je vois,<br>ce que je fais.</h2>
+        </div>
+        <div class="features-grid">
+
+          <article class="feature-card reveal d1">
+            <div class="feature-num" aria-hidden="true">01</div>
+            <p class="feature-text">
+              J'ai commencé l'orgue à l'âge de six ans. J'ai toujours été profondément sensible à l'art.
+              Cette façon d'écouter et de regarder ne m'a jamais quitté.
+              Elle est devenue mon regard pas juste une manière de voir.
+            </p>
+          </article>
+
+          <article class="feature-card reveal d2">
+            <div class="feature-num" aria-hidden="true">02</div>
+            <p class="feature-text">
+              L'image est pour moi une façon de capturer des moments.
+              De partager ce que je trouve beau, et par-dessus tout vrai.
+              De rendre visible ce qui pourrait passer inaperçu.
+            </p>
+          </article>
+
+          <article class="feature-card reveal d3">
+            <div class="feature-num" aria-hidden="true">03</div>
+            <p class="feature-text">
+              J'ai réalisé de nombreuses prestations privées dans des univers très variés.
+              Chaque rencontre nourrit ma façon de travailler.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="divider divider-sage" role="separator" aria-hidden="true"></div>
+
+    <!-- PULLQUOTE — olive -->
+    <section class="pullquote-section section-enter-left" aria-label="Citation d'Augustin Fleury">
+      <span class="pq-ghost" aria-hidden="true">«</span>
+
+      <!-- SVG tuyaux d'orgue — droite -->
+      <svg class="pq-pipes" viewBox="0 0 80 200" fill="none" aria-hidden="true">
+        <rect x="10" y="20"  width="12" height="170" rx="2" stroke="#EAE0CF" stroke-width="0.9"/>
+        <rect x="28" y="40"  width="12" height="150" rx="2" stroke="#EAE0CF" stroke-width="0.9"/>
+        <rect x="46" y="10"  width="12" height="180" rx="2" stroke="#EAE0CF" stroke-width="0.9"/>
+        <rect x="64" y="55"  width="12" height="135" rx="2" stroke="#EAE0CF" stroke-width="0.9"/>
+        <!-- Bouches des tuyaux -->
+        <line x1="10" y1="150" x2="22" y2="150" stroke="#EAE0CF" stroke-width="1.2"/>
+        <line x1="28" y1="162" x2="40" y2="162" stroke="#EAE0CF" stroke-width="1.2"/>
+        <line x1="46" y1="142" x2="58" y2="142" stroke="#EAE0CF" stroke-width="1.2"/>
+        <line x1="64" y1="168" x2="76" y2="168" stroke="#EAE0CF" stroke-width="1.2"/>
+        <!-- Barre de laye -->
+        <line x1="5" y1="185" x2="75" y2="185" stroke="#EAE0CF" stroke-width="1"/>
+      </svg>
+
+      <!-- SVG tuyaux — gauche (miroir, plus petit) -->
+      <svg class="pq-pipes-left" viewBox="0 0 80 200" fill="none" aria-hidden="true">
+        <rect x="10" y="30"  width="10" height="155" rx="2" stroke="#EAE0CF" stroke-width="0.7"/>
+        <rect x="26" y="50"  width="10" height="135" rx="2" stroke="#EAE0CF" stroke-width="0.7"/>
+        <rect x="42" y="18"  width="10" height="168" rx="2" stroke="#EAE0CF" stroke-width="0.7"/>
+        <rect x="58" y="65"  width="10" height="120" rx="2" stroke="#EAE0CF" stroke-width="0.7"/>
+        <line x1="5" y1="182" x2="72" y2="182" stroke="#EAE0CF" stroke-width="0.8"/>
+      </svg>
+      <svg class="pq-svg-grid" viewBox="0 0 1440 400" preserveAspectRatio="xMidYMid slice" fill="none" aria-hidden="true">
+        <line x1="0"    y1="200" x2="1440" y2="200" stroke="#94B4C1" stroke-width="1"/>
+        <line x1="720"  y1="0"   x2="720"  y2="400" stroke="#94B4C1" stroke-width="1"/>
+        <circle cx="720" cy="200" r="80"  stroke="#94B4C1" stroke-width="1" stroke-dasharray="6 10"/>
+        <circle cx="720" cy="200" r="160" stroke="#94B4C1" stroke-width="0.6" stroke-dasharray="4 16"/>
+        <circle cx="0"    cy="0"   r="120" stroke="#94B4C1" stroke-width="0.5"/>
+        <circle cx="1440" cy="400" r="140" stroke="#94B4C1" stroke-width="0.5"/>
+      </svg>
+      <figure class="pullquote-inner reveal">
+        <blockquote class="pullquote-text">
+          Je souhaite travailler, pas remplir un feed.
+          Pour des musiciens, des lieux, des projets.
+          C'est pour moi une nécessité.
+        </blockquote>
+        <figcaption class="pullquote-attr">— Augustin Fleury</figcaption>
+      </figure>
+    </section>
+
+    <div class="divider" role="separator" aria-hidden="true"></div>
+
+    <!-- INFO — cream -->
+    <section class="info section-enter" aria-labelledby="info-heading">
+      <!-- SVG boussole — respire discrètement -->
+      <svg class="info-deco-compass" viewBox="0 0 130 130" fill="none" aria-hidden="true">
+        <circle cx="65" cy="65" r="60" stroke="#213448" stroke-width="0.8" stroke-dasharray="3 5"/>
+        <circle cx="65" cy="65" r="46" stroke="#547792" stroke-width="0.6"/>
+        <g class="rose-ring">
+          <line x1="65" y1="8"  x2="65" y2="122" stroke="#213448" stroke-width="0.6"/>
+          <line x1="8"  y1="65" x2="122" y2="65" stroke="#213448" stroke-width="0.6"/>
+          <line x1="22" y1="22" x2="108" y2="108" stroke="#547792" stroke-width="0.4" opacity="0.5"/>
+          <line x1="108" y1="22" x2="22" y2="108" stroke="#547792" stroke-width="0.4" opacity="0.5"/>
+          <!-- Flèche Nord -->
+          <polygon points="65,12 61,40 65,36 69,40" stroke="#213448" stroke-width="0.8" fill="none"/>
+          <!-- Flèche Sud -->
+          <polygon points="65,118 61,90 65,94 69,90" stroke="#547792" stroke-width="0.6" fill="none"/>
+        </g>
+        <circle cx="65" cy="65" r="5" stroke="#213448" stroke-width="1"/>
+        <circle cx="65" cy="65" r="1.5" fill="#547792"/>
+      </svg>
+      <div class="info-inner">
+
+        <div class="reveal">
+          <div class="info-sage-line" aria-hidden="true"></div>
+          <h3 class="info-title">La présence</h3>
+          <p class="info-body">
+            Je m'adapte toujours aux personnes, aux lieux, aux attentes.
+            Une présence, une mise en scène permanente discrète, une attention.
+          </p>
+        </div>
+
+        <div class="reveal d1">
+          <div class="info-sage-line" style="background:var(--olive)" aria-hidden="true"></div>
+          <h3 class="info-title">L'ambition</h3>
+          <p class="info-body">
+            Il n'est pas possible de tout montrer. Je choisi ce qui mérite d'être vu.
+            Je ne cherche pas la perfection mais tout ce que je peux faire avec justesse.
+          </p>
+        </div>
+
+        <div class="reveal d2">
+          <div class="info-sage-line" aria-hidden="true"></div>
+          <h3 class="info-title">Un projet&nbsp;?</h3>
+          <p class="info-body">
+            Chaque projet est unique — chaque devis l'est aussi.
+            Tarifs entièrement sur mesure.
+          </p>
+          <a href="contact.html" class="info-link" aria-label="Contacter Augustin Fleury">
+            Écrire
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CLOSING — sage -->
+    <section class="closing section-enter-fade" aria-hidden="true">
+      <!-- Orbite lente en fond -->
+      <svg class="closing-deco-orbit" viewBox="0 0 400 400" fill="none">
+        <circle cx="200" cy="200" r="190" stroke="#EAE0CF" stroke-width="0.8" stroke-dasharray="5 8"/>
+        <circle cx="200" cy="200" r="140" stroke="#EAE0CF" stroke-width="0.5" stroke-dasharray="2 12"/>
+        <line x1="10" y1="200" x2="390" y2="200" stroke="#EAE0CF" stroke-width="0.4"/>
+        <line x1="200" y1="10" x2="200" y2="390" stroke="#EAE0CF" stroke-width="0.4"/>
+        <circle cx="200" cy="10"  r="4" fill="#EAE0CF"/>
+        <circle cx="390" cy="200" r="3" fill="#EAE0CF" opacity="0.5"/>
+      </svg>
+
+      <svg class="closing-svg" viewBox="0 0 1440 300" preserveAspectRatio="xMidYMid slice" fill="none">
+        <line x1="0" y1="150" x2="1440" y2="150" stroke="#EAE0CF" stroke-width="1"/>
+        <line x1="720" y1="0" x2="720" y2="300" stroke="#EAE0CF" stroke-width="1"/>
+        <circle cx="720" cy="150" r="100" stroke="#EAE0CF" stroke-width="1" stroke-dasharray="8 12"/>
+        <circle cx="720" cy="150" r="180" stroke="#EAE0CF" stroke-width="0.6" stroke-dasharray="5 18"/>
+      </svg>
+
+      <!-- Ornement central avec draw-on -->
+      <svg class="closing-ornament" width="56" height="56" viewBox="0 0 56 56" fill="none">
+        <circle class="svg-draw c1" cx="28" cy="28" r="25" stroke="#EAE0CF" stroke-width="1.2"/>
+        <line   class="svg-draw c2" x1="28" y1="3"  x2="28" y2="53" stroke="#EAE0CF" stroke-width="0.8"/>
+        <line   class="svg-draw c2" x1="3"  y1="28" x2="53" y2="28" stroke="#EAE0CF" stroke-width="0.8"/>
+        <circle class="svg-draw c3" cx="28" cy="28" r="8"  stroke="#EAE0CF" stroke-width="0.7"/>
+        <circle class="svg-draw c4" cx="28" cy="28" r="2.5" stroke="#EAE0CF" stroke-width="1" fill="#EAE0CF"/>
+      </svg>
+      <p class="closing-mark">Augustin Fleury</p>
+      <p class="closing-sub">Nancy &amp; Paris · Photographe · Vidéaste</p>
+    </section>
+
   </main>
 
-  <!-- PLUME — dimensionnée dynamiquement par JS (responsive) -->
-  <svg id="quill" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <defs>
-      <linearGradient id="qbd1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#2a2030"/><stop offset="50%" stop-color="#1a1225"/><stop offset="100%" stop-color="#0d0910"/></linearGradient>
-      <linearGradient id="qbd2" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#38284a"/><stop offset="60%" stop-color="#241830"/><stop offset="100%" stop-color="#100a18"/></linearGradient>
-      <linearGradient id="qbr" x1="0%" y1="0%" x2="100%" y2="50%"><stop offset="0%" stop-color="#5a3a7a" stop-opacity=".5"/><stop offset="100%" stop-color="#1a0a28" stop-opacity="0"/></linearGradient>
-      <linearGradient id="qra" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#0a0810"/><stop offset="40%" stop-color="#2a1840"/><stop offset="100%" stop-color="#080610"/></linearGradient>
-      <linearGradient id="qpo" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1a0a30"/><stop offset="100%" stop-color="#050208"/></linearGradient>
-      <filter id="qgp"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    </defs>
-    <path d="M 0 0 C -6 -30,-14 -65,-20 -105 C -26 -145,-24 -175,-16 -190 C -10 -200,-2 -195,2 -175 C 10 -145,14 -110,10 -70 C 6 -40,2 -15,0 0Z" fill="url(#qbd1)"/>
-    <path d="M 0 0 C 6 -28,14 -63,20 -103 C 26 -143,24 -173,16 -188 C 10 -198,2 -193,-2 -173 C -10 -143,-14 -108,-10 -68 C -6 -38,-2 -13,0 0Z" fill="url(#qbd2)"/>
-    <path d="M 0 0 C -4 -25,-10 -58,-16 -95 C -22 -130,-20 -158,-12 -168 C -6 -175,0 -168,2 -150 C 8 -125,10 -95,6 -60 C 2 -32,0 -12,0 0Z" fill="url(#qbr)" opacity=".7"/>
-    <path d="M -2 -8 C -12 -38,-24 -72,-28 -108 C -30 -130,-24 -145,-16 -135 C -8 -122,-4 -96,-4 -62 C -4 -38,-2 -18,-2 -8Z" fill="#38204a" opacity=".6"/>
-    <path d="M  2 -6 C 12 -36,24 -70,28 -106 C 30 -128,24 -143,16 -133 C 8 -120,4 -94,4 -60 C 4 -36,2 -16,2 -6Z" fill="#2a1838" opacity=".55"/>
-    <path d="M -4 -22 C -18 -50,-30 -82,-32 -114 C -33 -130,-26 -142,-18 -133 C -10 -120,-6 -96,-6 -68 C -6 -48,-4 -32,-4 -22Z" fill="#241530" opacity=".45"/>
-    <path d="M  4 -20 C 18 -48,30 -80,32 -112 C 33 -128,26 -140,18 -131 C 10 -118,6 -94,6 -66 C 6 -46,4 -30,4 -20Z" fill="#1a1028" opacity=".42"/>
-    <path d="M -8 -45 C -20 -68,-28 -95,-26 -120 C -22 -135,-14 -140,-8 -128 C -2 -114,0 -90,-2 -65Z" fill="#2a1840" opacity=".35"/>
-    <path d="M  8 -43 C 20 -66,28 -93,26 -118 C 22 -133,14 -138,8 -126 C 2 -112,0 -88,2 -63Z" fill="#1e1030" opacity=".32"/>
-    <path d="M -18 -110 C -20 -125,-18 -140,-12 -150 C -8 -158,-2 -155,0 -145 C 2 -155,8 -158,12 -150 C 18 -140,20 -125,18 -110 C 10 -118,0 -122,-18 -110Z" fill="#150a20" opacity=".9"/>
-    <path d="M -3 -168 C -8 -178,-6 -192,0 -200 C 6 -192,8 -178,3 -168Z" fill="#0d0818" opacity=".95"/>
-    <line x1="-1" y1="-165" x2="1" y2="-198" stroke="#4a2870" stroke-width=".5" opacity=".6"/>
-    <line x1="0" y1="6" x2="0" y2="-188" stroke="url(#qra)" stroke-width="1.2" stroke-linecap="round"/>
-    <path d="M -1.5 -2 C -3 4,-2 12,0 18 C 2 12,3 4,1.5 -2Z" fill="url(#qpo)"/>
-    <path d="M -1 10 C -2 18,-1.5 26,0 32 C 1.5 26,2 18,1 10Z" fill="#0a0510" opacity=".9"/>
-    <g style="transform-origin:0px 22px;animation:flamme .8s ease-in-out infinite">
-      <ellipse cx="0" cy="22" rx="2.5" ry="5" fill="#8b0070" opacity=".75" filter="url(#qgp)"/>
-      <ellipse cx="0" cy="22" rx="1.2" ry="3" fill="#cc00aa" opacity=".55"/>
-    </g>
-    <circle cx="0" cy="28" r="1.5" fill="#6b0050" style="animation:encre-pulse 6s .4s infinite;opacity:0"/>
-  </svg>
+  <!-- ═══ FOOTER ══════════════════════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo" itemscope itemtype="https://schema.org/Person">
+    <div class="site-footer__inner">
+      <p class="site-footer__copy">
+        <span itemprop="name">Augustin Fleury</span>
+        &nbsp;·&nbsp;
+        <span itemprop="jobTitle">Photographe & Vidéaste</span>
+        &nbsp;·&nbsp; © 2025
+      </p>
+      <a href="https://instagram.com/aug.ustinflry" class="site-footer__ig"
+         target="_blank" rel="noopener noreferrer me"
+         aria-label="Instagram d'Augustin Fleury — @aug.ustinflry"
+         itemprop="sameAs">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="1.6"/>
+          <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.6"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+        </svg>
+        @aug.ustinflry
+      </a>
+      <nav class="site-footer__nav" aria-label="Navigation du site">
+        <a href="index.html"        class="site-footer__link">Accueil</a>
+        <a href="gallery-2027.html" class="site-footer__link">Galerie</a>
+        <a href="contact.html"      class="site-footer__link">Contact</a>
+      </nav>
+    </div>
+  </footer>
 
-  <div id="dot" aria-hidden="true"></div>
-  <div id="plbl" aria-hidden="true">À propos · Augustin Fleury</div>
-  <div id="prog" aria-hidden="true"></div>
-
-  <!-- HINT -->
-  <div id="hint" role="note">
-    <span class="hint-label">Défiler pour lire</span>
-    <svg class="hint-arrow" width="16" height="22" viewBox="0 0 16 22" fill="none" aria-hidden="true">
-      <line x1="8" y1="0" x2="8" y2="16" stroke="rgba(30,26,20,.45)" stroke-width="1"/>
-      <polyline points="3,12 8,18 13,12" fill="none" stroke="rgba(30,26,20,.45)" stroke-width="1" stroke-linejoin="round"/>
-    </svg>
-  </div>
-
-  <!-- CTA — Liquid Glass Pills -->
-  <div id="cta-wrap">
-    <a href="contact.html" class="cta-pill cta-pill-contact" aria-label="Me contacter">
-      <span>Me contacter</span>
-      <svg class="arr" width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
-        <line x1="0" y1="6" x2="13" y2="6" stroke="#1E1A14" stroke-width="1.2" stroke-linecap="round"/>
-        <polyline points="8,1 13,6 8,11" fill="none" stroke="#1E1A14" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
-      </svg>
-    </a>
-    <button class="cta-pill cta-pill-reset" onclick="resetAll()" aria-label="Recommencer depuis le début">
-      <span>Recommencer</span>
-      <svg class="arr" width="12" height="16" viewBox="0 0 12 16" fill="none" aria-hidden="true">
-        <line x1="6" y1="15" x2="6" y2="2" stroke="#1E1A14" stroke-width="1.2" stroke-linecap="round"/>
-        <polyline points="1,7 6,2 11,7" fill="none" stroke="#1E1A14" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
-      </svg>
-    </button>
-  </div>
-
-  <!-- BOUTON RETOUR EN HAUT -->
-  <button id="btn-top" aria-label="Recommencer depuis le début" title="Recommencer" style="display:none">
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-      <line x1="8" y1="13" x2="8" y2="3"/>
-      <polyline points="4,7 8,3 12,7"/>
-    </svg>
-  </button>
-
+  <!-- Scripts différés — non bloquants -->
   <script src="assets/js/scroll.js" defer></script>
   <script src="assets/js/transitions.js" defer></script>
   <script src="assets/js/liquid-glass.js" defer></script>
 
   <script>
-  'use strict';
-
-  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-  window.scrollTo(0, 0);
-
-  /* ═══ SCROLL VIRTUEL ══════════════════════════════════════════
-     Molette : bloquée pendant isDipping.
-     Vitesse plafonnée par MAX_WHEEL_STEP.
-  ════════════════════════════════════════════════════════════ */
-  const VIRT_DIST      = 6400;
-  const WHEEL_FACTOR   = 0.38;
-  const MAX_WHEEL_STEP = 78;
-  const SCROLL_LERP    = 0.068;
-
-  let scrollTarget  = 0;
-  let virtualScroll = 0;
-  let prevVirtual   = 0;
-
-  function canScroll() { return !isDipping; }
-
-  window.addEventListener('wheel', e => {
-    e.preventDefault();
-    if (!canScroll()) return;
-    const step = Math.sign(e.deltaY) * Math.min(Math.abs(e.deltaY) * WHEEL_FACTOR, MAX_WHEEL_STEP);
-    scrollTarget = Math.max(0, Math.min(VIRT_DIST, scrollTarget + step));
-  }, { passive: false });
-
-  window.addEventListener('keydown', e => {
-    const STEP = 130;
-    if ([' ','ArrowDown','PageDown'].includes(e.key)) {
-      e.preventDefault();
-      if (canScroll()) scrollTarget = Math.min(VIRT_DIST, scrollTarget + STEP);
-    } else if (['ArrowUp','PageUp'].includes(e.key)) {
-      e.preventDefault();
-      if (canScroll()) scrollTarget = Math.max(0, scrollTarget - STEP);
-    } else if (e.key === 'Home') { e.preventDefault(); scrollTarget = 0; }
-    else if (e.key === 'End')   { e.preventDefault(); scrollTarget = VIRT_DIST; }
-  });
-
-  let touchY0 = null;
-  window.addEventListener('touchstart', e => { touchY0 = e.touches[0].clientY; }, { passive: true });
-  window.addEventListener('touchmove', e => {
-    if (touchY0 === null || !canScroll()) return;
-    const dy = (touchY0 - e.touches[0].clientY) * 1.15;
-    touchY0 = e.touches[0].clientY;
-    scrollTarget = Math.max(0, Math.min(VIRT_DIST, scrollTarget + dy));
-  }, { passive: true });
-  window.addEventListener('touchend', () => { touchY0 = null; }, { passive: true });
-
-  /* ═══ CONTENU ════════════════════════════════════════════ */
-  const PARAGRAPHS = [
-    {lines:[
-      [{t:'tx',v:'Je suis photographe, '},{t:'sk',v:'quelqu\u2019un qui d\u00e9clenche au hasard',id:'s0'},{t:'tx',v:'. Quelqu\u2019un qui choisit.'}],
-      [{t:'tx',v:'Quelqu\u2019un qui attend, que la lumi\u00e8re, le sujet et surtout le moment coexistent.'}],
-      [{t:'tx',v:'J\u2019ai toujours aim\u00e9 la photographie, ce n\u2019est donc pas tout \u00e0 fait une passion r\u00e9cente.'}],
-      [{t:'tx',v:'Mais j\u2019ai r\u00e9ellement commenc\u00e9 en 2024.'}]
-    ]},
-    {lines:[
-      [{t:'tx',v:'J\u2019ai commenc\u00e9 l\u2019orgue \u00e0 l\u2019\u00e2ge de six ans.'}],
-      [{t:'tx',v:'J\u2019ai toujours \u00e9t\u00e9 profond\u00e9ment sensible \u00e0 l\u2019art.'}],
-      [{t:'tx',v:'Je vois l\u2019art comme l\u2019\u00e9clat divin que dieu a mis dans les hommes.'}],
-      [{t:'tx',v:'Cette fa\u00e7on d\u2019\u00e9couter et de regarder ne m\u2019a jamais quitt\u00e9.'}],
-      [{t:'tx',v:'Elle est devenue mon regard, '},{t:'sk',v:'juste une mani\u00e8re de voir',id:'s1'},{t:'tx',v:'.'}],
-      [{t:'tx',v:'L\u2019image est pour moi une fa\u00e7on '},{t:'sk',v:'de capturer des moments',id:'s2'},{t:'tx',v:'.'}],
-      [{t:'tx',v:'De partager ce que je trouve beau, et par-dessus tout vrai.'}],
-      [{t:'tx',v:'Une mani\u00e8re '},{t:'sk',v:'de suivre des tendances',id:'s3'},{t:'tx',v:'.'}],
-      [{t:'tx',v:'De rendre visible ce qui pourrait passer inaper\u00e7u.'}]
-    ]},
-    {lines:[
-      [{t:'tx',v:'J\u2019ai r\u00e9alis\u00e9 de nombreuses prestations priv\u00e9es.'}],
-      [{t:'tx',v:'Chaque rencontre nourrit ma fa\u00e7on de travailler.'}],
-      [{t:'tx',v:'C\u2019est important, je ne souhaite pas m\u2019imposer de style.'}],
-      [{t:'tx',v:'Parce que je peux y apporter ma vision.'}]
-    ]},
-    {lines:[
-      [{t:'tx',v:'Je m\u2019adapte toujours aux personnes, aux lieux, aux attentes.'}],
-      [{t:'tx',v:'Une pr\u00e9sence, une mise en sc\u00e8ne permanente discr\u00e8te, une attention.'}],
-      [{t:'tx',v:'Je souhaite travailler, '},{t:'sk',v:'remplir un feed',id:'s4'},{t:'tx',v:'.'}],
-      [{t:'tx',v:'Pour des musiciens, des lieux, des projets.'}],
-      [{t:'tx',v:'Pour ce qui a du sens '},{t:'sk',v:'produire \u00e0 vide',id:'s5'},{t:'tx',v:'. Une n\u00e9cessit\u00e9.'}]
-    ]},
-    {lines:[
-      [{t:'tx',v:'Je veux '},{t:'sk',v:'tout montrer',id:'s6'},{t:'tx',v:'.'}],
-      [{t:'tx',v:'Tout ce qui m\u00e9rite d\u2019\u00eatre vu.'}],
-      [{t:'tx',v:'Je cherche '},{t:'sk',v:'la perfection',id:'s7'},{t:'tx',v:'.'}],
-      [{t:'tx',v:'Tout ce que je peux faire avec justesse.'}]
-    ]}
-  ];
-
-  /* ═══ BUILD DOM ═════════════════════════════════════════ */
-  const tw=document.getElementById('tw'),spans=[],triggers=[];
-  let total=0;
-  const paraCharEnds=[];
-  const NS='http://www.w3.org/2000/svg';
-
-  PARAGRAPHS.forEach(para=>{
-    const p=document.createElement('p');
-    para.lines.forEach((line,li)=>{
-      if(li>0)p.appendChild(document.createElement('br'));
-      line.forEach(seg=>{
-        if(seg.t==='tx'){
-          for(const ch of seg.v){const s=document.createElement('span');s.className='c';s.textContent=ch;p.appendChild(s);spans.push(s);total++;}
-        }else{
-          const w=document.createElement('span');w.className='sg-wrap';w.id=seg.id;
-          const inn=document.createElement('span');inn.className='sg-inner';
-          const wordStart=total; /* index du premier char du mot barré */
-          for(const ch of seg.v){const s=document.createElement('span');s.className='c';s.textContent=ch;inn.appendChild(s);spans.push(s);total++;}
-          w.appendChild(inn);
-          /* SVG rature — dashoffset contrôlé en JS (synchronisé avec la plume) */
-          const sv=document.createElementNS(NS,'svg');sv.setAttribute('class','sk-svg');sv.setAttribute('viewBox','0 0 100 10');sv.setAttribute('preserveAspectRatio','none');sv.setAttribute('aria-hidden','true');
-          const l1=document.createElementNS(NS,'path');l1.setAttribute('class','sk-l1');l1.setAttribute('d','M1,5 C18,3 38,6.5 52,4 C66,1.5 82,5.8 99,4.2');l1.setAttribute('fill','none');l1.setAttribute('stroke-linecap','round');
-          const l2=document.createElementNS(NS,'path');l2.setAttribute('class','sk-l2');l2.setAttribute('d','M2,5.8 C22,7.2 42,3.2 62,5.5 C78,7.2 93,3.5 98,5.2');l2.setAttribute('fill','none');l2.setAttribute('stroke-linecap','round');
-          sv.appendChild(l1);sv.appendChild(l2);w.appendChild(sv);p.appendChild(w);
-          triggers.push({startAt:wordStart, at:total-1, id:seg.id});
-        }
-      });
-    });
-    paraCharEnds.push(total);tw.appendChild(p);
-  });
-
-  const progEl=document.getElementById('prog');
-  PARAGRAPHS.forEach((_,i)=>{const d=document.createElement('div');d.className='pd';d.id='pd'+i;progEl.appendChild(d);});
-
-  /* ═══ REFS ══════════════════════════════════════════════ */
-  const quillEl       =document.getElementById('quill'),
-        dotEl         =document.getElementById('dot'),
-        inkwellEl     =document.getElementById('inkwell'),
-        inkRule       =document.getElementById('ink-rule'),
-        scrollHintEl  =document.getElementById('scroll-hint-card'),
-        hintEl        =document.getElementById('hint'),
-        ctaWrapEl     =document.getElementById('cta-wrap'),
-        plblEl        =document.getElementById('plbl'),
-        dropsLayer    =document.getElementById('drops-layer'),
-        btnTop        =document.getElementById('btn-top');
-
-  /* ═══ PLUME — géométrie responsive ══════════════════════
-     FIX RESPONSIVE : NIB_X/NIB_Y calculés selon la taille
-     réelle de l'élément SVG (redimensionné en CSS).
-  ════════════════════════════════════════════════════════ */
-  function applyQuillSize(){
-    const mobile = window.innerWidth <= 680;
-    const w = mobile ? 44 : 56;
-    const h = mobile ? 136 : 172;
-    quillEl.setAttribute('viewBox','-40 -210 80 245');
-    quillEl.style.width  = w + 'px';
-    quillEl.style.height = h + 'px';
-  }
-  applyQuillSize();
-
-  function getNib(){
-    const r = quillEl.getBoundingClientRect();
-    return { x: r.width * 0.5, y: r.height * 0.983 };
-  }
-
-  function inkwellEntry(){const r=inkwellEl.getBoundingClientRect();return{x:r.left+r.width*.5,y:r.top+r.height*.28};}
-
-  let qx=0,qy=0;
-  function placeQuill(nx,ny){
-    const nib=getNib();
-    quillEl.style.left=(nx-nib.x)+'px';
-    quillEl.style.top =(ny-nib.y)+'px';
-    dotEl.style.left  =nx+'px';
-    dotEl.style.top   =ny+'px';
-  }
-
-  /* ═══ DROPS ══════════════════════════════════════════════ */
-  function spawnDrops(x,y,count,spread){
-    spread=spread||8;
-    for(let i=0;i<count;i++){
-      const el=document.createElement('div');
-      const size=1.2+Math.random()*2.8,dx=(Math.random()-.5)*spread*2;
-      const fall=10+Math.random()*18,dur=.4+Math.random()*.45,opa=.28+Math.random()*.35;
-      el.className='ink-drop';
-      el.style.cssText='width:'+size+'px;height:'+size+'px;left:'+(x+dx-size/2)+'px;top:'+(y-size/2)+'px;opacity:'+opa+';transition:transform '+dur+'s cubic-bezier(.2,.8,.4,1),opacity '+(dur+.12)+'s ease;';
-      dropsLayer.appendChild(el);
-      requestAnimationFrame(()=>requestAnimationFrame(()=>{el.style.transform='translateY('+fall+'px)';el.style.opacity='0';}));
-      setTimeout(()=>el.remove(),(dur+.35)*1000);
-    }
-  }
-
-  /* ═══ DIPPING ════════════════════════════════════════════ */
-  let isDipping=false,lastDippedPara=-1,isParked=false;
-  const DIP_AT=[1,3];
-  function getParaIdx(n){for(let i=0;i<paraCharEnds.length;i++)if(n<=paraCharEnds[i])return i;return paraCharEnds.length;}
-
-  function triggerDip(isReturn){
-    if(isDipping)return;isDipping=true;isParked=false;
-    const ie=inkwellEntry();tNibX=ie.x;tNibY=ie.y;
-    quillEl.classList.add('dipping');
-    quillEl.classList.remove('writing','resting');
-    dotEl.classList.remove('vis','writing');
-    /* Scroll bloqué pendant isDipping (voir canScroll()) */
-    setTimeout(()=>spawnDrops(ie.x,ie.y+10,3,5),360);
-    setTimeout(()=>spawnDrops(ie.x,ie.y+4, 2,3),500);
-    setTimeout(()=>{
-      quillEl.classList.remove('dipping');
-      isDipping=false;
-      if(isReturn){quillEl.classList.add('resting');isParked=true;}
-    },1250);
-  }
-
-  /* ═══ DROPS D'ÉCRITURE ═══════════════════════════════════ */
-  let wdc=0;
-  function maybeWriteDrop(n){
-    if(++wdc<32)return;wdc=0;
-    const wp=writingPos(n);if(wp)spawnDrops(wp.x,wp.y+1,1,3);
-  }
-
-  /* ═══ VIEWPORT TRACKING ══════════════════════════════════ */
-  let twY=0,targetTwY=0;
-  const TW_LERP=.042,WRITE_ZONE=.56;
-
-  function updateTwPosition(n){
-    if(n<=0){targetTwY=0;return;}
-    if(n>=total)return;
-    const wp=writingPos(Math.min(n,spans.length-1));if(!wp)return;
-    const zY=window.innerHeight*WRITE_ZONE;
-    if(wp.y>zY)              targetTwY=Math.min(0,zY-(wp.y-twY));
-    else if(wp.y<zY*.35&&targetTwY<0) targetTwY=Math.min(0,zY-(wp.y-twY));
-  }
-
-  /* ═══ INDEX ══════════════════════════════════════════════ */
-  function targetIdx(){return(virtualScroll/VIRT_DIST)*total;}
-
-  /* ═══ SYNC CHARS ══════════════════════════════════════════ */
-  let revN=0;
-  function syncChars(n){
-    if(n>revN){for(let i=revN;i<n&&i<spans.length;i++){spans[i].classList.add('v');}}
-    else if(n<revN){for(let i=revN-1;i>=n&&i>=0;i--){spans[i].classList.remove('v');}}
-    revN=Math.max(0,Math.min(n,spans.length));
-  }
-
-  /* ═══ RATURES — LA PLUME BARRE LES MOTS ════════════════════
-     Le strokeDashoffset est mis à jour à chaque frame,
-     proportionnellement au nombre de caractères du mot barré
-     déjà révélés. Ainsi la ligne se dessine PENDANT que la
-     plume écrit chaque lettre du mot — pas après.
-  ═══════════════════════════════════════════════════════════ */
-  function updateStrikes(n){
-    triggers.forEach(tr=>{
-      const el=document.getElementById(tr.id);if(!el)return;
-      const l1=el.querySelector('.sk-l1');
-      const l2=el.querySelector('.sk-l2');
-
-      if(n>tr.at){
-        /* Mot entièrement écrit et passé : rature complète */
-        if(l1)l1.style.strokeDashoffset='0';
-        if(l2)l2.style.strokeDashoffset='0';
-      }else if(n>=tr.startAt){
-        /* La plume est en train d'écrire ce mot */
-        const wordLen=Math.max(1,tr.at-tr.startAt);
-        const progress=(n-tr.startAt)/wordLen; /* 0→1 */
-        if(l1)l1.style.strokeDashoffset=String(108*(1-progress));
-        /* Deuxième trait légèrement décalé */
-        if(l2)l2.style.strokeDashoffset=String(108*(1-Math.max(0,progress-.28)/.72));
-      }else{
-        /* Mot pas encore atteint : rature effacée */
-        if(l1)l1.style.strokeDashoffset='108';
-        if(l2)l2.style.strokeDashoffset='108';
-      }
-    });
-  }
-
-  /* ═══ POSITION D'ÉCRITURE ════════════════════════════════ */
-  function writingPos(n){
-    const i=Math.min(n,spans.length-1);if(i<0)return null;
-    const r=spans[i].getBoundingClientRect();
-    if(r.width>.5)return{x:r.left+r.width*.2,y:r.top+r.height*.68};
-    for(let j=i-1;j>=0;j--){const rj=spans[j].getBoundingClientRect();if(rj.width>.5)return{x:rj.right+1,y:rj.top+rj.height*.68};}
-    return null;
-  }
-
-  function updateProg(n){paraCharEnds.forEach((end,i)=>{const d=document.getElementById('pd'+i);if(d)d.classList.toggle('on',n>=end);});}
-
-  /* ═══ RESET COMPLET ═══════════════════════════════════════ */
-  function resetAll(){
-    scrollTarget=0;virtualScroll=0;prevVirtual=0;curIdx=0;
-    /* Chars → tous invisibles instantanément */
-    for(const s of spans)s.classList.remove('v','trace');
-    revN=0;
-    /* Ratures */
-    triggers.forEach(tr=>{
-      const el=document.getElementById(tr.id);if(!el)return;
-      const l1=el.querySelector('.sk-l1');const l2=el.querySelector('.sk-l2');
-      if(l1)l1.style.strokeDashoffset='108';if(l2)l2.style.strokeDashoffset='108';
-    });
-    /* CTA */
-    ctaWrapEl.classList.remove('on');ctaWrapEl.style.top='';
-    /* État */
-    done=false;lastDippedPara=-1;isParked=false;
-    targetTwY=0;twY=0;tw.style.transform='';
-    /* Plume */
-    quillEl.classList.remove('writing');quillEl.classList.add('resting');isParked=true;
-    const ie=inkwellEntry();tNibX=ie.x;tNibY=ie.y;qx=ie.x;qy=ie.y;placeQuill(qx,qy);
-    /* Hint */
-    hintEl.classList.remove('gone');hintEl.classList.add('vis');
-    scrollHintEl.classList.remove('gone');scrollHintEl.classList.add('vis');
-    if(btnTop)btnTop.classList.remove('vis');
-    updateProg(0);
-  }
-
-  btnTop.addEventListener('click', resetAll);
-
-  /* ═══ MAIN LOOP ═══════════════════════════════════════════ */
-  let curIdx=0,tNibX=0,tNibY=0,done=false,started=false;
-  const IDX_LERP=.072,NIB_LERP=.18;
-
-  let returnQuillTimer=null,quillReturnPending=false;
-  function scheduleQuillReturn(){
-    if(quillReturnPending)return;quillReturnPending=true;
-    clearTimeout(returnQuillTimer);
-    returnQuillTimer=setTimeout(()=>{
-      if(virtualScroll<prevVirtual+2&&!isDipping&&started)triggerDip(true);
-      quillReturnPending=false;
-    },320);
-  }
-
-  function loop(){
-    /* Scroll virtuel */
-    virtualScroll+=(scrollTarget-virtualScroll)*SCROLL_LERP;
-    const scrollingBack=virtualScroll<prevVirtual-.08;
-
-    const ti=targetIdx();
-    curIdx+=(ti-curIdx)*IDX_LERP;
-    const n=Math.round(curIdx);
-
-    if(started){
-      /* Quand done=true : texte gelé, on ne touche plus aux chars ni à la position */
-      if(!done){
-        syncChars(n);
-        updateStrikes(n);
-        updateTwPosition(n);
-        twY+=(targetTwY-twY)*TW_LERP;
-        tw.style.transform='translateY('+twY.toFixed(2)+'px)';
-      }
-      updateProg(n);
-      if(btnTop)btnTop.classList.toggle('vis', virtualScroll > VIRT_DIST * 0.10);
-      if(scrollTarget>15){hintEl.classList.add('gone');scrollHintEl.classList.add('gone');}
-    } else {
-      twY+=(targetTwY-twY)*TW_LERP;
-      tw.style.transform='translateY('+twY.toFixed(2)+'px)';
-    }
-
-    if(started&&!done){
-      if(n<=0){
-        if(!isParked){quillEl.classList.remove('writing');quillEl.classList.add('resting');dotEl.classList.remove('vis','writing');isParked=true;}
-        const ie=inkwellEntry();tNibX=ie.x;tNibY=ie.y;
-      }else if(n<total){
-        if(scrollingBack){
-          quillEl.classList.remove('writing');dotEl.classList.remove('writing');
-          isParked=false;
-          const ie=inkwellEntry();
-          tNibX+=(ie.x-tNibX)*.055;tNibY+=(ie.y-tNibY)*.055;
-          scheduleQuillReturn();
-          lastDippedPara=Math.min(lastDippedPara,getParaIdx(n)-1);
-        }else{
-          quillReturnPending=false;clearTimeout(returnQuillTimer);isParked=false;
-          if(!isDipping){
-            const np=getParaIdx(n);
-            if(DIP_AT.indexOf(np)!==-1&&lastDippedPara<np){lastDippedPara=np;triggerDip(false);}
-          }
-          if(!isDipping){
-            const wp=writingPos(n);if(wp){tNibX=wp.x;tNibY=wp.y;}
-            quillEl.classList.add('writing');quillEl.classList.remove('resting');
-            dotEl.classList.add('vis','writing');
-            maybeWriteDrop(n);
-          }
-        }
-        hintEl.classList.add('gone');
-      }else if(n>=total){
-        /* Tout écrit — figer l'état */
-        done=true;
-        quillEl.classList.remove('writing');dotEl.classList.remove('writing');
-        const twR=tw.getBoundingClientRect();
-        ctaWrapEl.style.top=Math.round(Math.min(twR.bottom+32,window.innerHeight-120))+'px';
-        ctaWrapEl.classList.add('on');
-        const ie=inkwellEntry();tNibX=ie.x;tNibY=ie.y;
-        quillEl.classList.add('resting');isParked=true;
-      }
-    }
-
-    if(started){qx+=(tNibX-qx)*NIB_LERP;qy+=(tNibY-qy)*NIB_LERP;placeQuill(qx,qy);}
-
-    prevVirtual=virtualScroll;
-    requestAnimationFrame(loop);
-  }
-
-  /* ═══ INIT ════════════════════════════════════════════════ */
-  window.addEventListener('load',function(){
-    const ie=inkwellEntry();
-    qx=ie.x;qy=ie.y;tNibX=ie.x;tNibY=ie.y;placeQuill(qx,qy);
-
-    setTimeout(()=>{inkwellEl.classList.add('vis');plblEl.classList.add('vis');progEl.classList.add('vis');},180);
-    setTimeout(()=>{quillEl.classList.add('vis');quillEl.classList.add('dipping');},320);
-    setTimeout(()=>{const ie2=inkwellEntry();spawnDrops(ie2.x,ie2.y+10,4,7);},680);
-    setTimeout(()=>{scrollHintEl.classList.add('vis');},200);
-    setTimeout(()=>{
-      quillEl.classList.remove('dipping');quillEl.classList.add('resting');isParked=true;
-      inkRule.classList.add('expanded');
-    },1380);
-    setTimeout(()=>{hintEl.classList.add('vis');started=true;},1950);
-  });
-
-  /* Responsive : recalculer taille plume au resize */
-  window.addEventListener('resize',()=>{
-    applyQuillSize();
-    if(isParked){const ie=inkwellEntry();tNibX=ie.x;tNibY=ie.y;qx=ie.x;qy=ie.y;placeQuill(qx,qy);}
-  });
-
-  requestAnimationFrame(loop);
-  </script>
-
-  <script>
+    /* Loader */
     (function(){
-      var l=document.getElementById('page-loader');if(!l)return;
-      function hide(){l.classList.add('is-hidden');setTimeout(function(){l.remove();},600);}
-      if(document.readyState==='complete'){setTimeout(hide,120);}
-      else{window.addEventListener('load',function(){setTimeout(hide,120);});}
+      var l = document.getElementById('page-loader');
+      if (!l) return;
+      function hide(){ l.classList.add('is-hidden'); setTimeout(function(){ l.remove(); }, 600); }
+      if (document.readyState === 'complete') { setTimeout(hide, 120); }
+      else { window.addEventListener('load', function(){ setTimeout(hide, 120); }); }
+    })();
+
+    /* Reveal au scroll — éléments internes */
+    (function(){
+      if (!('IntersectionObserver' in window)) {
+        document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('visible'); });
+        return;
+      }
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if (e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -28px 0px' });
+      document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+    })();
+
+    /* Animations d'entrée des sections */
+    (function(){
+      var sel = '.section-enter, .section-enter-left, .section-enter-fade';
+      var sections = document.querySelectorAll(sel);
+      if (!sections.length) return;
+
+      if (!('IntersectionObserver' in window)) {
+        sections.forEach(function(s){ s.classList.add('in-view'); });
+        return;
+      }
+
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if (e.isIntersecting){
+            /* Légère pause avant in-view pour laisser le navigateur peindre */
+            var el = e.target;
+            requestAnimationFrame(function(){
+              requestAnimationFrame(function(){ el.classList.add('in-view'); });
+            });
+            io.unobserve(el);
+          }
+        });
+      }, {
+        threshold: 0.08,          /* déclenche tôt pour un effet fluide */
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      sections.forEach(function(s){ io.observe(s); });
+    })();
+
+    /* Draw-on SVGs — déclenché à l'entrée dans le viewport */
+    (function(){
+      var targets = [
+        { el: document.querySelector('.intro-deco'),        threshold: 0.2 },
+        { el: document.querySelector('.closing-ornament'),  threshold: 0.4 },
+        { el: document.querySelector('.info-deco-compass'), threshold: 0.3 },
+      ];
+      if (!('IntersectionObserver' in window)) {
+        targets.forEach(function(t){ if(t.el) t.el.classList.add('drawn'); });
+        return;
+      }
+      targets.forEach(function(t){
+        if (!t.el) return;
+        var io = new IntersectionObserver(function(entries){
+          entries.forEach(function(e){
+            if (e.isIntersecting){ e.target.classList.add('drawn'); io.unobserve(e.target); }
+          });
+        }, { threshold: t.threshold });
+        io.observe(t.el);
+      });
     })();
   </script>
 </body>
