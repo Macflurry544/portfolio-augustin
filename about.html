@@ -493,29 +493,76 @@
     .info-link svg { transition: transform 0.28s ease; }
     .info-link:hover svg { transform: translateX(4px); }
 
-    /* ══ CLOSING ════════════════════════════════════════════════ */
-    .closing {
-      background: var(--sage);
-      padding: 6rem var(--gutter) 5rem;
+    /* ══ INTRO — lead phrase ════════════════════════════════════ */
+    .intro-lead {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 2.2vw, 1.55rem);
+      line-height: 1.55; color: var(--olive);
+      font-style: italic; margin-bottom: 1.6rem;
+    }
+    .intro-text + .intro-text { margin-top: 1.1rem; }
+
+    /* ══ FEATURES — titre de carte ══════════════════════════════ */
+    .feature-title {
+      font-family: var(--font-display);
+      font-size: 1.08rem; color: var(--olive); line-height: 1.25;
+      margin-bottom: 0.6rem; letter-spacing: -0.01em;
+    }
+
+    /* ══ INFO — header de section ════════════════════════════════ */
+    .info-header { text-align: center; margin-bottom: 5rem; }
+    .info-section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: var(--olive); line-height: 1.1;
+      letter-spacing: -0.015em; margin-top: 1rem;
+    }
+
+    /* ══ CTA ═════════════════════════════════════════════════════ */
+    .cta-section {
+      background: var(--olive);
+      padding: 10rem var(--gutter) 9rem;
       text-align: center; position: relative; overflow: hidden;
     }
-    .closing-svg {
+    .cta-svg {
       position: absolute; inset: 0; width: 100%; height: 100%;
-      pointer-events: none; opacity: 0.07;
+      pointer-events: none; opacity: 0.055;
     }
-    .closing-ornament { display: block; margin: 0 auto 2.4rem; opacity: 0.4; }
-    .closing-mark {
-      font-family: var(--font-display);
-      font-size: clamp(2.2rem, 6vw, 5.5rem);
-      color: var(--cream); letter-spacing: 0.02em;
-      user-select: none; opacity: 0.15;
-    }
-    .closing-sub {
-      margin-top: 1.4rem;
+    .cta-inner { max-width: 560px; margin: 0 auto; position: relative; z-index: 1; }
+    .cta-eyebrow {
       font-family: var(--font-body);
-      font-size: 0.6rem; letter-spacing: 0.24em;
-      text-transform: uppercase; color: rgba(234,224,207,0.55);
+      font-size: 0.58rem; font-weight: 600;
+      letter-spacing: 0.36em; text-transform: uppercase;
+      color: rgba(148, 180, 193, 0.5); margin-bottom: 1.4rem;
     }
+    .cta-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 9vw, 7.5rem);
+      line-height: 0.93; letter-spacing: -0.03em;
+      color: var(--cream);
+    }
+    .cta-sub {
+      font-family: var(--font-body);
+      font-size: clamp(0.88rem, 1.2vw, 1rem);
+      line-height: 1.8; color: rgba(234, 224, 207, 0.4);
+      margin: 1.8rem auto 0; max-width: 30ch;
+    }
+    .cta-btn-wrap { margin-top: 3.2rem; }
+    .btn-cream {
+      background: rgba(234, 224, 207, 0.95);
+      color: var(--olive);
+      border: 1px solid rgba(234, 224, 207, 0.25);
+      box-shadow: 0 4px 24px rgba(234, 224, 207, 0.1),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+    .btn-cream:hover {
+      background: #EAE0CF;
+      box-shadow: 0 10px 40px rgba(234, 224, 207, 0.18),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    /* ══ Closing — garde uniquement les SVG keyframes ════════════ */
+    .closing-ornament { display: block; margin: 0 auto; opacity: 0; pointer-events: none; position: absolute; }
 
     /* ══ FOOTER ═════════════════════════════════════════════════ */
     .site-footer {
@@ -778,11 +825,17 @@
         <line x1="180" y1="175" x2="180" y2="185" stroke="#547792" stroke-width="0.8" opacity="0.5"/>
       </svg>
       <div class="intro-inner reveal">
-        <span id="intro-heading" class="section-label section-label-cream">À propos</span>
+        <span id="intro-heading" class="section-label section-label-cream">Qui je suis</span>
+        <p class="intro-lead">Musicien avant d'être photographe.</p>
         <p class="intro-text">
-          Regarder.<br>
-          C'est là que tout commence.<br>
-          Je photographie depuis 2024.
+          J'ai commencé l'orgue à six ans.
+          Depuis, je fais plus attention à ce qui se ressent qu'à ce qui se montre.
+        </p>
+        <p class="intro-text">
+          En 2024, j'ai tenu un appareil photo pour la première fois.
+          La même évidence : quelque chose de vrai à attraper avant qu'il ne disparaisse.
+          Aujourd'hui, je travaille pour des musiciens, des lieux, des projets.
+          Chaque rencontre affine le regard.
         </p>
       </div>
     </section>
@@ -811,33 +864,38 @@
       <div class="features-inner">
         <div class="features-header reveal">
           <span id="features-heading" class="section-label section-label-cream">Le regard</span>
-          <h2 class="features-title">Ce que je vois,<br>ce que je fais.</h2>
+          <h2 class="features-title">Trois façons<br>de voir.</h2>
         </div>
         <div class="features-grid">
 
           <article class="feature-card reveal d1">
             <div class="feature-num" aria-hidden="true">01</div>
+            <h3 class="feature-title">L'écoute avant tout.</h3>
             <p class="feature-text">
-              J'ai commencé l'orgue à l'âge de six ans. J'ai toujours été profondément sensible à l'art.
-              Cette façon d'écouter et de regarder ne m'a jamais quitté.
-              Elle est devenue mon regard pas juste une manière de voir.
+              L'orgue m'a appris le tempo, l'écoute, la patience.
+              Cette façon d'être attentif — au silence comme au son — je la retrouve
+              derrière un objectif. Je ne photographie pas seulement ce que je vois.
+              Je photographie ce que je ressens.
             </p>
           </article>
 
           <article class="feature-card reveal d2">
             <div class="feature-num" aria-hidden="true">02</div>
+            <h3 class="feature-title">Ce qui reste.</h3>
             <p class="feature-text">
-              L'image est pour moi une façon de capturer des moments.
-              De partager ce que je trouve beau, et par-dessus tout vrai.
-              De rendre visible ce qui pourrait passer inaperçu.
+              Une image juste, c'est celle qui dit quelque chose que les mots rateraient.
+              Pas l'anecdote, pas le souvenir — le vrai.
+              Ce qui demeure quand on enlève tout le superflu.
             </p>
           </article>
 
           <article class="feature-card reveal d3">
             <div class="feature-num" aria-hidden="true">03</div>
+            <h3 class="feature-title">Des projets concrets.</h3>
             <p class="feature-text">
-              J'ai réalisé de nombreuses prestations privées dans des univers très variés.
-              Chaque rencontre nourrit ma façon de travailler.
+              Musiciens, lieux culturels, événements sur mesure.
+              Depuis 2024, chaque rencontre a précisé ce que je cherchais :
+              non pas la perfection, mais la justesse — et la vérité propre à chaque sujet.
             </p>
           </article>
 
@@ -884,7 +942,7 @@
       </svg>
       <figure class="pullquote-inner reveal">
         <blockquote class="pullquote-text">
-          « Je veux travailler, pas simplement alimenter un feed — créer pour des musiciens, des lieux, des projets. Pour moi, c'est une nécessité. »
+          « Je veux créer, pas simplement alimenter un feed — créer pour des musiciens, des lieux, des projets. Pour moi, c'est une nécessité. »
         </blockquote>
         <figcaption class="pullquote-attr">— Augustin Fleury</figcaption>
       </figure>
@@ -911,32 +969,40 @@
         <circle cx="65" cy="65" r="5" stroke="#213448" stroke-width="1"/>
         <circle cx="65" cy="65" r="1.5" fill="#547792"/>
       </svg>
+      <div class="info-header reveal">
+        <span class="section-label section-label-cream">Approche</span>
+        <h2 class="info-section-title">Comment je travaille.</h2>
+      </div>
+
       <div class="info-inner">
 
-        <div class="reveal">
+        <div class="reveal d1">
           <div class="info-sage-line" aria-hidden="true"></div>
           <h3 class="info-title">La présence</h3>
           <p class="info-body">
-            Je m'adapte toujours aux personnes, aux lieux, aux attentes.
-            Une présence, une mise en scène permanente discrète, une attention.
-          </p>
-        </div>
-
-        <div class="reveal d1">
-          <div class="info-sage-line" style="background:var(--olive)" aria-hidden="true"></div>
-          <h3 class="info-title">L'ambition</h3>
-          <p class="info-body">
-            Il n'est pas possible de tout montrer. Je choisi ce qui mérite d'être vu.
-            Je ne cherche pas la perfection mais tout ce que je peux faire avec justesse.
+            Je ne dirige pas. J'arrive, j'observe, j'attends le bon moment.
+            La discrétion n'est pas un choix — c'est une nécessité.
+            Ce que je cherche, c'est l'instant sans le provoquer.
           </p>
         </div>
 
         <div class="reveal d2">
-          <div class="info-sage-line" aria-hidden="true"></div>
-          <h3 class="info-title">Un projet&nbsp;?</h3>
+          <div class="info-sage-line" style="background:var(--olive)" aria-hidden="true"></div>
+          <h3 class="info-title">La vision</h3>
           <p class="info-body">
-            Chaque projet est unique — chaque devis l'est aussi.
-            Tarifs entièrement sur mesure.
+            Je choisis ce qui mérite d'être vu.
+            Ce que je laisse hors cadre compte autant que ce que j'y mets.
+            La justesse avant la perfection — toujours.
+          </p>
+        </div>
+
+        <div class="reveal d3">
+          <div class="info-sage-line" aria-hidden="true"></div>
+          <h3 class="info-title">Votre projet&nbsp;?</h3>
+          <p class="info-body">
+            Chaque devis est construit autour de ce que vous cherchez vraiment.
+            Aucun tarif standard, aucune formule générique.
+            Parlons de votre projet.
           </p>
           <a href="contact.html" class="info-link" aria-label="Contacter Augustin Fleury">
             Écrire
@@ -950,35 +1016,38 @@
       </div>
     </section>
 
-    <!-- CLOSING — sage -->
-    <section class="closing section-enter-fade" aria-hidden="true">
-      <!-- Orbite lente en fond -->
-      <svg class="closing-deco-orbit" viewBox="0 0 400 400" fill="none">
-        <circle cx="200" cy="200" r="190" stroke="#EAE0CF" stroke-width="0.8" stroke-dasharray="5 8"/>
-        <circle cx="200" cy="200" r="140" stroke="#EAE0CF" stroke-width="0.5" stroke-dasharray="2 12"/>
-        <line x1="10" y1="200" x2="390" y2="200" stroke="#EAE0CF" stroke-width="0.4"/>
-        <line x1="200" y1="10" x2="200" y2="390" stroke="#EAE0CF" stroke-width="0.4"/>
-        <circle cx="200" cy="10"  r="4" fill="#EAE0CF"/>
-        <circle cx="390" cy="200" r="3" fill="#EAE0CF" opacity="0.5"/>
+    <!-- CTA — olive -->
+    <section class="cta-section section-enter-fade" aria-label="Prendre contact">
+      <svg class="cta-svg" viewBox="0 0 1440 500" preserveAspectRatio="xMidYMid slice" fill="none" aria-hidden="true">
+        <line x1="0"    y1="250" x2="1440" y2="250" stroke="#94B4C1" stroke-width="0.7"/>
+        <line x1="720"  y1="0"   x2="720"  y2="500" stroke="#94B4C1" stroke-width="0.7"/>
+        <circle cx="720" cy="250" r="130" stroke="#94B4C1" stroke-width="0.8" stroke-dasharray="6 12"/>
+        <circle cx="720" cy="250" r="220" stroke="#94B4C1" stroke-width="0.5" stroke-dasharray="3 20"/>
+        <circle cx="720" cy="250" r="320" stroke="#94B4C1" stroke-width="0.3" stroke-dasharray="2 28"/>
+        <circle cx="0"   cy="0"   r="120" stroke="#94B4C1" stroke-width="0.4"/>
+        <circle cx="1440" cy="500" r="150" stroke="#94B4C1" stroke-width="0.4"/>
       </svg>
-
-      <svg class="closing-svg" viewBox="0 0 1440 300" preserveAspectRatio="xMidYMid slice" fill="none">
-        <line x1="0" y1="150" x2="1440" y2="150" stroke="#EAE0CF" stroke-width="1"/>
-        <line x1="720" y1="0" x2="720" y2="300" stroke="#EAE0CF" stroke-width="1"/>
-        <circle cx="720" cy="150" r="100" stroke="#EAE0CF" stroke-width="1" stroke-dasharray="8 12"/>
-        <circle cx="720" cy="150" r="180" stroke="#EAE0CF" stroke-width="0.6" stroke-dasharray="5 18"/>
-      </svg>
-
-      <!-- Ornement central avec draw-on -->
-      <svg class="closing-ornament" width="56" height="56" viewBox="0 0 56 56" fill="none">
+      <!-- Hidden ornament pour le script draw-on -->
+      <svg class="closing-ornament" width="1" height="1" viewBox="0 0 56 56" fill="none" aria-hidden="true">
         <circle class="svg-draw c1" cx="28" cy="28" r="25" stroke="#EAE0CF" stroke-width="1.2"/>
         <line   class="svg-draw c2" x1="28" y1="3"  x2="28" y2="53" stroke="#EAE0CF" stroke-width="0.8"/>
-        <line   class="svg-draw c2" x1="3"  y1="28" x2="53" y2="28" stroke="#EAE0CF" stroke-width="0.8"/>
-        <circle class="svg-draw c3" cx="28" cy="28" r="8"  stroke="#EAE0CF" stroke-width="0.7"/>
+        <line   class="svg-draw c3" cx="28" cy="28" r="8"  stroke="#EAE0CF" stroke-width="0.7"/>
         <circle class="svg-draw c4" cx="28" cy="28" r="2.5" stroke="#EAE0CF" stroke-width="1" fill="#EAE0CF"/>
       </svg>
-      <p class="closing-mark">Augustin Fleury</p>
-      <p class="closing-sub">Nancy &amp; Paris · Photographe · Vidéaste</p>
+      <div class="cta-inner reveal">
+        <p class="cta-eyebrow">Contact</p>
+        <h2 class="cta-title">Travaillons<br>ensemble.</h2>
+        <p class="cta-sub">Chaque projet mérite son propre regard.</p>
+        <div class="cta-btn-wrap">
+          <a href="contact.html" class="btn btn-cream">
+            Écrire
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
     </section>
 
   </main>
