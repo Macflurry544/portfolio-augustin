@@ -14,7 +14,10 @@
   <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/animations.css">
+  <link rel="stylesheet" href="assets/css/liquid-glass.css">
   <style>
+
+    /* ── Conteneur principal ── */
     .error-page {
       min-height: 100dvh;
       display: flex;
@@ -23,160 +26,246 @@
       justify-content: center;
       text-align: center;
       padding: 6rem var(--gutter) 4rem;
-      background: var(--olive);
       position: relative;
       overflow: hidden;
     }
 
-    /* Grand 404 fantôme en arrière-plan */
+    /* ── Ligne de scan cinématique ── */
+    .error-scan {
+      position: absolute;
+      inset-inline: 0;
+      height: 2px;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(var(--cream-rgb), 0.06) 50%,
+        transparent 100%
+      );
+      pointer-events: none;
+      animation: errorScan 7s linear infinite;
+    }
+    @keyframes errorScan {
+      0%   { top: -2px; }
+      100% { top: 100%; }
+    }
+
+    /* ── "404" fantôme flottant ── */
     .error-ghost {
       position: absolute;
       font-family: var(--font-titre);
-      font-size: clamp(16rem, 45vw, 36rem);
+      font-size: clamp(14rem, 42vw, 34rem);
       line-height: 1;
       letter-spacing: -0.06em;
-      color: rgba(var(--cream-rgb), 0.04);
+      color: rgba(var(--cream-rgb), 0.035);
       pointer-events: none;
       user-select: none;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       white-space: nowrap;
+      animation: ghostFloat 10s ease-in-out infinite;
+    }
+    @keyframes ghostFloat {
+      0%,100% { transform: translate(-50%, -50%); }
+      50%     { transform: translate(-50%, calc(-50% - 16px)); }
     }
 
+    /* ── Contenu centré ── */
     .error-inner {
       position: relative;
       z-index: 1;
       max-width: 520px;
     }
 
+    /* ── Viseur photographique ── */
+    .error-vf {
+      position: relative;
+      width: 164px;
+      height: 100px;
+      margin: 0 auto 3rem;
+      opacity: 0;
+      animation: hudIn 0.5s ease 0.1s both;
+    }
+    /* Coins */
+    .error-vf-c {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-color: rgba(var(--cream-rgb), 0.5);
+      border-style: solid;
+    }
+    .error-vf-c.tl { top: 0;    left: 0;   border-width: 1.5px 0 0 1.5px; }
+    .error-vf-c.tr { top: 0;    right: 0;  border-width: 1.5px 1.5px 0 0; }
+    .error-vf-c.bl { bottom: 0; left: 0;   border-width: 0 0 1.5px 1.5px; }
+    .error-vf-c.br { bottom: 0; right: 0;  border-width: 0 1.5px 1.5px 0; }
+    /* Réticules latéraux */
+    .error-vf-h {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 1px;
+      width: 24px;
+      background: rgba(var(--cream-rgb), 0.22);
+    }
+    .error-vf-h.l { left: 0; }
+    .error-vf-h.r { right: 0; }
+    .error-vf-v {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 18px;
+      background: rgba(var(--cream-rgb), 0.22);
+    }
+    .error-vf-v.t { top: 0; }
+    .error-vf-v.b { bottom: 0; }
+    /* Croix centrale */
+    .error-vf-x {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 22px;
+      height: 22px;
+    }
+    .error-vf-x::before,
+    .error-vf-x::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 1.5px;
+      height: 20px;
+      background: rgba(var(--cream-rgb), 0.55);
+      opacity: 0;
+    }
+    .error-vf-x::before {
+      transform: translate(-50%, -50%) rotate(45deg);
+      animation: xIn 0.25s ease 0.55s both;
+    }
+    .error-vf-x::after {
+      transform: translate(-50%, -50%) rotate(-45deg);
+      animation: xIn 0.25s ease 0.7s both;
+    }
+    @keyframes xIn { from { opacity: 0; } to { opacity: 1; } }
+    /* Label */
+    .error-vf-label {
+      position: absolute;
+      bottom: -20px;
+      right: 0;
+      font-family: var(--font-texte);
+      font-size: 7.5px;
+      letter-spacing: 0.28em;
+      color: rgba(var(--cream-rgb), 0.2);
+      text-transform: uppercase;
+    }
+
+    /* ── Étiquette "Erreur 404" ── */
     .error-label {
       font-family: var(--font-texte);
       font-size: 0.6rem;
-      letter-spacing: 0.3em;
+      letter-spacing: 0.38em;
       text-transform: uppercase;
       font-weight: 600;
       color: var(--cream-2);
-      animation: fade-up 0.62s var(--ease-out) 0.1s both;
+      animation: fade-up 0.62s var(--ease-out) 0.25s both;
     }
 
+    /* ── Titre principal ── */
     .error-title {
       font-family: var(--font-titre);
-      font-size: clamp(2.5rem, 7vw, 5.5rem);
-      line-height: 1.05;
+      font-size: clamp(2.4rem, 6.5vw, 5rem);
+      line-height: 1.08;
       letter-spacing: -0.02em;
       color: var(--cream);
-      margin: 1.5rem 0 0;
-      animation: fade-up 0.78s var(--ease-out) 0.25s both;
+      margin: 1.4rem 0 0;
+      animation: fade-up 0.78s var(--ease-out) 0.4s both;
     }
 
+    /* ── Sous-titre ── */
     .error-sub {
       font-family: var(--font-texte);
-      font-size: clamp(0.9rem, 1.3vw, 1rem);
-      line-height: 1.75;
-      color: rgba(var(--cream-rgb), 0.45);
+      font-size: clamp(0.88rem, 1.25vw, 0.98rem);
+      line-height: 1.8;
+      color: rgba(var(--cream-rgb), 0.4);
       max-width: 36ch;
       margin: 1.5rem auto 0;
-      animation: fade-up 0.72s var(--ease-out) 0.4s both;
+      animation: fade-up 0.72s var(--ease-out) 0.55s both;
     }
 
-    .error-divider {
-      display: block;
-      margin: 2rem auto;
-      animation: fade-in 0.72s var(--ease-out) 0.5s both;
-    }
-
+    /* ── Boutons ── */
     .error-actions {
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
       justify-content: center;
-      margin-top: 2.5rem;
-      animation: fade-up 0.72s var(--ease-out) 0.55s both;
+      margin-top: 2.8rem;
+      animation: fade-up 0.72s var(--ease-out) 0.7s both;
     }
-
     .error-btn {
       display: inline-flex;
       align-items: center;
       gap: 0.6rem;
-      padding: 12px 24px;
+      padding: 12px 28px;
       border-radius: 999px;
       font-family: var(--font-texte);
-      font-size: 0.68rem;
-      letter-spacing: 0.18em;
+      font-size: 0.67rem;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       font-weight: 600;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.28s var(--ease-out), box-shadow 0.28s ease;
+      transition: transform 0.28s var(--ease-out), box-shadow 0.28s ease,
+                  border-color 0.22s ease, color 0.22s ease;
     }
-    .error-btn::before {
-      content: '';
-      position: absolute;
-      bottom: 9px; left: 20px; right: 20px;
-      height: 1px;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
-    }
-    .error-btn:hover::before { transform: scaleX(1); }
-    .error-btn:hover { transform: scale(1.03); }
-
+    .error-btn:hover { transform: scale(1.04); }
     .error-btn--primary {
       background: var(--cream);
       color: var(--olive);
-      box-shadow: 0 4px 20px rgba(var(--cream-rgb), 0.15);
+      box-shadow: 0 4px 24px rgba(var(--cream-rgb), 0.12);
     }
-    .error-btn--primary::before { background: rgba(var(--olive-rgb), 0.3); }
     .error-btn--primary:hover {
-      box-shadow: 0 8px 30px rgba(var(--cream-rgb), 0.22);
+      box-shadow: 0 8px 32px rgba(var(--cream-rgb), 0.2);
     }
-
     .error-btn--ghost {
-      border: 1px solid rgba(var(--cream-rgb), 0.18);
-      color: rgba(var(--cream-rgb), 0.5);
+      border: 1px solid rgba(var(--cream-rgb), 0.16);
+      color: rgba(var(--cream-rgb), 0.45);
     }
-    .error-btn--ghost::before { background: rgba(var(--cream-rgb), 0.3); }
     .error-btn--ghost:hover {
-      border-color: rgba(var(--cream-rgb), 0.35);
+      border-color: rgba(var(--cream-rgb), 0.32);
       color: rgba(var(--cream-rgb), 0.82);
     }
 
-    .error-links {
-      margin-top: 3rem;
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      animation: fade-in 0.72s var(--ease-out) 0.72s both;
-    }
-    .error-links a {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 9px 20px;
-      border-radius: 999px;
-      border: 1px solid rgba(var(--cream-rgb), 0.13);
-      font-family: var(--font-texte);
-      font-size: 0.62rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      font-weight: 600;
-      color: rgba(var(--cream-rgb), 0.38);
-      transition: border-color 0.22s ease, color 0.22s ease, background 0.22s ease;
-    }
-    .error-links a:hover {
-      border-color: rgba(var(--cream-rgb), 0.28);
-      color: rgba(var(--cream-rgb), 0.72);
-      background: rgba(var(--cream-rgb), 0.05);
-    }
   </style>
 </head>
-<body class="page-index">
+<body class="page-gallery">
+
+  <!-- ── Loader (première visite seulement) ── -->
+  <div id="grain"></div>
+  <div id="loader" aria-hidden="true">
+    <div class="shutter top"></div>
+    <div class="shutter bottom"></div>
+    <div class="flash"></div>
+    <div class="hud">
+      <div class="viewfinder">
+        <div class="vf-corner tl"></div><div class="vf-corner tr"></div>
+        <div class="vf-corner bl"></div><div class="vf-corner br"></div>
+        <div class="vf-h l"></div><div class="vf-h r"></div>
+        <div class="vf-v t"></div><div class="vf-v b"></div>
+        <div class="vf-af"></div><div class="vf-dot"></div>
+        <div class="vf-label">AF · ∞</div>
+      </div>
+      <div class="loader-name" id="nameEl">AUGUSTIN</div>
+      <div class="exif">
+        <div class="exif-item"><span class="exif-key">Tv</span><span class="exif-val">1/125</span></div>
+        <div class="exif-item"><span class="exif-key">Av</span><span class="exif-val">f/2.8</span></div>
+        <div class="exif-item"><span class="exif-key">ISO</span><span class="exif-val">400</span></div>
+      </div>
+      <div class="progress"><div class="progress-fill"></div></div>
+    </div>
+  </div>
 
   <a href="#main" class="sr-only">Aller au contenu principal</a>
 
-  <!-- NAV -->
+  <!-- ── Navigation ── -->
   <nav class="nav" role="navigation" aria-label="Navigation principale">
     <a href="index.html" class="nav-logo" aria-label="Augustin Fleury — Accueil">Augustin Fleury</a>
     <div class="nav-sep" aria-hidden="true"></div>
@@ -200,11 +289,28 @@
     </nav>
   </div>
 
+  <!-- ── Contenu 404 ── -->
   <main id="main" class="error-page" aria-label="Page d'erreur 404">
 
+    <div class="error-scan" aria-hidden="true"></div>
     <span class="error-ghost" aria-hidden="true">404</span>
 
     <div class="error-inner">
+
+      <!-- Viseur avec croix -->
+      <div class="error-vf" aria-hidden="true">
+        <div class="error-vf-c tl"></div>
+        <div class="error-vf-c tr"></div>
+        <div class="error-vf-c bl"></div>
+        <div class="error-vf-c br"></div>
+        <div class="error-vf-h l"></div>
+        <div class="error-vf-h r"></div>
+        <div class="error-vf-v t"></div>
+        <div class="error-vf-v b"></div>
+        <div class="error-vf-x"></div>
+        <span class="error-vf-label">404 · NO SIGNAL</span>
+      </div>
+
       <p class="error-label">Erreur 404</p>
 
       <h1 class="error-title">
@@ -212,15 +318,9 @@
       </h1>
 
       <p class="error-sub">
-        L'image que vous cherchez s'est peut-être égarée —
+        L'image que vous cherchez s'est peut-être égarée —<br>
         comme une photo ratée qu'on garde quand même.
       </p>
-
-      <svg class="error-divider" width="56" height="44" viewBox="0 0 56 44" aria-hidden="true">
-        <line x1="28" y1="4" x2="28" y2="40"
-              stroke="var(--cream-2)" stroke-width="1"
-              stroke-linecap="round" opacity="0.45"/>
-      </svg>
 
       <div class="error-actions">
         <a href="index.html" class="error-btn error-btn--primary">
@@ -231,16 +331,60 @@
         </a>
       </div>
 
-      <nav class="error-links" aria-label="Liens utiles">
-        <a href="about.html">À propos</a>
-        <a href="contact.html">Contact</a>
-        <a href="https://instagram.com/aug.ustinflry" target="_blank" rel="noopener">Instagram</a>
-      </nav>
     </div>
-
   </main>
 
   <script src="assets/js/scroll.js" defer></script>
   <script src="assets/js/transitions.js" defer></script>
+  <script src="assets/js/liquid-glass.js" defer></script>
+  <script>
+    (function(){
+      const loader = document.getElementById('loader');
+      const grain  = document.getElementById('grain');
+
+      /* Pas la première visite → retrait immédiat */
+      if (localStorage.getItem('siteLoaded')) {
+        if (loader) loader.remove();
+        if (grain)  grain.remove();
+        return;
+      }
+
+      /* Première visite : animation des lettres */
+      const nameEl = document.getElementById('nameEl');
+      if (nameEl) {
+        const chars = nameEl.textContent.split('');
+        nameEl.innerHTML = '';
+        chars.forEach((c, i) => {
+          const s = document.createElement('span');
+          s.textContent = c;
+          s.style.animationDelay = `${0.55 + i * 0.032}s`;
+          nameEl.appendChild(s);
+        });
+      }
+
+      const MIN_MS = 2200;
+      const t0 = Date.now();
+
+      function exitLoader() {
+        if (loader) loader.remove();
+        if (grain)  grain.remove();
+        localStorage.setItem('siteLoaded', '1');
+      }
+
+      function scheduleExit() {
+        const wait = Math.max(0, MIN_MS - (Date.now() - t0));
+        setTimeout(exitLoader, wait);
+      }
+
+      if (document.readyState === 'complete') {
+        scheduleExit();
+      } else {
+        window.addEventListener('load', scheduleExit, { once: true });
+      }
+
+      setTimeout(exitLoader, 5000);
+    })();
+  </script>
+
 </body>
 </html>
