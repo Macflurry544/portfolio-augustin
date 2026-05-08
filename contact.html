@@ -264,8 +264,6 @@
     <div class="shutter top"></div>
     <div class="shutter bottom"></div>
     <div class="flash"></div>
-    <div class="film-strip top" id="fs-top"></div>
-    <div class="film-strip bottom" id="fs-bot"></div>
     <div class="hud">
       <div class="viewfinder">
         <div class="vf-corner tl"></div>
@@ -404,11 +402,48 @@
   <script src="assets/js/liquid-glass.js" defer></script>
   <script>
     (function(){
-      var l=document.getElementById("page-loader");
-      if(!l)return;
-      function hide(){l.classList.add("is-hidden");setTimeout(function(){l.remove();},600);}
-      if(document.readyState==="complete"){setTimeout(hide,120);}
-      else{window.addEventListener("load",function(){setTimeout(hide,120);});}
+      const loader = document.getElementById('loader');
+      const grain  = document.getElementById('grain');
+
+      if (localStorage.getItem('siteLoaded')) {
+        if (loader) loader.remove();
+        if (grain)  grain.remove();
+        return;
+      }
+
+      const nameEl = document.getElementById('nameEl');
+      if (nameEl) {
+        const chars = nameEl.textContent.split('');
+        nameEl.innerHTML = '';
+        chars.forEach((c, i) => {
+          const s = document.createElement('span');
+          s.textContent = c;
+          s.style.animationDelay = `${0.55 + i * 0.032}s`;
+          nameEl.appendChild(s);
+        });
+      }
+
+      const MIN_MS = 2200;
+      const t0 = Date.now();
+
+      function exitLoader() {
+        if (loader) loader.remove();
+        if (grain)  grain.remove();
+        localStorage.setItem('siteLoaded', '1');
+      }
+
+      function scheduleExit() {
+        const wait = Math.max(0, MIN_MS - (Date.now() - t0));
+        setTimeout(exitLoader, wait);
+      }
+
+      if (document.readyState === 'complete') {
+        scheduleExit();
+      } else {
+        window.addEventListener('load', scheduleExit, { once: true });
+      }
+
+      setTimeout(exitLoader, 5000);
     })();
   </script>
 </body>

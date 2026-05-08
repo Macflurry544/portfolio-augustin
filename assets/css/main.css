@@ -12,7 +12,7 @@
   pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
   opacity: 0;
-  animation: grainFadeIn 0.4s ease 0.2s forwards, grainMove 0.1s steps(1) 0.6s infinite;
+  animation: grainFadeIn 0.25s ease 0.1s forwards, grainMove 0.08s steps(1) 0.35s infinite;
 }
 @keyframes grainFadeIn { to { opacity: 1; } }
 @keyframes grainMove {
@@ -26,18 +26,17 @@
 /* ── Loader wrapper ── */
 #loader {
   position: fixed; inset: 0; z-index: 99998;
+  background: #0b0b0b;
   pointer-events: none;
-  animation: loaderExit 0.45s ease 3.5s forwards;
 }
-@keyframes loaderExit { to { opacity: 0; visibility: hidden; } }
 
 /* ── Shutter panels ── */
 .shutter {
   position: absolute; left: 0; right: 0; height: 50%;
   background: #0b0b0b; z-index: 2;
 }
-.shutter.top    { top: 0;    animation: shutterOpenTop 0.16s cubic-bezier(0.55,0,1,0.45) 2.05s forwards; }
-.shutter.bottom { bottom: 0; animation: shutterOpenBot 0.16s cubic-bezier(0.55,0,1,0.45) 2.05s forwards; }
+.shutter.top    { top: 0;    animation: shutterOpenTop 0.12s cubic-bezier(0.55,0,1,0.45) 1.3s forwards; }
+.shutter.bottom { bottom: 0; animation: shutterOpenBot 0.12s cubic-bezier(0.55,0,1,0.45) 1.3s forwards; }
 @keyframes shutterOpenTop { to { transform: translateY(-100%); } }
 @keyframes shutterOpenBot { to { transform: translateY(100%);  } }
 
@@ -45,28 +44,10 @@
 .flash {
   position: absolute; inset: 0;
   background: #fff; opacity: 0; z-index: 3;
-  animation: flashBurst 0.2s ease 2.2s forwards;
+  animation: flashBurst 0.15s ease 1.35s forwards;
 }
 @keyframes flashBurst { 0% { opacity: 0; } 25% { opacity: 0.14; } 100% { opacity: 0; } }
 
-/* ── Film border strips ── */
-.film-strip {
-  position: absolute; left: 0; right: 0; height: 26px;
-  background: #0b0b0b; z-index: 1;
-  display: flex; align-items: center; padding: 0 12px; gap: 10px;
-  opacity: 0; animation: stripIn 0.3s ease 2.24s forwards;
-}
-.film-strip.top    { top: 0; }
-.film-strip.bottom { bottom: 0; flex-direction: row-reverse; }
-.sprocket {
-  width: 8px; height: 12px;
-  border: 1px solid rgba(255,255,255,0.18); border-radius: 2px; flex-shrink: 0;
-}
-.frame-code {
-  font-family: 'Bitter', serif; font-size: 7.5px;
-  letter-spacing: 0.3em; color: rgba(255,255,255,0.2); margin: 0 auto;
-}
-@keyframes stripIn { from { opacity: 0; } to { opacity: 1; } }
 
 /* ── HUD ── */
 .hud {
@@ -78,7 +59,7 @@
 /* ── Viewfinder ── */
 .viewfinder {
   position: relative; width: 200px; height: 130px;
-  opacity: 0; animation: hudIn 0.5s ease 0.3s forwards;
+  opacity: 0; animation: hudIn 0.35s ease 0.2s forwards;
 }
 .vf-corner { position: absolute; width: 20px; height: 20px; border-color: rgba(255,255,255,0.85); border-style: solid; }
 .vf-corner.tl { top: 0;    left: 0;   border-width: 1.5px 0 0 1.5px; }
@@ -107,14 +88,14 @@
 @keyframes charIn { to { opacity: 1; transform: translateY(0); } }
 
 /* ── EXIF ── */
-.exif { display: flex; gap: 32px; opacity: 0; animation: hudIn 0.4s ease 1.1s forwards; }
+.exif { display: flex; gap: 32px; opacity: 0; animation: hudIn 0.3s ease 0.7s forwards; }
 .exif-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
 .exif-key { font-family: 'Bitter', serif; font-size: 7.5px; letter-spacing: 0.3em; color: rgba(255,255,255,0.25); text-transform: uppercase; }
 .exif-val { font-family: 'Bitter', serif; font-size: 13px; color: rgba(255,255,255,0.65); letter-spacing: 0.08em; }
 
 /* ── Progress ── */
-.progress { width: 200px; height: 1px; background: rgba(255,255,255,0.07); opacity: 0; animation: hudIn 0.3s ease 0.7s forwards; }
-.progress-fill { height: 100%; background: rgba(255,255,255,0.7); width: 0; animation: progressFill 1.7s cubic-bezier(0.4,0,0.3,1) 0.8s forwards; }
+.progress { width: 200px; height: 1px; background: rgba(255,255,255,0.07); opacity: 0; animation: hudIn 0.25s ease 0.45s forwards; }
+.progress-fill { height: 100%; background: rgba(255,255,255,0.7); width: 0; animation: progressFill 1.1s cubic-bezier(0.4,0,0.3,1) 0.5s forwards; }
 @keyframes progressFill { to { width: 100%; } }
 
 @import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Young+Serif&display=swap');
@@ -1329,36 +1310,8 @@ body.page-gallery button { cursor: none; }
 }
 
 /* ============================================================
-   PAGE TRANSITIONS — liquid glass overlay
+   PAGE TRANSITIONS — fade noir rapide (géré dans transitions.js)
    ============================================================ */
-.pgt {
-  position: fixed;
-  inset: 0;
-  z-index: 9000;
-  pointer-events: none;
-  opacity: 0;
-  background: rgba(246, 241, 233, 0.72);
-  backdrop-filter: blur(0px) saturate(120%);
-  -webkit-backdrop-filter: blur(0px) saturate(120%);
-}
-body.page-gallery .pgt { background: rgba(20, 18, 16, 0.72); }
-
-.pgt--leaving {
-  animation: pgt-leave 0.42s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  pointer-events: all;
-}
-.pgt--entering {
-  animation: pgt-enter 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-@keyframes pgt-leave {
-  0%   { opacity: 0; backdrop-filter: blur(0px)  saturate(120%); }
-  100% { opacity: 1; backdrop-filter: blur(40px) saturate(180%); }
-}
-@keyframes pgt-enter {
-  0%   { opacity: 1; backdrop-filter: blur(40px) saturate(180%); }
-  100% { opacity: 0; backdrop-filter: blur(0px)  saturate(120%); }
-}
 
 /* ── Easter egg — flash obturateur ──────────────────────── */
 .shutter-flash {

@@ -1,63 +1,65 @@
 /* ============================================================
-   TRANSITIONS.JS — Transitions liquid glass entre les pages
-   Entrée  : blur 32px → 0  (dévoilement)
-   Sortie  : blur 0 → 32px  (voile avant navigation)
+   TRANSITIONS.JS — Fade noir rapide entre les pages
+   Arrivée  : noir → transparent (150ms)
+   Départ   : transparent → noir (150ms) puis navigation
+   Loader   : affiché uniquement sur la toute première visite
+              (localStorage 'siteLoaded')
    ============================================================ */
 (function () {
   'use strict';
 
-  /* ── Créer l'overlay ───────────────────────────────────── */
+  /* ── Overlay de transition ─────────────────────────────── */
   const overlay = document.createElement('div');
-  overlay.id        = 'page-glass-transition';
-  overlay.className = 'pgt';
+  overlay.id = 'page-transition';
   overlay.setAttribute('aria-hidden', 'true');
+  Object.assign(overlay.style, {
+    position:      'fixed',
+    inset:         '0',
+    background:    '#0b0b0b',
+    zIndex:        '9000',
+    pointerEvents: 'none',
+    opacity:       '0',
+  });
   document.body.appendChild(overlay);
 
-  /* ── Entrée : la page arrive, on dissout le voile ─────── */
-  function enterAnimation() {
-    overlay.classList.add('pgt--entering');
-    overlay.addEventListener('animationend', () => {
-      overlay.classList.remove('pgt--entering');
-    }, { once: true });
+  /* ── Arrivée : fondu depuis le noir ────────────────────── */
+  if (localStorage.getItem('siteLoaded')) {
+    overlay.style.opacity = '1';
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      overlay.style.transition = 'opacity 0.15s ease';
+      overlay.style.opacity = '0';
+    }));
   }
 
-  /* ── Sortie : clic sur lien, on applique le voile ─────── */
-  function leaveAnimation(href) {
-    overlay.classList.add('pgt--leaving');
-    overlay.addEventListener('animationend', () => {
-      window.location.href = href;
-    }, { once: true });
-  }
-
-  /* ── Intercepter tous les liens locaux ────────────────── */
+  /* ── Départ : fondu vers le noir puis navigation ───────── */
   document.addEventListener('click', (e) => {
     const link = e.target.closest('a[href]');
     if (!link) return;
 
     const href = link.getAttribute('href');
-    if (!href) return;
-
-    /* Ignorer : ancres, mails, téléphones, liens externes, _blank */
     if (
-      href.startsWith('#') ||
+      !href ||
+      href.startsWith('#')       ||
       href.startsWith('mailto:') ||
-      href.startsWith('tel:') ||
-      href.startsWith('http') ||
-      link.target === '_blank' ||
+      href.startsWith('tel:')    ||
+      href.startsWith('http')    ||
+      link.target === '_blank'   ||
       e.metaKey || e.ctrlKey || e.shiftKey
     ) return;
 
     e.preventDefault();
-    leaveAnimation(href);
+    overlay.style.transition    = 'opacity 0.15s ease';
+    overlay.style.pointerEvents = 'auto';
+    overlay.style.opacity       = '1';
+    setTimeout(() => { window.location.href = href; }, 160);
   });
 
-  /* ── Lancer l'entrée immédiatement ────────────────────── */
-  enterAnimation();
-
-  /* ── Easter egg : code Konami — appareil photo ─────────── */
-  const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown',
-                  'ArrowLeft','ArrowRight','ArrowLeft','ArrowRight',
-                  'b','a'];
+  /* ── Easter egg : code Konami ──────────────────────────── */
+  const KONAMI = [
+    'ArrowUp','ArrowUp','ArrowDown','ArrowDown',
+    'ArrowLeft','ArrowRight','ArrowLeft','ArrowRight',
+    'b','a'
+  ];
   let konamiIdx = 0;
 
   document.addEventListener('keydown', (e) => {
@@ -73,12 +75,10 @@
   });
 
   function triggerEasterEgg() {
-    /* Flash obturateur */
     const flash = document.createElement('div');
     flash.className = 'shutter-flash';
     document.body.appendChild(flash);
 
-    /* Polaroïd flottant */
     const polaroid = document.createElement('div');
     polaroid.className = 'easter-polaroid';
     polaroid.innerHTML = `
@@ -100,10 +100,9 @@
     `;
     document.body.appendChild(polaroid);
 
-    /* Jouer un son d'obturateur via AudioContext */
     try {
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      const osc = ctx.createOscillator();
+      const ctx  = new (window.AudioContext || window.webkitAudioContext)();
+      const osc  = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.connect(gain); gain.connect(ctx.destination);
       osc.type = 'square';
