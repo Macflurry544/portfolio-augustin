@@ -20,7 +20,7 @@
   <meta property="og:locale"      content="fr_FR">
   <meta property="og:title"       content="Augustin Fleury — Photographe & Vidéaste Nancy & Paris">
   <meta property="og:description" content="Photographe basé à Nancy et Paris. Prestations pour musiciens, lieux, événements. Chaque projet est unique — chaque devis l'est aussi.">
-  <meta property="og:image"       content="https://macflurry544.github.io/portfolio-augustin/assets/photos/craffe.paysage.jpg">
+  <meta property="og:image"       content="https://macflurry544.github.io/portfolio-augustin/assets/photos/plafondacceuil2.jpg">
   <meta property="og:image:alt"   content="Augustin Fleury — photographe Nancy & Paris">
   <meta property="og:image:width"  content="1200">
   <meta property="og:image:height" content="630">
@@ -31,7 +31,7 @@
   <meta name="twitter:card"        content="summary_large_image">
   <meta name="twitter:title"       content="Augustin Fleury — Photographe & Vidéaste Nancy & Paris">
   <meta name="twitter:description" content="Photographe basé à Nancy et Paris. Pour des musiciens, des lieux, des projets.">
-  <meta name="twitter:image"       content="https://macflurry544.github.io/portfolio-augustin/assets/photos/craffe.paysage.jpg">
+  <meta name="twitter:image"       content="https://macflurry544.github.io/portfolio-augustin/assets/photos/plafondacceuil2.jpg">
   <meta name="twitter:image:alt"   content="Augustin Fleury — photographe">
 
   <!-- ══ Données structurées JSON-LD ══════════════════════════ -->
@@ -43,7 +43,7 @@
     "jobTitle": "Photographe & Vidéaste",
     "description": "Photographe et vidéaste basé à Nancy et Paris. Prestations pour musiciens, lieux, événements et portraits. Actif depuis 2024.",
     "url": "https://macflurry544.github.io/portfolio-augustin/about.html",
-    "image": "https://macflurry544.github.io/portfolio-augustin/assets/photos/craffe.paysage.jpg",
+    "image": "https://macflurry544.github.io/portfolio-augustin/assets/photos/plafondacceuil2.jpg",
     "sameAs": ["https://www.instagram.com/aug.ustinflry"],
     "address": {
       "@type": "PostalAddress",
@@ -67,7 +67,7 @@
   <link rel="manifest" href="favicon/site.webmanifest">
 
   <!-- ══ Performance — preload ressources critiques ════════════ -->
-  <link rel="preload" as="image" href="assets/photos/craffe.paysage.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/photos/plafondacceuil2.jpg" fetchpriority="high">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">
@@ -130,17 +130,6 @@
       outline-offset: 3px;
       border-radius: 2px;
     }
-
-    /* ══ LOADER ═════════════════════════════════════════════════ */
-    #page-loader {
-      position: fixed; inset: 0; z-index: 9999;
-      background: var(--olive);
-      display: flex; align-items: center; justify-content: center;
-      transition: opacity 0.6s var(--ease-out);
-    }
-    #page-loader.is-hidden { opacity: 0; pointer-events: none; }
-    .loader__svg { width: 54px; height: 54px; animation: spin 2.2s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
 
     /* ══ ANIMATIONS ═════════════════════════════════════════════ */
     @keyframes fadeUp {
@@ -232,82 +221,86 @@
 
     /* ══ HERO ═══════════════════════════════════════════════════ */
     .hero {
-      min-height: 100svh; /* svh = unité stable, évite le jump mobile */
-      display: flex; flex-direction: column;
-      justify-content: center; align-items: center; text-align: center;
-      padding: 6rem var(--gutter);
-      position: relative; overflow: hidden;
+      position: relative;
+      min-height: 100svh;
+      overflow: hidden;
     }
     .hero-photo {
       position: absolute; inset: 0;
       width: 100%; height: 100%;
       object-fit: cover; object-position: center 28%;
       z-index: 0;
-      filter: brightness(0.55);
-      transform: scale(1.04);
+      filter: brightness(0.52);
     }
     .hero-overlay {
       position: absolute; inset: 0; z-index: 1;
       background: linear-gradient(
-        to bottom,
-        rgba(0,0,0,0.08) 0%,
-        rgba(0,0,0,0.35) 45%,
-        rgba(0,0,0,0.75) 100%
+        160deg,
+        rgba(0,0,0,0.05) 0%,
+        rgba(0,0,0,0.25) 40%,
+        rgba(0,0,0,0.72) 100%
       );
     }
-    .hero > *:not(.hero-photo):not(.hero-overlay) { position: relative; z-index: 2; }
-
     .hero-watermark {
-      position: absolute; top: 50%; right: -0.04em;
-      transform: translateY(-50%);
+      position: absolute; bottom: -0.1em; right: -0.04em;
       font-family: var(--font-display);
-      font-size: clamp(12rem, 36vw, 30rem);
+      font-size: clamp(10rem, 30vw, 26rem);
       line-height: 1; letter-spacing: -0.04em;
-      color: rgba(148,180,193,0.04);
+      color: rgba(148,180,193,0.045);
       user-select: none; pointer-events: none; z-index: 1;
     }
-    .hero-rule {
-      width: 44px; height: 1px;
-      background: var(--cream-2);
-      margin: 0 auto 2.2rem;
-      opacity: 0; animation: fadeUp 1s ease forwards 0.2s;
+
+    /* Bloc de contenu centré */
+    .hero-content {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(100% - 2 * var(--gutter));
+      max-width: 680px;
+      text-align: center;
+      z-index: 2;
     }
     .hero-eyebrow {
       font-family: var(--font-body);
-      font-size: 0.64rem; font-weight: 600;
-      letter-spacing: 0.28em; text-transform: uppercase;
+      font-size: 0.6rem; font-weight: 600;
+      letter-spacing: 0.32em; text-transform: uppercase;
       color: var(--cream-2);
-      margin-bottom: 1.4rem;
-      opacity: 0; animation: fadeUp 1s ease forwards 0.4s;
+      margin-bottom: 1.1rem;
+      opacity: 0; animation: fadeUp 0.9s ease forwards 0.25s;
     }
     .hero-title {
       font-family: var(--font-display);
-      font-size: clamp(3.6rem, 10vw, 9rem);
-      line-height: 0.94; letter-spacing: -0.025em;
+      font-size: clamp(4.2rem, 11vw, 9.5rem);
+      line-height: 0.92; letter-spacing: -0.03em;
       color: var(--cream);
-      text-shadow: 0 2px 40px rgba(33,52,72,0.5);
-      opacity: 0; animation: fadeUp 1s ease forwards 0.6s;
+      text-shadow: 0 4px 48px rgba(0,0,0,0.4);
+      opacity: 0; animation: fadeUp 0.9s ease forwards 0.45s;
     }
     .hero-subtitle {
       font-family: var(--font-body);
-      font-size: clamp(0.92rem, 1.5vw, 1.05rem);
-      font-style: italic; font-weight: 400;
-      color: rgba(234,224,207,0.62);
-      max-width: 36ch; line-height: 1.75;
-      margin-top: 1.8rem;
-      opacity: 0; animation: fadeUp 1s ease forwards 0.8s;
+      font-size: clamp(0.92rem, 1.5vw, 1.06rem);
+      font-weight: 400; font-style: italic;
+      color: rgba(234,224,207,0.65);
+      margin-top: 1.3rem; line-height: 1.65;
+      opacity: 0; animation: fadeUp 0.9s ease forwards 0.65s;
+    }
+    .hero-caption {
+      font-family: var(--font-body);
+      font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(234,224,207,0.32);
+      margin-top: 0.55rem;
+      opacity: 0; animation: fadeUp 0.9s ease forwards 0.8s;
     }
     .hero-buttons {
-      display: flex; gap: 1rem;
-      margin-top: 3.2rem;
+      display: flex; gap: 0.9rem;
+      margin-top: 2.2rem;
       flex-wrap: wrap; justify-content: center;
-      opacity: 0; animation: fadeUp 1s ease forwards 1s;
+      opacity: 0; animation: fadeUp 0.9s ease forwards 0.95s;
     }
     .scroll-hint {
-      position: absolute; bottom: 2.2rem; left: 50%;
-      transform: translateX(-50%);
+      position: absolute; bottom: 2.2rem; right: var(--gutter);
       display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-      opacity: 0; animation: fadeUp 1s ease forwards 1.4s; z-index: 2;
+      opacity: 0; animation: fadeUp 1s ease forwards 1.2s; z-index: 2;
     }
     .scroll-hint span {
       font-size: 0.56rem; letter-spacing: 0.22em;
@@ -450,7 +443,7 @@
     }
     .pullquote-text {
       font-family: var(--font-display);
-      font-size: clamp(1.7rem, 3.6vw, 3rem);
+      font-size: clamp(1.1rem, 2.2vw, 1.8rem);
       line-height: 1.3; letter-spacing: -0.015em;
       color: var(--cream);
     }
@@ -586,9 +579,9 @@
 
     /* ── Hero — diaphragme d'objectif ── */
     .hero-deco-aperture {
-      position: absolute; top: 2rem; left: 2.5rem; z-index: 1;
-      width: clamp(80px, 12vw, 140px);
-      opacity: 0.12; pointer-events: none;
+      position: absolute; top: 2.5rem; right: 3rem; z-index: 1;
+      width: clamp(80px, 10vw, 120px);
+      opacity: 0.1; pointer-events: none;
       animation: svg-rotate-cw 50s linear infinite;
       transform-origin: center;
     }
@@ -652,18 +645,36 @@
 </head>
 <body class="page-about">
 
-  <!-- LOADER -->
-  <div id="page-loader" aria-hidden="true" role="status">
-    <svg class="loader__svg" viewBox="0 0 120 120" fill="none" stroke="#94B4C1" stroke-width="1.4" stroke-linecap="round" aria-label="Chargement…">
-      <circle cx="60" cy="60" r="42" stroke="#94B4C1" stroke-opacity="0.4"/>
-      <line x1="60" y1="60" x2="60" y2="24"/>
-      <line x1="60" y1="60" x2="91.18" y2="42"/>
-      <line x1="60" y1="60" x2="91.18" y2="78"/>
-      <line x1="60" y1="60" x2="60" y2="96"/>
-      <line x1="60" y1="60" x2="28.82" y2="78"/>
-      <line x1="60" y1="60" x2="28.82" y2="42"/>
-      <circle cx="60" cy="60" r="3" fill="#94B4C1" stroke="none"/>
-    </svg>
+  <!-- Film grain -->
+  <div id="grain"></div>
+
+  <!-- Loader cinématique -->
+  <div id="loader">
+    <div class="shutter top"></div>
+    <div class="shutter bottom"></div>
+    <div class="flash"></div>
+    <div class="film-strip top" id="fs-top"></div>
+    <div class="film-strip bottom" id="fs-bot"></div>
+    <div class="hud">
+      <div class="viewfinder">
+        <div class="vf-corner tl"></div>
+        <div class="vf-corner tr"></div>
+        <div class="vf-corner bl"></div>
+        <div class="vf-corner br"></div>
+        <div class="vf-h l"></div><div class="vf-h r"></div>
+        <div class="vf-v t"></div><div class="vf-v b"></div>
+        <div class="vf-af"></div>
+        <div class="vf-dot"></div>
+        <div class="vf-label">AF · ∞</div>
+      </div>
+      <div class="loader-name" id="nameEl">AUGUSTIN</div>
+      <div class="exif">
+        <div class="exif-item"><span class="exif-key">Tv</span><span class="exif-val">1/125</span></div>
+        <div class="exif-item"><span class="exif-key">Av</span><span class="exif-val">f/2.8</span></div>
+        <div class="exif-item"><span class="exif-key">ISO</span><span class="exif-val">400</span></div>
+      </div>
+      <div class="progress"><div class="progress-fill"></div></div>
+    </div>
   </div>
 
   <!-- Lien d'évitement — accessibilité clavier -->
@@ -700,18 +711,20 @@
       class="hero-photo"
       src="assets/photos/craffe.paysage.jpg"
       alt="Augustin Fleury, photographe — Nancy & Paris"
-      width="1920" height="1080"
+      width="3600" height="2401"
       loading="eager" fetchpriority="high"
       decoding="async"
     >
     <div class="hero-overlay" aria-hidden="true"></div>
 
-    <!-- SVG diaphragme d'objectif — tourne lentement -->
+    <!-- Watermark — grand texte translucide en bas à droite -->
+    <span class="hero-watermark" aria-hidden="true">Regarder</span>
+
+    <!-- SVG diaphragme d’objectif — coin haut droit -->
     <svg class="hero-deco-aperture" viewBox="0 0 120 120" fill="none" aria-hidden="true">
       <circle cx="60" cy="60" r="56" stroke="#94B4C1" stroke-width="0.8" stroke-dasharray="6 5"/>
       <circle cx="60" cy="60" r="38" stroke="#94B4C1" stroke-width="0.6"/>
       <circle cx="60" cy="60" r="18" stroke="#EAE0CF" stroke-width="1"/>
-      <!-- Lamelles du diaphragme -->
       <path d="M60 22 Q74 40 60 60 Q46 40 60 22Z" stroke="#94B4C1" stroke-width="0.7" fill="none"/>
       <path d="M60 22 Q74 40 60 60 Q46 40 60 22Z" stroke="#94B4C1" stroke-width="0.7" fill="none" transform="rotate(60 60 60)"/>
       <path d="M60 22 Q74 40 60 60 Q46 40 60 22Z" stroke="#94B4C1" stroke-width="0.7" fill="none" transform="rotate(120 60 60)"/>
@@ -721,32 +734,22 @@
       <circle cx="60" cy="60" r="3" fill="#94B4C1" opacity="0.6"/>
     </svg>
 
-    <div class="hero-rule" aria-hidden="true"></div>
-    <p class="hero-eyebrow">Nancy &amp; Paris · Photographe · Depuis 2024</p>
-
-    <h1 class="hero-title">Présentation</h1>
-
-    <p class="hero-subtitle">
-      L’art, c’est le reflet que renvoie l’âme humaine éblouie de la splendeur du beau.<br>
-      <cite>— Victor Hugo</cite>
-    </p>
-
-    <nav class="hero-buttons" aria-label="Actions principales">
-      <a href="gallery-2027.html" class="btn btn-olive">
-        Galerie
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3"
-                stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-      <a href="contact.html" class="btn btn-outline">
-        Écrire
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3"
-                stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-    </nav>
+    <!-- Contenu ancré en bas à gauche -->
+    <div class="hero-content">
+      <p class="hero-eyebrow">À propos</p>
+      <h1 class="hero-title">Regarder.</h1>
+      <p class="hero-subtitle">C’est là que tout commence.</p>
+      <p class="hero-caption">Je photographie depuis 2024.</p>
+      <nav class="hero-buttons" aria-label="Actions principales">
+        <a href="gallery-2027.html" class="btn btn-olive">
+          Galerie
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </nav>
+    </div>
 
     <div class="scroll-hint" aria-hidden="true">
       <span>Descendre</span>
@@ -876,9 +879,7 @@
       </svg>
       <figure class="pullquote-inner reveal">
         <blockquote class="pullquote-text">
-          Je souhaite travailler, pas remplir un feed.
-          Pour des musiciens, des lieux, des projets.
-          C'est pour moi une nécessité.
+          « Je veux travailler, pas simplement alimenter un feed — créer pour des musiciens, des lieux, des projets. Pour moi, c'est une nécessité. »
         </blockquote>
         <figcaption class="pullquote-attr">— Augustin Fleury</figcaption>
       </figure>
